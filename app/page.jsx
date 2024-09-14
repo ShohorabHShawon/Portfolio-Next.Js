@@ -94,7 +94,7 @@ export default function Home() {
         className="text-white h-screen flex items-center justify-center bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
+          <h2 className="text-3xl font-bold mb-8">CONTACT</h2>
 
           <div className="flex justify-center items-center m-10">
             <SocialButtons />
