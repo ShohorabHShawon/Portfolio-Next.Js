@@ -25,10 +25,10 @@ export default function Home() {
             <div className="ml-7 w-full md:w-1/2 flex justify-center">
               <Image
                 src="/about.png"
-                alt="Profile Picture"
+                alt="Picture"
                 layout="responsive"
-                width={1000}
-                height={1000}
+                width={800}
+                height={800}
                 className="rounded-full shadow-lg border-4 border-white"
               />
             </div>
