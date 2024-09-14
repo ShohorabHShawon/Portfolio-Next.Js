@@ -8,6 +8,8 @@ import SocialButtons from "@/components/SocialButtons";
 import { Card4 } from "@/components/project4";
 import { Card5 } from "@/components/project5";
 import { Card6 } from "@/components/project6";
+import Skills from "@/components/Skills";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function Home() {
   return (
@@ -45,30 +47,9 @@ export default function Home() {
         id="skills"
         className="text-white h-screen flex items-center justify-center bg-zinc-900"
       >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-8 mt-14 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
-            SKILLS
-          </h2>
-          <div className="flex flex-col items-center">
-            <ul className="text-2xl list-disc list-inside space-y-4">
-              <li>
-                <strong>Programming Languages:</strong> JavaScript, Python, C++,
-                C#
-              </li>
-              <li>
-                <strong>Web Technologies:</strong> HTML, CSS, Next.js 14 /
-                React.js, Tailwind CSS, NestJS
-              </li>
-              <li>
-                <strong>Design Tools:</strong> Figma, Adobe XD, Adobe Photoshop,
-                Lightroom, Illustrator
-              </li>
-              <li>
-                <strong>Productivity Tools:</strong> MS Word, PowerPoint, Jira
-              </li>
-            </ul>
-          </div>
-        </div>
+
+        <Skills />
+        
       </section>
 
       {/* Project Section */}
@@ -81,7 +62,7 @@ export default function Home() {
             WEB PROJECTS
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Example project items */}
+            {/* project items */}
 
             <div className="">
               <Card />
@@ -98,7 +79,7 @@ export default function Home() {
             UI / UX PROJECTS
           </h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Example project items */}
+            {/* Ui project items */}
 
             <div className="">
               <Card4 />
@@ -122,23 +103,10 @@ export default function Home() {
           <h1 className="text-3xl font-bold mb-24 mt-12 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
             CONTACT
           </h1>
-
-          <div className="">
+          <div className="mb-6">
             <SocialButtons />
           </div>
 
-          <footer className="bg-black-100 text-white py-6">
-            <div className="container mx-auto flex flex-col items-center px-4 sm:px-6 lg:px-8">
-              <div className="text-center">
-                <h1 className="text-base sm:text-lg md:text-xl font-semibold mb-2">
-                  Email - ShohorabHShawon@gmail.com
-                </h1>
-                <h1 className="text-base sm:text-lg md:text-xl font-semibold">
-                  Location - Uttara, Dhaka, Bangladesh
-                </h1>
-              </div>
-            </div>
-          </footer>
         </div>
       </section>
     </div>

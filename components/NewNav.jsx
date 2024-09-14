@@ -2,7 +2,7 @@
 import React from "react";
 import { FloatingNav } from "@/components/ui/floating-navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faUser, faEnvelope, faCode, faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faUser, faCode, faBriefcase, faContactCard } from "@fortawesome/free-solid-svg-icons";
 
 export function NewNavbar() {
   const navItems = [
@@ -46,7 +46,16 @@ export function NewNavbar() {
         />
       ),
     },
-   
+    {
+      name: "Contact",
+      link: "#contact",
+      icon: (
+        <FontAwesomeIcon
+          icon={faContactCard}
+          className="h-4 w-4 text-neutral-500 dark:text-white"
+        />
+      ),
+    },
   ];
 
   return (
