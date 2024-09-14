@@ -13,21 +13,21 @@ function HeroSection() {
         id="home"
       >
         <Spotlight
-          className="-top-40 left-0 md:left-60 md:-top-20"
+          className="-top-0 left-0 md:left-60 md:-top-20"
           fill="white"
         />
         <div className="container mx-auto ">
           {/* Circular Image */}
           <div className="mb-20">
             <Image
-              src="/image-profile.jpg"
+              src="/profile.jpg"
               alt="Shohorab Hossain Shawon"
               width={250}
               height={250}
               className="rounded-full mx-auto mb-4 shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
             />
           </div>
-          <h1 className="text-5xl md:text-8xl font-bold mb-4 text-white hover:text-red-900 transition duration-300 ease-in-out">
+          <h1 className="text-3xl lg:text-8xl md:text-7xl sm:text-6xl font-bold mb-4 text-white hover:text-red-900 transition duration-300 ease-in-out">
             SHOHORAB HOSSAIN SHAWON
             <FlipW />
           </h1>

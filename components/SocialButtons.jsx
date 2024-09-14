@@ -1,5 +1,3 @@
-// components/SocialButtons.js
-
 import {
   FaFacebook,
   FaTwitter,
@@ -14,35 +12,35 @@ const socialLinks = [
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/shohorabhshawon/",
-    icon: <FaLinkedin className="text-3xl" />,
+    icon: <FaLinkedin className="text-xl sm:text-2xl md:text-3xl" />,
   },
   {
     name: "GitHub",
     url: "https://github.com/shohorabhshawon",
-    icon: <FaGithub className="text-3xl" />,
+    icon: <FaGithub className="text-xl sm:text-2xl md:text-3xl" />,
   },
   {
     name: "Email",
     url: "mailto:shohorabhshawon@gmail.com",
-    icon: <FaEnvelope className="text-3xl" />,
+    icon: <FaEnvelope className="text-xl sm:text-2xl md:text-3xl" />,
   },
   {
     name: "Behance",
     url: "https://www.behance.net/shohorabhshawon",
-    icon: <FaBehanceSquare className="text-3xl" />,
+    icon: <FaBehanceSquare className="text-xl sm:text-2xl md:text-3xl" />,
   },
 ];
 
 export default function SocialButtons() {
   return (
-    <div className="flex">
+    <div className="flex justify-center space-x-4 sm:space-x-6 md:space-x-8">
       {socialLinks.map(({ name, url, icon }) => (
         <a
           key={name}
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-white bg-opacity-20 rounded-full backdrop-blur-md text-white px-5 py-3 text-lg hover:bg-opacity-30 m-5 md:px-9 border border-white border-opacity-40 shadow-lg transition duration-300 ease-in-out"
+          className="transform hover:scale-110 transition-transform duration-300 ease-in-out"
           aria-label={name}
         >
           {icon}
