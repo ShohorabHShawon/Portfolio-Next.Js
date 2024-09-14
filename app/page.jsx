@@ -22,9 +22,10 @@ export default function Home() {
         className="text-white h-screen flex items-center justify-center bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-8 mt-14 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
             ABOUT
           </h2>
+
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <About />
@@ -47,20 +48,18 @@ export default function Home() {
         id="skills"
         className="text-white h-screen flex items-center justify-center bg-zinc-900"
       >
-
         <Skills />
-        
       </section>
-
       {/* Project Section */}
       <section
         id="projects"
         className="text-white min-h-screen flex items-center justify-center py-12 bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold mb-8 mt-14 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
             WEB PROJECTS
-          </h1>
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* project items */}
 
@@ -75,9 +74,10 @@ export default function Home() {
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold mb-8 mt-14 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
             UI / UX PROJECTS
-          </h1>
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Ui project items */}
 
@@ -100,13 +100,13 @@ export default function Home() {
         className="text-white min-h-screen flex items-center justify-center py-12 bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold mb-24 mt-12 hover:text-green-600 hover:scale-110 transform transition duration-300 ease-in-out inline-block">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
             CONTACT
-          </h1>
+          </h2>
+
           <div className="mb-6">
             <SocialButtons />
           </div>
-
         </div>
       </section>
     </div>
