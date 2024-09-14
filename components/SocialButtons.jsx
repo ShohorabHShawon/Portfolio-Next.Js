@@ -40,7 +40,7 @@ export default function SocialButtons() {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="transform hover:scale-110 transition-transform duration-300 ease-in-out"
+          className="transform hover:scale-150 transition-transform duration-300 ease-in-out"
           aria-label={name}
         >
           {icon}
