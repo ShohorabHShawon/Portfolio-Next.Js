@@ -25,7 +25,6 @@ export default function Home() {
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
             ABOUT
           </h2>
-
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <About />
