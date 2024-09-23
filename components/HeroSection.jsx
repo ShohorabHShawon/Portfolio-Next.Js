@@ -20,7 +20,7 @@ function HeroSection() {
           className="-top-0 left-0 md:left-60 md:-top-20"
           fill="white"
         />
-           <div className="container mx-auto ">
+           <div className="container mx-auto z-20">
             {/* Circular Image */}
             <motion.div
               whileTap={{
@@ -36,7 +36,7 @@ function HeroSection() {
                 alt="Shohorab Hossain Shawon"
                 width={250}
                 height={250}
-                className="rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
+                className="z-10 rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
               />
             </motion.div>
             <motion.div
@@ -76,6 +76,7 @@ function HeroSection() {
         className={cn(
           "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
           "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12",
+          "overflow-hidden"
         )}
       />
       </section>
