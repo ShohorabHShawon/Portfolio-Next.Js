@@ -14,7 +14,7 @@ export function Card3() {
       transition={{ duration: 0.7 }}
       viewport={{ once: true, amount: 0.1 }}
     >
-      <CardContainer className="inter-var relative p-1 m-2 w-full h-auto">
+      <CardContainer className="inter-var relative m-2 w-full h-auto">
         <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
           <CardItem
             translateZ="50"
@@ -38,7 +38,7 @@ export function Card3() {
               alt="thumbnail"
             />
           </CardItem>
-          <div className="flex justify-between items-center mt-20">
+          <div className="flex justify-between items-center mt-10">
             <CardItem
               translateZ={20}
               target="__blank"

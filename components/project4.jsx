@@ -38,7 +38,7 @@ export function Card4() {
               alt="thumbnail"
             />
           </CardItem>
-          <div className="flex justify-between items-center mt-20">
+          <div className="flex justify-between items-center mt-10">
             <CardItem
               translateZ={20}
               target="__blank"

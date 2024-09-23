@@ -9,7 +9,6 @@ import { Card6 } from "@/components/project6";
 import Skills from "@/components/Skills";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AboutContents from "@/components/AboutContents";
-import TypingAnimation from "@/components/magicui/typing-animation";
 import SparklesText from "@/components/magicui/sparkles-text";
 
 export default function Home() {
@@ -17,6 +16,7 @@ export default function Home() {
     <div className="w-full">
       {/* Hero Section */}
       <HeroSection />
+
       {/* About Section */}
 
       <AboutContents />
@@ -34,7 +34,7 @@ export default function Home() {
         className="text-white min-h-screen flex items-center justify-center py-12 bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
-          <div className="my-5">
+          <div className="my-25">
             <SparklesText text="WEB PROJECTS" />
           </div>
 
@@ -52,7 +52,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="my-5">
+          <div className="my-25">
             <SparklesText text="UI / UX PROJECTS" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8">

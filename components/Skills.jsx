@@ -1,13 +1,14 @@
-'use client';
+"use client";
 import { motion } from "framer-motion";
 import SparklesText from "./magicui/sparkles-text";
 
 export default function Skills() {
   return (
     <div className="container mx-auto px-4 py-12 text-center">
-      <div className="my-5">
-      <SparklesText text="SKILLS"/>
+      <div className="my-8">
+        <SparklesText text="SKILLS" />
       </div>
+
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
