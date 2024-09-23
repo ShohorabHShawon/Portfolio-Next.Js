@@ -1,12 +1,19 @@
+'use client';
+import { motion } from "framer-motion";
+import SparklesText from "./magicui/sparkles-text";
 
 export default function Skills() {
   return (
     <div className="container mx-auto px-4 py-12 text-center">
-      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 md:mb-8 lg:mb-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20 hover:text-green-600 hover:scale-105 md:hover:scale-110 transform transition-transform duration-300 ease-in-out inline-block">
-        SKILLS
-      </h2>
-
-      <div className="flex flex-col items-center">
+      <div className="my-5">
+      <SparklesText text="SKILLS"/>
+      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center"
+      >
         <ul className="text-base sm:text-lg md:text-xl list-disc list-inside space-y-4 sm:space-y-6 md:space-y-8">
           {[
             {
@@ -134,7 +141,7 @@ export default function Skills() {
             </li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ export function FlipW() {
 
   return (
     <div className="h-[80px] flex justify-center items-center px-4">
-      <div className="text-xl lg:text-5xl md:text-4xl sm:text-3xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
+      <div className="text-[16px] lg:text-5xl md:text-4xl sm:text-3xl mx-auto font-normal text-neutral-600 dark:text-neutral-400">
         A Passionate
         <FlipWords words={words} /> <br />
       </div>

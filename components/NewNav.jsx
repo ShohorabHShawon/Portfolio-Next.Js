@@ -12,7 +12,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faHome}
-          className="h-4 w-4 text-neutral-500 dark:text-white font-bold"
+          className="h-5 w-5 text-neutral-500 dark:text-white font-bold"
         />
       ),
     },
@@ -22,7 +22,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faUser}
-          className="h-4 w-4 text-neutral-500 dark:text-white"
+          className="h-5 w-5 text-neutral-500 dark:text-white"
         />
       ),
     },
@@ -32,7 +32,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faCode}
-          className="h-4 w-4 text-neutral-500 dark:text-white"
+          className="h-5 w-5 text-neutral-500 dark:text-white"
         />
       ),
     },
@@ -42,7 +42,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faBriefcase}
-          className="h-4 w-4 text-neutral-500 dark:text-white"
+          className="h-5 w-5 text-neutral-500 dark:text-white"
         />
       ),
     },
@@ -52,7 +52,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faContactCard}
-          className="h-4 w-4 text-neutral-500 dark:text-white"
+          className="h-5 w-5 text-neutral-500 dark:text-white"
         />
       ),
     },
