@@ -18,7 +18,7 @@ function HeroSection() {
         id="home"
       >
         <Spotlight
-          className="-top-0 left-0 md:left-60 md:-top-20"
+          className="-top-0  left-0 md:left-40 md:-top-20 lg:-top-60"
           fill="white"
         />
         <div className="container mx-auto z-20">
@@ -77,7 +77,7 @@ function HeroSection() {
           repeatDelay={1}
           className={cn(
             "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+            "inset-x-0 inset-y-[-50%] h-[200%] skew-y-12"
           )}
         />
       </section>

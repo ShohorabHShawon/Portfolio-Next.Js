@@ -4,6 +4,7 @@ import { BorderBeam } from "./magicui/border-beam";
 import { motion } from "framer-motion";
 
 
+
 export function Contact() {
   async function handleSubmit(e) {
     e.preventDefault();
