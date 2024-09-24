@@ -2,7 +2,6 @@ import HeroSection from "@/components/HeroSection";
 import { Card } from "@/components/Project1";
 import { Card2 } from "@/components/Project2";
 import { Card3 } from "@/components/project3";
-import SocialButtons from "@/components/SocialButtons";
 import { Card4 } from "@/components/project4";
 import { Card5 } from "@/components/project5";
 import { Card6 } from "@/components/project6";
@@ -10,6 +9,9 @@ import Skills from "@/components/Skills";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import AboutContents from "@/components/AboutContents";
 import SparklesText from "@/components/magicui/sparkles-text";
+import { Contact } from "@/components/Contact";
+import SocialLinks from "@/components/SocialLinks";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -80,8 +82,9 @@ export default function Home() {
           <div className="mb-12">
             <SparklesText text="CONTACT" />
           </div>
+          <Contact />
           <div className="mb-6">
-            <SocialButtons />
+            <SocialLinks />
           </div>
         </div>
       </section>

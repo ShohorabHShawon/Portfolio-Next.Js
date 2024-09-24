@@ -1,148 +1,93 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import SparklesText from "./magicui/sparkles-text";
+import { useState, useEffect } from "react";
 
 export default function Skills() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className="container mx-auto px-4 py-12 text-center">
       <div className="my-8">
         <SparklesText text="SKILLS" />
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="flex flex-col items-center"
-      >
-        <ul className="text-base sm:text-lg md:text-xl list-disc list-inside space-y-4 sm:space-y-6 md:space-y-8">
-          {[
-            {
-              title: "Programming Languages",
-              icons: [
-                {
-                  className:
-                    "fab fa-js-square text-2xl sm:text-3xl md:text-4xl text-yellow-600",
-                  title: "JavaScript",
-                },
-                {
-                  className:
-                    "fab fa-python text-2xl sm:text-3xl md:text-4xl text-blue-600",
-                  title: "Python",
-                },
-                {
-                  className:
-                    "fab fa-cuttlefish text-2xl sm:text-3xl md:text-4xl text-gray-600",
-                  title: "C++",
-                },
-                {
-                  className:
-                    "fab fa-csharp text-2xl sm:text-3xl md:text-4xl text-blue-700",
-                  title: "C#",
-                },
-              ],
-            },
-            {
-              title: "Web Technologies",
-              icons: [
-                {
-                  className:
-                    "fab fa-html5 text-2xl sm:text-3xl md:text-4xl text-orange-600",
-                  title: "HTML",
-                },
-                {
-                  className:
-                    "fab fa-css3-alt text-2xl sm:text-3xl md:text-4xl text-blue-600",
-                  title: "CSS",
-                },
-                {
-                  className:
-                    "fab fa-react text-2xl sm:text-3xl md:text-4xl text-blue-400",
-                  title: "React.js",
-                },
-                {
-                  className:
-                    "fab fa-node text-2xl sm:text-3xl md:text-4xl text-green-600",
-                  title: "Node.js",
-                },
-                {
-                  className:
-                    "fab fa-tailwindcss text-2xl sm:text-3xl md:text-4xl text-blue-600",
-                  title: "Tailwind CSS",
-                },
-              ],
-            },
-            {
-              title: "Design Tools",
-              icons: [
-                {
-                  className:
-                    "fab fa-figma text-2xl sm:text-3xl md:text-4xl text-purple-600",
-                  title: "Figma",
-                },
-                {
-                  className:
-                    "fab fa-adobe text-2xl sm:text-3xl md:text-4xl text-red-600",
-                  title: "Adobe XD",
-                },
-                {
-                  className:
-                    "fab fa-photoshop text-2xl sm:text-3xl md:text-4xl text-blue-500",
-                  title: "Photoshop",
-                },
-                {
-                  className:
-                    "fab fa-lightroom text-2xl sm:text-3xl md:text-4xl text-orange-600",
-                  title: "Lightroom",
-                },
-                {
-                  className:
-                    "fab fa-illustrator text-2xl sm:text-3xl md:text-4xl text-yellow-600",
-                  title: "Illustrator",
-                },
-              ],
-            },
-            {
-              title: "Productivity Tools",
-              icons: [
-                {
-                  className:
-                    "fas fa-file-word text-2xl sm:text-3xl md:text-4xl text-blue-600",
-                  title: "MS Word",
-                },
-                {
-                  className:
-                    "fas fa-file-powerpoint text-2xl sm:text-3xl md:text-4xl text-orange-600",
-                  title: "PowerPoint",
-                },
-                {
-                  className:
-                    "fab fa-jira text-2xl sm:text-3xl md:text-4xl text-blue-700",
-                  title: "Jira",
-                },
-              ],
-            },
-          ].map((category, index) => (
-            <li
-              key={index}
-              className="flex flex-col items-center space-y-4 sm:space-y-6"
-            >
-              <strong className="font-semibold text-lg sm:text-xl md:text-2xl mb-2">
-                {category.title}
-              </strong>
-              <div className="flex flex-wrap justify-center space-x-4">
-                {category.icons.map((icon, idx) => (
-                  <i
-                    key={idx}
-                    className={icon.className}
-                    title={icon.title}
-                  ></i>
-                ))}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
+      {isMounted && (
+        <motion.div
+          initial={{ opacity: 0, y: 500 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <ul className="text-base sm:text-lg md:text-xl list-disc list-inside space-y-4 sm:space-y-6 md:space-y-8">
+            {[
+              {
+                title: "Programming Languages",
+                icons: [
+                  { src: "/icons/js.png", title: "JavaScript" },
+                  { src: "/icons/python.png", title: "Python" },
+                  { src: "/icons/cpp.png", title: "C++" },
+                  { src: "/icons/csharp.png", title: "C#" },
+                ],
+              },
+              {
+                title: "Web Technologies",
+                icons: [
+                  { src: "/icons/html.png", title: "HTML" },
+                  { src: "/icons/css.png", title: "CSS" },
+                  { src: "/icons/reactjs.png", title: "React.js" },
+                  { src: "/icons/nodejs.png", title: "Node.js" },
+                  { src: "/icons/tailwind.png", title: "Tailwind CSS" },
+                ],
+              },
+              {
+                title: "Design Tools",
+                icons: [
+                  { src: "/icons/figma.png", title: "Figma" },
+                  { src: "/icons/adobeXD.png", title: "Adobe XD" },
+                  { src: "/icons/adobePS.png", title: "Photoshop" },
+                  { src: "/icons/adobeLR.png", title: "Lightroom" },
+                  { src: "/icons/adobeAI.png", title: "Illustrator" },
+                ],
+              },
+              {
+                title: "Productivity Tools",
+                icons: [
+                  { src: "/icons/msword.png", title: "MS Word" },
+                  { src: "/icons/powerpoint.png", title: "PowerPoint" },
+                  { src: "/icons/excel.png", title: "Excel" },
+                ],
+              },
+            ].map((category, index) => (
+              <li
+                key={index}
+                className="flex flex-col items-center space-y-4 sm:space-y-6"
+              >
+                <strong className="font-semibold text-lg sm:text-xl md:text-2xl mb-2">
+                  {category.title}
+                </strong>
+                <div className="flex flex-wrap justify-center space-x-4">
+                  {category.icons.map((icon, idx) => (
+                    <Image
+                      key={idx}
+                      src={icon.src}
+                      alt={icon.title}
+                      title={icon.title}
+                      className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:h-12 lg:w-12"
+                      width={40}
+                      height={40}
+                    />
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+      )}
     </div>
   );
 }
