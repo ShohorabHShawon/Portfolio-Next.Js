@@ -57,7 +57,7 @@ export default function Skills() {
               {
                 title: "Productivity Tools",
                 icons: [
-                  { src: "/msword.png", title: "MS Word" },
+                  { src: "/word.png", title: "MS Word" },
                   { src: "/powerpoint.png", title: "PowerPoint" },
                   { src: "/excel.png", title: "Excel" },
                 ],
