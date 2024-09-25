@@ -41,8 +41,8 @@ function HeroSection() {
             />{" "}
           </motion.div>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 3 }}
           >
             <h1
@@ -55,10 +55,10 @@ function HeroSection() {
           </motion.div>
 
           <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.2 }}
-            whileHover={{ scale: 1.2 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.5 }}
             whileTap={{ scale: 0.8 }}
             className="relative inline-flex items-center justify-center mb-2 me-2 overflow-hidden text-xs sm:text-sm md:text-base font-medium text-white bg-black border-2 border-white rounded-lg group hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
           >

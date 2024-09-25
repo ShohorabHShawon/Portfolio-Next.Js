@@ -13,16 +13,16 @@ export default function Skills() {
 
   return (
     <div className="container mx-auto px-4 py-12 text-center">
+      {isMounted && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
       <div className="my-8">
         <SparklesText text="SKILLS" />
       </div>
-      {isMounted && (
-        <motion.div
-          initial={{ opacity: 0, y: 500 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true, amount: 0.1 }}
-        >
           <ul className="text-base sm:text-lg md:text-xl list-disc list-inside space-y-4 sm:space-y-6 md:space-y-8">
             {[
               {
