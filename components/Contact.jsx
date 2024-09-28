@@ -3,12 +3,20 @@ import { useState } from "react";
 import { BorderBeam } from "./magicui/border-beam";
 import { motion } from "framer-motion";
 
-
-
 export function Contact() {
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
+    // Show "Sending..." message instantly
+    setAlertMessage("Sending your message...");
+    setShowAlert(true);
+    setIsLoading(true);
+
+    // Send the form data
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: {
@@ -25,16 +33,38 @@ export function Contact() {
 
     const result = await response.json();
 
+    // Update the alert message based on success or failure
     if (result.success) {
-      alert("Thank you for your message!");
-      e.target.reset();
+      setAlertMessage("Thank you for your message!");
+      e.target.reset(); // Reset the form fields
     } else {
-      alert("There was an error sending your message. Please try again.");
+      setAlertMessage(
+        "There was an error sending your message. Please try again."
+      );
     }
+
+    setIsLoading(false); // Stop the loading state
   }
 
   return (
     <>
+      {/* Custom Alert Modal with Glass Effect */}
+      {showAlert && (
+        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+          <div className="bg-white/10 backdrop-blur-lg border border-white/30 text-white rounded-lg shadow-lg p-6 max-w-md w-full">
+            <p>{alertMessage}</p>
+            {!isLoading && (
+              <button
+                className="mt-4 bg-white text-black px-4 py-2 font-bold rounded-lg"
+                onClick={() => setShowAlert(false)}
+              >
+                Close
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+
       <motion.div
         initial={{ opacity: 0, y: 200 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +85,7 @@ export function Contact() {
               name="name"
               required
               placeholder="Your name"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             />
           </div>
 
@@ -71,7 +101,7 @@ export function Contact() {
               name="email"
               required
               placeholder="email@example.com"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             />
           </div>
 
@@ -87,13 +117,13 @@ export function Contact() {
               required
               rows="3"
               placeholder="Enter Message"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-white hover:bg-black hover:text-white text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-white hover:bg-black hover:text-white text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
           >
             Send
           </button>
