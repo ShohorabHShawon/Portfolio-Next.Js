@@ -20,9 +20,9 @@ export default function Skills() {
           transition={{ duration: 1 }}
           viewport={{ once: true, amount: 0.1 }}
         >
-      <div className="my-8">
-        <SparklesText text="SKILLS" />
-      </div>
+          <div className="my-8">
+            <SparklesText text="SKILLS" />
+          </div>
           <ul className="text-base sm:text-lg md:text-xl list-disc list-inside space-y-4 sm:space-y-6 md:space-y-8">
             {[
               {
@@ -74,15 +74,23 @@ export default function Skills() {
                 </strong>
                 <div className="flex flex-wrap justify-center space-x-4">
                   {category.icons.map((icon, idx) => (
-                    <Image
+                    <motion.div
                       key={idx}
-                      src={icon.src}
-                      alt={icon.title}
-                      title={icon.title}
-                      className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:h-12 lg:w-12"
-                      width={40}
-                      height={40}
-                    />
+                      className="flex items-center justify-center cursor-pointer "
+                      whileHover={{ scale: 1.5 }}
+                      whileTap={{
+                        scale: 0.8,
+                      }}
+                    >
+                      <Image
+                        src={icon.src}
+                        alt={icon.title}
+                        title={icon.title}
+                        className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:h-12 lg:w-12"
+                        width={40}
+                        height={40}
+                      />
+                    </motion.div>
                   ))}
                 </div>
               </li>
