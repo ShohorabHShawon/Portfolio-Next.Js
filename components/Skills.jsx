@@ -30,6 +30,7 @@ export default function Skills() {
                 icons: [
                   { src: "/js.png", title: "JavaScript" },
                   { src: "/python.png", title: "Python" },
+                  { src: "/c.png", title: "C" },
                   { src: "/cpp.png", title: "C++" },
                   { src: "/csharp.png", title: "C#" },
                 ],
@@ -39,9 +40,10 @@ export default function Skills() {
                 icons: [
                   { src: "/html.png", title: "HTML" },
                   { src: "/css.png", title: "CSS" },
-                  { src: "/reactjs.png", title: "React.js" },
-                  { src: "/nodejs.png", title: "Node.js" },
                   { src: "/tailwind.png", title: "Tailwind CSS" },
+                  { src: "/reactjs.png", title: "React.js" },
+                  { src: "/nextjs.png", title: "Next.js" },
+                  { src: "/nodejs.png", title: "Node.js" },
                 ],
               },
               {
