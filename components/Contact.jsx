@@ -1,10 +1,10 @@
-"use client";
-import { useState } from "react";
-import { BorderBeam } from "./magicui/border-beam";
-import { motion } from "framer-motion";
+'use client';
+import { useState } from 'react';
+import { BorderBeam } from './magicui/border-beam';
+import { motion } from 'framer-motion';
 
 export function Contact() {
-  const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -12,19 +12,19 @@ export function Contact() {
     e.preventDefault();
 
     // Show "Sending..." message instantly
-    setAlertMessage("Sending your message...");
+    setAlertMessage('Sending your message...');
     setShowAlert(true);
     setIsLoading(true);
 
     // Send the form data
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify({
-        access_key: "60f7ed60-14b3-40e2-96d5-20ca49570508",
+        access_key: process.env.NEXT_PUBLIC_MAIL_KEY,
         name: e.target.name.value,
         email: e.target.email.value,
         message: e.target.message.value,
@@ -35,11 +35,11 @@ export function Contact() {
 
     // Update the alert message based on success or failure
     if (result.success) {
-      setAlertMessage("Thank you for your message!");
+      setAlertMessage('Thank you for your message!');
       e.target.reset(); // Reset the form fields
     } else {
       setAlertMessage(
-        "There was an error sending your message. Please try again."
+        'There was an error sending your message. Please try again.',
       );
     }
 
