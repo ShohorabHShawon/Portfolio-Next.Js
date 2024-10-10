@@ -1,17 +1,21 @@
 import HeroSection from '@/components/HeroSection';
-import { Card } from '@/components/Project1';
-import { Card2 } from '@/components/Project2';
-import { Card3 } from '@/components/project3';
-import { Card4 } from '@/components/project4';
-import { Card5 } from '@/components/project5';
-import { Card6 } from '@/components/project6';
-import Skills from '@/components/Skills';
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AboutContents from '@/components/AboutContents';
 import SparklesText from '@/components/magicui/sparkles-text';
 import { Contact } from '@/components/Contact';
 import SocialLinks from '@/components/SocialLinks';
 import { SkillsCloud } from '@/components/SkillsCloud';
+import { Card1 } from '@/components/webProject1';
+import { Card2 } from '@/components/webProject2';
+import { Card3 } from '@/components/webProject3';
+import { Card4 } from '@/components/webProject4';
+
+import { Card21 } from '@/components/uiProject1';
+import { Card22 } from '@/components/uiProject2';
+import { Card23 } from '@/components/uiProject3';
+import { Card24 } from '@/components/uiProject4';
+import { Card25 } from '@/components/uiProject5';
 
 export default function Home() {
   return (
@@ -39,7 +43,7 @@ export default function Home() {
       {/* Project Section */}
       <section
         id="projects"
-        className="text-white min-h-screen flex items-center justify-center py-12 bg-zinc-900"
+        className="text-white min-h-screen flex items-center justify-center py-6 bg-zinc-900"
       >
         <div className="container mx-auto px-4 text-center">
           <div className="my-25">
@@ -50,13 +54,16 @@ export default function Home() {
             {/* project items */}
 
             <div className="w-full h-auto">
-              <Card />
+              <Card1 />
             </div>
             <div className="w-full h-auto">
               <Card2 />
             </div>
             <div className="w-full h-auto">
               <Card3 />
+            </div>
+            <div className="w-full h-auto">
+              <Card4 />
             </div>
           </div>
 
@@ -67,13 +74,19 @@ export default function Home() {
             {/* Ui project items */}
 
             <div className="w-full h-auto">
-              <Card4 />
+              <Card21 />
             </div>
             <div className="w-full h-auto">
-              <Card5 />
+              <Card22 />
             </div>
             <div className="w-full h-auto">
-              <Card6 />
+              <Card23 />
+            </div>
+            <div className="w-full h-auto">
+              <Card24 />
+            </div>
+            <div className="w-full h-auto">
+              <Card25 />
             </div>
           </div>
         </div>

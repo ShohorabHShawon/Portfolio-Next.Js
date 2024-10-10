@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import React from "react";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/threeD-card";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import Image from 'next/image';
+import React from 'react';
+import { CardBody, CardContainer, CardItem } from '@/components/ui/threeD-card';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
-export function Card6() {
+export function Card23() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 500 }}
@@ -31,7 +31,7 @@ export function Card6() {
           </CardItem>
           <CardItem translateZ="100" className="w-full mt-4">
             <Image
-              src="/project6.png"
+              src="/ui3.png"
               height="1000"
               width="1000"
               className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl"
