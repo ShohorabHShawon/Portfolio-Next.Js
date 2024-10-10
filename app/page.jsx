@@ -54,7 +54,7 @@ export default function Home() {
             {/* project items */}
 
             <div className="w-full h-auto">
-              <Card1 />
+              <Card4 />
             </div>
             <div className="w-full h-auto">
               <Card2 />
@@ -63,7 +63,7 @@ export default function Home() {
               <Card3 />
             </div>
             <div className="w-full h-auto">
-              <Card4 />
+              <Card1 />
             </div>
           </div>
 

@@ -48,11 +48,11 @@ export function Card4() {
             <CardItem
               translateZ={20}
               as={Link}
-              href="https://github.com/ShohorabHShawon/MovieDB-Next.JS"
+              href="https://movieocean.vercel.app/"
               target="__blank"
               className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
             >
-              Github
+              Live
             </CardItem>
           </div>
         </CardBody>
