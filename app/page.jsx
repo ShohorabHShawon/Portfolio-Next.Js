@@ -11,6 +11,7 @@ import AboutContents from '@/components/AboutContents';
 import SparklesText from '@/components/magicui/sparkles-text';
 import { Contact } from '@/components/Contact';
 import SocialLinks from '@/components/SocialLinks';
+import { SkillsCloud } from '@/components/SkillsCloud';
 
 export default function Home() {
   return (
@@ -25,10 +26,16 @@ export default function Home() {
       {/* Skills */}
       <section
         id="skills"
-        className="text-white h-screen flex items-center justify-center bg-zinc-900"
+        className="text-white h-screen flex flex-col items-center justify-center bg-zinc-900"
       >
-        <Skills />
+        <div className="flex flex-col">
+          <SkillsCloud />
+        </div>
+        {/* <div className="flex flex-col">
+          <Skills />
+        </div> */}
       </section>
+
       {/* Project Section */}
       <section
         id="projects"
