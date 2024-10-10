@@ -63,7 +63,10 @@ function HeroSection() {
           >
             {' '}
             <span className="relative px-3 py-1 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
-              <Link href="/cv.pdf" download="cv.pdf">
+              <Link
+                href="/Shohorab_Hossain_Shawon.pdf"
+                download="Shohorab_Hossain_Shawon.pdf"
+              >
                 CV
               </Link>
             </span>

@@ -20,7 +20,7 @@ export function Card4() {
             translateZ="50"
             className="text-xl font-bold text-neutral-600 dark:text-white"
           >
-            Movie Database App
+            Movie Ocean
           </CardItem>
           <CardItem
             as="p"
