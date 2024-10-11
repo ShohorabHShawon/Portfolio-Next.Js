@@ -16,6 +16,7 @@ import { Card22 } from '@/components/uiProject2';
 import { Card23 } from '@/components/uiProject3';
 import { Card24 } from '@/components/uiProject4';
 import { Card25 } from '@/components/uiProject5';
+import { Card26 } from '@/components/uiProject6';
 
 export default function Home() {
   return (
@@ -57,13 +58,14 @@ export default function Home() {
               <Card4 />
             </div>
             <div className="w-full h-auto">
-              <Card2 />
+              <Card1 />
             </div>
+
             <div className="w-full h-auto">
               <Card3 />
             </div>
             <div className="w-full h-auto">
-              <Card1 />
+              <Card2 />
             </div>
           </div>
 
@@ -72,37 +74,23 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Ui project items */}
-
             <div className="w-full h-auto">
-              <Card21 />
+              <Card25 />
             </div>
-
-            <div className="w-full h-auto">
-              <Card22 />
-            </div>
-
             <div className="w-full h-auto">
               <Card23 />
+            </div>
+            <div className="w-full h-auto">
+              <Card26 />
             </div>
             <div className="w-full h-auto">
               <Card24 />
             </div>
-<<<<<<< HEAD
-
             <div className="w-full h-auto">
               <Card21 />
             </div>
-
             <div className="w-full h-auto">
-              <Card26 />
-            </div>
-
-            <div className="w-full h-auto">
-              <Card23 />
-=======
-            <div className="w-full h-auto">
-              <Card25 />
->>>>>>> parent of e11b1e7 (Project Update)
+              <Card22 />
             </div>
           </div>
         </div>
