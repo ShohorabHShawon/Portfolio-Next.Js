@@ -77,18 +77,23 @@ export default function Home() {
             <div className="w-full h-auto">
               <Card25 />
             </div>
+
             <div className="w-full h-auto">
               <Card22 />
             </div>
+
             <div className="w-full h-auto">
               <Card24 />
             </div>
-            <div className="w-full h-auto">
-              <Card26 />
-            </div>
+
             <div className="w-full h-auto">
               <Card21 />
             </div>
+
+            <div className="w-full h-auto">
+              <Card26 />
+            </div>
+
             <div className="w-full h-auto">
               <Card23 />
             </div>
