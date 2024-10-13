@@ -15,7 +15,7 @@ This is a personal portfolio website built using the latest **Next.js 14**, **Ac
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/portfolio.git
+   git clone https://github.com/ShohorabHShawon/NextJs_Portfolio.git
    cd portfolio
 
    ```
