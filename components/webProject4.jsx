@@ -25,7 +25,7 @@ export function Card4() {
           <CardItem
             as="p"
             translateZ="60"
-            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 line-clamp-3"
           >
             A movie database app that uses the TMDB API to fetch movie data.
             This app is built using Next Js and Tailwind CSS and TMDB API.
@@ -42,17 +42,21 @@ export function Card4() {
           <div className="flex justify-between items-center mt-10">
             <CardItem
               translateZ={20}
-              target="__blank"
-              className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
-            ></CardItem>
-            <CardItem
-              translateZ={20}
               as={Link}
               href="https://movieocean.vercel.app/"
               target="__blank"
-              className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+              className="px-4 py-2 rounded-xl bg-black dark:bg-green-700 dark:text-white text-white text-xs font-bold"
             >
               Live
+            </CardItem>
+            <CardItem
+              translateZ={20}
+              as={Link}
+              target="__blank"
+              href="https://github.com/ShohorabHShawon/Movie-Ocean-Next.JS"
+              className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+            >
+              Github
             </CardItem>
           </div>
         </CardBody>

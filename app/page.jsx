@@ -17,6 +17,7 @@ import { Card23 } from '@/components/uiProject3';
 import { Card24 } from '@/components/uiProject4';
 import { Card25 } from '@/components/uiProject5';
 import { Card26 } from '@/components/uiProject6';
+import { Card5 } from '@/components/webProject5';
 
 export default function Home() {
   return (
@@ -57,6 +58,11 @@ export default function Home() {
             <div className="w-full h-auto">
               <Card4 />
             </div>
+
+            <div className="w-full h-auto">
+              <Card5 />
+            </div>
+
             <div className="w-full h-auto">
               <Card1 />
             </div>

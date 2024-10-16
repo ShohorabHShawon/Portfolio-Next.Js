@@ -25,7 +25,7 @@ export function Card1() {
           <CardItem
             as="p"
             translateZ="60"
-            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 line-clamp-3"
           >
             A game store using raw HTML, CSS and PHP with MySQL database. It has
             a user-friendly interface and a secure login system.
