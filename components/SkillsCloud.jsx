@@ -33,6 +33,7 @@ const slugs = [
   'adobepremierepro',
   'unity',
   'unrealengine',
+  'vite',
 ];
 
 export function SkillsCloud() {
