@@ -9,12 +9,12 @@ import { motion } from 'framer-motion';
 export function Card2() {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 500 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.5 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7 }}
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: false, amount: 0.1 }}
     >
-      <CardContainer className="inter-var relative m-2 w-full">
+      <CardContainer className="inter-var relative m-2 w-full h-auto">
         <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
           <CardItem
             translateZ="50"

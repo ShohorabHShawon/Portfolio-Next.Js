@@ -36,7 +36,7 @@ function HeroSection() {
               alt="Shohorab Hossain Shawon"
               width={250}
               height={250}
-              className="z-10 rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
+              className="z-10 h-auto w-48 md:w-56 lg:w-60 rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
             />{' '}
           </motion.div>
           <motion.div
@@ -45,7 +45,7 @@ function HeroSection() {
             transition={{ duration: 3 }}
           >
             <h1
-              className="text-[20px] lg:text-7xl md:text-6xl sm:text-4xl font-bold mb-4 text-white 
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl px-2 font-bold mb-4 text-white 
             hover:text-red-900 transform transition duration-300 ease-in-out inline-block"
             >
               SHOHORAB HOSSAIN SHAWON
