@@ -25,3 +25,29 @@ body {
     text-wrap: balance;
   }
 }
+@layer base {
+  /* Enable smooth scrolling for the entire document */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Width of the scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-3;
+  }
+
+  /* Track of the scrollbar */
+  ::-webkit-scrollbar-track {
+    @apply bg-inherit bg-zinc-900;
+  }
+
+  /* Handle of the scrollbar */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-2xl;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-200;
+  }
+}
