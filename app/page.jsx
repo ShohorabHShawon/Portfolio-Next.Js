@@ -18,6 +18,7 @@ import { Card24 } from '@/components/uiProject4';
 import { Card25 } from '@/components/uiProject5';
 import { Card26 } from '@/components/uiProject6';
 import { Card5 } from '@/components/webProject5';
+import { Card6 } from '@/components/webProject6';
 
 export default function Home() {
   return (
@@ -61,6 +62,10 @@ export default function Home() {
 
             <div className="w-full h-auto">
               <Card5 />
+            </div>
+
+            <div className="w-full h-auto">
+              <Card6 />
             </div>
 
             <div className="w-full h-auto">
