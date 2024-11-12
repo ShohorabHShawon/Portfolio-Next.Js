@@ -22,13 +22,15 @@ import { Card6 } from '@/components/webProject6';
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       {/* Hero Section */}
       <HeroSection />
 
       {/* About Section */}
 
-      <AboutContents />
+      <div className="">
+        <AboutContents />
+      </div>
 
       {/* Skills */}
       <section
@@ -46,9 +48,9 @@ export default function Home() {
       {/* Project Section */}
       <section
         id="projects"
-        className="text-white min-h-screen flex items-center justify-center py-6 bg-zinc-900"
+        className="text-white flex items-center justify-center py-6 bg-zinc-900 overflow-hidden"
       >
-        <div className="container mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center max-w-7xl">
           <div className="my-25">
             <SparklesText text="WEB PROJECTS" />
           </div>

@@ -5,19 +5,18 @@ import { Spotlight } from '@/components/ui/Spotlight';
 import { FlipW } from './FlipW';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import AnimatedGridPattern from '@/components/magicui/animated-grid-pattern';
-import { cn } from '@/lib/utils';
+import SocialLinks from './SocialLinks';
 
 function HeroSection() {
   return (
     <>
       {/* Hero Section */}
       <section
-        className="h-screen flex items-center justify-center text-center bg-zinc-900"
+        className="h-screen flex items-center justify-center text-center bg-zinc-900 overflow-hidden"
         id="home"
       >
         <Spotlight
-          className="-top-0  left-0 md:left-40 md:-top-20 lg:-top-60"
+          className="-top-0 left-0 md:left-40 md:-top-20 lg:-top-60"
           fill="white"
         />
         <div className="container mx-auto z-20">
@@ -45,7 +44,7 @@ function HeroSection() {
             transition={{ duration: 3 }}
           >
             <h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl px-2 font-bold mb-4 text-white 
+              className="font-lexend font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl px-2 mb-4 text-white 
             hover:text-red-900 transform transition duration-300 ease-in-out inline-block"
             >
               SHOHORAB HOSSAIN SHAWON
@@ -56,13 +55,12 @@ function HeroSection() {
           <motion.button
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.8 }}
+            transition={{ duration: 2 }}
+            whileTap={{ scale: 0.7 }}
             className="relative inline-flex items-center justify-center mb-2 me-2 overflow-hidden text-xs sm:text-sm md:text-base font-medium text-white bg-black border-2 border-white rounded-lg group hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
           >
             {' '}
-            <span className="relative px-3 py-1 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
+            <span className="relative px-3 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
               <Link
                 href="/Shohorab_Hossain_Shawon.pdf"
                 download="Shohorab_Hossain_Shawon.pdf"
@@ -71,17 +69,8 @@ function HeroSection() {
               </Link>
             </span>
           </motion.button>
+          <SocialLinks />
         </div>
-        <AnimatedGridPattern
-          numSquares={30}
-          maxOpacity={0.5}
-          duration={3}
-          repeatDelay={1}
-          className={cn(
-            '[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]',
-            'inset-x-0 inset-y-[-50%] h-[200%] skew-y-12',
-          )}
-        />
       </section>
     </>
   );
