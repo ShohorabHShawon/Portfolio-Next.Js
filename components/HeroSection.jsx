@@ -57,10 +57,10 @@ function HeroSection() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2 }}
             whileTap={{ scale: 0.7 }}
-            className="relative inline-flex items-center justify-center mb-2 me-2 overflow-hidden text-xs sm:text-sm md:text-base font-medium text-white bg-black border-2 border-white rounded-lg group hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
+            className="relative inline-flex items-center justify-center mb-2 me-2 overflow-hidden text-xs sm:text-sm md:text-base font-medium text-black bg-white border-2 border-black hover:border-white rounded-lg group hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
           >
             {' '}
-            <span className="relative px-3 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-black rounded-md group-hover:bg-opacity-0">
+            <span className=" font-bold relative p-1 px-3 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
               <Link
                 href="/Shohorab_Hossain_Shawon.pdf"
                 download="Shohorab_Hossain_Shawon.pdf"
