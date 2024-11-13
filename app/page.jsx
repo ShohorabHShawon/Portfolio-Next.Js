@@ -1,16 +1,13 @@
 import HeroSection from '@/components/HeroSection';
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import AboutContents from '@/components/AboutContents';
 import SparklesText from '@/components/magicui/sparkles-text';
 import { Contact } from '@/components/Contact';
-import SocialLinks from '@/components/SocialLinks';
 import { SkillsCloud } from '@/components/SkillsCloud';
 import { Card1 } from '@/components/webProject1';
 import { Card2 } from '@/components/webProject2';
 import { Card3 } from '@/components/webProject3';
 import { Card4 } from '@/components/webProject4';
-
 import { Card21 } from '@/components/uiProject1';
 import { Card22 } from '@/components/uiProject2';
 import { Card23 } from '@/components/uiProject3';
@@ -112,16 +109,13 @@ export default function Home() {
       {/* Contact Section */}
       <section
         id="contact"
-        className="text-white min-h-screen flex items-center justify-center py-12 bg-zinc-900"
+        className="text-white flex items-center justify-center pt-10 bg-zinc-900 overflow-hidden"
       >
         <div className="container mx-auto px-4 text-center">
-          <div className="mb-12">
+          <div className="mb-5">
             <SparklesText text="CONTACT" />
           </div>
           <Contact />
-          <div className="mb-6">
-            <SocialLinks />
-          </div>
         </div>
       </section>
     </div>

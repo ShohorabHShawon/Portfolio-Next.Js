@@ -8,8 +8,23 @@ export function Contact() {
   const [showAlert, setShowAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Email validation function
+  function isValidEmail(email) {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailPattern.test(email);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const email = e.target.email.value;
+
+    // Validate email format
+    if (!isValidEmail(email)) {
+      setAlertMessage('Please enter a valid email address.');
+      setShowAlert(true);
+      return;
+    }
 
     // Show "Sending..." message instantly
     setAlertMessage('Sending your message...');
@@ -26,7 +41,7 @@ export function Contact() {
       body: JSON.stringify({
         access_key: process.env.NEXT_PUBLIC_MAIL_KEY,
         name: e.target.name.value,
-        email: e.target.email.value,
+        email,
         message: e.target.message.value,
       }),
     });
@@ -85,7 +100,7 @@ export function Contact() {
               name="name"
               required
               placeholder="Your name"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full px-4 py-2 bg-white/5 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             />
           </div>
 
@@ -99,9 +114,8 @@ export function Contact() {
             <input
               type="email"
               name="email"
-              required
               placeholder="email@example.com"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full px-4 py-2 bg-white/5 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             />
           </div>
 
@@ -117,13 +131,13 @@ export function Contact() {
               required
               rows="3"
               placeholder="Enter Message"
-              className="w-full px-4 py-2 bg-white/20 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full px-4 py-2 bg-white/5 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
             ></textarea>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-white hover:bg-black hover:text-white text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+            className="w-full bg-white/80 hover:bg-black hover:text-white text-black font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
           >
             Send
           </button>
