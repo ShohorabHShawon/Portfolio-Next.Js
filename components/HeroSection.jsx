@@ -12,7 +12,7 @@ function HeroSection() {
     <>
       {/* Hero Section */}
       <section
-        className="h-screen pt-0 sm:pt-44 md:pt-12 lg:pt-5 flex items-center justify-center text-center bg-zinc-900 overflow-hidden"
+        className="min-h-screen pt-0 sm:pt-12 md:pt-12 lg:pt-5 flex items-center justify-center text-center bg-zinc-900 overflow-hidden"
         id="home"
       >
         <Spotlight

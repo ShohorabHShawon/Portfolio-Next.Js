@@ -16,6 +16,7 @@ import { Card25 } from '@/components/uiProject5';
 import { Card26 } from '@/components/uiProject6';
 import { Card5 } from '@/components/webProject5';
 import { Card6 } from '@/components/webProject6';
+import { About } from '@/components/About';
 
 export default function Home() {
   return (
@@ -24,15 +25,17 @@ export default function Home() {
       <HeroSection />
 
       {/* About Section */}
-
-      <div className="">
-        <AboutContents />
-      </div>
+      <section id="about">
+        <div className="bg-zinc-900 min-h-screen text-center">
+          {/* <AboutContents /> */}
+          <About />
+        </div>
+      </section>
 
       {/* Skills */}
       <section
         id="skills"
-        className="text-white h-screen flex flex-col items-center justify-center bg-zinc-900"
+        className="text-white flex flex-col items-center justify-center bg-zinc-900"
       >
         <div className="flex flex-col">
           <SkillsCloud />
