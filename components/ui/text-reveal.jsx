@@ -16,13 +16,13 @@ export const TextRevealByWord = ({ text, className }) => {
     <div ref={targetRef} className={cn('relative z-0 h-[140vh]', className)}>
       <div
         className={
-          'sticky top-0 mx-auto flex h-[100%] max-w-7xl items-center bg-transparent px-[1rem] py-[5rem] text-justify'
+          'sticky top-0 mx-auto flex h-[100%] max-w-6xl items-center bg-transparent px-[1rem] py-[5rem] text-justify'
         }
       >
         <p
           ref={targetRef}
           className={
-            'flex flex-wrap p-5 text-xl font-bold text-white/20 md:p-8 md:text-2xl lg:p-10 lg:text-3xl xl:text-3xl'
+            'flex flex-wrap p-5 text-xl font-bold text-white/20 md:p-8 md:text-3xl lg:p-10 lg:text-4xl xl:text-4xl'
           }
         >
           {words.map((word, i) => {

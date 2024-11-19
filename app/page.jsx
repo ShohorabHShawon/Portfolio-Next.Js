@@ -1,6 +1,5 @@
 import HeroSection from '@/components/HeroSection';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import AboutContents from '@/components/AboutContents';
 import SparklesText from '@/components/magicui/sparkles-text';
 import { Contact } from '@/components/Contact';
 import { SkillsCloud } from '@/components/SkillsCloud';
