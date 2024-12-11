@@ -31,7 +31,7 @@ function HeroSection() {
             className="mb-10 mt-10"
           >
             <Image
-              src="/profile.jpg"
+              src="/profile.JPG"
               alt="Shohorab Hossain Shawon"
               width={250}
               height={250}
