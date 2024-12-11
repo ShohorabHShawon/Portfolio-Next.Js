@@ -32,7 +32,7 @@ function HeroSection() {
           >
             <Image
               src="/profile.JPG"
-              alt="Shohorab Hossain Shawon"
+              alt="Display Picture"
               width={250}
               height={250}
               className="z-10 h-auto w-48 md:w-56 lg:w-60 rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
