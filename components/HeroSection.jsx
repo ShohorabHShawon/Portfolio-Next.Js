@@ -31,7 +31,7 @@ function HeroSection() {
             className="mb-10 mt-10"
           >
             <Image
-              src="/profile.JPG"
+              src="/profile.jpg"
               alt="Display Picture"
               width={250}
               height={250}
