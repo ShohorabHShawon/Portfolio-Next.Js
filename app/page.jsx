@@ -16,10 +16,13 @@ import { Card26 } from '@/components/uiProject6';
 import { Card5 } from '@/components/webProject5';
 import { Card6 } from '@/components/webProject6';
 import { About } from '@/components/About';
+import { NewNavbar } from '@/components/NewNav';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
     <div className="w-full overflow-hidden">
+      <NewNavbar />
       {/* Hero Section */}
       <HeroSection />
 
@@ -120,6 +123,7 @@ export default function Home() {
           <Contact />
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
