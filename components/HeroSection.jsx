@@ -17,61 +17,45 @@ function HeroSection() {
         id="home"
       >
         {/* Background Elements */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-black"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-black"></div>
 
-          <Spotlight
-            className="-top-40 left-0 md:left-60 md:-top-20"
-            fill="white"
-          />
-          
-          {/* Background Grid */}
-          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
-          <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-          
-          {/* Animated Background Particles */}
-          <div className="absolute inset-0 overflow-hidden z-10 pointer-events-none">
-            {/* Floating particles with various animations */}
-            <div className="absolute top-2/4 left-2/4 w-1 h-1 bg-white rounded-full animate-pulse opacity-70" />
-            <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-400 rounded-full animate-bounce opacity-60" />
-            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-white/50 rounded-full animate-ping opacity-40" />
-            <div className="absolute top-1/6 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-50" />
-            <div className="absolute top-2/3 left-1/6 w-2 h-2 bg-pink-400 rounded-full animate-bounce opacity-60" />
-            <div className="absolute top-1/3 right-1/6 w-1 h-1 bg-white/70 rounded-full animate-ping opacity-80" />
-            <div className="absolute top-5/6 left-2/3 w-2 h-2 bg-white rounded-full animate-pulse opacity-50" />
-            <div className="absolute top-1/12 left-1/2 w-1 h-1 bg-purple-300 rounded-full animate-bounce opacity-70" />
-            <div className="absolute bottom-1/4 right-2/3 w-2 h-2 bg-pink-300 rounded-full animate-ping opacity-40" />
-            <div className="absolute top-1/2 right-1/12 w-1 h-1 bg-white/30 rounded-full animate-pulse opacity-60" />
-            <div className="absolute top-3/4 left-1/12 w-2 h-2 bg-blue-400 rounded-full animate-bounce opacity-50" />
-            <div className="absolute top-1/8 right-2/4 w-1 h-1 bg-white rounded-full animate-ping opacity-70" />
-            <div className="absolute bottom-1/6 left-3/4 w-2 h-2 bg-purple-500 rounded-full animate-pulse opacity-40" />
-            <div className="absolute top-2/4 left-1/8 w-1 h-1 bg-pink-500 rounded-full animate-bounce opacity-60" />
-            <div className="absolute bottom-1/3 right-1/8 w-2 h-2 bg-white/40 rounded-full animate-ping opacity-50" />
-          </div>
+        <Spotlight
+          className="-top-40 left-0 md:left-60 md:-top-20"
+          fill="white"
+        />
 
-          <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
-            {/* Main Content Grid */}
+        {/* Background Grid */}
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+
+        {/* Animated Background Particles */}
+        <div className="absolute inset-0 overflow-hidden z-10 pointer-events-none">
+          {/* Floating particles with various animations */}
+          <div className="absolute top-2/4 left-2/4 w-1 h-1 bg-white rounded-full animate-pulse opacity-70" />
+          <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-400 rounded-full animate-bounce opacity-60" />
+          <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-white/50 rounded-full animate-ping opacity-40" />
+          <div className="absolute top-1/6 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-50" />
+          <div className="absolute top-2/3 left-1/6 w-2 h-2 bg-pink-400 rounded-full animate-bounce opacity-60" />
+          <div className="absolute top-1/3 right-1/6 w-1 h-1 bg-white/70 rounded-full animate-ping opacity-80" />
+          <div className="absolute top-5/6 left-2/3 w-2 h-2 bg-white rounded-full animate-pulse opacity-50" />
+          <div className="absolute top-1/12 left-1/2 w-1 h-1 bg-purple-300 rounded-full animate-bounce opacity-70" />
+          <div className="absolute bottom-1/4 right-2/3 w-2 h-2 bg-pink-300 rounded-full animate-ping opacity-40" />
+          <div className="absolute top-1/2 right-1/12 w-1 h-1 bg-white/30 rounded-full animate-pulse opacity-60" />
+          <div className="absolute top-3/4 left-1/12 w-2 h-2 bg-blue-400 rounded-full animate-bounce opacity-50" />
+          <div className="absolute top-1/8 right-2/4 w-1 h-1 bg-white rounded-full animate-ping opacity-70" />
+          <div className="absolute bottom-1/6 left-3/4 w-2 h-2 bg-purple-500 rounded-full animate-pulse opacity-40" />
+          <div className="absolute top-2/4 left-1/8 w-1 h-1 bg-pink-500 rounded-full animate-bounce opacity-60" />
+          <div className="absolute bottom-1/3 right-1/8 w-2 h-2 bg-white/40 rounded-full animate-ping opacity-50" />
+        </div>
+
+        <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
+          {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
-            <motion.div
-              className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="mb-6 text-center lg:text-left"
-              >
-                <span className="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium">
-                  Welcome to my portfolio
-                </span>
-              </motion.div>
-
+            <div className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2">
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
                 className="text-center lg:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
               >
                 <span className="text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl">
@@ -87,24 +71,23 @@ function HeroSection() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                whileTap={{ scale: 0.85 }}
                 className="text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left"
               >
                 Front-end developer passionate about creating exceptional
                 digital experiences with modern technologies.
               </motion.p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left"
-              >
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left">
                 <motion.button
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, delay: 1 }}
                   whileTap={{ scale: 0.85 }}
-                  className="group relative px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-black overflow-hidden hover:scale-125 transition duration-300 ease-in-out"
+                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-black overflow-hidden hover:scale-125"
                 >
                   <span className="relative z-10 text-white">
                     <Link
@@ -132,32 +115,33 @@ function HeroSection() {
                   </span>
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
-
                 <SocialLinks className="flex gap-4" />
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             {/* Right Column - Image */}
             <motion.div
               className="order-1 lg:order-2 flex justify-center lg:justify-end"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
                 <motion.div
                   whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 1 }}
                   className="relative"
                 >
-                  <BorderBeam 
-                    className={"rounded-full"} 
-                    colorFrom="#60a5fa" 
-                    colorTo="#f472b6" 
+                  <BorderBeam
+                    className={'rounded-full'}
+                    colorFrom="#60a5fa"
+                    colorTo="#f472b6"
                     size={150}
+                    duration={10}
+                    borderWidth={9}
                   />
                   <Image
                     src="/profile.jpg"
