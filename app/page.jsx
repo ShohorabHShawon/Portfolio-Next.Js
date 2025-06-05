@@ -59,7 +59,7 @@ export default function Home() {
 
         <div className="relative container mx-auto px-6 text-center max-w-7xl">
           <div className="mb-16">
-            <SparklesText text="WEB PROJECTS" />
+            <SparklesText text="Web Projects" />
             <p className="text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
               Crafting digital experiences with modern technologies and
               innovative design
@@ -101,7 +101,7 @@ export default function Home() {
           {/* Old Projects */}
 
           <div className="my-25">
-            <SparklesText text="UI / UX PROJECTS" />
+            <SparklesText text="UI/UX Projects" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Ui project items */}
@@ -128,10 +128,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section
-        id="contact"
-        className="relative text-white bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
-      >
+      <section id="contact" className="">
         <Contact />
       </section>
 

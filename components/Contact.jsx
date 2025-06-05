@@ -97,7 +97,7 @@ export function Contact() {
         </motion.div>
       )}
 
-      <div className="">
+      <div className="items-center">
         <div className="max-w-6xl mx-auto text-center px-6 py-16">
           {/* Header */}
           <div className="mb-8">
@@ -110,7 +110,6 @@ export function Contact() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-           
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Have a project in mind or just want to chat? I'd love to hear from
               you.

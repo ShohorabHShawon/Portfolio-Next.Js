@@ -9,10 +9,10 @@ const AboutContents = () => {
       id="about"
       className="bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden text-white flex flex-col items-center justify-center p-4 sm:p-8"
     >
+      <div className="">
+        <SparklesText text="About" />
+      </div>
       <div className="container mx-auto px-4 text-center max-w-4xl mt-20 mb-36">
-        <div className="mb-8">
-          <SparklesText text="ABOUT ME" />
-        </div>
         <div className="md:w-full lg:w-5/6 mx-auto h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] flex items-center justify-center">
           <TypingAnimation
             className="font-inter text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-justify font-bold text-black dark:text-white"
