@@ -17,7 +17,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faHome}
-          className="h-4 w-4 text-neutral-600 dark:text-neutral-300 transition-colors duration-200 hover:text-blue-600 dark:hover:text-blue-400"
+          className="h-4 w-4 text-gray-300 transition-all duration-300 hover:scale-110"
         />
       ),
     },
@@ -27,7 +27,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faUser}
-          className="h-4 w-4 text-neutral-600 dark:text-neutral-300 transition-colors duration-200 hover:text-blue-600 dark:hover:text-blue-400"
+          className="h-4 w-4 text-gray-300 transition-all duration-300 hover:scale-110"
         />
       ),
     },
@@ -37,7 +37,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faCode}
-          className="h-4 w-4 text-neutral-600 dark:text-neutral-300 transition-colors duration-200 hover:text-purple-600 dark:hover:text-purple-400"
+          className="h-4 w-4 text-gray-300 transition-all duration-300 hover:scale-110"
         />
       ),
     },
@@ -47,7 +47,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faBriefcase}
-          className="h-4 w-4 text-neutral-600 dark:text-neutral-300 transition-colors duration-200 hover:text-green-600 dark:hover:text-green-400"
+          className="h-4 w-4 text-gray-300 transition-all duration-300 hover:scale-110"
         />
       ),
     },
@@ -57,7 +57,7 @@ export function NewNavbar() {
       icon: (
         <FontAwesomeIcon
           icon={faEnvelope}
-          className="h-4 w-4 text-neutral-600 dark:text-neutral-300 transition-colors duration-200 hover:text-rose-600 dark:hover:text-rose-400"
+          className="h-4 w-4 text-gray-300 transition-all duration-300 hover:scale-110"
         />
       ),
     },
@@ -67,7 +67,7 @@ export function NewNavbar() {
     <div className="relative w-full">
       <FloatingNav
         navItems={navItems}
-        className="backdrop-blur-lg bg-white/70 dark:bg-neutral-900/70 border border-neutral-200/50 dark:border-neutral-700/50 shadow-lg"
+        className="backdrop-blur-lg bg-black/40 border border-purple-500/20 shadow-xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300 [&_a:hover]:underline [&_a]:underline-offset-4 [&_a:hover]:decoration-blue-400 [&_a:hover]:text-gray-300"
       />
     </div>
   );

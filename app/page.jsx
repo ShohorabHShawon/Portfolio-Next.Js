@@ -2,7 +2,6 @@ import HeroSection from '@/components/HeroSection';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import SparklesText from '@/components/magicui/sparkles-text';
 import { Contact } from '@/components/Contact';
-import { SkillsCloud } from '@/components/SkillsCloud';
 import { Card1 } from '@/components/webProject1';
 import { Card2 } from '@/components/webProject2';
 import { Card3 } from '@/components/webProject3';
@@ -15,16 +14,17 @@ import { Card25 } from '@/components/uiProject5';
 import { Card26 } from '@/components/uiProject6';
 import { Card5 } from '@/components/webProject5';
 import { Card6 } from '@/components/webProject6';
-import { About } from '@/components/About';
-import { NewNavbar } from '@/components/NewNav';
 import Footer from '@/components/Footer';
 import { Card7 } from '@/components/webProject7';
 import Skills from '@/components/Skills';
+import Navbar from '@/components/Navbar';
+import AboutContents from '@/components/AboutContents';
 
 export default function Home() {
   return (
     <div className="w-full overflow-hidden">
-      <NewNavbar />
+      {/* <NewNavbar /> */}
+      <Navbar />
       {/* Hero Section */}
       <HeroSection />
 
@@ -32,7 +32,8 @@ export default function Home() {
       <section id="about">
         <div className="bg-zinc-900 text-center">
           {/* <AboutContents /> */}
-          <About />
+          {/* <About /> */}
+          <AboutContents />
         </div>
       </section>
 

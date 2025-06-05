@@ -110,9 +110,7 @@ export function Contact() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white via-blue-200 to-purple-300 bg-clip-text text-transparent mb-6">
-              Let's Connect
-            </h2>
+           
             <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Have a project in mind or just want to chat? I'd love to hear from
               you.

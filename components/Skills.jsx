@@ -72,7 +72,7 @@ export default function Skills() {
       </div>
 
       {isMounted && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {skillCategories.map((category, index) => (
             <motion.div
               key={index}
