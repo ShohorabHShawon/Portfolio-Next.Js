@@ -56,7 +56,7 @@ export default function Skills() {
         { src: '/icons/powerpoint.png', title: 'PowerPoint' },
         { src: '/icons/excel.png', title: 'Excel' },
         { src: '/icons/notion.png', title: 'Notion' },
-        { src: '/icons/googleSheets.png', title: 'Google Sheets' },
+        { src: '/icons/googleSheet.png', title: 'Google Sheets' },
         { src: '/icons/googleDocs.png', title: 'Google Docs' },
       ],
     },
