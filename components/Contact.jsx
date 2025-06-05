@@ -97,8 +97,8 @@ export function Contact() {
         </motion.div>
       )}
 
-      <div className="items-center">
-        <div className="max-w-6xl mx-auto text-center px-6 py-16">
+      <div className="flex justify-center items-center w-full">
+        <div className="max-w-6xl w-full mx-auto text-center px-2 sm:px-6 py-16">
           {/* Header */}
           <div className="mb-8">
             <SparklesText text="Contact" />
@@ -116,7 +116,7 @@ export function Contact() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+          <div className="grid lg:grid-cols-2 gap-12 items-stretch justify-center mx-auto max-w-3xl lg:max-w-none">
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
