@@ -151,7 +151,7 @@ export function Contact() {
                     <div>
                       <p className="text-gray-400 text-sm text-start">Email</p>
                       <p className="text-white font-medium">
-                        shohorabhshawon@email.com
+                        shohorabhshawon@gmail.com
                       </p>
                     </div>
                   </div>
