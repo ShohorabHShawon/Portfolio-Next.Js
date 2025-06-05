@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Dialog, DialogPanel, DialogBackdrop } from '@headlessui/react';
 import { X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Bubblegum_Sans } from 'next/font/google';
+import Link from 'next/link';
 const bubblegum = Bubblegum_Sans({
   subsets: ['latin'],
   weight: ['400'],
@@ -297,10 +298,15 @@ export default function Photography() {
                   .getElementById('gallery')
                   .scrollIntoView({ behavior: 'smooth' })
               }
-              className="px-8 py-3 rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+              className="px-8 mx-2 py-3 rounded-xl border border-white/30 text-black  bg-white hover:bg-transparent hover:text-white transition-all duration-300 backdrop-blur-sm"
             >
               Explore Gallery
             </button>
+            <Link href="/">
+              <button className="px-8 py-3 rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm">
+                Portfolio
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -308,15 +314,16 @@ export default function Photography() {
       {/* Gallery Section */}
       <div id="gallery" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Modern Category Filter */}
+          {/* Category Filter - Responsive */}
           <div className="flex justify-center mb-16">
-            <div className="relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-full p-2 shadow-xl">
-              <div className="flex flex-wrap justify-center gap-1">
+            {/* Desktop Filter */}
+            <div className="hidden md:block relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-full p-2 shadow-xl">
+              <div className="flex gap-1">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`relative px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 ${
+                    className={`relative px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap ${
                       selectedCategory === category
                         ? 'bg-white text-black shadow-lg transform scale-105'
                         : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -329,6 +336,32 @@ export default function Photography() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Mobile Dropdown */}
+            <div className="md:hidden relative">
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="appearance-none bg-white/5 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 text-white text-sm font-medium shadow-xl focus:outline-none focus:ring-2 focus:ring-white/30 min-w-[200px]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                  backgroundPosition: 'right 1rem center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '1.5em 1.5em',
+                  paddingRight: '3rem',
+                }}
+              >
+                {categories.map((category) => (
+                  <option
+                    key={category}
+                    value={category}
+                    className="bg-zinc-900 text-white"
+                  >
+                    {category}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -368,6 +401,93 @@ export default function Photography() {
         </div>
       </div>
 
+      {/* Footer */}
+      <footer className="bg-black/80 backdrop-blur-lg border-t border-white/10 py-12 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* About Section */}
+            <div className="text-center md:text-left">
+              <h3
+                className={`${bubblegum.className} text-2xl font-bold text-white mb-4`}
+              >
+                SHOHORAB H SHAWON
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                Visual storyteller capturing moments through the lens.
+                Passionate about photography that speaks to the soul and tells
+                unique stories.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div className="text-center">
+              <h4 className="text-white font-semibold mb-4">Quick Links</h4>
+              <div className="space-y-2">
+                <Link
+                  href="/"
+                  className="block text-gray-400 hover:text-white transition-colors"
+                >
+                  Portfolio
+                </Link>
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById('gallery')
+                      .scrollIntoView({ behavior: 'smooth' })
+                  }
+                  className="block text-gray-400 hover:text-white transition-colors w-full"
+                >
+                  Gallery
+                </button>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="text-center md:text-right">
+              <h4 className="text-white font-semibold mb-4">Follow Me</h4>
+              <div className="flex justify-center md:justify-end gap-4">
+                <a
+                  href="https://www.facebook.com/shohorabhshawon/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.instagram.com/imagiography/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="border-t border-white/10 mt-8 pt-8 text-center">
+            <p className="text-gray-400">
+              © {new Date().getFullYear()} Shohorab H Shawon. All rights
+              reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
       {/* Details Modal */}
       <Dialog
         open={!!selectedPhoto && !isFullscreen}
@@ -376,17 +496,17 @@ export default function Photography() {
       >
         <div className="flex items-center justify-center min-h-screen px-4">
           <DialogBackdrop className="fixed inset-0 bg-black/90 backdrop-blur-sm" />
-          <DialogPanel className="relative z-10 bg-zinc-900/95 backdrop-blur-lg rounded-2xl max-w-4xl w-full shadow-2xl overflow-hidden">
+          <DialogPanel className="relative z-10 bg-zinc-900/95 backdrop-blur-lg rounded-2xl max-w-4xl w-full shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
             {/* Navigation Buttons */}
             <button
               onClick={() => navigatePhoto('prev')}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/50 hover:bg-black/70 rounded-full text-white transition-all"
+              className="absolute left-2 top-[30%] -translate-y-1/2 z-20 p-2 bg-black/30 hover:bg-black/70 rounded-full text-white transition-all"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={() => navigatePhoto('next')}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/50 hover:bg-black/70 rounded-full text-white transition-all"
+              className="absolute right-2 top-[30%] -translate-y-1/2 z-20 p-2 bg-black/30 hover:bg-black/70 rounded-full text-white transition-all"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -399,18 +519,18 @@ export default function Photography() {
             </button>
 
             {selectedPhoto && (
-              <div className="flex flex-col">
-                <div className="w-full">
+              <div className="flex flex-col h-full overflow-hidden">
+                <div className="flex-shrink-0 relative">
                   <Image
                     src={selectedPhoto.src}
                     alt={selectedPhoto.title}
                     width={800}
                     height={0}
                     style={{ height: 'auto' }}
-                    className="w-full"
+                    className="w-full max-h-[50vh] md:max-h-[60vh] object-contain"
                   />
                 </div>
-                <div className="p-6">
+                <div className="flex-1 p-6 overflow-y-auto">
                   <span className="inline-block px-3 py-1 bg-white/10 text-white text-sm rounded-full mb-4">
                     {selectedPhoto.category}
                   </span>
@@ -502,6 +622,23 @@ export default function Photography() {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+
+        .scrollbar-thin {
+          scrollbar-width: thin;
+        }
+
+        .scrollbar-thumb-white\/20::-webkit-scrollbar-thumb {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .scrollbar-track-transparent::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
         }
       `}</style>
     </div>
