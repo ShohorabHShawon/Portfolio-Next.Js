@@ -12,64 +12,149 @@ function HeroSection() {
     <>
       {/* Hero Section */}
       <section
-        className="min-h-screen pt-0 sm:pt-12 md:pt-12 lg:pt-5 flex items-center justify-center text-center bg-zinc-900 overflow-hidden"
+        className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
         id="home"
       >
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-black"></div>
+
         <Spotlight
-          className="-top-0 left-0 md:left-40 md:-top-20 lg:-top-60"
+          className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
         />
-        <div className="container mx-auto z-20 overflow-hidden">
-          {/* Circular Image */}
-          <motion.div
-            whileTap={{
-              scale: 0.5,
-            }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2 }}
-            className="mb-10 mt-10"
-          >
-            <Image
-              src="/profile.jpg"
-              alt="Display Picture"
-              width={250}
-              height={250}
-              className="z-10 h-auto w-48 md:w-56 lg:w-60 rounded-full mx-auto my-auto shadow-lg border-4 border-white hover:scale-110 transition duration-300 ease-in-out"
-            />{' '}
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 3 }}
-          >
-            <h1
-              className="font-lexend font-extrabold text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl px-2 mb-4 text-white 
-            hover:text-red-900 transform transition duration-300 ease-in-out inline-block"
-            >
-              SHOHORAB HOSSAIN SHAWON
-              <FlipW />
-            </h1>
-          </motion.div>
+        {/* Background Grid */}
+        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+        {/* Animated Background Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-2/4 w-0.5 h-0.5 bg-white rounded-full animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-0.5 h-0.5 bg-white rounded-full animate-bounce"></div>
+          <div className="absolute top-1/2 left-3/4 w-1 h-1 bg-white rounded-full animate-ping"></div>
+          <div className="absolute top-1/6 right-1/3 w-0.5 h-0.5 bg-purple-400 rounded-full animate-pulse"></div>
+          <div className="absolute top-2/3 left-1/6 w-1 h-1 bg-pink-400 rounded-full animate-bounce"></div>
+          <div className="absolute top-1/3 right-1/6 w-0.5 h-0.5 bg-white/50 rounded-full animate-ping"></div>
+          <div className="absolute top-5/6 left-2/3 w-0.5 h-0.5 bg-white rounded-full animate-pulse"></div>
+          <div className="absolute top-1/12 left-1/2 w-1 h-1 bg-purple-300 rounded-full animate-bounce"></div>
+          <div className="absolute bottom-1/4 right-2/3 w-0.5 h-0.5 bg-pink-300 rounded-full animate-ping"></div>
+          <div className="absolute top-1/2 right-1/12 w-0.5 h-0.5 bg-white/30 rounded-full animate-pulse"></div>
+        </div>
 
-          <motion.button
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2 }}
-            whileTap={{ scale: 0.7 }}
-            className="relative inline-flex items-center justify-center mb-2 overflow-hidden text-xs sm:text-sm md:text-base font-medium text-black bg-white border-2 border-black hover:border-white rounded-lg group hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800"
-          >
-            {' '}
-            <span className=" font-bold relative p-1 px-3 sm:px-2 sm:py-1.0 md:px-4 md:py-1.0 lg:px-6 lg:py-1.0 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
-              <Link
-                href="/Shohorab_Hossain_Shawon.pdf"
-                download="Shohorab_Hossain_Shawon.pdf"
+        <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
+            <motion.div
+              className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mb-6 text-center lg:text-left"
               >
-                CV
-              </Link>
-            </span>
-          </motion.button>
-          <SocialLinks className="" />
+                <span className="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium">
+                  Welcome to my portfolio
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-center lg:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+              >
+                <span className="text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl">
+                  Hi, I&apos;m
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+                  SHOHORAB
+                </span>
+                <br />
+                <span className="text-gray-300">HOSSAIN SHAWON</span>
+                <FlipW className="text-center lg:text-left" />
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left"
+              >
+                Front-end developer passionate about creating exceptional
+                digital experiences with modern technologies.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left"
+              >
+                <motion.button
+                  whileTap={{ scale: 0.85 }}
+                  className="group relative px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-black overflow-hidden hover:scale-125 transition duration-300 ease-in-out"
+                >
+                  <span className="relative z-10 text-white">
+                    <Link
+                      href="/Shohorab_Hossain_Shawon.pdf"
+                      download="Shohorab_Hossain_Shawon.pdf"
+                    >
+                      Download CV
+                      <span>
+                        <svg
+                          className="inline-block ml-2 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                          />
+                        </svg>
+                      </span>
+                    </Link>
+                  </span>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </motion.button>
+
+                <SocialLinks className="flex gap-4" />
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Image */}
+            <motion.div
+              className="order-1 lg:order-2 flex justify-center lg:justify-end"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                <motion.div
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1 }}
+                  className="relative"
+                >
+                  <Image
+                    src="/profile.jpg"
+                    alt="Display Picture"
+                    width={250}
+                    height={250}
+                    className="relative z-10 h-auto w-48 md:w-60 lg:w-72 rounded-full shadow-2xl border-4 border-white/20 hover:scale-105 transition duration-300 ease-in-out"
+                  />
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

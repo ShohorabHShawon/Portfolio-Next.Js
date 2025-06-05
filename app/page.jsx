@@ -19,6 +19,7 @@ import { About } from '@/components/About';
 import { NewNavbar } from '@/components/NewNav';
 import Footer from '@/components/Footer';
 import { Card7 } from '@/components/webProject7';
+import Skills from '@/components/Skills';
 
 export default function Home() {
   return (
@@ -29,7 +30,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about">
-        <div className="bg-zinc-900 min-h-screen text-center">
+        <div className="bg-zinc-900 text-center">
           {/* <AboutContents /> */}
           <About />
         </div>
@@ -38,10 +39,10 @@ export default function Home() {
       {/* Skills */}
       <section
         id="skills"
-        className="text-white flex flex-col items-center justify-center bg-zinc-900"
+        className="text-white flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
       >
-        <div className="flex flex-col">
-          <SkillsCloud />
+        <div className="flex flex-col ">
+          <Skills />
         </div>
         {/* <div className="flex flex-col">
           <Skills />
@@ -51,14 +52,20 @@ export default function Home() {
       {/* Project Section */}
       <section
         id="projects"
-        className="text-white flex items-center justify-center py-6 bg-zinc-900 overflow-hidden"
+        className="relative text-white py-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
       >
-        <div className="container mx-auto px-4 text-center max-w-7xl">
-          <div className="my-25">
+        {/* Background decoration */}
+
+        <div className="relative container mx-auto px-6 text-center max-w-7xl">
+          <div className="mb-16">
             <SparklesText text="WEB PROJECTS" />
+            <p className="text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
+              Crafting digital experiences with modern technologies and
+              innovative design
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* project items */}
 
             {/* Travel Agency Landing Page */}
@@ -122,15 +129,12 @@ export default function Home() {
       {/* Contact Section */}
       <section
         id="contact"
-        className="text-white flex items-center justify-center pt-10 bg-zinc-900 overflow-hidden"
+        className="relative text-white bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
       >
-        <div className="container mx-auto px-4 text-center">
-          <div className="mb-5">
-            <SparklesText text="CONTACT" />
-          </div>
-          <Contact />
-        </div>
+        <Contact />
       </section>
+
+      {/* Footer */}
       <Footer />
     </div>
   );

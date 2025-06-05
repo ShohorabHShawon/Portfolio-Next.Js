@@ -15,10 +15,10 @@ function SocialLinks() {
       <div className="flex space-x-0 justify-center items-center my-5">
         {/* LinkedIn Button */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5, x: -200 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 2 }}
-          whileTap={{ scale: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          whileTap={{ scale: 0.85 }}
           className="cursor-pointer"
           onClick={() =>
             handleClick('https://www.linkedin.com/in/shohorabhshawon/')
@@ -29,10 +29,10 @@ function SocialLinks() {
 
         {/* GitHub Button */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2 }}
-          whileTap={{ scale: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          whileTap={{ scale: 0.85 }}
           className="cursor-pointer"
           onClick={() => handleClick('https://github.com/shohorabhshawon')}
         >
@@ -41,10 +41,10 @@ function SocialLinks() {
 
         {/* Behance Button */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.5, x: 200 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          transition={{ duration: 2 }}
-          whileTap={{ scale: 0.8 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          whileTap={{ scale: 0.85 }}
           className="flex items-center justify-center cursor-pointer"
           onClick={() => handleClick('https://www.behance.net/shohorabhshawon')}
         >

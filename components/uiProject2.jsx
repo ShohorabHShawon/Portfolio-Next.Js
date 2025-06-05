@@ -25,16 +25,16 @@ export function Card22() {
           <CardItem
             as="p"
             translateZ="60"
-            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 line-clamp-1"
           >
-            Backpack Website Ui Design using Figma.
+            Simple and clean Backpack Website UI Design using Figma.
           </CardItem>
           <CardItem translateZ="100" className="w-full mt-4">
             <Image
               src="/ui2.png"
               height="1000"
               width="1000"
-              className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl"
+              className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl line-clamp-1"
               alt="thumbnail"
             />
           </CardItem>
