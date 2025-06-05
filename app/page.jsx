@@ -22,7 +22,9 @@ import AboutContents from '@/components/AboutContents';
 
 export default function Home() {
   return (
-    <div className="w-full overflow-hidden">
+    
+    <div className="bg-gradient-to-br from-black via-gray-900 to-black w-full overflow-hidden">
+      
       {/* <NewNavbar /> */}
       <Navbar />
       {/* Hero Section */}
@@ -30,7 +32,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about">
-        <div className="bg-zinc-900 text-center">
+        <div className="text-center">
           {/* <AboutContents /> */}
           {/* <About /> */}
           <AboutContents />
@@ -40,7 +42,7 @@ export default function Home() {
       {/* Skills */}
       <section
         id="skills"
-        className="text-white flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
+        className="text-white flex flex-col items-center justify-center overflow-hidden"
       >
         <div className="flex flex-col ">
           <Skills />
@@ -53,7 +55,7 @@ export default function Home() {
       {/* Project Section */}
       <section
         id="projects"
-        className="relative text-white py-20 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden"
+        className="relative text-white py-20 overflow-hidden"
       >
         {/* Background decoration */}
 

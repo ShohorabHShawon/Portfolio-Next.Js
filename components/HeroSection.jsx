@@ -6,6 +6,7 @@ import { FlipW } from './FlipW';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import SocialLinks from './SocialLinks';
+import { BorderBeam } from './magicui/border-beam';
 
 function HeroSection() {
   return (
@@ -16,31 +17,39 @@ function HeroSection() {
         id="home"
       >
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-black"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-slate-900 to-black"></div>
 
-        <Spotlight
-          className="-top-40 left-0 md:left-60 md:-top-20"
-          fill="white"
-        />
-        {/* Background Grid */}
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-        {/* Animated Background Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-2/4 w-0.5 h-0.5 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute top-3/4 right-1/4 w-0.5 h-0.5 bg-white rounded-full animate-bounce"></div>
-          <div className="absolute top-1/2 left-3/4 w-1 h-1 bg-white rounded-full animate-ping"></div>
-          <div className="absolute top-1/6 right-1/3 w-0.5 h-0.5 bg-purple-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-2/3 left-1/6 w-1 h-1 bg-pink-400 rounded-full animate-bounce"></div>
-          <div className="absolute top-1/3 right-1/6 w-0.5 h-0.5 bg-white/50 rounded-full animate-ping"></div>
-          <div className="absolute top-5/6 left-2/3 w-0.5 h-0.5 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute top-1/12 left-1/2 w-1 h-1 bg-purple-300 rounded-full animate-bounce"></div>
-          <div className="absolute bottom-1/4 right-2/3 w-0.5 h-0.5 bg-pink-300 rounded-full animate-ping"></div>
-          <div className="absolute top-1/2 right-1/12 w-0.5 h-0.5 bg-white/30 rounded-full animate-pulse"></div>
-        </div>
+          <Spotlight
+            className="-top-40 left-0 md:left-60 md:-top-20"
+            fill="white"
+          />
+          
+          {/* Background Grid */}
+          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]" />
+          <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+          
+          {/* Animated Background Particles */}
+          <div className="absolute inset-0 overflow-hidden z-10 pointer-events-none">
+            {/* Floating particles with various animations */}
+            <div className="absolute top-2/4 left-2/4 w-1 h-1 bg-white rounded-full animate-pulse opacity-70" />
+            <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-400 rounded-full animate-bounce opacity-60" />
+            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-white/50 rounded-full animate-ping opacity-40" />
+            <div className="absolute top-1/6 right-1/3 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-50" />
+            <div className="absolute top-2/3 left-1/6 w-2 h-2 bg-pink-400 rounded-full animate-bounce opacity-60" />
+            <div className="absolute top-1/3 right-1/6 w-1 h-1 bg-white/70 rounded-full animate-ping opacity-80" />
+            <div className="absolute top-5/6 left-2/3 w-2 h-2 bg-white rounded-full animate-pulse opacity-50" />
+            <div className="absolute top-1/12 left-1/2 w-1 h-1 bg-purple-300 rounded-full animate-bounce opacity-70" />
+            <div className="absolute bottom-1/4 right-2/3 w-2 h-2 bg-pink-300 rounded-full animate-ping opacity-40" />
+            <div className="absolute top-1/2 right-1/12 w-1 h-1 bg-white/30 rounded-full animate-pulse opacity-60" />
+            <div className="absolute top-3/4 left-1/12 w-2 h-2 bg-blue-400 rounded-full animate-bounce opacity-50" />
+            <div className="absolute top-1/8 right-2/4 w-1 h-1 bg-white rounded-full animate-ping opacity-70" />
+            <div className="absolute bottom-1/6 left-3/4 w-2 h-2 bg-purple-500 rounded-full animate-pulse opacity-40" />
+            <div className="absolute top-2/4 left-1/8 w-1 h-1 bg-pink-500 rounded-full animate-bounce opacity-60" />
+            <div className="absolute bottom-1/3 right-1/8 w-2 h-2 bg-white/40 rounded-full animate-ping opacity-50" />
+          </div>
 
-        <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
-          {/* Main Content Grid */}
+          <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
+            {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
             <motion.div
               className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2"
@@ -144,6 +153,12 @@ function HeroSection() {
                   transition={{ duration: 1 }}
                   className="relative"
                 >
+                  <BorderBeam 
+                    className={"rounded-full"} 
+                    colorFrom="#60a5fa" 
+                    colorTo="#f472b6" 
+                    size={150}
+                  />
                   <Image
                     src="/profile.jpg"
                     alt="Display Picture"

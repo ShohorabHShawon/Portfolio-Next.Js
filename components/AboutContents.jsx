@@ -7,7 +7,7 @@ const AboutContents = () => {
   return (
     <section
       id="about"
-      className="bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden text-white flex flex-col items-center justify-center p-4 sm:p-8"
+      className="overflow-hidden text-white flex flex-col items-center justify-center p-4 sm:p-8"
     >
       <div className="">
         <SparklesText text="About" />
