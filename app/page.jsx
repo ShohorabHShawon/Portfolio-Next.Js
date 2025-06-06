@@ -19,6 +19,7 @@ import { Card7 } from '@/components/webProject7';
 import Skills from '@/components/Skills';
 import Navbar from '@/components/Navbar';
 import AboutContents from '@/components/AboutContents';
+import { Card8 } from '@/components/webProject8';
 
 export default function Home() {
   return (
@@ -81,6 +82,11 @@ export default function Home() {
               {/* Restaurant Landing Page */}
               <div className="w-full h-auto">
                 <Card6 />
+              </div>
+
+              {/* Real Estate Landing Page */}
+              <div className="w-full h-auto">
+                <Card8 />
               </div>
               {/* Modern Restaurant Website */}
               <div className="w-full h-auto">
