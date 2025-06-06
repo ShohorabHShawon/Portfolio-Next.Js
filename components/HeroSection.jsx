@@ -81,13 +81,18 @@ function HeroSection() {
                 digital experiences with modern technologies.
               </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left">
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left ">
                 <motion.button
-                  initial={{ opacity: 0, x: -50 }}
+                  initial={{ opacity: 0, x: -90 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 1, delay: 1 }}
+                  whileHover={{ scale: 1.15 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.9,
+                    scale: { duration: 0.2 },
+                  }}
                   whileTap={{ scale: 0.85 }}
-                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-black overflow-hidden hover:scale-125"
+                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-black overflow-hidden"
                 >
                   <span className="relative z-10 text-white">
                     <Link
@@ -130,9 +135,10 @@ function HeroSection() {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
                 <motion.div
                   whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, scale: 0.5 }}
+                  initial={{ opacity: 0, scale: 0.4 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: 1.5, delay: 0.5 }}
+                  exit={{ opacity: 0, scale: 0.4 }}
                   className="relative"
                 >
                   <BorderBeam

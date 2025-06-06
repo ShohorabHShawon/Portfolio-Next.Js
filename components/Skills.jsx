@@ -22,6 +22,7 @@ export default function Skills() {
         { src: '/icons/c.png', title: 'C' },
         { src: '/icons/cpp.png', title: 'C++' },
         { src: '/icons/csharp.png', title: 'C#' },
+        { src: '/icons/java.png', title: 'Java' },
       ],
     },
     {
@@ -31,6 +32,7 @@ export default function Skills() {
         { src: '/icons/nextjs.png', title: 'Next.js' },
         { src: '/icons/reactjs.png', title: 'React.js' },
         { src: '/icons/tailwind.png', title: 'Tailwind CSS' },
+        { src: '/icons/vitejs.png', title: 'Vite' },
         { src: '/icons/html.png', title: 'HTML' },
         { src: '/icons/css.png', title: 'CSS' },
         { src: '/icons/nodejs.png', title: 'Node.js' },
@@ -42,6 +44,7 @@ export default function Skills() {
       icons: [
         { src: '/icons/figma.png', title: 'Figma' },
         { src: '/icons/adobeXD.png', title: 'Adobe XD' },
+        { src: '/icons/framer.png', title: 'Framer' },
         { src: '/icons/adobePS.png', title: 'Photoshop' },
         { src: '/icons/adobeLR.png', title: 'Lightroom' },
         { src: '/icons/adobeAI.png', title: 'Illustrator' },
@@ -52,6 +55,7 @@ export default function Skills() {
       title: 'Productivity Tools',
       color: 'from-orange-400 to-orange-600',
       icons: [
+        { src: '/icons/github.png', title: 'Github' },
         { src: '/icons/word.png', title: 'MS Word' },
         { src: '/icons/powerpoint.png', title: 'PowerPoint' },
         { src: '/icons/excel.png', title: 'Excel' },
@@ -99,7 +103,7 @@ export default function Skills() {
                 </div>
 
                 {/* Skills grid */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {category.icons.map((icon, idx) => (
                     <motion.div
                       key={idx}
@@ -130,11 +134,11 @@ export default function Skills() {
                             src={icon.src}
                             alt={icon.title}
                             title={icon.title}
-                            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                            className="w-8 h-8 md:w-10 md:h-10 object-contain "
                             width={40}
                             height={40}
                           />
-                          <span className="text-xs font-medium text-gray-600 dark:text-gray-300 mt-2 text-center leading-tight">
+                          <span className="text-xs font-medium text-gray-600 dark:text-gray-300 mt-2 text-center leading-tight line-clamp-1">
                             {icon.title}
                           </span>
                         </div>

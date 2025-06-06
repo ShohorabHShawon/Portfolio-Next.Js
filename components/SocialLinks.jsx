@@ -15,40 +15,55 @@ function SocialLinks() {
       <div className="flex space-x-0 justify-center items-center my-5">
         {/* LinkedIn Button */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 90 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 1 }}
+          whileHover={{ scale: 1.15 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.9,
+            scale: { duration: 0.2 },
+          }}
           whileTap={{ scale: 0.85 }}
           className="cursor-pointer"
           onClick={() =>
             handleClick('https://www.linkedin.com/in/shohorabhshawon/')
           }
         >
-          <FaLinkedin className="text-3xl md:text-4xl lg:text-5xl hover:scale-125 transition duration-300 ease-in-out mx-2" />
+          <FaLinkedin className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
         </motion.div>
 
         {/* GitHub Button */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 90 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 1 }}
+          whileHover={{ scale: 1.15 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.9,
+            scale: { duration: 0.2 },
+          }}
           whileTap={{ scale: 0.85 }}
           className="cursor-pointer"
           onClick={() => handleClick('https://github.com/shohorabhshawon')}
         >
-          <FaGithubSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-125 transition duration-300 ease-in-out mx-2" />
+          <FaGithubSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
         </motion.div>
 
         {/* Behance Button */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 90 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 1 }}
+          whileHover={{ scale: 1.15 }}
+          transition={{
+            duration: 0.6,
+            delay: 0.9,
+            scale: { duration: 0.2 },
+          }}
           whileTap={{ scale: 0.85 }}
           className="flex items-center justify-center cursor-pointer"
           onClick={() => handleClick('https://www.behance.net/shohorabhshawon')}
         >
-          <FaBehanceSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-125 transition duration-300 ease-in-out mx-2" />
+          <FaBehanceSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
         </motion.div>
       </div>
     </>
