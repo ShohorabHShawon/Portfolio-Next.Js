@@ -22,7 +22,7 @@ function HeroSection() {
 
         <Spotlight
           className="-top-40 left-0 md:left-60 md:-top-20"
-          fill="currentColor"
+          fill="white"
         />
 
         {/* Background Grid */}
@@ -49,7 +49,7 @@ function HeroSection() {
           <div className="absolute bottom-1/3 right-1/8 w-2 h-2 bg-gray-800/40 dark:bg-white/40 rounded-full animate-ping opacity-50 transition-colors duration-300" />
         </div>
 
-        <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-20 lg:my-0">
+        <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-16 md:my-0">
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
             <div className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2">
@@ -135,9 +135,9 @@ function HeroSection() {
                       scale: { duration: 0.2 },
                     }}
                     whileTap={{ scale: 0.85 }}
-                    className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg font-semibold text-white overflow-hidden"
+                    className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg font-semibold text-white overflow-hidden"
                   >
-                    View Blogs
+                    Blogs
                     <span>
                       <svg
                         className="inline-block ml-2 w-4 h-4"
