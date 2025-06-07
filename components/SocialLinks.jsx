@@ -12,7 +12,7 @@ function SocialLinks() {
 
   return (
     <>
-      <div className="flex space-x-0 justify-center items-center my-5">
+      <div className="flex space-x-0 justify-center items-center my-5 text-gray-900 dark:text-gray-100">
         {/* LinkedIn Button */}
         <motion.div
           initial={{ opacity: 0, x: 90 }}

@@ -1,5 +1,6 @@
 import localFont from 'next/font/local';
 import './globals.css';
+import { ThemeProvider } from 'next-themes';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -20,7 +21,8 @@ const lexend = localFont({
 
 export const metadata = {
   title: 'Shohorab Hossain Shawon',
-  description: 'Portfolio',
+  description:
+    'Portfolio of Shohorab Hossain Shawon, a web developer specializing in Next.js and React.',
 };
 
 export default function RootLayout({ children }) {
@@ -29,7 +31,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

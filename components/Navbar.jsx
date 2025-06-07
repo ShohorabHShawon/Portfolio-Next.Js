@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BorderBeam } from './magicui/border-beam';
+import ThemeToggle from '@/app/blogs/components/ThemeToggle';
 
 const Navbar = () => {
   const navItems = [
@@ -57,6 +58,7 @@ const Navbar = () => {
               </Link>
             ))}
           </div>
+          <ThemeToggle />
         </div>
       </div>
     </motion.nav>

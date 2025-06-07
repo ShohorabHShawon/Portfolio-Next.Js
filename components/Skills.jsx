@@ -67,9 +67,12 @@ export default function Skills() {
   ];
 
   return (
-    <section className="container mx-auto px-4 py-16 mb-10">
+    <div className="flex flex-col items-center justify-center p-4 sm:p-8 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="text-center mb-12">
-        <SparklesText text="Skills" />
+        <SparklesText
+          text="Skills"
+          className={'text-gray-800 dark:text-white'}
+        />
         <p className="text-gray-600 dark:text-gray-400 mt-4 text-lg">
           Technologies I work with
         </p>
@@ -86,7 +89,7 @@ export default function Skills() {
               viewport={{ once: true, amount: 0.3 }}
               className="relative group"
             >
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-transparent">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-transparent">
                 {/* Gradient border effect */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-r ${category.color} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm`}
@@ -123,7 +126,7 @@ export default function Skills() {
                       whileTap={{ scale: 0.95 }}
                       className="group/icon"
                     >
-                      <div className="relative bg-gray-50 dark:bg-gray-700 rounded-xl p-4 hover:bg-gray-100 dark:hover:bg-gray-600 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-500">
+                      <div className="relative bg-gray-50 dark:bg-gray-800 rounded-xl p-4 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600">
                         {/* Hover effect background */}
                         <div
                           className={`absolute inset-0 bg-gradient-to-br ${category.color} rounded-xl opacity-0 group-hover/icon:opacity-10 transition-opacity duration-300`}
@@ -151,6 +154,6 @@ export default function Skills() {
           ))}
         </div>
       )}
-    </section>
+    </div>
   );
 }

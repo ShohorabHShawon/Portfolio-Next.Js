@@ -64,7 +64,7 @@ export function Contact() {
 
   return (
     <>
-      {/* Custom Alert Modal with Glass Effect */}
+      {/* Alert Modal */}
       {showAlert && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -75,19 +75,18 @@ export function Contact() {
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
+            className="bg-white/10 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700 text-gray-800 dark:text-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
           >
             <div className="text-center">
               <p className="text-lg font-medium">{alertMessage}</p>
-              {!isLoading && (
+              {!isLoading ? (
                 <button
-                  className="mt-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 font-semibold rounded-xl hover:scale-105 transition-all duration-200"
                   onClick={() => setShowAlert(false)}
+                  className="mt-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 font-semibold rounded-xl hover:scale-105 transition-all duration-200"
                 >
                   Close
                 </button>
-              )}
-              {isLoading && (
+              ) : (
                 <div className="mt-6 flex justify-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
                 </div>
@@ -97,20 +96,21 @@ export function Contact() {
         </motion.div>
       )}
 
-      <div className="flex justify-center items-center w-full">
-        <div className="max-w-6xl w-full mx-auto text-center px-2 sm:px-6 py-16">
-          {/* Header */}
+      {/* Contact Section */}
+      <section className="w-full min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white flex justify-center items-center px-4 sm:px-6 py-20">
+        <div className="max-w-6xl w-full mx-auto text-center">
           <div className="mb-8">
             <SparklesText text="Contact" />
           </div>
+
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-16"
           >
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Have a project in mind or just want to chat? I'd love to hear from
               you.
             </p>
@@ -125,14 +125,13 @@ export function Contact() {
               viewport={{ once: true }}
               className="space-y-8 h-full"
             >
-              <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 shadow-2xl h-full flex flex-col justify-center">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 dark:border-gray-700 shadow-2xl h-full flex flex-col justify-center">
                 <BorderBeam />
-                <h3 className="text-2xl font-semibold text-white mb-6">
-                  Get in Touch
-                </h3>
+                <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
 
                 <div className="space-y-6">
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 p-4 rounded-xl transition-all duration-300">
+                  {/* Email */}
+                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <svg
                         className="w-6 h-6 text-white"
@@ -149,14 +148,15 @@ export function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm text-start">Email</p>
-                      <p className="text-white font-medium">
-                        shohorabhshawon@gmail.com
+                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
+                        Email
                       </p>
+                      <p className="font-medium">shohorabhshawon@gmail.com</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 p-4 rounded-xl transition-all duration-300 ">
+                  {/* Location */}
+                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
                     <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <svg
                         className="w-6 h-6 text-white"
@@ -179,16 +179,15 @@ export function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm text-start">
+                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
                         Location
                       </p>
-                      <p className="text-white font-medium">
-                        Uttara, Dhaka, Bangladesh
-                      </p>
+                      <p className="font-medium">Uttara, Dhaka, Bangladesh</p>
                     </div>
                   </div>
 
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 p-4 rounded-xl transition-all duration-300">
+                  {/* Response Time */}
+                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                       <svg
                         className="w-6 h-6 text-white"
@@ -205,10 +204,10 @@ export function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-sm text-start">
+                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
                         Response Time
                       </p>
-                      <p className="text-white font-medium">Within 24 hours</p>
+                      <p className="font-medium">Within 24 hours</p>
                     </div>
                   </div>
                 </div>
@@ -225,73 +224,109 @@ export function Contact() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 shadow-2xl relative overflow-hidden h-full flex flex-col"
+                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 dark:border-gray-700 shadow-2xl relative overflow-hidden h-full flex flex-col"
               >
                 <BorderBeam />
-                <h3 className="text-2xl font-semibold text-white mb-6">
-                  Email Me
-                </h3>
-                {/* Floating particles decoration */}
+                <h3 className="text-3xl font-bold mb-6">Email Me</h3>
+                {/* // Floating particles */}
+                {/* Floating particles */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                   <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
                   <div className="absolute top-12 left-8 w-1 h-1 bg-purple-400 rounded-full animate-ping"></div>
                   <div className="absolute bottom-8 right-12 w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse"></div>
                 </div>
-
                 <div className="space-y-6 relative z-10 flex-1 flex flex-col justify-center">
-                  <div className="grid grid-cols-1 gap-6">
-                    <div className="group">
-                      <label
-                        htmlFor="name"
-                        className="block text-white/90 font-medium mb-3 text-sm tracking-wide text-start"
-                      >
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="Your Name Here..."
-                        className="w-full px-6 py-4 bg-white/5 text-white border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-400 hover:bg-white/5 hover:border-white/30"
-                      />
-                    </div>
-
-                    <div className="group">
-                      <label
-                        htmlFor="email"
-                        className="block text-white/90 font-medium mb-3 text-sm tracking-wide text-start"
-                      >
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="name@example.com"
-                        className="w-full px-6 py-4 bg-white/5 text-white border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-400 hover:bg-white/5 hover:border-white/30"
-                      />
-                    </div>
-
-                    <div className="group">
-                      <label
-                        htmlFor="message"
-                        className="block text-white/90 font-medium mb-3 text-sm tracking-wide text-start"
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        name="message"
-                        required
-                        rows="5"
-                        placeholder="Tell me about your project..."
-                        className="w-full px-6 py-4 bg-white/5 text-white border border-white/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 focus:bg-white/10 transition-all duration-300 placeholder-gray-400 resize-none hover:bg-white/5 hover:border-white/30"
-                      ></textarea>
-                    </div>
+                  {/* Name */}
+                  <div className="group">
+                    <label
+                      htmlFor="name"
+                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                    >
+                      Full Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Your Name Here..."
+                      className="w-full px-6 py-4 
+                                      bg-white dark:bg-gray-900 
+                                      text-gray-900 dark:text-gray-100 
+                                      border border-gray-300 dark:border-gray-700 
+                                      rounded-2xl 
+                                      focus:outline-none 
+                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                      transition-all duration-300 
+                                      placeholder-gray-400 
+                                      hover:bg-blue-50 dark:hover:bg-gray-800 
+                                      hover:border-blue-400 dark:hover:border-purple-400"
+                    />
                   </div>
 
+                  {/* Email */}
+                  <div className="group">
+                    <label
+                      htmlFor="email"
+                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                    >
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="name@example.com"
+                      className="w-full px-6 py-4 
+                                      bg-white dark:bg-gray-900 
+                                      text-gray-900 dark:text-gray-100 
+                                      border border-gray-300 dark:border-gray-700 
+                                      rounded-2xl 
+                                      focus:outline-none 
+                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                      transition-all duration-300 
+                                      placeholder-gray-400 
+                                      hover:bg-blue-50 dark:hover:bg-gray-800 
+                                      hover:border-blue-400 dark:hover:border-purple-400"
+                    />
+                  </div>
+
+                  {/* Message */}
+                  <div className="group">
+                    <label
+                      htmlFor="message"
+                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      required
+                      rows="5"
+                      placeholder="Tell me about your project..."
+                      className="w-full px-6 py-4 
+                                      bg-white dark:bg-gray-900 
+                                      text-gray-900 dark:text-gray-100 
+                                      border border-gray-300 dark:border-gray-700 
+                                      rounded-2xl 
+                                      focus:outline-none 
+                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                      transition-all duration-300 
+                                      placeholder-gray-400 
+                                      hover:bg-blue-50 dark:hover:bg-gray-800 
+                                      hover:border-blue-400 dark:hover:border-purple-400"
+                    ></textarea>
+                  </div>
+
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-semibold py-4 px-6 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+                    className="w-full 
+                                      bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 
+                                      text-white font-semibold py-4 px-6 rounded-2xl 
+                                      transition-all duration-500 transform 
+                                      hover:scale-105 hover:shadow-2xl 
+                                      disabled:opacity-50 relative overflow-hidden group
+                                      focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400"
                   >
                     <span className="relative z-10">
                       {isLoading ? 'Sending...' : 'Send Message'}
@@ -303,7 +338,7 @@ export function Contact() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }

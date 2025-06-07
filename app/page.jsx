@@ -29,7 +29,6 @@ export default function Home() {
         <Navbar />
         {/* Hero Section */}
         <HeroSection />
-
         {/* About Section */}
         <section id="about">
           <div className="text-center">
@@ -38,66 +37,45 @@ export default function Home() {
             <AboutContents />
           </div>
         </section>
-
         {/* Skills */}
-        <section
-          id="skills"
-          className="text-white flex flex-col items-center justify-center overflow-hidden"
-        >
-          <div className="flex flex-col ">
-            <Skills />
-          </div>
-          {/* <div className="flex flex-col">
+        <section id="skills" className="">
           <Skills />
-        </div> */}
         </section>
-
         {/* Project Section */}
         <section
           id="projects"
-          className="relative text-white py-20 overflow-hidden"
+          className="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-800 dark:text-white py-20 px-4"
         >
-          {/* Background decoration */}
-
-          <div className="relative container mx-auto px-6 text-center max-w-7xl">
+          <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
+            {/* Header */}
             <div className="mb-16">
               <SparklesText text="Web Projects" />
-              <p className="text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
+              <p className="text-zinc-500 dark:text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
                 Crafting digital experiences with modern technologies and
                 innovative design
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* project items */}
-
-              {/* Travel Agency Landing Page */}
+            {/* Web Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
               <div className="w-full h-auto">
                 <Card7 />
               </div>
-              {/* Movie Database Website */}
               <div className="w-full h-auto">
                 <Card4 />
               </div>
-              {/* Restaurant Landing Page */}
               <div className="w-full h-auto">
                 <Card6 />
               </div>
-
-              {/* Real Estate Landing Page */}
               <div className="w-full h-auto">
                 <Card8 />
               </div>
-              {/* Modern Restaurant Website */}
               <div className="w-full h-auto">
                 <Card5 />
               </div>
-
-              {/* Old Projects */}
               <div className="w-full h-auto">
                 <Card1 />
               </div>
-
               <div className="w-full h-auto">
                 <Card3 />
               </div>
@@ -105,13 +83,14 @@ export default function Home() {
                 <Card2 />
               </div>
             </div>
-            {/* Old Projects */}
 
-            <div className="my-25">
+            {/* UI/UX Projects Header */}
+            <div className="my-24">
               <SparklesText text="UI/UX Projects" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Ui project items */}
+
+            {/* UI/UX Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
               <div className="w-full h-auto">
                 <Card25 />
               </div>
@@ -138,7 +117,6 @@ export default function Home() {
         <section id="contact" className="">
           <Contact />
         </section>
-
         {/* Footer */}
         <Footer />
       </div>

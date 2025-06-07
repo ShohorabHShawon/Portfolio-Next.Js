@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Loading from './components/Loading';
+import ThemeToggle from './components/ThemeToggle';
 
 export default function BlogsPage() {
   const [blogs, setBlogs] = useState([]);
@@ -10,7 +12,10 @@ export default function BlogsPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch('/api/blogs');
+        const res = await fetch('/api/blogs', {
+          cache: 'force-cache',
+          next: { revalidate: 3600 }, // Cache for 1 hour
+        });
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -35,22 +40,42 @@ export default function BlogsPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-      </div>
-    );
+    return <Loading />;
   }
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Hero Section */}
-      <div className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Latest <span className="text-blue-600">Insights</span>
+      <div className="bg-gray-100 dark:bg-gray-900 shadow-sm relative">
+        <div className="absolute top-4 left-4 z-10">
+          <Link
+            href="/"
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          >
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
+            Back to Portfolio
+          </Link>
+        </div>
+        <div className="absolute top-4 right-4 z-10">
+          <ThemeToggle />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 py-16 text-center font-lexend font-extrabold">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Latest{' '}
+            <span className="text-blue-600 dark:text-blue-400">Insights</span>
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Thoughts, tutorials, and insights on web development, design, and
             technology
           </p>
@@ -63,7 +88,7 @@ export default function BlogsPage() {
           <div className="text-center py-20">
             <div className="mb-4">
               <svg
-                className="mx-auto h-16 w-16 text-gray-400"
+                className="mx-auto h-16 w-16 text-gray-400 dark:text-gray-500"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -76,25 +101,31 @@ export default function BlogsPage() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               No blogs found
             </h3>
-            <p className="text-gray-500">Check back soon for new content!</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Check back soon for new content!
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogs.map((blog) => (
               <article
                 key={blog.id}
-                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-900/50 overflow-hidden hover:shadow-xl dark:hover:shadow-gray-900/75 transition-shadow duration-300 group"
               >
-                <div className="aspect-video overflow-hidden">
+                <div className="aspect-video relative overflow-hidden">
                   <Image
                     src={blog.thumbnail}
                     alt={blog.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     width={400}
                     height={225}
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAQIAAxESkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyruFAB0A6bfYnqvFEAfubhEJGY7gD7BhsD6c9YwdOI2N6gL4Yqboo2R2SvUDo78O7pElx0IM5C+LxL0Jm2FuHqWGgEDMEO0s8FWfUO4WjpPJC8c4pNgdAtKlMFJQCUZ3KPTpV9/rJ7cVhfJj73Yk9EM"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
 
@@ -103,18 +134,18 @@ export default function BlogsPage() {
                     {blog.categories?.slice(0, 2).map((category, index) => (
                       <span
                         key={index}
-                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700"
+                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                       >
                         {category}
                       </span>
                     ))}
                   </div>
 
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                     {blog.title}
                   </h2>
 
-                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
                     <time dateTime={blog.publishedDate}>
                       {new Date(blog.publishedDate).toLocaleDateString(
                         'en-US',
@@ -144,7 +175,8 @@ export default function BlogsPage() {
 
                   <Link
                     href={blog.route}
-                    className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 transition-colors group"
+                    prefetch={true}
+                    className="inline-flex items-center font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors group"
                   >
                     Read article
                     <svg
