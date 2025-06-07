@@ -1,7 +1,7 @@
 export default function Loading() {
   // Or a custom loading skeleton component
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gray-600 overflow-hidden dark:from-gray-900 dark:to-gray-800">
       {/* Hero Section Skeleton */}
       <div className="bg-white shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
