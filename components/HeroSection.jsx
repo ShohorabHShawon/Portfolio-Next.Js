@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import SocialLinks from './SocialLinks';
 import { BorderBeam } from './magicui/border-beam';
-import { useTheme } from 'next-themes';
 
 function HeroSection() {
   return (
@@ -24,6 +23,7 @@ function HeroSection() {
           className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
         />
+        
 
         {/* Background Grid */}
         <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02] bg-[size:60px_60px] transition-colors duration-300" />
@@ -122,7 +122,7 @@ function HeroSection() {
                     </Link>
                     </span>
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </motion.button>
+                </motion.button>
 
                   <Link href="/photography">
                     <motion.button
