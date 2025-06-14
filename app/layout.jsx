@@ -24,22 +24,22 @@ export const metadata = {
     'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-    shortcut: '/favicon-32x32.png',
+    apple: '/favicon.png',
+    shortcut: '/favicon.png',
     other: [
       {
         rel: 'icon',
-        url: '/favicon-16x16.png',
+        url: '/favicon.png',
         sizes: '16x16',
       },
       {
         rel: 'icon',
-        url: '/favicon-32x32.png',
+        url: '/favicon.png',
         sizes: '32x32',
       },
       {
         rel: 'icon',
-        url: '/favicon-48x48.png',
+        url: '/favicon.png',
         sizes: '48x48',
       },
     ],
