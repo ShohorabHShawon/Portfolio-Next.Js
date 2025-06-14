@@ -20,7 +20,30 @@ const lexend = localFont({
 });
 
 export const metadata = {
-  title: 'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
+  title:
+    'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    shortcut: '/favicon-32x32.png',
+    other: [
+      {
+        rel: 'icon',
+        url: '/favicon-16x16.png',
+        sizes: '16x16',
+      },
+      {
+        rel: 'icon',
+        url: '/favicon-32x32.png',
+        sizes: '32x32',
+      },
+      {
+        rel: 'icon',
+        url: '/favicon-48x48.png',
+        sizes: '48x48',
+      },
+    ],
+  },
   description:
     'Shohorab Hossain Shawon - Professional Full Stack Web Developer specializing in Next.js, React, JavaScript, and modern web technologies. View my portfolio, projects, and contact me for web development services.',
   keywords: [
@@ -45,7 +68,7 @@ export const metadata = {
     'Web Design',
     'Web Applications',
     'Software Engineer',
-    'Software Development', 
+    'Software Development',
     'AIUB',
     'American International University-Bangladesh',
   ],
@@ -63,7 +86,8 @@ export const metadata = {
   },
   openGraph: {
     title: 'Shohorab Hossain Shawon - Full Stack Web Developer',
-    description: 'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
+    description:
+      'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
     url: 'https://shohorabhshawon.com',
     siteName: 'Shohorab Hossain Shawon Portfolio',
     images: [
@@ -80,7 +104,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Shohorab Hossain Shawon - Full Stack Web Developer',
-    description: 'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
+    description:
+      'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
     images: ['/og-image.jpg'],
   },
   robots: {
