@@ -1,35 +1,33 @@
-import HeroSection from '@/components/HeroSection';
+import React from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import SparklesText from '@/components/magicui/sparkles-text';
-import { Contact } from '@/components/Contact';
-import Footer from '@/components/Footer';
-import Skills from '@/components/Skills';
-import Navbar from '@/components/Navbar';
-import AboutContents from '@/components/AboutContents';
-import WebProjects from '@/components/WebProjects';
-import UiProjects from '@/components/UiProjects';
+import DevNavbar from '@/app/dev/components/DevNavbar';
+import DevHero from '@/app/dev/components/DevHero';
 
 
-export default function Home() {
+
+
+
+export default function Developer() {
   return (
     <>
       <div className="bg-gradient-to-br from-black via-gray-900 to-black w-full overflow-hidden">
         {/* <DevNavbar /> */}
-        <Navbar />
+        <DevNavbar />
         {/* Hero Section */}
         {/* <Hero /> */}
-        <HeroSection />
+        <DevHero />
         {/* About Section */}
         <section id="about">
           <div className="text-center">
             {/* <AboutContents /> */}
-            {/* <About /> */}
-            <AboutContents />
+            {/* <DevAbout /> */}
+
           </div>
         </section>
         {/* Skills */}
         <section id="skills" className="">
-          <Skills />
+         
         </section>
         {/* Project Section */}
         <section
@@ -48,7 +46,7 @@ export default function Home() {
 
             {/* Web Projects Grid */}
             <div className="w-full">
-              <WebProjects />
+              
             </div>
 
             {/* UI/UX Projects Header */}
@@ -58,17 +56,17 @@ export default function Home() {
 
             {/* UI/UX Projects Grid */}
             <div className="w-full">
-              <UiProjects />
+              
             </div>
           </div>
         </section>
 
         {/* Contact Section */}
         <section id="contact" className="">
-          <Contact />
+          
         </section>
         {/* Footer */}
-        <Footer />
+        
       </div>
     </>
   );
