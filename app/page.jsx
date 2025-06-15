@@ -8,14 +8,17 @@ import Navbar from '@/components/Navbar';
 import AboutContents from '@/components/AboutContents';
 import WebProjects from '@/components/WebProjects';
 import UiProjects from '@/components/UiProjects';
+import Hero from '@/components/DevHero';
+import DevNavbar from '@/components/DevNavbar';
 
 export default function Home() {
   return (
     <>
       <div className="bg-gradient-to-br from-black via-gray-900 to-black w-full overflow-hidden">
-        {/* <NewNavbar /> */}
+        {/* <DevNavbar /> */}
         <Navbar />
         {/* Hero Section */}
+        {/* <Hero /> */}
         <HeroSection />
         {/* About Section */}
         <section id="about">
@@ -55,9 +58,9 @@ export default function Home() {
             </div>
 
             {/* UI/UX Projects Grid */}
-              <div className="w-full">
-                <UiProjects />
-              </div>
+            <div className="w-full">
+              <UiProjects />
+            </div>
           </div>
         </section>
 

@@ -82,51 +82,55 @@ return (
                 transition={{ duration: 0.7 }}
                 viewport={{ once: false, amount: 0.1 }}
             >
-                <CardContainer className="inter-var relative m-2 w-full h-auto">
-                    <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border shadow-lg">
-                        <CardItem
-                            translateZ="50"
-                            className="text-xl font-bold text-neutral-600 dark:text-white line-clamp-1"
-                        >
-                            {project.title}
-                        </CardItem>
-                        <CardItem
-                            as="p"
-                            translateZ="60"
-                            className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300 line-clamp-3"
-                        >
-                            {project.description}
-                        </CardItem>
-                        <CardItem translateZ="100" className="w-full mt-4">
+                <CardContainer className="inter-var relative m-2 w-full h-auto group">
+                    <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                        <CardItem translateZ="100" className="w-full">
                             <Image
                                 src={project.image}
                                 height="1000"
                                 width="1000"
-                                className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                                className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl drop-shadow-md"
                                 alt="thumbnail"
                             />
                         </CardItem>
-                        <div className="flex justify-between items-center mt-10">
-                            {project.live && (
+                        
+                        {/* Content overlay - hidden by default, shown on hover */}
+                        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-center items-center p-6 rounded-xl shadow-inner">
+                            <CardItem
+                                translateZ="50"
+                                className="text-xl font-bold text-white line-clamp-1 mb-2 drop-shadow-lg"
+                            >
+                                {project.title}
+                            </CardItem>
+                            <CardItem
+                                as="p"
+                                translateZ="60"
+                                className="text-gray-200 text-sm max-w-sm text-center line-clamp-3 mb-4 drop-shadow-md"
+                            >
+                                {project.description}
+                            </CardItem>
+                            <div className="flex justify-center items-center gap-4">
+                                {project.live && (
+                                    <CardItem
+                                        translateZ={20}
+                                        as={Link}
+                                        href={project.live}
+                                        target="_blank"
+                                        className="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700 text-white text-xs font-bold transition-colors shadow-lg hover:shadow-xl"
+                                    >
+                                        Live
+                                    </CardItem>
+                                )}
                                 <CardItem
                                     translateZ={20}
                                     as={Link}
-                                    href={project.live}
                                     target="_blank"
-                                    className="px-4 py-2 rounded-xl bg-black dark:bg-green-700 dark:text-white text-white text-xs font-bold"
+                                    href={project.github}
+                                    className="px-4 py-2 rounded-xl bg-white hover:bg-gray-100 text-black text-xs font-bold transition-colors shadow-lg hover:shadow-xl"
                                 >
-                                    Live
+                                    Github
                                 </CardItem>
-                            )}
-                            <CardItem
-                                translateZ={20}
-                                as={Link}
-                                target="_blank"
-                                href={project.github}
-                                className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
-                            >
-                                Github
-                            </CardItem>
+                            </div>
                         </div>
                     </CardBody>
                 </CardContainer>
