@@ -23,7 +23,7 @@ export const metadata = {
   title:
     'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.ico',
     apple: '/favicon.png',
     shortcut: '/favicon.png',
     other: [

@@ -23,7 +23,6 @@ function HeroSection() {
           className="-top-40 left-0 md:left-60 md:-top-20"
           fill="white"
         />
-        
 
         {/* Background Grid */}
         <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02] bg-[size:60px_60px] transition-colors duration-300" />
@@ -51,81 +50,81 @@ function HeroSection() {
 
         <div className="container mx-auto px-4 z-20 text-center max-w-6xl my-16 md:my-0">
           {/* Main Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
-                <div className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2">
-                  <motion.h1
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  className="text-center lg:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
-                  >
-                  <span className="text-gray-800 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
-                    Hi, I&apos;m
-                  </span>
-                  <br />
-                  <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 dark:from-purple-400 dark:via-pink-500 dark:to-red-500 bg-clip-text text-transparent">
-                    SHOHORAB
-                  </span>
-                  <br />
-                  <span className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
-                    HOSSAIN SHAWON
-                  </span>
-                  <FlipW className="text-center lg:text-left" />
-                  </motion.h1>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12 items-center">
+            <div className="order-2 lg:order-1 text-center lg:text-left col-span-1 lg:col-span-2">
+              <motion.h1
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="text-center lg:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+              >
+                <span className="text-gray-800 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
+                  Hi, I&apos;m
+                </span>
+                <br />
+                <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 dark:from-purple-400 dark:via-pink-500 dark:to-red-500 bg-clip-text text-transparent">
+                  SHOHORAB
+                </span>
+                <br />
+                <span className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
+                  HOSSAIN SHAWON
+                </span>
+                <FlipW className="text-center lg:text-left" />
+              </motion.h1>
 
-                  <motion.p
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.8 }}
-                  whileTap={{ scale: 0.85 }}
-                  className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left transition-colors duration-300"
-                  >
-                  Front-end developer passionate about creating exceptional
-                  digital experiences with modern technologies.
-                  </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                whileTap={{ scale: 0.85 }}
+                className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left transition-colors duration-300"
+              >
+                Front-end developer passionate about creating exceptional
+                digital experiences with modern technologies.
+              </motion.p>
 
-                  <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left ">
-                  <motion.button
-                    initial={{ opacity: 0, x: -90 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    whileHover={{ scale: 1.15 }}
-                    transition={{
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left ">
+                <motion.button
+                  initial={{ opacity: 0, x: -90 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  whileHover={{ scale: 1.15 }}
+                  transition={{
                     duration: 0.6,
                     delay: 0.9,
                     scale: { duration: 0.2 },
-                    }}
-                    whileTap={{ scale: 0.85 }}
-                    className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-white overflow-hidden"
-                  >
-                    <span className="relative z-10 text-white">
+                  }}
+                  whileTap={{ scale: 0.85 }}
+                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-white overflow-hidden"
+                >
+                  <span className="relative z-10 text-white">
                     <Link
                       href="/Shohorab_Hossain_Shawon.pdf"
                       download="Shohorab_Hossain_Shawon.pdf"
                     >
                       Download CV
                       <span>
-                      <svg
-                        className="inline-block ml-2 w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
-                        />
-                      </svg>
+                        <svg
+                          className="inline-block ml-2 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                          />
+                        </svg>
                       </span>
                     </Link>
-                    </span>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </span>
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
 
-                  <Link href="/photography">
-                    <motion.button
+                <Link href="/photography">
+                  <motion.button
                     initial={{ opacity: 0, x: 90 }}
                     animate={{ opacity: 1, x: 0 }}
                     whileHover={{ scale: 1.15 }}
@@ -136,39 +135,39 @@ function HeroSection() {
                     }}
                     whileTap={{ scale: 0.85 }}
                     className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg font-semibold text-white overflow-hidden"
-                    >
+                  >
                     Gallery
                     <span>
                       <svg
-                      className="inline-block ml-2 w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                        className="inline-block ml-2 w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
                       </svg>
                     </span>
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </motion.button>
-                  </Link>
+                  </motion.button>
+                </Link>
 
-                  <SocialLinks className="flex gap-4" />
-                  </div>
-                </div>
+                <SocialLinks className="flex gap-4" />
+              </div>
+            </div>
 
-                {/* Right Column - Image */}
+            {/* Right Column - Image */}
             <motion.div
               className="order-1 lg:order-2 flex justify-center lg:justify-end"
               initial={{ opacity: 0, y: -50 }}
