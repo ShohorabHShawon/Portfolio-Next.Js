@@ -13,21 +13,21 @@ const AboutContents = () => {
       <div className="container mx-auto px-4 text-center max-w-6xl mt-20 mb-36">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
           {/* Profile Picture */}
-          <div className="flex-shrink-0 mb-10 lg:mb-0">
-            <Image
-              src="/profile.jpg"
-              alt="Profile Picture"
-              width={300}
-              height={300}
-              className="rounded-full object-cover shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-gray-200 dark:border-gray-700"
-              style={{
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15))',
-              }}
-            />
-          </div>
-          
-          {/* About Text */}
+                <div className="flex-shrink-0 mb-10 lg:mb-0">
+                <Image
+                  src="/profile.jpg"
+                  alt="Profile Picture"
+                  width={300}
+                  height={300}
+                  className="rounded-full object-cover shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-gray-200 dark:border-gray-700 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-[300px] xl:h-[300px]"
+                  style={{
+                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                  filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15))',
+                  }}
+                />
+                </div>
+                
+                {/* About Text */}
           <div className="flex-1 lg:text-left">
             <div className="h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] flex items-center justify-center lg:justify-start">
               <TypingAnimation

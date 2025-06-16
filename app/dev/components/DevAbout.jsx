@@ -1,42 +1,152 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import TypingAnimation from './magicui/typing-animation';
-import SparklesText from './magicui/sparkles-text';
+import { motion } from 'framer-motion';
+import TypingAnimation from '@/components/magicui/typing-animation';
 
 const DevAbout = () => {
   return (
-    <div className="overflow-hidden text-gray-900 dark:text-gray-200 flex flex-col items-center justify-center p-4 sm:p-8 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="">
-        <SparklesText text="About" />
-      </div>
-      <div className="container mx-auto px-4 text-center max-w-6xl mt-20 mb-36">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
-          {/* Profile Picture */}
-          <div className="flex-shrink-0 mb-10 lg:mb-0">
-            <Image
-              src="/profile.jpg"
-              alt="Profile Picture"
-              width={300}
-              height={300}
-              className="rounded-full object-cover shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-gray-200 dark:border-gray-700"
-              style={{
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15))',
-              }}
-            />
-          </div>
-          
-          {/* About Text */}
-          <div className="flex-1 lg:text-left">
-            <div className="h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] flex items-center justify-center lg:justify-start">
-              <TypingAnimation
-                className="font-inter text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-justify font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300"
-                text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality. Driven by a passion for continuous learning, I am eager to collaborate and deliver impactful solutions in web development and design."
-              />
+    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-green-400 font-mono py-20">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Terminal Header */}
+        <motion.div 
+          className="bg-gray-100 dark:bg-gray-900 rounded-t-lg border border-gray-300 dark:border-gray-700 mb-8"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded-t-lg">
+            <div className="flex space-x-2">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </div>
+            <div className="ml-4 text-gray-600 dark:text-gray-400 text-sm">~/about-developer</div>
           </div>
+          <div className="p-6">
+            <div className="text-blue-600 dark:text-green-400 mb-2">$ whoami</div>
+            <h1 className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-green-400 mb-4">
+              {'<'}About{' />'}
+            </h1>
+          </div>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Left Side - Code Block */}
+          <motion.div 
+            className="bg-gray-100 dark:bg-gray-900 rounded-lg border border-gray-300 dark:border-gray-700 p-6 h-[400px] flex flex-col"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-gray-600 dark:text-gray-400 text-sm">profile.js</span>
+              <div className="flex space-x-2">
+                <div className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
+                <div className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
+                <div className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
+              </div>
+            </div>
+            
+            <div className="space-y-2 text-sm flex-1">
+              <div><span className="text-purple-600 dark:text-purple-400">const</span> <span className="text-blue-600 dark:text-blue-400">developer</span> = {'{'}</div>
+              <div className="ml-4"><span className="text-red-600 dark:text-red-400">name</span>: <span className="text-green-700 dark:text-green-300">&quot;Shohorab Hossain Shawon&quot;</span>,</div>
+              <div className="ml-4"><span className="text-red-600 dark:text-red-400">status</span>: <span className="text-green-700 dark:text-green-300">&quot;available&quot;</span>,</div>
+              <div className="ml-4"><span className="text-red-600 dark:text-red-400">location</span>: <span className="text-green-700 dark:text-green-300">&quot;Dhaka, Bangladesh&quot;</span>,</div>
+              <div className="ml-4"><span className="text-red-600 dark:text-red-400">passion</span>: <span className="text-green-700 dark:text-green-300">&quot;Building awesome web apps&quot;</span></div>
+              <div>{'}'};</div>
+            </div>
+
+            {/* Profile Image */}
+            <motion.div 
+              className="mt-auto text-center"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+            >
+              <Image
+                src="/profile.jpg"
+                alt="Developer Profile"
+                width={150}
+                height={150}
+                className="rounded-lg object-cover mx-auto border-2 border-blue-600 dark:border-green-400"
+              />
+              <div className="mt-2 text-blue-600 dark:text-green-400 text-sm">{/* Profile loaded successfully */}</div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Side - Terminal Output */}
+          <motion.div 
+            className="bg-gray-100 dark:bg-gray-900 rounded-lg border border-gray-300 dark:border-gray-700 p-6 h-[400px] flex flex-col"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-gray-600 dark:text-gray-400 text-sm">terminal</span>
+              <span className="text-green-600 dark:text-green-400 text-xs">●</span>
+            </div>
+            
+            <div className="space-y-4 flex-1 flex flex-col">
+              <div className="flex-1">
+                <div className="text-blue-600 dark:text-green-400 mb-2">$ cat introduction.txt</div>
+                <div className="min-h-[120px]">
+                  <TypingAnimation
+                    className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed"
+                    text="Hello World! I'm a passionate frontend developer who speaks fluent JavaScript and dreams in React components. I transform coffee into clean, efficient code and turn ideas into interactive digital experiences."
+                  />
+                </div>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.5 }}
+              >
+                <div className="text-blue-600 dark:text-green-400 mb-2">$ npm run --help</div>
+                <div className="space-y-1 text-sm">
+                  <div className="text-gray-600 dark:text-gray-400">Available commands:</div>
+                  <motion.button 
+                    className="block text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 transition-colors"
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    npm run view-projects
+                  </motion.button>
+                  <motion.button 
+                    className="block text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 transition-colors"
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    npm run download-cv
+                  </motion.button>
+                  <motion.button 
+                    className="block text-cyan-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-300 transition-colors"
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    npm run contact-me
+                  </motion.button>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Bottom Code Comment */}
+        <motion.div 
+          className="text-center mt-12 bg-gray-100 dark:bg-gray-900 rounded-lg border border-gray-300 dark:border-gray-700 p-6"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1 }}
+        >
+          <div className="text-gray-600 dark:text-gray-500 text-sm">
+            {/* */} <br />
+            * &quot;First, solve the problem. Then, write the code.&quot; <br />
+            * - John Johnson <br />
+            {/* */}
+          </div>
+        </motion.div>
       </div>
     </div>
   );

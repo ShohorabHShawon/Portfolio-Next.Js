@@ -1,8 +1,12 @@
 import React from 'react';
+// eslint-disable-next-line
 import '@fortawesome/fontawesome-free/css/all.min.css';
+// eslint-disable-next-line
 import SparklesText from '@/components/magicui/sparkles-text';
 import DevNavbar from '@/app/dev/components/DevNavbar';
 import DevHero from '@/app/dev/components/DevHero';
+import DevAbout from '@/app/dev/components/DevAbout';
+import DevSkills from './components/DevSkills';
 
 
 
@@ -21,13 +25,13 @@ export default function Developer() {
         <section id="about">
           <div className="text-center">
             {/* <AboutContents /> */}
-            {/* <DevAbout /> */}
+            <DevAbout />
 
           </div>
         </section>
         {/* Skills */}
         <section id="skills" className="">
-         
+         <DevSkills />
         </section>
         {/* Project Section */}
         <section
