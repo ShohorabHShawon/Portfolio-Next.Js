@@ -125,89 +125,105 @@ export function Contact() {
               viewport={{ once: true }}
               className="space-y-8 h-full"
             >
-              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 dark:border-gray-700 shadow-2xl h-full flex flex-col justify-center">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-2xl h-full flex flex-col">
                 <BorderBeam />
-                <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
 
-                <div className="space-y-6">
-                  {/* Email */}
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
-                        Email
-                      </p>
-                      <p className="font-medium">shohorabhshawon@gmail.com</p>
-                    </div>
+                {/* Terminal Header */}
+                <div className="flex bg-gray-200 dark:bg-gray-700 items-center justify-between px-6 py-2 rounded-t-3xl border-b border-white/20 dark:border-gray-700">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   </div>
-
-                  {/* Location */}
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
-                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
-                        Location
-                      </p>
-                      <p className="font-medium">Uttara, Dhaka, Bangladesh</p>
-                    </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                    contact-info.sh
                   </div>
+                  <div className="w-16"></div>
+                </div>
 
-                  {/* Response Time */}
-                  <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                <div className="p-8 flex-1 flex flex-col justify-center">
+                  <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
+
+                  <div className="space-y-6">
+                    {/* Email */}
+                    <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          className="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm text-start text-gray-500 dark:text-gray-400">
+                          Email
+                        </p>
+                        <p className="font-medium">shohorabhshawon@gmail.com</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-start text-gray-500 dark:text-gray-400">
-                        Response Time
-                      </p>
-                      <p className="font-medium">Within 24 hours</p>
+
+                    {/* Location */}
+                    <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          className="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm text-start text-gray-500 dark:text-gray-400">
+                          Location
+                        </p>
+                        <p className="font-medium">Uttara, Dhaka, Bangladesh</p>
+                      </div>
+                    </div>
+
+                    {/* Response Time */}
+                    <div className="flex items-center space-x-4 group hover:bg-white/5 dark:hover:bg-gray-700/30 p-4 rounded-xl transition-all duration-300">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <svg
+                          className="w-6 h-6 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm text-start text-gray-500 dark:text-gray-400">
+                          Response Time
+                        </p>
+                        <p className="font-medium">Within 24 hours</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -224,115 +240,132 @@ export function Contact() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl p-8 border border-white/20 dark:border-gray-700 shadow-2xl relative overflow-hidden h-full flex flex-col"
+                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-2xl relative overflow-hidden h-full flex flex-col"
               >
                 <BorderBeam />
-                <h3 className="text-3xl font-bold mb-6">Email Me</h3>
-                {/* // Floating particles */}
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                  <div className="absolute top-12 left-8 w-1 h-1 bg-purple-400 rounded-full animate-ping"></div>
-                  <div className="absolute bottom-8 right-12 w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse"></div>
+
+                {/* Terminal Header */}
+                <div className="flex bg-gray-200 dark:bg-gray-700 items-center justify-between px-6 py-2 border-b border-white/20 dark:border-gray-700">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400 font-mono">
+                    contact-form.jsx
+                  </div>
+                  <div className="w-16"></div>
                 </div>
-                <div className="space-y-6 relative z-10 flex-1 flex flex-col justify-center">
-                  {/* Name */}
-                  <div className="group">
-                    <label
-                      htmlFor="name"
-                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
-                    >
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="Your Name Here..."
-                      className="w-full px-6 py-4 
-                                      bg-white dark:bg-gray-900 
-                                      text-gray-900 dark:text-gray-100 
-                                      border border-gray-300 dark:border-gray-700 
-                                      rounded-2xl 
-                                      focus:outline-none 
-                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
-                                      transition-all duration-300 
-                                      placeholder-gray-400 
-                                      hover:bg-blue-50 dark:hover:bg-gray-800 
-                                      hover:border-blue-400 dark:hover:border-purple-400"
-                    />
+
+                <div className="p-8 flex-1 flex flex-col">
+                  <h3 className="text-3xl font-bold mb-6">Email Me</h3>
+
+                  {/* Floating particles */}
+                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    <div className="absolute top-12 left-8 w-1 h-1 bg-purple-400 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-8 right-12 w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse"></div>
                   </div>
 
-                  {/* Email */}
-                  <div className="group">
-                    <label
-                      htmlFor="email"
-                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
-                    >
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="name@example.com"
-                      className="w-full px-6 py-4 
-                                      bg-white dark:bg-gray-900 
-                                      text-gray-900 dark:text-gray-100 
-                                      border border-gray-300 dark:border-gray-700 
-                                      rounded-2xl 
-                                      focus:outline-none 
-                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
-                                      transition-all duration-300 
-                                      placeholder-gray-400 
-                                      hover:bg-blue-50 dark:hover:bg-gray-800 
-                                      hover:border-blue-400 dark:hover:border-purple-400"
-                    />
-                  </div>
+                  <div className="space-y-6 relative z-10 flex-1 flex flex-col justify-center">
+                    {/* Name */}
+                    <div className="group">
+                      <label
+                        htmlFor="name"
+                        className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                      >
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="Your Name Here..."
+                        className="w-full px-6 py-4 
+                                        bg-white dark:bg-gray-900 
+                                        text-gray-900 dark:text-gray-100 
+                                        border border-gray-300 dark:border-gray-700 
+                                        rounded-2xl 
+                                        focus:outline-none 
+                                        focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                        transition-all duration-300 
+                                        placeholder-gray-400 
+                                        hover:bg-blue-50 dark:hover:bg-gray-800 
+                                        hover:border-blue-400 dark:hover:border-purple-400"
+                      />
+                    </div>
 
-                  {/* Message */}
-                  <div className="group">
-                    <label
-                      htmlFor="message"
-                      className="block font-semibold mb-3 text-sm tracking-wide text-start"
-                    >
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      required
-                      rows="5"
-                      placeholder="Tell me about your project..."
-                      className="w-full px-6 py-4 
-                                      bg-white dark:bg-gray-900 
-                                      text-gray-900 dark:text-gray-100 
-                                      border border-gray-300 dark:border-gray-700 
-                                      rounded-2xl 
-                                      focus:outline-none 
-                                      focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
-                                      transition-all duration-300 
-                                      placeholder-gray-400 
-                                      hover:bg-blue-50 dark:hover:bg-gray-800 
-                                      hover:border-blue-400 dark:hover:border-purple-400"
-                    ></textarea>
-                  </div>
+                    {/* Email */}
+                    <div className="group">
+                      <label
+                        htmlFor="email"
+                        className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                      >
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="name@example.com"
+                        className="w-full px-6 py-4 
+                                        bg-white dark:bg-gray-900 
+                                        text-gray-900 dark:text-gray-100 
+                                        border border-gray-300 dark:border-gray-700 
+                                        rounded-2xl 
+                                        focus:outline-none 
+                                        focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                        transition-all duration-300 
+                                        placeholder-gray-400 
+                                        hover:bg-blue-50 dark:hover:bg-gray-800 
+                                        hover:border-blue-400 dark:hover:border-purple-400"
+                      />
+                    </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="w-full 
-                                      bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 
-                                      text-white font-semibold py-4 px-6 rounded-2xl 
-                                      transition-all duration-500 transform 
-                                      hover:scale-105 hover:shadow-2xl 
-                                      disabled:opacity-50 relative overflow-hidden group
-                                      focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400"
-                  >
-                    <span className="relative z-10">
-                      {isLoading ? 'Sending...' : 'Send Message'}
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                  </button>
+                    {/* Message */}
+                    <div className="group">
+                      <label
+                        htmlFor="message"
+                        className="block font-semibold mb-3 text-sm tracking-wide text-start"
+                      >
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
+                        required
+                        rows="5"
+                        placeholder="Tell me about your project..."
+                        className="w-full px-6 py-4 
+                                        bg-white dark:bg-gray-900 
+                                        text-gray-900 dark:text-gray-100 
+                                        border border-gray-300 dark:border-gray-700 
+                                        rounded-2xl 
+                                        focus:outline-none 
+                                        focus:ring-2 focus:ring-blue-500/60 dark:focus:ring-purple-500/60
+                                        transition-all duration-300 
+                                        placeholder-gray-400 
+                                        hover:bg-blue-50 dark:hover:bg-gray-800 
+                                        hover:border-blue-400 dark:hover:border-purple-400"
+                      ></textarea>
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full 
+                                        bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 
+                                        text-white font-semibold py-4 px-6 rounded-2xl 
+                                        transition-all duration-500 transform 
+                                        hover:scale-105 hover:shadow-2xl 
+                                        disabled:opacity-50 relative overflow-hidden group
+                                        focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400"
+                    >
+                      <span className="relative z-10">
+                        {isLoading ? 'Sending...' : 'Send Message'}
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                    </button>
+                  </div>
                 </div>
               </form>
             </motion.div>

@@ -99,9 +99,10 @@ function HeroSection() {
                   <span className="relative z-10 text-white">
                     <Link
                       href="/Shohorab_Hossain_Shawon.pdf"
-                      download="Shohorab_Hossain_Shawon.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      Download CV
+                      CV
                       <span>
                         <svg
                           className="inline-block ml-2 w-4 h-4"
@@ -114,7 +115,7 @@ function HeroSection() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                           />
                         </svg>
                       </span>

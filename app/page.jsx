@@ -9,7 +9,6 @@ import AboutContents from '@/components/AboutContents';
 import WebProjects from '@/components/WebProjects';
 import UiProjects from '@/components/UiProjects';
 
-
 export default function Home() {
   return (
     <>
@@ -17,13 +16,10 @@ export default function Home() {
         {/* <DevNavbar /> */}
         <Navbar />
         {/* Hero Section */}
-        {/* <Hero /> */}
         <HeroSection />
         {/* About Section */}
         <section id="about">
-          <div className="text-center">
-            {/* <AboutContents /> */}
-            {/* <About /> */}
+          <div className="">
             <AboutContents />
           </div>
         </section>
@@ -38,7 +34,7 @@ export default function Home() {
         >
           <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center">
             {/* Header */}
-            <div className="mb-16">
+            <div className="">
               <SparklesText text="Web Projects" />
               <p className="text-zinc-500 dark:text-zinc-400 mt-4 text-lg max-w-2xl mx-auto">
                 Crafting digital experiences with modern technologies and

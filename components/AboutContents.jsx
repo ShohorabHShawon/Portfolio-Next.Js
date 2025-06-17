@@ -1,41 +1,117 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import TypingAnimation from './magicui/typing-animation';
 import SparklesText from './magicui/sparkles-text';
 
 const AboutContents = () => {
   return (
-    <div className="overflow-hidden text-gray-900 dark:text-gray-200 flex flex-col items-center justify-center p-4 sm:p-8 bg-white dark:bg-gray-900 transition-colors duration-300">
-      <div className="">
-        <SparklesText text="About" />
-      </div>
-      <div className="container mx-auto px-4 text-center max-w-6xl mt-20 mb-36">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
-          {/* Profile Picture */}
-                <div className="flex-shrink-0 mb-10 lg:mb-0">
+    <div className="bg-white dark:bg-gray-900 transition-all duration-300">
+      {/* Hero Section */}
+      <motion.div
+        className="relative pt-16 pb-12"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <SparklesText
+              text="About Me"
+              className="text-5xl md:text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-200 mb-6"
+            />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 pb-20">
+        <div className="max-w-6xl mx-auto">
+          {/* Profile Section */}
+          <motion.div
+            className="mb-20"
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+              <motion.div
+                className="relative"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="absolute -inset-4 bg-neutral-600/20 rounded-full blur-xl"></div>
                 <Image
                   src="/profile.jpg"
                   alt="Profile Picture"
                   width={300}
                   height={300}
-                  className="rounded-full object-cover shadow-2xl transform hover:scale-105 transition-transform duration-300 border-4 border-gray-200 dark:border-gray-700 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-[300px] xl:h-[300px]"
-                  style={{
-                  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                  filter: 'drop-shadow(0 20px 25px rgba(0, 0, 0, 0.15))',
-                  }}
+                  className="relative rounded-full object-cover w-72 h-72 border-8 border-white dark:border-neutral-800 shadow-2xl"
                 />
+              </motion.div>
+
+              <motion.div
+                className="flex-1 text-center lg:text-left"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden font-mono">
+                  {/* Terminal Header */}
+                  <motion.div
+                    className="bg-gray-200 dark:bg-gray-700 px-4 py-2 border-b border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.9 }}
+                  >
+                    <div className="flex gap-2">
+                      <motion.div
+                        className="w-3 h-3 bg-red-500 rounded-full"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.3, delay: 1 }}
+                      ></motion.div>
+                      <motion.div
+                        className="w-3 h-3 bg-yellow-500 rounded-full"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.3, delay: 1.1 }}
+                      ></motion.div>
+                      <motion.div
+                        className="w-3 h-3 bg-green-500 rounded-full"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.3, delay: 1.2 }}
+                      ></motion.div>
+                    </div>
+                    <div className="text-gray-400 text-sm ml-4">
+                      about-me.sh
+                    </div>
+                  </motion.div>
+                  {/* Terminal Content */}
+                  <motion.div
+                    className="p-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 1.3 }}
+                  >
+                    <div className="text-green-400 mb-2">$ whoami</div>
+                    <TypingAnimation
+                      className="text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
+                      text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
+                    />
+                    <div className="text-green-400 mt-4 flex items-center">
+                      <span>$ </span>
+                      <div className="w-2 h-4 bg-green-400 ml-1 animate-pulse"></div>
+                    </div>
+                  </motion.div>
                 </div>
-                
-                {/* About Text */}
-          <div className="flex-1 lg:text-left">
-            <div className="h-[200px] sm:h-[220px] md:h-[240px] lg:h-[260px] flex items-center justify-center lg:justify-start">
-              <TypingAnimation
-                className="font-inter text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-justify font-bold text-gray-900 dark:text-gray-100 transition-colors duration-300"
-                text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality. Driven by a passion for continuous learning, I am eager to collaborate and deliver impactful solutions in web development and design."
-              />
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

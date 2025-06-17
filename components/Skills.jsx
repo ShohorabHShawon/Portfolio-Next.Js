@@ -71,7 +71,7 @@ export default function Skills() {
     <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-900">
       <div className="w-full max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ export default function Skills() {
         {isMounted && (
           <>
             {/* Category Navigation */}
-            <motion.div 
+            <motion.div
               className="flex flex-wrap justify-center gap-3 mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -99,10 +99,10 @@ export default function Skills() {
                 <motion.button
                   key={index}
                   onClick={() => setActiveCategory(index)}
-                  className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                  className={`px-6 py-3 font-mono text-sm border rounded-lg transition-all duration-200 ${
                     activeCategory === index
-                      ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      ? 'bg-gray-600 dark:bg-gray-200 text-white dark:text-gray-600 border-gray-600 dark:border-gray-400'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -120,51 +120,66 @@ export default function Skills() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700">
-                {/* Category Header */}
-                <div className="text-center mb-10">
-                  <div className="text-4xl mb-3">
-                    {skillCategories[activeCategory].emoji}
+              <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg font-mono">
+                {/* Terminal Header */}
+                <div className="bg-gray-200 dark:bg-gray-700 px-4 py-2 border-b border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center">
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                   </div>
-                  <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    {skillCategories[activeCategory].title}
-                  </h2>
+                  <div className="flex-1 text-center text-sm text-gray-600 dark:text-gray-400">
+                    {skillCategories[activeCategory].title} - Terminal
+                  </div>
                 </div>
 
-                {/* Skills Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6">
-                  {skillCategories[activeCategory].icons.map((icon, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: idx * 0.05,
-                      }}
-                      whileHover={{ 
-                        scale: 1.05,
-                        transition: { duration: 0.2 }
-                      }}
-                      className="group"
-                    >
-                      <div className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center border border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200">
-                        <div className="mb-4">
-                          <Image
-                            src={icon.src}
-                            alt={icon.title}
-                            title={icon.title}
-                            className="w-12 h-12 mx-auto object-contain"
-                            width={48}
-                            height={48}
-                          />
+                {/* Terminal Content */}
+                <div className="p-8">
+                  {/* Category Header */}
+                  <div className="mb-6">
+                    <div className="text-green-500 text-sm mb-2">
+                      $ ls -la{' '}
+                      {skillCategories[activeCategory].title
+                        .toLowerCase()
+                        .replace(/\s+/g, '_')}
+                    </div>
+                  </div>
+
+                  {/* Skills Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-4">
+                    {skillCategories[activeCategory].icons.map((icon, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{
+                          duration: 0.3,
+                          delay: idx * 0.05,
+                        }}
+                        whileHover={{
+                          scale: 1.05,
+                          transition: { duration: 0.2 },
+                        }}
+                        className="group"
+                      >
+                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200">
+                          <div className="mb-3">
+                            <Image
+                              src={icon.src}
+                              alt={icon.title}
+                              title={icon.title}
+                              className="w-10 h-10 mx-auto object-contain"
+                              width={40}
+                              height={40}
+                            />
+                          </div>
+                          <h4 className="text-xs font-mono text-gray-900 dark:text-white truncate">
+                            {icon.title.toLowerCase().replace(/\s+/g, '_')}
+                          </h4>
                         </div>
-                        <h4 className="text-sm font-medium text-gray-900 dark:text-white line-clamp-1">
-                          {icon.title}
-                        </h4>
-                      </div>
-                    </motion.div>
-                  ))}
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
