@@ -35,31 +35,14 @@ const AboutContents = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="flex justify-center">
               <motion.div
-                className="relative"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="absolute -inset-4 bg-neutral-600/20 rounded-full blur-xl"></div>
-                <Image
-                  src="/profile.jpg"
-                  alt="Profile Picture"
-                  width={300}
-                  height={300}
-                  className="relative rounded-full object-cover w-72 h-72 border-8 border-white dark:border-neutral-800 shadow-2xl"
-                />
-              </motion.div>
-
-              <motion.div
-                className="flex-1 text-center lg:text-left"
+                className="w-full max-w-6xl"
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
               >
-                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden font-mono">
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden font-mono max-h-6xl">
                   {/* Terminal Header */}
                   <motion.div
                     className="bg-gray-200 dark:bg-gray-700 px-4 py-2 border-b border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center gap-2"
@@ -98,12 +81,60 @@ const AboutContents = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, delay: 1.3 }}
                   >
-                    <div className="text-green-400 mb-2">$ whoami</div>
-                    <TypingAnimation
-                      className="text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
-                      text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
-                    />
-                    <div className="text-green-400 mt-4 flex items-center">
+                    <div className="flex flex-col lg:flex-row items-center gap-8 mb-6">
+                      <motion.div
+                        className="relative flex-shrink-0"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <div className="absolute"></div>
+                        <Image
+                          src="/profile.jpg"
+                          alt="Profile Picture"
+                          width={500}
+                          height={500}
+                          className="relative rounded-xl object-cover w-64 h-64 border-4 border-white shadow-lg"
+                        />
+                      </motion.div>
+                      <div className="flex-1">
+                        <div className="text-green-400 mb-2 text-xl">
+                          $ whoami
+                        </div>
+                        <TypingAnimation
+                          className="text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
+                          text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
+                        />
+                      </div>
+                    </div>
+
+                    {/* Experience and Projects Stats */}
+                    <motion.div
+                      className="flex justify-center gap-8 mb-4"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 1.8 }}
+                    >
+                      <div className="text-center">
+                        <div className="text-blue-400 text-2xl font-bold">
+                          2+
+                        </div>
+                        <div className="text-gray-500 dark:text-gray-400 text-sm">
+                          Years Experience
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-purple-400 text-2xl font-bold">
+                          10+
+                        </div>
+                        <div className="text-gray-500 dark:text-gray-400 text-sm">
+                          Projects
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    <div className="text-green-400 flex items-center text-xl">
                       <span>$ </span>
                       <div className="w-2 h-4 bg-green-400 ml-1 animate-pulse"></div>
                     </div>
