@@ -42,7 +42,7 @@ const AboutContents = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
               >
-                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-2xl overflow-hidden font-mono max-h-6xl">
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden font-mono max-h-6xl">
                   {/* Terminal Header */}
                   <motion.div
                     className="bg-gray-200 dark:bg-gray-700 px-4 py-2 border-b border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center gap-2"

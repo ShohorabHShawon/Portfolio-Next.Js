@@ -25,16 +25,6 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center md:justify-between items-center h-16 relative">
-          {/* Terminal-style Brand */}
-          <div className="hidden md:block absolute left-0">
-            <div className="font-mono text-green-400 text-sm">
-              <span className="text-gray-500 dark:text-gray-400">$</span> whoami
-              <span className="ml-2 text-gray-900 dark:text-white">
-                developer
-              </span>
-            </div>
-          </div>
-
           {/* Mobile Terminal Button */}
           <div className="md:hidden flex items-center absolute left-0 top-1/2 -translate-y-1/2">
             <button
@@ -160,7 +150,7 @@ const Navbar = () => {
           </div>
 
           {/* Terminal Content */}
-          <div className="flex-1 p-4 space-y-2">
+          <div className="flex-1 p-4 space-y-2 overflow-y-auto">
             {navItems.map((item, index) => (
               <Link
                 key={item.name}

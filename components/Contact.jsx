@@ -75,7 +75,7 @@ export function Contact() {
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-white/10 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700 text-gray-800 dark:text-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4"
+            className="bg-white/10 dark:bg-gray-900/20 backdrop-blur-xl border border-white/20 dark:border-gray-700 text-gray-800 dark:text-white rounded-2xl shadow-xxl p-8 max-w-md w-full mx-4"
           >
             <div className="text-center">
               <p className="text-lg font-medium">{alertMessage}</p>
@@ -125,7 +125,7 @@ export function Contact() {
               viewport={{ once: true }}
               className="space-y-8 h-full"
             >
-              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-2xl h-full flex flex-col">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-xl h-full flex flex-col">
                 <BorderBeam />
 
                 {/* Terminal Header */}
@@ -240,7 +240,7 @@ export function Contact() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-2xl relative overflow-hidden h-full flex flex-col"
+                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-xl relative overflow-hidden h-full flex flex-col"
               >
                 <BorderBeam />
 
@@ -356,7 +356,7 @@ export function Contact() {
                                         bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 
                                         text-white font-semibold py-4 px-6 rounded-2xl 
                                         transition-all duration-500 transform 
-                                        hover:scale-105 hover:shadow-2xl 
+                                        hover:scale-105 hover:shadow-xl 
                                         disabled:opacity-50 relative overflow-hidden group
                                         focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-purple-400"
                     >

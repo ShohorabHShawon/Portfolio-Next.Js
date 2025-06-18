@@ -71,7 +71,7 @@ export default function UiProjects() {
           viewport={{ once: false, amount: 0.1 }}
         >
           <CardContainer className="inter-var relative m-2 w-full lg:h-12 group">
-            <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:-translate-y-2">
+            <CardBody className="relative group/card dark:hover:shadow-xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2">
               <CardItem translateZ="100" className="w-full">
                 <Image
                   src={project.image}

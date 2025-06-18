@@ -170,7 +170,7 @@ function HeroSection() {
 
             {/* Right Column - Image */}
             <motion.div
-              className="order-1 lg:order-2 flex justify-center lg:justify-end"
+              className="order-1 lg:order-2 flex justify-center lg:justify-end md:pt-16 lg:pt-0"
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
