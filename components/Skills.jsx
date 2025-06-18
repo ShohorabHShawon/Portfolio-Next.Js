@@ -68,7 +68,7 @@ export default function Skills() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center p-4 bg-white dark:bg-gray-900">
       <div className="w-full max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

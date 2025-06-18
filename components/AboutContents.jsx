@@ -10,13 +10,13 @@ const AboutContents = () => {
     <div className="bg-white dark:bg-gray-900 transition-all duration-300">
       {/* Hero Section */}
       <motion.div
-        className="relative pt-16 pb-12"
+        className="relative py-12"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center">
             <SparklesText
               text="About Me"
               className="text-5xl md:text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-200 mb-6"
@@ -26,7 +26,7 @@ const AboutContents = () => {
       </motion.div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 pb-20">
+      <div className="container mx-auto px-4 pb-2">
         <div className="max-w-6xl mx-auto">
           {/* Profile Section */}
           <motion.div
@@ -70,7 +70,7 @@ const AboutContents = () => {
                         transition={{ duration: 0.3, delay: 1.2 }}
                       ></motion.div>
                     </div>
-                    <div className="text-gray-400 text-sm ml-4">
+                    <div className="text-gray-400 text-sm ml-4 text-center flex-1 justify-center items-center">
                       about-me.sh
                     </div>
                   </motion.div>
@@ -102,10 +102,23 @@ const AboutContents = () => {
                         <div className="text-green-400 mb-2 text-xl">
                           $ whoami
                         </div>
-                        <TypingAnimation
-                          className="text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
-                          text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
-                        />
+                        <div className="relative">
+                          {/* Hidden div to pre-allocate space */}
+                          <div className="invisible text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify">
+                            I am a dedicated front-end developer with a strong
+                            interest in UI/UX design, focused on creating
+                            intuitive and visually compelling digital
+                            experiences. While still gaining experience in the
+                            field, I am committed to refining my skills and
+                            contributing to projects that prioritize
+                            user-centric design and functionality.
+                          </div>
+                          {/* Typing animation positioned absolutely */}
+                          <TypingAnimation
+                            className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
+                            text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
+                          />
+                        </div>
                       </div>
                     </div>
 
