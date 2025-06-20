@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CardBody, CardContainer, CardItem } from '@/components/ui/threeD-card';
+import SparklesText from './magicui/sparkles-text';
 
 const webProjects = [
   {
@@ -61,70 +62,81 @@ const webProjects = [
 
 export default function UiProjects() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {webProjects.map((project) => (
-        <motion.div
-          key={project.id}
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: false, amount: 0.1 }}
-        >
-          <CardContainer className="inter-var relative m-2 w-full lg:h-12 group">
-            <CardBody className="relative group/card dark:hover:shadow-xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2">
-              <CardItem translateZ="100" className="w-full">
-                <Image
-                  src={project.image}
-                  height="1000"
-                  width="1000"
-                  className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl drop-shadow-lg"
-                  alt="thumbnail"
-                />
-              </CardItem>
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="mb-10 text-center"
+      >
+        <SparklesText text="UI/UX Projects" />
+      </motion.div>
 
-              {/* Overlay with content - hidden by default, shown on hover */}
-              <div className="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl backdrop-blur-sm">
-                <CardItem
-                  translateZ="50"
-                  className="text-xl font-bold text-white text-center mb-2 drop-shadow-lg"
-                >
-                  {project.title}
-                </CardItem>
-                <CardItem
-                  as="p"
-                  translateZ="60"
-                  className="text-gray-300 text-sm text-center mb-6 drop-shadow-md"
-                >
-                  {project.description}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {webProjects.map((project) => (
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: false, amount: 0.1 }}
+          >
+            <CardContainer className="inter-var relative m-2 w-full lg:h-12 group">
+              <CardBody className="relative group/card dark:hover:shadow-xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2">
+                <CardItem translateZ="100" className="w-full">
+                  <Image
+                    src={project.image}
+                    height="1000"
+                    width="1000"
+                    className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl drop-shadow-lg"
+                    alt="thumbnail"
+                  />
                 </CardItem>
 
-                <div className="flex gap-4">
-                  {project.live && (
+                {/* Overlay with content - hidden by default, shown on hover */}
+                <div className="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl backdrop-blur-sm">
+                  <CardItem
+                    translateZ="50"
+                    className="text-xl font-bold text-white text-center mb-2 drop-shadow-lg"
+                  >
+                    {project.title}
+                  </CardItem>
+                  <CardItem
+                    as="p"
+                    translateZ="60"
+                    className="text-gray-300 text-sm text-center mb-6 drop-shadow-md"
+                  >
+                    {project.description}
+                  </CardItem>
+
+                  <div className="flex gap-4">
+                    {project.live && (
+                      <CardItem
+                        translateZ={20}
+                        as={Link}
+                        href={project.live}
+                        target="_blank"
+                        className="px-4 py-2 rounded-xl bg-green-700 text-white text-xs font-bold hover:bg-green-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                      >
+                        Live
+                      </CardItem>
+                    )}
                     <CardItem
                       translateZ={20}
                       as={Link}
-                      href={project.live}
                       target="_blank"
-                      className="px-4 py-2 rounded-xl bg-green-700 text-white text-xs font-bold hover:bg-green-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                      href={project.prototype}
+                      className="px-4 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
-                      Live
+                      Prototype
                     </CardItem>
-                  )}
-                  <CardItem
-                    translateZ={20}
-                    as={Link}
-                    target="_blank"
-                    href={project.prototype}
-                    className="px-4 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                  >
-                    Prototype
-                  </CardItem>
+                  </div>
                 </div>
-              </div>
-            </CardBody>
-          </CardContainer>
-        </motion.div>
-      ))}
-    </div>
+              </CardBody>
+            </CardContainer>
+          </motion.div>
+        ))}
+      </div>
+    </>
   );
 }

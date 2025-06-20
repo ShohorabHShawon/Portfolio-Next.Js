@@ -86,7 +86,12 @@ const webProjects = [
 export default function WebProjects() {
   return (
     <>
-      <div className="mb-10 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="mb-10 text-center"
+      >
         <SparklesText
           text="Web Projects"
           className="text-gray-900 dark:text-white text-5xl font-bold"
@@ -95,7 +100,7 @@ export default function WebProjects() {
           Crafting digital experiences with modern technologies and innovative
           design
         </p>
-      </div>
+      </motion.div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 xl:p-0">
         {/* Card Section */}
         {webProjects.map((project) => (

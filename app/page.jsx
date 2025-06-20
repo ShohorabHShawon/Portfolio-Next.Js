@@ -38,9 +38,6 @@ export default function Home() {
             </div>
 
             {/* UI/UX Projects Header */}
-            <div className="my-24">
-              <SparklesText text="UI/UX Projects" />
-            </div>
 
             {/* UI/UX Projects Grid */}
             <div className="w-full">

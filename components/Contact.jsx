@@ -99,9 +99,14 @@ export function Contact() {
       {/* Contact Section */}
       <section className="w-full min-h-screen bg-white dark:bg-gray-900 text-gray-800 dark:text-white flex justify-center items-center px-4 sm:px-6 py-20">
         <div className="max-w-6xl w-full mx-auto text-center">
-          <div className="mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="mb-10 text-center"
+          >
             <SparklesText text="Contact" />
-          </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 50 }}
