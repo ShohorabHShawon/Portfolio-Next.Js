@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-8">
           {/* Divider */}
-          <div className="w-full text-center max-w-2xl h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+          <div className="w-full text-center h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
           {/* Divider */}
           {/* Social Links */}
           <div className="flex space-x-6">
@@ -77,7 +77,7 @@ const Footer = () => {
           </div>
 
           {/* Divider */}
-          <div className="w-full max-w-6xl h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+          <div className="w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
 
           {/* Copyright */}
           <div className="text-center text-gray-400 text-sm">

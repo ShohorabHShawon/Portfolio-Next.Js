@@ -6,15 +6,29 @@ import ThemeToggle from '@/app/blogs/components/ThemeToggle';
 
 const Navbar = () => {
   const navItems = [
-    { name: 'home()', href: '#home', icon: '💻', type: 'function' },
-    { name: 'about.js', href: '#about', icon: '📄', type: 'file' },
-    { name: 'skills[]', href: '#skills', icon: '🔧', type: 'array' },
-    { name: '<Projects />', href: '#projects', icon: '🚀', type: 'component' },
-    { name: 'contact.connect()', href: '#contact', icon: '🌐', type: 'method' },
+    { name: 'home()', href: 'home', icon: '💻', type: 'function' },
+    { name: 'about.js', href: 'about', icon: '📄', type: 'file' },
+    { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
+    { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
+    { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
   ];
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [activeItem, setActiveItem] = React.useState('home()');
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavClick = (e, href, name) => {
+    e.preventDefault();
+    scrollToSection(href);
+    setActiveItem(name);
+    setMenuOpen(false);
+  };
 
   return (
     <motion.nav
@@ -54,15 +68,15 @@ const Navbar = () => {
 
             <div className="flex pt-8">
               {navItems.map((item, index) => (
-                <Link
+                <a
                   key={item.name}
-                  href={item.href}
+                  href={`#${item.href}`}
                   className={`text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-4 py-3 text-sm font-mono transition-all duration-200 relative group border-r border-gray-300/50 dark:border-gray-700/50 last:border-r-0 ${
                     activeItem === item.name
                       ? 'bg-gray-300/50 dark:bg-black/20 backdrop-blur-sm text-green-600 dark:text-green-400'
                       : ''
                   }`}
-                  onClick={() => setActiveItem(item.name)}
+                  onClick={(e) => handleNavClick(e, item.href, item.name)}
                 >
                   <div className="flex items-center space-x-2">
                     <span className="text-xs">{index + 1}</span>
@@ -101,7 +115,7 @@ const Navbar = () => {
                         : 'opacity-0 group-hover:opacity-50'
                     }`}
                   ></span>
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -152,11 +166,11 @@ const Navbar = () => {
           {/* Terminal Content */}
           <div className="flex-1 p-4 space-y-2 overflow-y-auto">
             {navItems.map((item, index) => (
-              <Link
+              <a
                 key={item.name}
-                href={item.href}
+                href={`#${item.href}`}
                 className="block text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 text-sm py-2 transition-all duration-200 group"
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, item.href, item.name)}
               >
                 <div className="flex items-center space-x-3">
                   <span className="text-gray-500 dark:text-gray-500 w-6">
@@ -179,10 +193,9 @@ const Navbar = () => {
                   </span>
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-500 ml-9 group-hover:text-gray-600 dark:group-hover:text-gray-400">
-                  {/* // Navigate to {item.name.replace(/[()[\]<>/]/g, '')} */}
                   {item.name.replace(/[()[\]<>/]/g, '')}
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
 
