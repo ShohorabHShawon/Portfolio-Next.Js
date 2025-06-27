@@ -62,25 +62,6 @@ const webProjects = [
     live: '',
     github: 'https://github.com/ShohorabHShawon/AI-Content-Generator',
   },
-  {
-    id: 7,
-    title: 'Indie Game Store',
-    description:
-      'A game store using raw HTML, CSS and PHP with MySQL database. It has a user-friendly interface and a secure login system.',
-    image: '/projects/indie-game-store.png',
-    live: '',
-    github:
-      'https://github.com/ShohorabHShawon/Webtech_Project_IGS/tree/main/igs',
-  },
-  {
-    id: 8,
-    title: 'ABC Service Hub',
-    description:
-      'Basic Management System Project Using NextJs and NestJs. It has a user-friendly interface and a secure login system. It has a user and admin panel.',
-    image: '/projects/abc-service-hub.png',
-    live: '',
-    github: 'https://github.com/ProgSomel/ABC_Service_Hub/tree/shawon',
-  },
 ];
 
 export default function WebProjects() {
