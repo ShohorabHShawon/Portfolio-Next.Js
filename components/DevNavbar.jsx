@@ -127,7 +127,7 @@ const Navbar = () => {
         initial={false}
         animate={menuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className={`fixed inset-0 z-40 bg-black/80 backdrop-blur-sm md:hidden ${
+        className={`fixed inset-0 z-40 bg-white/40 dark:bg-black/40 backdrop-blur-sm md:hidden ${
           menuOpen ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
         onClick={() => setMenuOpen(false)}
