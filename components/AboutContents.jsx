@@ -105,18 +105,17 @@ const AboutContents = () => {
                         <div className="relative">
                           {/* Hidden div to pre-allocate space */}
                           <div className="invisible text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify">
-                            I am a dedicated front-end developer with a strong
+                            A dedicated front-end developer with a strong
                             interest in UI/UX design, focused on creating
                             intuitive and visually compelling digital
-                            experiences. While still gaining experience in the
-                            field, I am committed to refining my skills and
-                            contributing to projects that prioritize
-                            user-centric design and functionality.
+                            experiences. Driven by a passion for continuous
+                            learning, I am eager to collaborate and deliver
+                            impactful solutions in web development and design.
                           </div>
                           {/* Typing animation positioned absolutely */}
                           <TypingAnimation
                             className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
-                            text="I am a dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. While still gaining experience in the field, I am committed to refining my skills and contributing to projects that prioritize user-centric design and functionality."
+                            text="A dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. Driven by a passion for continuous learning, I am eager to collaborate and deliver impactful solutions in web development and design."
                           />
                         </div>
                       </div>
