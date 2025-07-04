@@ -78,8 +78,8 @@ export default function UiProjects() {
             key={project.id}
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: false, amount: 0.1 }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <CardContainer className="inter-var relative m-2 w-full lg:h-12 group">
               <CardBody className="relative group/card dark:hover:shadow-xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2">

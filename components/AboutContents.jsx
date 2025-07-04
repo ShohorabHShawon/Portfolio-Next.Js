@@ -11,9 +11,10 @@ const AboutContents = () => {
       {/* Hero Section */}
       <motion.div
         className="relative py-12"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={{ opacity: 0, y: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.5 }}
       >
         <div className="container mx-auto px-4">
           <div className="text-center">

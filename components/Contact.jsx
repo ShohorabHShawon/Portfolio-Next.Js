@@ -103,21 +103,22 @@ export function Contact() {
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
+            viewport={{ once: false, amount: 0.5 }}
             className="mb-10 text-center"
           >
             <SparklesText text="Contact" />
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: false, amount: 0.5 }}
             className="mb-16"
           >
             <p className="text-xl text-gray-500 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Have a project in mind or just want to chat? I'd love to hear from
-              you.
+              Have a project in mind or just want to chat? I&apos;d love to hear
+              from you.
             </p>
           </motion.div>
 

@@ -71,6 +71,7 @@ export default function WebProjects() {
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
+        viewport={{ once: false, amount: 0.5 }}
         className="mb-10 text-center"
       >
         <SparklesText
@@ -89,8 +90,8 @@ export default function WebProjects() {
             key={project.id}
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 1, ease: 'easeInOut' }}
+            viewport={{ once: true, amount: 0.2 }}
             className="group"
           >
             <CardContainer className="inter-var w-full lg:h-80 h-auto">

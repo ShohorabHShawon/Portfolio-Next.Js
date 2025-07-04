@@ -73,9 +73,10 @@ export default function Skills() {
         {/* Header */}
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: false, amount: 0.5 }}
         >
           <SparklesText
             text="Skills"

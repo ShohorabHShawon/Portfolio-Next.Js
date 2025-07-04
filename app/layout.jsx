@@ -1,6 +1,7 @@
 import localFont from 'next/font/local';
 import './globals.css';
 import { ThemeProvider } from 'next-themes';
+import LenisProvider from '@/components/lenis';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -128,7 +129,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} antialiased scroll-smooth`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <LenisProvider>{children}</LenisProvider>
         </ThemeProvider>
       </body>
     </html>
