@@ -29,7 +29,7 @@ function SocialLinks() {
             handleClick('https://www.linkedin.com/in/shohorabhshawon/')
           }
         >
-          <FaLinkedin className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
+          <FaLinkedin className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2 hover:shadow-xl" />
         </motion.div>
 
         {/* GitHub Button */}
@@ -46,7 +46,7 @@ function SocialLinks() {
           className="cursor-pointer"
           onClick={() => handleClick('https://github.com/shohorabhshawon')}
         >
-          <FaGithubSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
+          <FaGithubSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2 hover:shadow-xl" />
         </motion.div>
 
         {/* Behance Button */}
@@ -63,7 +63,7 @@ function SocialLinks() {
           className="flex items-center justify-center cursor-pointer"
           onClick={() => handleClick('https://www.behance.net/shohorabhshawon')}
         >
-          <FaBehanceSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2" />
+          <FaBehanceSquare className="text-3xl md:text-4xl lg:text-5xl hover:scale-105 transition duration-300 ease-in-out mx-2 hover:shadow-xl" />
         </motion.div>
       </div>
     </>

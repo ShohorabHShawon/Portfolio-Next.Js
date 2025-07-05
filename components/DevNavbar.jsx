@@ -7,7 +7,7 @@ import ThemeToggle from '@/app/blogs/components/ThemeToggle';
 const Navbar = () => {
   const navItems = [
     { name: 'home()', href: 'home', icon: '💻', type: 'function' },
-    { name: 'about.js', href: 'about', icon: '📄', type: 'file' },
+    { name: 'about.ts', href: 'about', icon: '📄', type: 'file' },
     { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
     { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
     { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
@@ -62,7 +62,7 @@ const Navbar = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
               <span className="ml-3 text-xs text-gray-600 dark:text-gray-400 font-mono">
-                navbar.jsx
+                navbar.tsx
               </span>
             </div>
 

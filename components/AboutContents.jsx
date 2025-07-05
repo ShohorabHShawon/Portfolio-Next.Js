@@ -20,7 +20,7 @@ const AboutContents = () => {
           <div className="text-center">
             <SparklesText
               text="About Me"
-              className="text-5xl md:text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-200 mb-6"
+              className="text-5xl md:text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-200"
             />
           </div>
         </div>
@@ -106,17 +106,23 @@ const AboutContents = () => {
                         <div className="relative">
                           {/* Hidden div to pre-allocate space */}
                           <div className="invisible text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify">
-                            A dedicated front-end developer with a strong
-                            interest in UI/UX design, focused on creating
-                            intuitive and visually compelling digital
-                            experiences. Driven by a passion for continuous
-                            learning, I am eager to collaborate and deliver
-                            impactful solutions in web development and design.
+                            I&apos;m a passionate Full Stack Developer with
+                            hands-on experience building modern, scalable web
+                            applications using Next.js, Express.js, MongoDB, and
+                            Tailwind CSS. I specialize in creating fast,
+                            responsive, and SEO-friendly websites—from designing
+                            sleek front-end interfaces to building robust
+                            back-end APIs. I love solving real-world problems
+                            with clean code and performance-focused
+                            architecture. Whether it&apos;s an eCommerce
+                            platform, portfolio site, or custom web solution, I
+                            bring ideas to life with attention to detail and a
+                            user-first mindset.
                           </div>
                           {/* Typing animation positioned absolutely */}
                           <TypingAnimation
-                            className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify"
-                            text="A dedicated front-end developer with a strong interest in UI/UX design, focused on creating intuitive and visually compelling digital experiences. Driven by a passion for continuous learning, I am eager to collaborate and deliver impactful solutions in web development and design."
+                            className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
+                            text={`I'm a passionate Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Express.js, MongoDB, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.I love solving real-world problems with clean code and performance-focused architecture. Whether it's an eCommerce platform, portfolio site, or custom web solution, I bring ideas to life with attention to detail and a user-first mindset."`}
                           />
                         </div>
                       </div>
@@ -124,14 +130,14 @@ const AboutContents = () => {
 
                     {/* Experience and Projects Stats */}
                     <motion.div
-                      className="flex justify-center gap-8 mb-4"
+                      className="flex justify-center gap-8"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.6, delay: 1.8 }}
                     >
                       <div className="text-center">
                         <div className="text-blue-400 text-2xl font-bold">
-                          2+
+                          3+
                         </div>
                         <div className="text-gray-500 dark:text-gray-400 text-sm">
                           Years Experience

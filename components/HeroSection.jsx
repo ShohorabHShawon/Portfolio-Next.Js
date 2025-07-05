@@ -26,7 +26,7 @@ function HeroSection() {
 
         {/* Background Grid */}
         <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02] bg-[size:60px_60px] transition-colors duration-300" />
-        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white dark:bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)] dark:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] transition-colors duration-300"></div>
+        <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white dark:bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_60%,white)] dark:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] transition-colors duration-300"></div>
 
         {/* Animated Background Particles */}
         <div className="absolute inset-0 overflow-hidden z-10 pointer-events-none">
@@ -62,7 +62,7 @@ function HeroSection() {
                   Hi, I&apos;m
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 dark:from-purple-400 dark:via-pink-500 dark:to-red-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 dark:from-emerald-700 dark:via-emerald-500 dark:to-emerald-400 bg-clip-text text-transparent">
                   SHOHORAB
                 </span>
                 <br />
@@ -79,8 +79,8 @@ function HeroSection() {
                 whileTap={{ scale: 0.85 }}
                 className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left transition-colors duration-300"
               >
-                Front-end developer passionate about creating exceptional
-                digital experiences with modern technologies.
+                Full Stack Developer - passionate about building fast,
+                user-friendly web applications using modern technologies.
               </motion.p>
 
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left ">
@@ -94,7 +94,7 @@ function HeroSection() {
                     scale: { duration: 0.2 },
                   }}
                   whileTap={{ scale: 0.85 }}
-                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
+                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
                 >
                   <span className="relative z-10">
                     <Link
@@ -134,7 +134,7 @@ function HeroSection() {
                       scale: { duration: 0.2 },
                     }}
                     whileTap={{ scale: 0.85 }}
-                    className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
+                    className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
                   >
                     Gallery
                     <span>
@@ -174,7 +174,13 @@ function HeroSection() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse"></div>
+                <motion.div
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ scale: 0.4 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1.6, delay: 0.6 }}
+                  className="absolute inset-0 bg-white rounded-full blur-lg opacity-10 animate-pulse"
+                ></motion.div>
                 <motion.div
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, scale: 0.4 }}
@@ -185,8 +191,8 @@ function HeroSection() {
                 >
                   <BorderBeam
                     className={'rounded-full'}
-                    colorFrom="#60a5fa"
-                    colorTo="#f472b6"
+                    colorFrom="#06D001"
+                    colorTo="#18230F"
                     size={150}
                     duration={10}
                     borderWidth={9}
