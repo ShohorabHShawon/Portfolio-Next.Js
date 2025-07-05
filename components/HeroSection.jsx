@@ -94,9 +94,9 @@ function HeroSection() {
                     scale: { duration: 0.2 },
                   }}
                   whileTap={{ scale: 0.85 }}
-                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-white overflow-hidden"
+                  className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
                 >
-                  <span className="relative z-10 text-white">
+                  <span className="relative z-10">
                     <Link
                       href="/Shohorab_Hossain_Shawon.pdf"
                       target="_blank"
@@ -121,7 +121,6 @@ function HeroSection() {
                       </span>
                     </Link>
                   </span>
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
 
                 <Link href="/photography">
@@ -135,7 +134,7 @@ function HeroSection() {
                       scale: { duration: 0.2 },
                     }}
                     whileTap={{ scale: 0.85 }}
-                    className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg font-semibold text-white overflow-hidden"
+                    className="group relative px-3 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
                   >
                     Gallery
                     <span>
@@ -160,7 +159,6 @@ function HeroSection() {
                         />
                       </svg>
                     </span>
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </motion.button>
                 </Link>
 

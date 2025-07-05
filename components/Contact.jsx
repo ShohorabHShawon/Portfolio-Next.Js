@@ -131,11 +131,11 @@ export function Contact() {
               viewport={{ once: true }}
               className="space-y-8 h-full"
             >
-              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-xl h-full flex flex-col">
+              <div className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-2xl border border-white/20 dark:border-gray-700 shadow-xl h-full flex flex-col">
                 <BorderBeam />
 
                 {/* Terminal Header */}
-                <div className="flex bg-gray-200 dark:bg-gray-700 items-center justify-between px-6 py-2 rounded-t-3xl border-b border-white/20 dark:border-gray-700">
+                <div className="flex bg-gray-200 dark:bg-gray-700 items-center justify-between px-6 py-2 rounded-t-2xl border-b border-white/20 dark:border-gray-700">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 rounded-full bg-red-500"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -246,7 +246,7 @@ export function Contact() {
             >
               <form
                 onSubmit={handleSubmit}
-                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-3xl border border-white/20 dark:border-gray-700 shadow-xl relative overflow-hidden h-full flex flex-col"
+                className="bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-700/20 dark:to-gray-700/10 backdrop-blur-2xl rounded-2xl border border-white/20 dark:border-gray-700 shadow-xl relative overflow-hidden h-full flex flex-col"
               >
                 <BorderBeam />
 
