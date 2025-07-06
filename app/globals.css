@@ -56,3 +56,11 @@ body {
 html {
   scroll-behavior: auto;
 }
+
+.notion-code {
+  background-color: #ffffff !important;
+}
+
+.dark .notion-code {
+  background-color: #313131 !important;
+}

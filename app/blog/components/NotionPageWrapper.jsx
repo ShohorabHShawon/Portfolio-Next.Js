@@ -1,8 +1,27 @@
 'use client';
 
-import { NotionRenderer } from 'react-notion-x';
-import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { NotionRenderer } from 'react-notion-x';
+
+// ✅ Import required third-party Notion components
+import dynamic from 'next/dynamic';
+
+const Code = dynamic(() =>
+  import('react-notion-x/build/third-party/code').then((m) => m.Code),
+);
+const Collection = dynamic(() =>
+  import('react-notion-x/build/third-party/collection').then(
+    (m) => m.Collection,
+  ),
+);
+const Equation = dynamic(() =>
+  import('react-notion-x/build/third-party/equation').then((m) => m.Equation),
+);
+const Modal = dynamic(
+  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+  { ssr: false },
+);
 
 export default function NotionPageWrapper({ recordMap }) {
   const { theme } = useTheme();
@@ -14,11 +33,12 @@ export default function NotionPageWrapper({ recordMap }) {
 
   if (!mounted) {
     return (
-      <div className="notion-wrapper bg-white dark:bg-[#181A1B] text-black dark:text-white p-4 rounded-lg">
+      <div className="notion-wrapper bg-white dark:bg-[#181A1B] text-black p-4 rounded-lg">
         <NotionRenderer
           recordMap={recordMap}
           fullPage={false}
           darkMode={false}
+          components={{ Code, Collection, Equation, Modal }}
         />
       </div>
     );
@@ -28,12 +48,13 @@ export default function NotionPageWrapper({ recordMap }) {
     <div
       className={`notion-wrapper ${
         theme === 'dark' ? 'dark' : ''
-      } bg-white dark:bg-[#181A1B] text-black dark:text-white p-4 rounded-lg`}
+      } bg-white dark:bg-[#181A1B] text-black p-4 rounded-lg`}
     >
       <NotionRenderer
         recordMap={recordMap}
         fullPage={false}
         darkMode={theme === 'dark'}
+        components={{ Code, Collection, Equation, Modal }}
       />
     </div>
   );
