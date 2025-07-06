@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import ThemeToggle from '@/app/blogs/components/ThemeToggle';
+import ThemeToggle from '@/components/ThemeToggle';
 
 const Navbar = () => {
   const navItems = [
