@@ -1,6 +1,5 @@
 import { getAllPosts } from '@/lib/notion';
 import BlogCard from './components/BlogCard';
-import ThemeToggle from './components/ThemeToggle';
 import Link from 'next/link';
 import HomeButton from './components/HomeButton';
 

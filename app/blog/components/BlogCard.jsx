@@ -51,8 +51,8 @@ export default function BlogCard({ post }) {
             <Image
               src={post.thumbnail}
               alt={post.title}
-              width={800}
-              height={450}
+              width={400}
+              height={200}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>

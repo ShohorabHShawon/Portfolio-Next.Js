@@ -3,7 +3,6 @@ import { NotionAPI } from 'notion-client';
 import { parsePageId } from 'notion-utils';
 import NotionPageWrapper from '../components/NotionPageWrapper';
 import 'react-notion-x/src/styles.css';
-import ThemeToggle from '../components/ThemeToggle';
 
 import BackButton from '../components/BackButton';
 
