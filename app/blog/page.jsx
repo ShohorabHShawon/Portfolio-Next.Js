@@ -22,9 +22,6 @@ export default async function BlogListPage() {
         <div className="fixed top-4 left-4 z-50">
           <HomeButton className="text-black dark:text-white" />
         </div>
-        <div className="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
         <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
           <div className="max-w-3xl mx-auto px-6 py-12">
             <div className="text-center">
@@ -55,9 +52,6 @@ export default async function BlogListPage() {
             Go Home
           </Link>
         </div>
-        <div className="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
         <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
           <div className="max-w-3xl mx-auto px-6 py-12">
             <header className="text-center mb-16">
@@ -82,12 +76,6 @@ export default async function BlogListPage() {
 
   return (
     <>
-      <div className="fixed top-4 left-4 z-50">
-        <HomeButton className="text-black dark:text-white" />
-      </div>
-      <div className="fixed top-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
       <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
         <div className="max-w-3xl mx-auto px-6 py-12">
           <header className="text-center mb-16">
@@ -112,6 +100,13 @@ export default async function BlogListPage() {
           </div>
         </div>
       </div>
+      <footer className="bg-black text-white py-8">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="text-gray-300">
+            © 2025 Shohorab H Shawon. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

@@ -112,17 +112,12 @@ const AboutContents = () => {
                             Tailwind CSS. I specialize in creating fast,
                             responsive, and SEO-friendly websites—from designing
                             sleek front-end interfaces to building robust
-                            back-end APIs. I love solving real-world problems
-                            with clean code and performance-focused
-                            architecture. Whether it&apos;s an eCommerce
-                            platform, portfolio site, or custom web solution, I
-                            bring ideas to life with attention to detail and a
-                            user-first mindset.
+                            back-end APIs.
                           </div>
                           {/* Typing animation positioned absolutely */}
                           <TypingAnimation
                             className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
-                            text={`I'm a passionate Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Express.js, MongoDB, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.I love solving real-world problems with clean code and performance-focused architecture. Whether it's an eCommerce platform, portfolio site, or custom web solution, I bring ideas to life with attention to detail and a user-first mindset."`}
+                            text={`I'm a passionate Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Express.js, MongoDB, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
                           />
                         </div>
                       </div>

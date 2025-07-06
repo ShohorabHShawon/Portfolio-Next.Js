@@ -174,9 +174,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} antialiased scroll-smooth`}
       >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <LenisProvider>{children}</LenisProvider>
-        </ThemeProvider>
+        <LenisProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            {children}
+          </ThemeProvider>
+        </LenisProvider>
       </body>
     </html>
   );

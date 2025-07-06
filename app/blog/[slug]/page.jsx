@@ -62,13 +62,9 @@ export default async function BlogPostPage({ params }) {
 
     return (
       <>
-        <div className="fixed top-4 left-4 z-50">
-          <BackButton className="text-black dark:text-white" />
-        </div>
-        <div className="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
+        <div className="fixed top-2 left-4 z-50"></div>
         <div className="min-h-screen bg-white dark:bg-[#181A1B]">
+          <BackButton className="text-black dark:text-white" />
           <article className="max-w-4xl mx-auto px-6 py-12">
             {/* Header Section */}
             <header className="mb-12 pb-8 border-b border-gray-200 dark:border-gray-800">

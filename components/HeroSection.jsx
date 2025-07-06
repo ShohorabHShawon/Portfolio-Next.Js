@@ -122,6 +122,38 @@ function HeroSection() {
                     </Link>
                   </span>
                 </motion.button>
+                <Link href="/blog">
+                  <motion.button
+                    initial={{ opacity: 0, y: 90 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    whileHover={{ scale: 1.15 }}
+                    transition={{
+                      duration: 0.6,
+                      delay: 0.95,
+                      scale: { duration: 0.2 },
+                    }}
+                    whileTap={{ scale: 0.85 }}
+                    className="group relative px-4 py-1 md:px-6 md:py-2 lg:px-8 lg:py-3 bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg font-semibold text-black dark:text-white shadow-lg hover:bg-white/20 overflow-hidden"
+                  >
+                    Blog
+                    <span>
+                      <svg
+                        className="inline-block ml-2 w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                        />
+                      </svg>
+                    </span>
+                  </motion.button>
+                </Link>
 
                 <Link href="/photography">
                   <motion.button

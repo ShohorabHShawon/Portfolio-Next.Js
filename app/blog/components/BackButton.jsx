@@ -11,7 +11,7 @@ export default function BackButton() {
   return (
     <button
       onClick={handleGoBack}
-      className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+      className="flex items-center gap-2 px-4 py-2 text-black dark:text-white transition-colors"
     >
       <svg
         className="w-5 h-5"

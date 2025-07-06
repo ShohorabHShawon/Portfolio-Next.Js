@@ -1,7 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { SunIcon } from '@heroicons/react/24/outline';
+import { FaMoon } from 'react-icons/fa';
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -31,16 +32,16 @@ export default function ThemeToggle() {
 
   const getIcon = () => {
     if (currentTheme === 'dark') {
-      return <SunIcon className="w-5 h-5 text-yellow-500" />;
+      return <SunIcon className="w-5 h-5 text-white" />;
     } else {
-      return <MoonIcon className="w-5 h-5 text-gray-700 dark:text-gray-300" />;
+      return <FaMoon className="w-4 h-4 text-white" />;
     }
   };
 
   return (
     <button
       onClick={handleThemeChange}
-      className="flex items-center justify-center w-10 h-10 rounded-lg  dark:bg-[#181A1B] hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+      className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-700 transition-colors"
       aria-label="Toggle theme"
     >
       {getIcon()}
