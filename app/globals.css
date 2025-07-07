@@ -57,10 +57,74 @@ html {
   scroll-behavior: auto;
 }
 
-.notion-code {
-  background-color: #ffffff !important;
+html,
+body {
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.dark .notion-code {
-  background-color: #313131 !important;
+/* notion code color  */
+/* Ensure notion block backgrounds are transparent */
+/* Keep the base look for Notion content */
+.notion {
+  background: transparent !important;
+}
+
+/* Improve block code readability in dark mode */
+.dark .notion pre {
+  background-color: #2d2d2d !important; /* Dark background */
+  color: #f8f8f2 !important; /* Light readable text */
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* Inline code styling in dark mode */
+.dark .notion code {
+  background-color: #252525 !important;
+  color: #f8f8f2 !important;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+/* Target only inside .notion-wrapper */
+.dark .notion-wrapper .notion pre {
+  background-color: #252525 !important;
+}
+
+/* Fix overlapping white ghost text in code blocks */
+.notion .notion-code .token {
+  text-shadow: none !important;
+}
+
+/* Hide duplicate overlay content (often causes 3D effect) */
+.notion .notion-code .linenumber,
+.notion .notion-code::before,
+.notion .notion-code::after {
+  display: none !important;
+  content: none !important;
+}
+.notion pre,
+.notion code {
+  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace !important;
+  text-shadow: none !important;
+  color: inherit !important;
+}
+.notion .notion-code {
+  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace !important;
+  text-shadow: none !important;
+  color: inherit !important;
+}
+
+html.dark .notion .token.operator,
+html.dark .notion .token.punctuation {
+  color: #e0e0e0 !important; /* soft light gray */
+}
+
+/* Remove background highlight effect for code tokens in dark mode */
+html.dark .notion code .token,
+html.dark .notion pre .token {
+  background: none !important;
+  box-shadow: none !important;
 }

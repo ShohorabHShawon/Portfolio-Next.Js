@@ -22,12 +22,18 @@ export async function generateStaticParams() {
 // ✅ Setup SEO metadata
 export async function generateMetadata({ params }) {
   try {
-    const post = await getPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
     if (!post) return { title: 'Not found' };
 
     return {
       title: post.title,
       description: post.summary,
+      authors: [
+        {
+          name: post.author,
+        },
+      ],
       openGraph: {
         title: post.title,
         description: post.summary,
@@ -38,11 +44,11 @@ export async function generateMetadata({ params }) {
     return { title: 'Error loading post' };
   }
 }
-
 // ✅ Main blog post renderer
 export default async function BlogPostPage({ params }) {
   try {
-    const post = await getPostBySlug(params.slug);
+    const { slug } = await params;
+    const post = await getPostBySlug(slug);
     if (!post)
       return (
         <div className="min-h-screen bg-white dark:bg-[#181A1B] flex items-center justify-center">
@@ -61,8 +67,7 @@ export default async function BlogPostPage({ params }) {
 
     return (
       <>
-        <div className="fixed top-2 left-4 z-50"></div>
-        <div className="min-h-screen bg-white dark:bg-[#181A1B]">
+        <div className="min-h-screen antialiased text-black dark:text-white bg-white dark:bg-[#181A1B]">
           <BackButton className="text-black dark:text-white" />
           <article className="max-w-4xl mx-auto px-6 py-12">
             {/* Header Section */}

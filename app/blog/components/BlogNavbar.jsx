@@ -12,7 +12,7 @@ function Navbar({ title, address, Icon }) {
     <div>
       <Link href={address} className="hover:text-gray-7000">
         <Icon className="text-2xl sm:hidden" />
-        <h1 className="uppercase font-bold hidden sm:inline text-sm">
+        <h1 className="uppercase font-medium hidden sm:inline text-sm">
           {title}
         </h1>
       </Link>
@@ -32,7 +32,7 @@ function BlogNavbar() {
           transition={{ duration: 0.5 }}
         >
           <Link href="/" className="flex items-center">
-            <h1 className="text-2xl md:text-3xl font-lexend text-white font-extrabold">
+            <h1 className="text-2xl md:text-3xl font-lexend text-white font-semibold tracking-wide">
               Shohorab
             </h1>
           </Link>
@@ -45,7 +45,7 @@ function BlogNavbar() {
           transition={{ duration: 0.5 }}
           className="hidden md:flex items-center gap-2 lg:gap-4"
         >
-          <Navbar title="Home" address="/blog" Icon={FaHome} />
+          <Navbar title="Blog" address="/blog" Icon={FaHome} />
           <Navbar title="About" address="/#about" Icon={RiFileInfoFill} />
           <ThemeToggle />
         </motion.div>
@@ -55,7 +55,7 @@ function BlogNavbar() {
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
           >
             {isMenuOpen ? (
               <HiX className="h-6 w-6 text-white" />

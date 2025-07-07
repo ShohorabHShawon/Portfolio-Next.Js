@@ -16,7 +16,6 @@ export default function BlogCard({ post }) {
       typeof post.slug !== 'string' ||
       post.slug.trim() === ''
     ) {
-      console.error('Invalid or missing post slug');
       return;
     }
 
