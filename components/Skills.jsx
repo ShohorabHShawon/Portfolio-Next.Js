@@ -163,7 +163,7 @@ export default function Skills() {
                         }}
                         className="group"
                       >
-                        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200">
+                        <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center hover:border-gray-300 dark:hover:border-gray-500 transition-all duration-200">
                           <div className="mb-3">
                             <Image
                               src={icon.src}

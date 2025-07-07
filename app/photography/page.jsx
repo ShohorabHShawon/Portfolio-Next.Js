@@ -284,7 +284,7 @@ export default function Photography() {
         </div>
         <div className="relative z-20 text-center text-white max-w-7xl px-6">
           <h1
-            className={`font-bestia text-4xl md:text-6xl lg:text-8xl mb-10 tracking-wider text-center`}
+            className={`font-bestia text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
           >
             Shohorab H Shawon
           </h1>
@@ -298,12 +298,12 @@ export default function Photography() {
                   .getElementById('gallery')
                   .scrollIntoView({ behavior: 'smooth' })
               }
-              className="px-8 mx-2 py-3 rounded-xl border border-white/30 text-black  bg-white hover:bg-transparent hover:text-white transition-all duration-300 backdrop-blur-sm"
+              className="px-5 mx-2 py-2 md:px-8 md:mx-2 md:py-3 rounded-xl border border-white/30 text-black  bg-white hover:bg-transparent hover:text-white transition-all duration-300 backdrop-blur-sm"
             >
               Explore Gallery
             </button>
             <Link href="/">
-              <button className="px-8 py-3 rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm">
+              <button className="px-5 mx-2 py-2 md:px-8 md:mx-2 md:py-3 rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm">
                 Portfolio
               </button>
             </Link>
