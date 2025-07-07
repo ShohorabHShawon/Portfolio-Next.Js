@@ -284,9 +284,9 @@ export default function Photography() {
         </div>
         <div className="relative z-20 text-center text-white max-w-7xl px-6">
           <h1
-            className={`${bubblegum.className} font-bold text-4xl md:text-6xl lg:text-8xl mb-6 tracking-wider text-center`}
+            className={`font-bestia text-4xl md:text-6xl lg:text-8xl mb-10 tracking-wider text-center`}
           >
-            SHOHORAB H SHAWON
+            Shohorab H Shawon
           </h1>
           <p className="text-xl md:text-2xl font-light tracking-wide opacity-90">
             Visual Storyteller & Photographer

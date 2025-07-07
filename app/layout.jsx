@@ -8,6 +8,17 @@ const geistSans = localFont({
   variable: '--font-geist-sans',
   weight: '100 900',
 });
+const Elmundo = localFont({
+  src: './fonts/Elmundo.ttf',
+  variable: '--font-elmundo',
+  weight: '400',
+});
+const Bestia = localFont({
+  src: './fonts/Bestia.otf',
+  variable: '--font-bestia',
+  weight: '400',
+});
+
 const geistMono = localFont({
   src: './fonts/GeistMonoVF.woff',
   variable: '--font-geist-mono',
@@ -178,7 +189,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} antialiased scroll-smooth`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
       >
         <LenisProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

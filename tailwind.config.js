@@ -21,6 +21,8 @@ module.exports = {
       fontFamily: {
         lexend: ['var(--font-lexend)', 'sans-serif'],
         grailga: ['var(--font-grailga)', 'serif'],
+        elmundo: ['var(--font-elmundo)', 'sans-serif'],
+        bestia: ['var(--font-bestia)', 'sans-serif'],
       },
       animation: {
         spotlight: 'spotlight 2s ease .75s 1 forwards',
