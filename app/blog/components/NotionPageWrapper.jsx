@@ -33,7 +33,7 @@ export default function NotionPageWrapper({ recordMap }) {
 
   if (!mounted) {
     return (
-      <div className="notion-wrapper antialiased text-black dark:text-white bg-white dark:bg-[#181A1B] p-4 rounded-lg">
+      <div className="notion-wrapper antialiased text-black dark:text-white bg-white dark:bg-[#181A1B] p-4 rounded-lg ">
         <NotionRenderer
           recordMap={recordMap}
           fullPage={false}

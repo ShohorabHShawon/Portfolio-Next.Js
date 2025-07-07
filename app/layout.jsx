@@ -20,6 +20,12 @@ const lexend = localFont({
   weight: '400',
 });
 
+const grailga = localFont({
+  src: './fonts/grailga-regular.otf',
+  variable: '--font-grailga',
+  display: 'swap',
+});
+
 export const metadata = {
   title:
     'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
@@ -172,7 +178,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} antialiased scroll-smooth`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} antialiased scroll-smooth`}
       >
         <LenisProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

@@ -54,7 +54,7 @@ export default async function BlogListPage() {
         <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
           <div className="max-w-3xl mx-auto px-6 py-12">
             <header className="text-center mb-16">
-              <h1 className="text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="font-grailga text-5xl font-bold text-gray-900 dark:text-white mb-4">
                 Blog
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300">
@@ -78,10 +78,10 @@ export default async function BlogListPage() {
       <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
         <div className="max-w-3xl mx-auto px-6 py-12">
           <header className="text-center mb-16">
-            <h1 className="text-5xl font-serif font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-6xl font-grailga font-bold text-gray-900 dark:text-white mb-4">
               Blog
             </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
+            <p className="text-lg font-lexend text-gray-600 dark:text-gray-300">
               Thoughts, stories and ideas
             </p>
             <div className="w-24 h-px bg-gray-300 dark:bg-gray-700 mx-auto mt-6"></div>

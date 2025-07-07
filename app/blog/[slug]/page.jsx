@@ -5,6 +5,7 @@ import NotionPageWrapper from '../components/NotionPageWrapper';
 import 'react-notion-x/src/styles.css';
 
 import BackButton from '../components/BackButton';
+import Image from 'next/image';
 
 const notion = new NotionAPI();
 
@@ -69,10 +70,19 @@ export default async function BlogPostPage({ params }) {
       <>
         <div className="min-h-screen antialiased text-black dark:text-white bg-white dark:bg-[#181A1B]">
           <BackButton className="text-black dark:text-white" />
-          <article className="max-w-4xl mx-auto px-6 py-12">
+          <div className="max-w-4xl mx-auto px-6 py-8">
+            <Image
+              src={post.thumbnail}
+              alt={post.title}
+              className="w-full h-64 object-cover rounded-lg shadow-md"
+              width={800}
+              height={400}
+            />
+          </div>
+          <article className="max-w-4xl mx-auto px-6 py-6">
             {/* Header Section */}
-            <header className="mb-12 pb-8 border-b border-gray-200 dark:border-gray-800">
-              <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-6 leading-tight">
+            <header className="mb-12 pb-6 border-b border-gray-200 dark:border-gray-800 px-4">
+              <h1 className="text-2xl md:text-4xl font-bold text-black dark:text-white mb-6 leading-tight">
                 {post.title}
               </h1>
 
@@ -123,7 +133,7 @@ export default async function BlogPostPage({ params }) {
             </header>
 
             {/* Content Section */}
-            <div className="notion">
+            <div className="">
               <NotionPageWrapper recordMap={recordMap} darkMode={true} />
             </div>
           </article>

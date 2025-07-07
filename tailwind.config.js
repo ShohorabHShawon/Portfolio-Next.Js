@@ -20,6 +20,7 @@ module.exports = {
     extend: {
       fontFamily: {
         lexend: ['var(--font-lexend)', 'sans-serif'],
+        grailga: ['var(--font-grailga)', 'serif'],
       },
       animation: {
         spotlight: 'spotlight 2s ease .75s 1 forwards',

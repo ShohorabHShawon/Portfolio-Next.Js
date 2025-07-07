@@ -117,6 +117,207 @@ body {
   color: inherit !important;
 }
 
+/* Notion full page customization */
+/* Notion content full-width and spacing reset */
+.notion {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+}
+
+.notion-frame,
+.notion-page,
+.notion-page-scroller {
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* .notion-viewport {
+  margin: 0 !important;
+  padding: 0 !important;
+} */
+/* Base Notion styles */
+/* .notion {
+  font-size: 18px;
+  line-height: 26px;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+} */
+
+/* Headings */
+/* .notion h1 {
+  font-size: 34px;
+  line-height: 40px;
+  font-weight: 700;
+}
+.notion h2 {
+  font-size: 30px;
+  line-height: 36px;
+  font-weight: 600;
+}
+.notion h3 {
+  font-size: 26px;
+  line-height: 32px;
+  font-weight: 600;
+}
+.notion h4 {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+} */
+
+/* Paragraphs and Lists */
+/* .notion p,
+.notion li {
+  font-size: 18px;
+  line-height: 26px;
+} */
+
+/* Code blocks and inline code */
+/* .notion code {
+  font-size: 16px;
+  background-color: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.notion pre {
+  font-size: 18px;
+  background-color: #1e1e1e;
+  color: #eaeaea;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+} */
+
+/* Images inside Notion blocks */
+/* .notion img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+} */
+
+/* Blockquotes */
+/* .notion blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  color: #666;
+  font-style: italic;
+} */
+
+/* Tables */
+/* .notion table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.notion th,
+.notion td {
+  border: 1px solid #ccc;
+  padding: 8px;
+} */
+
+/* Responsive Typography */
+/* @media (max-width: 768px) {
+  .notion h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .notion h2 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  .notion h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  .notion h4 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+  .notion p {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .notion li {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .notion code,
+  .notion pre {
+    font-size: 18px;
+  }
+} */
+/* styles/globals.css or inside your layout */
+/* .notion .notion-text {
+  @apply text-[16px] md:text-[17px] lg:text-[18px] leading-[28px] md:leading-[30px] lg:leading-[32px] text-gray-800 dark:text-gray-200;
+} */
+/* Apply Tailwind classes to react-notion-x elements */
+@layer base {
+  .notion {
+    @apply text-[16px] md:text-[17px] lg:text-[18px] leading-[28px] md:leading-[30px] lg:leading-[32px] text-gray-800 dark:text-gray-200;
+  }
+
+  /* Paragraphs */
+  .notion-text {
+    @apply text-[16px] md:text-[17px] lg:text-[18px] text-gray-800 dark:text-gray-200;
+  }
+
+  /* Headings */
+  .notion-h1 {
+    @apply text-[28px] md:text-[32px] lg:text-[36px] font-bold text-black dark:text-white;
+  }
+  .notion-h2 {
+    @apply text-[24px] md:text-[28px] lg:text-[30px] font-semibold text-black dark:text-white;
+  }
+  .notion-h3 {
+    @apply text-[20px] md:text-[22px] lg:text-[24px] font-medium text-black dark:text-white;
+  }
+
+  /* Quotes */
+  .notion-quote {
+    @apply border-l-4 pl-4 italic text-gray-700 dark:text-gray-400;
+  }
+
+  /* Lists */
+  .notion-list {
+    @apply list-disc pl-6;
+  }
+
+  .notion-list-numbered {
+    @apply list-decimal pl-6;
+  }
+
+  /* Code blocks */
+  .notion-code {
+    @apply text-[15px] md:text-[16px] font-mono bg-gray-100 dark:bg-[#1e1e1e] text-black dark:text-gray-200 px-4 py-3 rounded-md overflow-x-auto;
+  }
+
+  /* Inline code */
+  .notion-inline-code {
+    @apply bg-gray-200 dark:bg-[#2a2a2a] text-red-600 dark:text-red-400 px-1 py-0.5 rounded text-[15px] font-mono;
+  }
+
+  /* Callouts */
+  .notion-callout {
+    @apply p-4 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100;
+  }
+
+  /* Tables */
+  .notion-table td,
+  .notion-table th {
+    @apply border border-gray-300 dark:border-gray-700 px-3 py-2 text-sm;
+  }
+
+  /* Images */
+  .notion-image {
+    @apply rounded-lg max-w-full h-auto;
+  }
+}
+/* Notion Font Customization */
+
 html.dark .notion .token.operator,
 html.dark .notion .token.punctuation {
   color: #e0e0e0 !important; /* soft light gray */

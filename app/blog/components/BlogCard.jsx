@@ -58,33 +58,85 @@ export default function BlogCard({ post }) {
         )}
 
         {/* Content */}
-        <div className="space-y-3">
-          <h2 className="text-2xl font-serif font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
-            {post.title}
-          </h2>
+        <div className="space-y-4 p-2">
+          <div className="space-y-2">
+            <h2 className="font-lexend text-2xl hover:underline font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors duration-200 line-clamp-2">
+              {post.title}
+            </h2>
 
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-2">
-            <time>
-              {post.date
-                ? new Date(post.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })
-                : 'No date'}
-            </time>
-            <span>•</span>
-            <span>{post.author}</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+              {post.summary || 'No summary available'}
+            </p>
           </div>
 
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            {post.summary}
-          </p>
+          <div className="flex items-center justify-between pt-2">
+            <div className="flex items-center text-xs text-gray-500 dark:text-gray-500 space-x-3">
+              <time className="flex items-center space-x-1">
+                <svg
+                  className="w-3 h-3"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span>
+                  {post.date
+                    ? new Date(post.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })
+                    : 'No date'}
+                </span>
+              </time>
 
-          <div className="pt-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
-              {loading || isPending ? <LoadingSpinner /> : 'Read more →'}
-            </span>
+              {post.author && (
+                <>
+                  <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                  <span className="flex items-center space-x-1">
+                    <svg
+                      className="w-3 h-3"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <span>{post.author}</span>
+                  </span>
+                </>
+              )}
+            </div>
+
+            <div className="flex items-center text-xs text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-200">
+              {loading || isPending ? (
+                <LoadingSpinner />
+              ) : (
+                <>
+                  <span className="font-medium">Read more</span>
+                  <svg
+                    className="w-3 h-3 ml-1 group-hover:translate-x-0.5 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
