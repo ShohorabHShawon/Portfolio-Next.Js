@@ -9,6 +9,9 @@ import Image from 'next/image';
 
 const notion = new NotionAPI();
 
+// ✅ Enable ISR with revalidation every 60 seconds
+export const revalidate = 60;
+
 // ✅ Generate all possible blog slugs for static site generation (SSG)
 export async function generateStaticParams() {
   try {
@@ -45,6 +48,7 @@ export async function generateMetadata({ params }) {
     return { title: 'Error loading post' };
   }
 }
+
 // ✅ Main blog post renderer
 export default async function BlogPostPage({ params }) {
   try {

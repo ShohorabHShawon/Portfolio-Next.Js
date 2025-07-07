@@ -3,7 +3,7 @@ import BlogCard from './components/BlogCard';
 import Link from 'next/link';
 import HomeButton from './components/HomeButton';
 
-export const revalidate = 60;
+export const revalidate = 60; // ISR - revalidate every 60 seconds
 
 export default async function BlogListPage() {
   let posts = [];
