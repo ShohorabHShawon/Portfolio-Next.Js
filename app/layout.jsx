@@ -63,7 +63,7 @@ export const metadata = {
     ],
   },
   description:
-    'Shohorab Hossain Shawon - Full Stack Web Developer specializing in Next.js, React, and modern technologies. View portfolio, projects, and get in touch for development services.',
+    'Shohorab Hossain Shawon - Full Stack Web Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
   keywords: [
     'Shohorab Hossain Shawon',
     'Shohorab',
@@ -75,6 +75,8 @@ export const metadata = {
     'Portfolio',
     'Full Stack Web Developer',
     'Next.js',
+    'Nest.js',
+    'Web Developer',
     'React',
     'JavaScript',
     'TypeScript',
@@ -142,7 +144,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Shohorab Hossain Shawon - Full Stack Web Developer',
     description:
-      'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
+      'Professional Full Stack Web Developer specializing in Next.js, Nest.js, and modern web technologies.',
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
