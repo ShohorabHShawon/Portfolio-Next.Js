@@ -40,28 +40,28 @@ const grailga = localFont({
 export const metadata = {
   title:
     'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
-  icons: {
-    icon: '/icon.ico',
-    apple: '/favicon.png',
-    shortcut: '/favicon.png',
-    other: [
-      {
-        rel: 'icon',
-        url: '/favicon.png',
-        sizes: '16x16',
-      },
-      {
-        rel: 'icon',
-        url: '/favicon.png',
-        sizes: '32x32',
-      },
-      {
-        rel: 'icon',
-        url: '/favicon.png',
-        sizes: '48x48',
-      },
-    ],
-  },
+  // icons: {
+  //   icon: '/icon.ico',
+  //   apple: '/favicon.png',
+  //   shortcut: '/favicon.png',
+  //   other: [
+  //     {
+  //       rel: 'icon',
+  //       url: '/favicon.png',
+  //       sizes: '16x16',
+  //     },
+  //     {
+  //       rel: 'icon',
+  //       url: '/favicon.png',
+  //       sizes: '32x32',
+  //     },
+  //     {
+  //       rel: 'icon',
+  //       url: '/favicon.png',
+  //       sizes: '48x48',
+  //     },
+  //   ],
+  // },
   description:
     'Shohorab Hossain Shawon - Full Stack Web Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
   keywords: [
