@@ -12,15 +12,15 @@ const notion = new NotionAPI();
 export const revalidate = 60;
 export const dynamicParams = true;
 // ✅ Pre-render top 10 popular blog slugs
-// export async function generateStaticParams() {
-//   try {
-//     const posts = await getAllPosts();
-//     return posts.slice(0, 10).map((post) => ({ slug: post.slug }));
-//   } catch (error) {
-//     console.error('Error generating static params:', error);
-//     return [];
-//   }
-// }
+export async function generateStaticParams() {
+  try {
+    const posts = await getAllPosts();
+    return posts.slice(0, 10).map((post) => ({ slug: post.slug }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
 
 // ✅ SEO metadata
 export async function generateMetadata({ params }) {
