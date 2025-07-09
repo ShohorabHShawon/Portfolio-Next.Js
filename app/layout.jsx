@@ -39,7 +39,7 @@ const grailga = localFont({
 
 export const metadata = {
   title:
-    'Shohorab Hossain Shawon - Full Stack Web Developer | Next.js & React Expert',
+    'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer | Next.js & Nest.js Expert',
   // icons: {
   //   icon: '/icon.ico',
   //   apple: '/favicon.png',
@@ -63,7 +63,19 @@ export const metadata = {
   //   ],
   // },
   description:
-    'Shohorab Hossain Shawon - Full Stack Web Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
+    'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
+  other: {
+    'google-site-verification': 'OgeF8_GazjYsJM9yIDL8e_bmi3k2fHqRFAVBeGTiWkI',
+    'application-name': 'Shohorab H Shawon',
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'default',
+    'apple-mobile-web-app-title': 'Shohorab H Shawon',
+    'format-detection': 'telephone=no',
+    'mobile-web-app-capable': 'yes',
+    'msapplication-TileColor': '#000000',
+    'msapplication-tap-highlight': 'no',
+    'theme-color': '#000000',
+  },
   keywords: [
     'Shohorab Hossain Shawon',
     'Shohorab',
@@ -72,6 +84,7 @@ export const metadata = {
     'shohorab h shawon',
     'shohorab',
     'shohorab hossain',
+    'Software Engineer',
     'Portfolio',
     'Full Stack Web Developer',
     'Next.js',
@@ -124,17 +137,18 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Shohorab Hossain Shawon - Full Stack Web Developer',
+    title: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
     description:
-      'Professional Full Stack Web Developer specializing in Next.js, React, and modern web technologies.',
+      'Professional Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern web technologies.',
     url: 'https://shohorab.com',
-    siteName: 'Shohorab Hossain Shawon - Full Stack Web Developer',
+    siteName:
+      'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
     images: [
       {
         url: '/profile.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shohorab Hossain Shawon - Full Stack Web Developer',
+        alt: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
       },
     ],
     locale: 'en_US',
@@ -142,9 +156,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab Hossain Shawon - Full Stack Web Developer',
+    title: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
     description:
-      'Professional Full Stack Web Developer specializing in Next.js, Nest.js, and modern web technologies.',
+      'Professional Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern web technologies.',
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
@@ -162,21 +176,6 @@ export const metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
-  other: {
-    'application-name': 'Shohorab Portfolio',
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'default',
-    'apple-mobile-web-app-title': 'Shohorab Portfolio',
-    'format-detection': 'telephone=no',
-    'mobile-web-app-capable': 'yes',
-    'msapplication-config': '/browserconfig.xml',
-    'msapplication-TileColor': '#000000',
-    'msapplication-tap-highlight': 'no',
-    'theme-color': '#000000',
   },
 };
 

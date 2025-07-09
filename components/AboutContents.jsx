@@ -106,18 +106,21 @@ const AboutContents = () => {
                         <div className="relative">
                           {/* Hidden div to pre-allocate space */}
                           <div className="invisible text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify">
-                            I&apos;m a passionate Full Stack Developer with
-                            hands-on experience building modern, scalable web
-                            applications using Next.js, Express.js, MongoDB, and
-                            Tailwind CSS. I specialize in creating fast,
-                            responsive, and SEO-friendly websites—from designing
-                            sleek front-end interfaces to building robust
-                            back-end APIs.
+                            I&apos;m a Software Engineer & Full Stack Developer
+                            with hands-on experience building modern, scalable
+                            web applications using Next.js, Nestjs, MongoDB,
+                            PostgreSQL and Tailwind CSS. I specialize in
+                            creating fast, responsive, and SEO-friendly
+                            websites—from designing sleek front-end interfaces
+                            to building robust back-end APIs.
                           </div>
                           {/* Typing animation positioned absolutely */}
                           <TypingAnimation
                             className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
-                            text={`I'm a passionate Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Express.js, MongoDB, and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
+                            text={`I'm a Software Engineer & Full Stack Developer
+                            with hands-on experience building modern, scalable
+                            web applications using Next.js, Nestjs, MongoDB,
+                            PostgreSQL and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
                           />
                         </div>
                       </div>

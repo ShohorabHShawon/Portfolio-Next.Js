@@ -59,7 +59,7 @@ function HeroSection() {
                 className="text-center lg:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
               >
                 <span className="text-gray-800 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
-                  Hi, I&apos;m
+                  Hello! I&apos;m
                 </span>
                 <br />
                 <span className="bg-gradient-to-r from-emerald-500 to-emerald-700 dark:from-emerald-700 dark:via-emerald-500 dark:to-emerald-400 bg-clip-text text-transparent">
@@ -79,8 +79,8 @@ function HeroSection() {
                 whileTap={{ scale: 0.85 }}
                 className="text-gray-600 dark:text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0 text-center lg:text-left transition-colors duration-300"
               >
-                Full Stack Developer - passionate about building fast,
-                user-friendly web applications using modern technologies.
+                I&apos;m a Software Engineer and Full Stack Developer who
+                transforms ideas into digital experiences.
               </motion.p>
 
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start text-center lg:text-left ">
