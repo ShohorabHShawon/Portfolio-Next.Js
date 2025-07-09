@@ -40,28 +40,7 @@ const grailga = localFont({
 export const metadata = {
   title:
     'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer | Next.js & Nest.js Expert',
-  // icons: {
-  //   icon: '/icon.ico',
-  //   apple: '/favicon.png',
-  //   shortcut: '/favicon.png',
-  //   other: [
-  //     {
-  //       rel: 'icon',
-  //       url: '/favicon.png',
-  //       sizes: '16x16',
-  //     },
-  //     {
-  //       rel: 'icon',
-  //       url: '/favicon.png',
-  //       sizes: '32x32',
-  //     },
-  //     {
-  //       rel: 'icon',
-  //       url: '/favicon.png',
-  //       sizes: '48x48',
-  //     },
-  //   ],
-  // },
+
   description:
     'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
   other: {
@@ -162,10 +141,10 @@ export const metadata = {
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#000000' },
-  ],
+  // themeColor: [
+  //   { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+  //   { media: '(prefers-color-scheme: dark)', color: '#000000' },
+  // ],
   robots: {
     index: true,
     follow: true,
