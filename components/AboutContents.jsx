@@ -119,7 +119,7 @@ const AboutContents = () => {
                             className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
                             text={`I'm a Software Engineer & Full Stack Developer
                             with hands-on experience building modern, scalable
-                            web applications using Next.js, Nestjs, MongoDB,
+                            web applications using Next.js, Nest.js, MongoDB,
                             PostgreSQL and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
                           />
                         </div>
