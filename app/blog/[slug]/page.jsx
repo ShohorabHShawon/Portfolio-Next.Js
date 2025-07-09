@@ -10,7 +10,7 @@ const notion = new NotionAPI();
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
-
+export const dynamicParams = true;
 // ✅ Pre-render top 10 popular blog slugs
 // export async function generateStaticParams() {
 //   try {
