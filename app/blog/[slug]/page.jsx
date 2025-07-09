@@ -11,12 +11,14 @@ const notion = new NotionAPI();
 
 // ✅ Enable ISR with revalidation every 60 seconds
 export const revalidate = 60;
+export const dynamicParams = true;
 
-// ✅ Generate all possible blog slugs for static site generation (SSG)
+// ✅ Generate static paths for common posts only
 export async function generateStaticParams() {
   try {
     const posts = await getAllPosts();
-    return posts.map((post) => ({ slug: post.slug }));
+    // Only pre-generate first 10 posts, others will be generated on-demand
+    return posts.slice(0, 10).map((post) => ({ slug: post.slug }));
   } catch (error) {
     console.error('Error generating static params:', error);
     return [];
