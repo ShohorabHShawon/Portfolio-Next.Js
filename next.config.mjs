@@ -24,6 +24,7 @@ const nextConfig = {
       'placeholder.com',
       'placehold.it',
       'picsum.photos',
+      'wallpapercave.com',
     ],
   },
 };
