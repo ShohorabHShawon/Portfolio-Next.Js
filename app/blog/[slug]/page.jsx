@@ -156,12 +156,12 @@ export default async function BlogPostPage({ params }) {
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               We couldn&apos;t load this blog post. Please try again later.
             </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-6 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+            <a
+              href={`/blog/${slug}`}
+              className="inline-block px-6 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
             >
               Try Again
-            </button>
+            </a>
           </div>
         </div>
       </div>

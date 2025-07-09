@@ -3,8 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { NotionRenderer } from 'react-notion-x';
-
-// ✅ Import required third-party Notion components
 import dynamic from 'next/dynamic';
 
 const Code = dynamic(() =>
@@ -32,16 +30,7 @@ export default function NotionPageWrapper({ recordMap }) {
   }, []);
 
   if (!mounted) {
-    return (
-      <div className="notion-wrapper antialiased text-black dark:text-white bg-white dark:bg-[#181A1B] p-4 rounded-lg ">
-        <NotionRenderer
-          recordMap={recordMap}
-          fullPage={false}
-          darkMode={false}
-          components={{ Code, Collection, Equation, Modal }}
-        />
-      </div>
-    );
+    return null; // ✅ Don't render anything until mounted
   }
 
   return (
