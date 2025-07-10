@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -18,13 +17,14 @@ export async function GET(request) {
   }
 
   try {
-    // ✅ Correct revalidation method for App Router
-    revalidatePath(`/blog/${slug}`);
-
+    // This should revalidate the path for the given slug
+    // e.g., /blog/my-first-post
+    await NextResponse.revalidate(`/blog/${slug}`);
     return NextResponse.json({ revalidated: true, now: Date.now() });
   } catch (err) {
+    // If there was an error, Next.js will continue to show the last successfully generated page
     return NextResponse.json(
-      { message: 'Error revalidating', error: err.message },
+      { message: 'Error revalidating', error: err },
       { status: 500 },
     );
   }

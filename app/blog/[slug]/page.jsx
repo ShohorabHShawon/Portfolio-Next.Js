@@ -9,11 +9,8 @@ import Image from 'next/image';
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
-
-// ✅ Force dynamic rendering (important for ISR updates)
 export const dynamic = 'force-dynamic';
-
-// ✅ Pre-render top 10 blog slugs
+// ✅ Pre-render top 10 popular blog slugs
 export async function generateStaticParams() {
   try {
     const posts = await getAllPosts();
@@ -51,9 +48,7 @@ export default async function BlogPostPage({ params }) {
   try {
     const resolvedParams = await params;
     const { slug } = resolvedParams;
-
     const post = await getPostBySlug(slug);
-
     if (!post) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#181A1B]">
@@ -68,12 +63,11 @@ export default async function BlogPostPage({ params }) {
     }
 
     const pageId = parsePageId(post.id);
-    const recordMap = await notion.getPage(pageId, { disableCache: true });
+    const recordMap = await notion.getPage(pageId);
 
     return (
       <div className="min-h-screen antialiased text-black dark:text-white bg-white dark:bg-[#181A1B]">
         <BackButton className="text-black dark:text-white" />
-
         <div className="max-w-4xl mx-auto px-6 py-8">
           <Image
             src={post.thumbnail}
@@ -83,7 +77,6 @@ export default async function BlogPostPage({ params }) {
             height={400}
           />
         </div>
-
         <article className="max-w-4xl mx-auto px-6 py-6">
           <header className="mb-12 pb-6 border-b border-gray-200 dark:border-gray-800 px-4">
             <h1 className="text-2xl md:text-4xl font-bold mb-6 leading-tight">
@@ -99,7 +92,6 @@ export default async function BlogPostPage({ params }) {
               </p>
             )}
           </header>
-
           <div>
             <NotionPageWrapper recordMap={recordMap} darkMode={true} />
           </div>
