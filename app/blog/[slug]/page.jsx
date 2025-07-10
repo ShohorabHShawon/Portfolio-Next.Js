@@ -9,7 +9,6 @@ import Image from 'next/image';
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
-export const dynamic = 'force-dynamic';
 // ✅ Pre-render top 10 popular blog slugs
 export async function generateStaticParams() {
   try {
