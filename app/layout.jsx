@@ -167,7 +167,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" style={{colorScheme: "dark"}}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
       >

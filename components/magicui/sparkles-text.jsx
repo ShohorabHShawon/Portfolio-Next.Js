@@ -13,7 +13,15 @@ const SparklesText = ({
 }) => {
   const [sparkles, setSparkles] = useState([]);
 
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const generateStar = () => {
       const starX = `${Math.random() * 100}%`;
       const starY = `${Math.random() * 100}%`;
@@ -45,7 +53,7 @@ const SparklesText = ({
     const interval = setInterval(updateStars, 100);
 
     return () => clearInterval(interval);
-  }, [colors.first, colors.second]);
+  }, [isClient, colors.first, colors.second, sparklesCount]);
 
   return (
     (<div

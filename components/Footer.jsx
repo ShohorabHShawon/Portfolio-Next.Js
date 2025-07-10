@@ -1,4 +1,5 @@
 import React from 'react';
+import CurrentYear from './CurrentYear';
 
 const Footer = () => {
   return (
@@ -82,7 +83,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center text-gray-400 text-sm">
             <p>
-              &copy; {new Date().getFullYear()} Shohorab H Shawon. All rights
+              &copy; <CurrentYear /> Shohorab H Shawon. All rights
               reserved.
             </p>
           </div>

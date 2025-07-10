@@ -1,12 +1,13 @@
 import { getAllPosts, getPostBySlug } from '@/lib/notion';
-import { NotionAPI } from 'notion-client';
+import FormattedDate from '../components/FormattedDate';
+import { notion } from '@/lib/notion-client';
 import { parsePageId } from 'notion-utils';
 import NotionPageWrapper from '../components/NotionPageWrapper';
 import 'react-notion-x/src/styles.css';
 import BackButton from '../components/BackButton';
 import Image from 'next/image';
 
-const notion = new NotionAPI();
+
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
@@ -24,7 +25,8 @@ export async function generateStaticParams() {
 // ✅ SEO metadata
 export async function generateMetadata({ params }) {
   try {
-    const { slug } = params;
+    const resolvedParams = await params;
+    const { slug } = resolvedParams;
     const post = await getPostBySlug(slug);
     if (!post) return { title: 'Not found' };
 
@@ -45,7 +47,8 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   try {
-    const { slug } = params;
+    const resolvedParams = await params;
+    const { slug } = resolvedParams;
     const post = await getPostBySlug(slug);
     if (!post) {
       return (
@@ -82,14 +85,7 @@ export default async function BlogPostPage({ params }) {
             </h1>
             <div className="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-400 space-x-4">
               <span className="flex items-center">👤 {post.author}</span>
-              <span className="flex items-center">
-                📅{' '}
-                {new Date(post.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </span>
+                            <FormattedDate date={post.date} />
             </div>
             {post.summary && (
               <p className="text-lg text-gray-700 dark:text-gray-300 mt-4 leading-relaxed">
