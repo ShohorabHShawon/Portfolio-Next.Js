@@ -141,10 +141,7 @@ export const metadata = {
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
-  // themeColor: [
-  //   { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-  //   { media: '(prefers-color-scheme: dark)', color: '#000000' },
-  // ],
+
   robots: {
     index: true,
     follow: true,
@@ -167,12 +164,12 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="dark" style={{colorScheme: "dark"}}>
+    <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
       >
         <LenisProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             {children}
           </ThemeProvider>
         </LenisProvider>
