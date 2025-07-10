@@ -10,7 +10,6 @@ const notion = new NotionAPI();
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
-export const dynamicParams = true;
 // ✅ Pre-render top 10 popular blog slugs
 export async function generateStaticParams() {
   try {
@@ -25,8 +24,7 @@ export async function generateStaticParams() {
 // ✅ SEO metadata
 export async function generateMetadata({ params }) {
   try {
-    const resolvedParams = await params;
-    const { slug } = resolvedParams; // ✅ Fixed
+    const { slug } = params;
     const post = await getPostBySlug(slug);
     if (!post) return { title: 'Not found' };
 
@@ -47,8 +45,7 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   try {
-    const resolvedParams = await params;
-    const { slug } = resolvedParams;
+    const { slug } = params;
     const post = await getPostBySlug(slug);
     if (!post) {
       return (
