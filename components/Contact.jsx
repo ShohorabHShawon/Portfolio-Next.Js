@@ -105,7 +105,7 @@ export function Contact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-slate-100">
+          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-slate-100">
             CONTACT
           </h2>
           <p className="text-lg text-gray-600 dark:text-slate-300 mt-4 max-w-2xl mx-auto">
@@ -119,18 +119,18 @@ export function Contact() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="border border-gray-200 dark:border-slate-700 rounded-xl bg-gray-100 dark:bg-slate-800 shadow-lg"
+          className="border border-gray-200 dark:border-slate-700 rounded-xl bg-gray-100 dark:bg-gray-700/50 shadow-lg"
         >
-          <div className="px-4 py-3 dark:border-slate-700 rounded-t-xl flex items-center gap-2 bg-gray-800 dark:bg-slate-500">
+          <div className="px-4 py-3 dark:border-slate-700 rounded-t-xl flex items-center gap-2 bg-gray-800 dark:bg-slate-600">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <div className="flex justify-center text-center w-full font-mono text-white">
+            <div className="relative text-center w-full font-mono text-white pr-14">
               <h1>$Contact</h1>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col">
-            <div className="p-4 bg-gray-300 dark:bg-slate-700">
+            <div className="p-4 bg-gray-300 dark:bg-slate-700/50">
               <input
                 type="text"
                 name="title"
@@ -148,21 +148,21 @@ export function Contact() {
                 className="w-full bg-transparent text-gray-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-400 focus:outline-none resize-none"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-6 p-4 border-t border-gray-200 dark:border-slate-700 bg-gray-200 dark:bg-slate-800/80 rounded-b-xl">
+            <div className="flex flex-col md:flex-row gap-6 p-4 border-t border-gray-200 dark:border-slate-700 bg-gray-200 dark:bg-gray-600/50 rounded-b-xl">
               <div className="flex-1 space-y-4">
                 <input
                   type="text"
                   name="name"
                   required
-                  placeholder="Your Name..."
-                  className="w-full px-4 py-2 font-semibold bg-white text-gray-700 dark:bg-slate-700 dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Your name..."
+                  className="w-full px-4 py-2 font-semibold bg-white text-gray-700 dark:bg-[#181A1B] dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
                 <input
                   type="email"
                   name="email"
                   required
-                  placeholder="example@email.com"
-                  className="w-full px-4 py-2 bg-white text-gray-700 dark:bg-slate-700 dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  placeholder="Enter your email..."
+                  className="w-full px-4 py-2 bg-white text-gray-700 dark:bg-[#181A1B] dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
               <div className="flex-1 flex flex-col justify-end items-stretch md:items-end gap-4">

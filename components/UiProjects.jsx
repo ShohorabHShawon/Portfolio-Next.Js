@@ -9,25 +9,26 @@ import { FiFigma, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 const uiProjects = [
   {
     id: 1,
-    title: 'E-commerce Mobile App',
-    image: '/projects/e-commerce-ui.png',
-    prototype:
-      'https://www.figma.com/proto/AA9oWuR6XVdQOKpk5Mw4et/E-Commerce-Mobile-App?node-id=0-1&t=OL0lot6tF71bfAHv-1',
-  },
-  {
-    id: 2,
     title: 'Food Delivery Website',
     image: '/projects/food-delivery-ui.png',
     prototype:
       'https://www.figma.com/proto/clVgRF2aB3JTGS2beIqcOd/Hungry.com?node-id=0-1&t=CrEGqnhZsHcZOGes-1',
   },
   {
-    id: 3,
+    id: 2,
     title: 'Food Delivery App',
     image: '/projects/food-delivery-app-ui.png',
     prototype:
       'https://www.figma.com/proto/gQ0wnLen5TbvS3l9MyDRE8/Hungry-Restaurant-App?node-id=0-1&t=pYCT7bfMVsvbkt6N-1',
   },
+  {
+    id: 3,
+    title: 'E-commerce Mobile App',
+    image: '/projects/e-commerce-ui.png',
+    prototype:
+      'https://www.figma.com/proto/AA9oWuR6XVdQOKpk5Mw4et/E-Commerce-Mobile-App?node-id=0-1&t=OL0lot6tF71bfAHv-1',
+  },
+
   {
     id: 4,
     title: 'Classic Restaurant App',
@@ -54,7 +55,8 @@ const uiProjects = [
 export default function UiProjects() {
   const scrollContainerRef = useRef(null);
   const projectRefs = useRef([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+  // Initialize activeIndex to 1 to start with the second project
+  const [activeIndex, setActiveIndex] = useState(1);
   const observerRef = useRef(null);
 
   // State for drag-to-scroll functionality
@@ -68,10 +70,19 @@ export default function UiProjects() {
       projectRefs.current[index].scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        inline: 'center',
+        inline: 'center', // This centers the element in the scroll view
       });
     }
   }, []);
+
+  // Effect to scroll to the initial active project (index 1) on component mount
+  useEffect(() => {
+    // Only scroll if there are projects and the ref is available
+    if (uiProjects.length > 1 && scrollContainerRef.current) {
+      // Scroll to the second project (index 1) on initial mount
+      scrollToIndex(1);
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   // Handlers for next/previous buttons
   const goToNext = () => {
@@ -118,7 +129,7 @@ export default function UiProjects() {
         if (ref && observerRef.current) observerRef.current.unobserve(ref);
       });
     };
-  }, []);
+  }, []); // Dependencies removed to ensure observer is set up once, as scrollContainerRef.current is stable after initial render.
 
   // Handlers for robust drag-to-scroll
   const onMouseDown = (e) => {
@@ -144,11 +155,12 @@ export default function UiProjects() {
   };
 
   const cardVariants = {
-    initial: { opacity: 0, y: 50 },
+    initial: { opacity: 0, scale: 0.4 },
     inView: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      scale: 1,
+      // Increased duration to make the animation slower and smoother
+      transition: { duration: 1.0, ease: 'easeOut' },
     },
   };
 
@@ -165,11 +177,11 @@ export default function UiProjects() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
-            DESIGN PROJECTS
+          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-white">
+            UI / UX PROJECTS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
-            UI/UX Design Projects
+            UI / UX Design Prototypes
           </p>
         </motion.div>
 
@@ -197,7 +209,7 @@ export default function UiProjects() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="w-full h-full object-cover pointer-events-none"
+                  className="w-full h-full object-cover pointer-events-none border-2 rounded-2xl"
                 />
                 <div className="absolute inset-0 pointer-events-none" />
 

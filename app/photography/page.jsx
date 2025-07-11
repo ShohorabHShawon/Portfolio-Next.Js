@@ -5,8 +5,14 @@ import CategoryFilter from './components/CategoryFilter';
 import PhotoGallery from './components/PhotoGallery';
 import dynamic from 'next/dynamic';
 
-const PhotoDetailsModal = dynamic(() => import('./components/PhotoDetailsModal'), { ssr: false });
-const PhotoFullscreenModal = dynamic(() => import('./components/PhotoFullscreenModal'), { ssr: false });
+const PhotoDetailsModal = dynamic(
+  () => import('./components/PhotoDetailsModal'),
+  { ssr: false },
+);
+const PhotoFullscreenModal = dynamic(
+  () => import('./components/PhotoFullscreenModal'),
+  { ssr: false },
+);
 import PhotographyFooter from './components/PhotographyFooter';
 import { photos, categories } from './components/photoData';
 

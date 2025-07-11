@@ -10,6 +10,7 @@ const skillCategories = [
     title: 'Web Technologies',
     icons: [
       { src: '/icons/nextjs.png', title: 'Next.js' },
+      { src: '/icons/nestjs.png', title: 'Nest.js' },
       { src: '/icons/reactjs.png', title: 'React.js' },
       { src: '/icons/tailwind.png', title: 'Tailwind CSS' },
       { src: '/icons/nodejs.png', title: 'Node.js' },
@@ -54,7 +55,7 @@ const SkillCategory = ({ category, icons }) => {
     visible: {
       opacity: 1,
       height: 'auto',
-      transition: { when: 'beforeChildren', staggerChildren: 0.04 },
+      transition: { when: 'beforeChildren', staggerChildren: 0.2 },
     },
   };
 
@@ -67,12 +68,12 @@ const SkillCategory = ({ category, icons }) => {
     <div className="font-mono">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-3 px-4 py-2 text-left text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-md transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-2 text-left text-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md transition-colors"
       >
         {isOpen ? (
-          <FiFolderMinus className="text-teal-500" />
+          <FiFolderMinus className="text-green-600" />
         ) : (
-          <FiFolderPlus className="text-teal-500" />
+          <FiFolderPlus className="text-green-600" />
         )}
         <span className="font-bold">{category}</span>
       </button>
@@ -85,21 +86,21 @@ const SkillCategory = ({ category, icons }) => {
             exit="hidden"
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 pl-12 border-l-2 border-gray-200 dark:border-gray-700 ml-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 pl-12 border-l-2 border-gray-300 dark:border-gray-700 ml-5">
               {icons.map((icon, idx) => (
                 <motion.div
                   key={idx}
                   variants={iconVariants}
-                  className="group flex items-center gap-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                  className="group flex items-center gap-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
                 >
                   <Image
                     src={icon.src}
                     alt={icon.title}
-                    width={24}
-                    height={24}
+                    width={32}
+                    height={32}
                     className="object-contain"
                   />
-                  <h4 className="text-xs text-gray-700 dark:text-gray-300 group-hover:text-teal-500">
+                  <h4 className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-green-600">
                     {icon.title}
                   </h4>
                 </motion.div>
@@ -116,7 +117,7 @@ const SkillCategory = ({ category, icons }) => {
 export default function Skills() {
   return (
     <section id="skills" className="w-full py-24 bg-white dark:bg-[#181A1B]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -125,8 +126,8 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
-            Skills
+          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-white">
+            SKILLS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
             The technologies and tools I use to build modern web experiences.
@@ -138,7 +139,7 @@ export default function Skills() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
           className="bg-gray-100 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4"
         >
           <div className="space-y-2">

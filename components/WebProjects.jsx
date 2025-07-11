@@ -100,7 +100,7 @@ export default function WebProjects() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-white">
             WEB PROJECTS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
@@ -116,7 +116,7 @@ export default function WebProjects() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col lg:flex-row w-full min-h-[600px] bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl shadow-gray-500/10"
+          className="flex flex-col lg:flex-row w-full min-h-[600px] bg-white dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl shadow-gray-500/10"
         >
           {/* File Explorer (Left Panel) */}
           <div className="w-full lg:w-1/4 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-700 p-4">
@@ -137,7 +137,7 @@ export default function WebProjects() {
                   className={`flex items-center gap-2 w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
                     activeProject.id === project.id
                       ? 'bg-gray-600 text-gray-100 dark:text-white'
-                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                   }`}
                 >
                   <FiFile />
@@ -180,7 +180,7 @@ export default function WebProjects() {
                   </div>
 
                   {/* Details */}
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  <h3 className="text-2xl font-bold font-lexend text-gray-900 dark:text-white mb-3">
                     {activeProject.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-5">

@@ -30,7 +30,7 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="w-full py-24 bg-white dark:bg-[#181A1B]">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +39,7 @@ export default function AboutSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-ttnorm font-bold text-gray-900 dark:text-white">
             <span className="text-green-600">$</span> whoami
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
@@ -53,7 +53,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-8"
+          className="bg-gray-50 dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-8"
         >
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
             {/* Left side: Profile Picture */}
@@ -61,15 +61,15 @@ export default function AboutSection() {
               <Image
                 src="/profile2.jpg"
                 alt="Shohorab Hossain"
-                width={128}
-                height={128}
-                className="rounded-md border border-gray-200 dark:border-gray-700 shadow-md"
+                width={150}
+                height={150}
+                className="rounded-xl border border-gray-200 dark:border-gray-700 shadow-md"
               />
             </div>
 
             {/* Right side: System Info */}
             <motion.div
-              className="font-mono text-sm text-gray-800 dark:text-gray-200 w-full"
+              className="font-mono text-sm text-gray-800 dark:text-gray-200 w-full pl-10"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"

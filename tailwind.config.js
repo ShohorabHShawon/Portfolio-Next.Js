@@ -23,6 +23,7 @@ module.exports = {
         grailga: ['var(--font-grailga)', 'serif'],
         elmundo: ['var(--font-elmundo)', 'sans-serif'],
         bestia: ['var(--font-bestia)', 'sans-serif'],
+        ttnorm: ['var(--font-ttnorm)', 'sans-serif'],
       },
       animation: {
         spotlight: 'spotlight 2s ease .75s 1 forwards',

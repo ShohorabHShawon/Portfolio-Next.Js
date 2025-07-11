@@ -31,7 +31,7 @@ const itemVariants = {
 function Hero() {
   return (
     <section
-      className="relative flex items-center justify-center min-h-screen w-full bg-gray-50 dark:bg-black overflow-hidden px-4 pb-6 md:pb-0"
+      className="relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-black/20 overflow-hidden px-4 pb-6 md:pb-0"
       id="home"
     >
       {/* Background with a subtle grid */}
@@ -40,15 +40,15 @@ function Hero() {
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black dark:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
       <motion.div
-        className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center max-w-7xl mx-auto"
+        className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center max-w-6xl mx-auto w-full"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* === LEFT COLUMN: TEXT CONTENT === */}
-        <div className="md:col-span-7 order-2 md:order-2 flex flex-col items-center md:items-start text-center md:text-left">
+        <div className="md:col-span-7 order-2 md:order-2 flex flex-col items-center md:items-start text-center md:text-left w-full">
           <motion.h1
-            className="text-center text-gray-800 dark:text-white md:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+            className="text-center text-gray-800 dark:text-white md:text-left font-ttnorm font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
             variants={{
               hidden: { x: -50, opacity: 0 },
               visible: {
@@ -163,7 +163,7 @@ function Hero() {
         </div>
 
         {/* === RIGHT COLUMN: IMAGE & SOCIALS === */}
-        <div className="md:col-span-5 flex flex-col items-center md:items-end gap-6 order-1 md:order-2 mt-14 md:mt-0">
+        <div className="md:col-span-5 flex flex-col items-center md:items-end gap-6 order-1 md:order-2 mt-14 md:mt-0 w-full">
           <motion.div
             className="relative w-40 h-40 xs:w-52 xs:h-52 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80"
             variants={{
