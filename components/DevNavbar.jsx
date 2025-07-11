@@ -9,7 +9,6 @@ const DevNavbar = () => {
     { name: 'about.ts', href: 'about', icon: '📄', type: 'file' },
     { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
     { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
-    { name: 'blog.md', href: 'blog', icon: '📝', type: 'file' },
     { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
   ];
 

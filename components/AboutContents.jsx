@@ -1,164 +1,133 @@
 'use client';
-import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import TypingAnimation from './magicui/typing-animation';
+import Image from 'next/image';
 
-const AboutContents = () => {
+// --- Main About Section Component ---
+export default function AboutSection() {
+  // --- Data for the neofetch-style display ---
+  const profileData = {
+    user: 'Shohorab Hossain Shawon',
+    status: 'Available for Opportunities',
+    host: 'Portfolio v3.0',
+    shell: 'Next.js',
+    experience: '3+ Years',
+    ide: 'VS Code',
+    core_skills: 'TypeScript, Next.Js, Tailwind CSS',
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
+  };
+
   return (
-    <div className="bg-white dark:bg-[#181A1B] transition-all duration-300">
-      {/* Hero Section */}
-      <motion.div
-        className="relative py-12"
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <div className="text-black dark:text-white">
-              <h1 className="text-5xl font-bold">ABOUT</h1>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+    <section id="about" className="w-full py-24 bg-white dark:bg-[#181A1B]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+            <span className="text-green-600">$</span> whoami
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
+            A brief summary of my professional identity.
+          </p>
+        </motion.div>
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 pb-2">
-        <div className="max-w-6xl mx-auto">
-          {/* Profile Section */}
-          <motion.div
-            className="mb-20"
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <div className="flex justify-center">
-              <motion.div
-                className="w-full max-w-6xl"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.7 }}
+        {/* Neofetch-style component */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-8"
+        >
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+            {/* Left side: Profile Picture */}
+            <div className="flex-shrink-0">
+              <Image
+                src="/profile2.jpg"
+                alt="Shohorab Hossain"
+                width={128}
+                height={128}
+                className="rounded-md border border-gray-200 dark:border-gray-700 shadow-md"
+              />
+            </div>
+
+            {/* Right side: System Info */}
+            <motion.div
+              className="font-mono text-sm text-gray-800 dark:text-gray-200 w-full"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.p
+                className="text-lg font-bold mb-2"
+                variants={itemVariants}
               >
-                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl overflow-hidden font-mono max-h-6xl">
-                  {/* Terminal Header */}
-                  <motion.div
-                    className="bg-gray-200 dark:bg-gray-700 px-4 py-2 border-b border-gray-300 dark:border-gray-600 rounded-t-lg flex items-center gap-2"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 0.9 }}
-                  >
-                    <div className="flex gap-2">
-                      <motion.div
-                        className="w-3 h-3 bg-red-500 rounded-full"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.3, delay: 1 }}
-                      ></motion.div>
-                      <motion.div
-                        className="w-3 h-3 bg-yellow-500 rounded-full"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.3, delay: 1.1 }}
-                      ></motion.div>
-                      <motion.div
-                        className="w-3 h-3 bg-green-500 rounded-full"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.3, delay: 1.2 }}
-                      ></motion.div>
-                    </div>
-                    <div className="text-gray-400 text-sm ml-4 text-center flex-1 justify-center items-center">
-                      about-me.sh
-                    </div>
-                  </motion.div>
-                  {/* Terminal Content */}
-                  <motion.div
-                    className="p-6"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, delay: 1.3 }}
-                  >
-                    <div className="flex flex-col lg:flex-row items-center gap-8 mb-6">
-                      <motion.div
-                        className="relative flex-shrink-0"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.5 }}
-                        whileHover={{ scale: 1.05 }}
-                      >
-                        <div className="absolute"></div>
-                        <Image
-                          src="/profile.jpg"
-                          alt="Profile Picture"
-                          width={500}
-                          height={500}
-                          className="relative rounded-xl object-cover w-64 h-64 border-4 border-white shadow-lg"
-                        />
-                      </motion.div>
-                      <div className="flex-1">
-                        <div className="text-green-400 mb-2 text-xl">
-                          $ whoami
-                        </div>
-                        <div className="relative">
-                          {/* Hidden div to pre-allocate space */}
-                          <div className="invisible text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-justify">
-                            I&apos;m a Software Engineer & Full Stack Developer
-                            with hands-on experience building modern, scalable
-                            web applications using Next.js, Nestjs, MongoDB,
-                            PostgreSQL and Tailwind CSS. I specialize in
-                            creating fast, responsive, and SEO-friendly
-                            websites—from designing sleek front-end interfaces
-                            to building robust back-end APIs.
-                          </div>
-                          {/* Typing animation positioned absolutely */}
-                          <TypingAnimation
-                            className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
-                            text={`I'm a Software Engineer & Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Nest.js, MongoDB, PostgreSQL and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                <span className="text-green-600">shohorab</span>
+                <span className="text-gray-500">@</span>
+                <span className="text-green-600">portfolio</span>
+              </motion.p>
+              <motion.div
+                className="border-b border-gray-300 dark:border-gray-600 w-full mb-4"
+                variants={itemVariants}
+              ></motion.div>
 
-                    {/* Experience and Projects Stats */}
-                    <motion.div
-                      className="flex justify-center gap-8"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: 1.8 }}
-                    >
-                      <div className="text-center">
-                        <div className="text-blue-400 text-2xl font-bold">
-                          3+
-                        </div>
-                        <div className="text-gray-500 dark:text-gray-400 text-sm">
-                          Years Experience
-                        </div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-purple-400 text-2xl font-bold">
-                          10+
-                        </div>
-                        <div className="text-gray-500 dark:text-gray-400 text-sm">
-                          Projects
-                        </div>
-                      </div>
-                    </motion.div>
+              {Object.entries(profileData).map(([key, value]) => (
+                <motion.div key={key} className="flex" variants={itemVariants}>
+                  <span className="w-28 text-green-600 font-bold">{key}</span>
+                  <span>{value}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
 
-                    <div className="text-green-400 flex items-center text-xl">
-                      <span>$ </span>
-                      <div className="w-2 h-4 bg-green-400 ml-1 animate-pulse"></div>
-                    </div>
-                  </motion.div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
+        {/* Narrative Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-16 text-left"
+        >
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            About Me
+          </h3>
+          <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed md:text-xl text-lg">
+            <p>
+              As a Full Stack Developer, I thrive on the challenge of building
+              complete, end-to-end web applications. My passion lies in the
+              entire lifecycle of a project, from architecting a scalable
+              back-end with Nest.js to designing an intuitive and responsive
+              front-end with Next.js and Tailwind CSS.
+            </p>
+            <p>
+              My academic background in Computer Science & Engineering provided
+              me with a strong theoretical foundation, but my practical
+              experience has taught me the art of turning complex requirements
+              into clean, maintainable, and user-friendly software. I believe in
+              writing code that is not only functional but also a pleasure to
+              read and build upon.
+            </p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default AboutContents;
+}

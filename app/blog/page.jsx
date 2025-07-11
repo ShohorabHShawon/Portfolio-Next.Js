@@ -2,6 +2,7 @@ import { getAllPosts } from '@/lib/notion';
 import BlogCard from './components/BlogCard';
 import Link from 'next/link';
 import HomeButton from './components/HomeButton';
+import Footer from '@/components/Footer';
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
@@ -43,7 +44,7 @@ export default async function BlogListPage() {
   if (!posts || posts.length === 0) {
     return (
       <>
-        <div className="fixed top-4 left-4 z-50 text-gray-600 dark:text-gray-400">
+        <div className="fixed top-4 left-4 z-50 text-gray-600 dark:text-gray-400 min-h-screen">
           <Link
             href="/"
             className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
@@ -75,7 +76,7 @@ export default async function BlogListPage() {
 
   return (
     <>
-      <div className="bg-white dark:bg-[#181A1B] transition-colors">
+      <div className="bg-white dark:bg-[#181A1B] transition-colors min-h-screen">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <header className="text-center mb-16">
             <h1 className="text-6xl font-grailga font-bold text-gray-900 dark:text-white mb-4">
@@ -101,6 +102,9 @@ export default async function BlogListPage() {
           </div>
         </div>
       </div>
+      <footer className="bg-gray-50 dark:bg-black border-t border-gray-200 dark:border-gray-800">
+        <Footer />
+      </footer>
     </>
   );
 }

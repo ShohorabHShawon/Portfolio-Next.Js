@@ -9,15 +9,14 @@ import { FiFile, FiFolder, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 const webProjects = [
   {
     id: 1,
-    title: 'Responsive Travel Agency Site',
-    filename: 'TravelAgency.jsx',
+    title: 'Movie Database App',
+    filename: 'MovieDB.tsx',
     description:
-      'A responsive landing page for a travel agency, built with Next.js and Tailwind CSS to create a seamless and visually appealing user experience.',
-    image: '/projects/travel-agency-landing-page.png',
-    live: 'https://travel-agency-landing-page-eight.vercel.app/',
-    github:
-      'https://github.com/ShohorabHShawon/Travel-Agency-Landing-Page-NextJs-15',
-    tags: ['Next.js', 'TailwindCSS', 'Responsive'],
+      'A dynamic movie database app that leverages the TMDB API to fetch and display movie data, including ratings and details, in real-time.',
+    image: '/projects/movie-database.png',
+    live: 'https://movieocean.vercel.app/',
+    github: 'https://github.com/ShohorabHShawon/Movie-Ocean-Next.JS',
+    tags: ['API', 'Next.js', 'TypeScript'],
   },
   {
     id: 2,
@@ -32,14 +31,15 @@ const webProjects = [
   },
   {
     id: 3,
-    title: 'Movie Database App',
-    filename: 'MovieDB.tsx',
+    title: 'Responsive Travel Agency Site',
+    filename: 'TravelAgency.jsx',
     description:
-      'A dynamic movie database app that leverages the TMDB API to fetch and display movie data, including ratings and details, in real-time.',
-    image: '/projects/movie-database.png',
-    live: 'https://movieocean.vercel.app/',
-    github: 'https://github.com/ShohorabHShawon/Movie-Ocean-Next.JS',
-    tags: ['API', 'Next.js', 'TypeScript'],
+      'A responsive landing page for a travel agency, built with Next.js and Tailwind CSS to create a seamless and visually appealing user experience.',
+    image: '/projects/travel-agency-landing-page.png',
+    live: 'https://travel-agency-landing-page-eight.vercel.app/',
+    github:
+      'https://github.com/ShohorabHShawon/Travel-Agency-Landing-Page-NextJs-15',
+    tags: ['Next.js', 'TailwindCSS', 'Responsive'],
   },
   {
     id: 4,
@@ -72,7 +72,7 @@ const webProjects = [
     image: '/projects/ai-content-generator.png',
     live: '',
     github: 'https://github.com/ShohorabHShawon/AI-Content-Generator',
-    tags: ['Generative-AI', 'Gemini API', 'Python'],
+    tags: ['Generative-AI', 'Gemini API', 'Typescript'],
   },
 ];
 

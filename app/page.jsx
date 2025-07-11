@@ -48,13 +48,13 @@ export default function Home() {
         </section>
 
         {/* Blogs Section  */}
-        <section
+        {/* <section
           className="w-full bg-white dark:bg-[#181A1B] text-gray-800 dark:text-white"
           id="blog"
         >
-          {/* Only render BlogCard if there are blogs */}
+          
           <BlogListPage />
-        </section>
+        </section> */}
 
         {/* Contact Section */}
         <section id="contact" className="">

@@ -87,7 +87,7 @@ export function Contact() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
-        className="text-sm flex items-center gap-2 p-3 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+        className="text-sm flex items-center gap-2 p-3 rounded-md bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-600"
       >
         <Icon className={`${color} ${spin ? 'animate-spin' : ''}`} />
         <span className={color}>{message}</span>
@@ -105,10 +105,10 @@ export function Contact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-slate-100">
             CONTACT
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-slate-300 mt-4 max-w-2xl mx-auto">
             Have a project, an idea, or just want to chat? Open an
             &ldquo;issue&rdquo; below and let&rsquo;s get in touch.
           </p>
@@ -119,24 +119,24 @@ export function Contact() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-100 dark:bg-gray-600 shadow-lg"
+          className="border border-gray-200 dark:border-slate-700 rounded-xl bg-gray-100 dark:bg-slate-800 shadow-lg"
         >
-          <div className="px-4 py-3 dark:border-gray-600 rounded-t-xl flex items-center gap-2 bg-gray-800">
+          <div className="px-4 py-3 dark:border-slate-700 rounded-t-xl flex items-center gap-2 bg-gray-800 dark:bg-slate-500">
             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <div className="flex justify-center text-center w-full font-mono">
+            <div className="flex justify-center text-center w-full font-mono text-white">
               <h1>$Contact</h1>
             </div>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col">
-            <div className="p-4 bg-gray-300 dark:bg-gray-700">
+            <div className="p-4 bg-gray-300 dark:bg-slate-700">
               <input
                 type="text"
                 name="title"
                 required
                 placeholder="Title: e.g., Project Idea or Subject here..."
-                className="w-full bg-transparent text-lg font-semibold text-gray-600 placeholder-gray-500 dark:placeholder-gray-300 focus:outline-none"
+                className="w-full bg-transparent text-lg font-semibold text-gray-600 dark:text-slate-100 placeholder-gray-500 dark:placeholder-slate-400 focus:outline-none"
               />
             </div>
             <div className="p-4">
@@ -145,24 +145,24 @@ export function Contact() {
                 required
                 rows="8"
                 placeholder="Leave your text here..."
-                className="w-full bg-transparent text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none resize-none"
+                className="w-full bg-transparent text-gray-800 dark:text-slate-200 placeholder-gray-400 dark:placeholder-slate-400 focus:outline-none resize-none"
               />
             </div>
-            <div className="flex flex-col md:flex-row gap-6 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-200 dark:bg-gray-800/50 rounded-b-xl">
+            <div className="flex flex-col md:flex-row gap-6 p-4 border-t border-gray-200 dark:border-slate-700 bg-gray-200 dark:bg-slate-800/80 rounded-b-xl">
               <div className="flex-1 space-y-4">
                 <input
                   type="text"
                   name="name"
                   required
                   placeholder="Your Name..."
-                  className="w-full px-4 py-2 font-semibold bg-white text-gray-700 dark:bg-gray-600 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-4 py-2 font-semibold bg-white text-gray-700 dark:bg-slate-700 dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
                 <input
                   type="email"
                   name="email"
                   required
                   placeholder="example@email.com"
-                  className="w-full px-4 py-2 bg-white text-gray-700 dark:bg-gray-600 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-4 py-2 bg-white text-gray-700 dark:bg-slate-700 dark:text-slate-100 border border-gray-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
               <div className="flex-1 flex flex-col justify-end items-stretch md:items-end gap-4">
