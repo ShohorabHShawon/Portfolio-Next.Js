@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['next-themes'],
   eslint: {
     ignoreDuringBuilds: true,
   },
