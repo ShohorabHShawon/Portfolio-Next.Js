@@ -61,11 +61,11 @@ export default function BlogCard({ post }) {
         {/* Content */}
         <div className="space-y-4 p-2">
           <div className="space-y-2">
-            <h2 className="font-lexend text-2xl hover:underline font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors duration-200 line-clamp-2">
+            <h2 className="font-lexend text-2xl hover:underline font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors duration-200 line-clamp-1">
               {post.title}
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">
               {post.summary || 'No summary available'}
             </p>
           </div>

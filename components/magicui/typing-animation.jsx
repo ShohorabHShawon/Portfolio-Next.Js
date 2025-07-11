@@ -1,16 +1,14 @@
-"use client";
-import { useEffect, useState, useRef } from "react";
+'use client';
+import { useEffect, useState, useRef } from 'react';
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
-export default function TypingAnimation({
-  text,
-  duration = 40,
-  className
-}) {
-  const [displayedText, setDisplayedText] = useState("");
+export default function TypingAnimation({ text, duration = 100, className }) {
+  const [displayedText, setDisplayedText] = useState('');
   const [i, setI] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [showCursor, setShowCursor] = useState(true);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -21,7 +19,7 @@ export default function TypingAnimation({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (ref.current) {
@@ -40,22 +38,36 @@ export default function TypingAnimation({
         setI(i + 1);
       } else {
         clearInterval(typingEffect);
+        setIsTypingComplete(true);
       }
     }, duration);
 
     return () => {
       clearInterval(typingEffect);
     };
-  }, [duration, i, isVisible]);
+  }, [duration, i, isVisible, text]);
+
+  // Cursor blinking effect
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   return (
     <h1
       ref={ref}
       className={cn(
-        "font-display text-center text-4xl font-bold leading-[5rem] tracking-[-0.02em] drop-shadow-sm",
-        className
-      )}>
-      {displayedText ? displayedText : text}
+        'font-mono text-center text-4xl font-bold leading-[5rem] tracking-[-0.02em] drop-shadow-sm',
+        className,
+      )}
+    >
+      {displayedText}
+      {(!isTypingComplete || showCursor) && (
+        <span className="animate-pulse">|</span>
+      )}
     </h1>
   );
 }

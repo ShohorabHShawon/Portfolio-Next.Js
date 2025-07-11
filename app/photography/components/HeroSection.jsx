@@ -24,18 +24,18 @@ const HeroSection = ({ photos }) => {
     <div className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
       <div className="absolute inset-0">
-            <Image
-              key={photos[heroImageIndex].src}
-              src={photos[heroImageIndex].src}
-              alt="Hero"
-              fill
-              className="object-cover transition-opacity duration-1000"
-              priority={true}
-            />
-          </div>
+        <Image
+          key={photos[heroImageIndex].src}
+          src={photos[heroImageIndex].src}
+          alt="Hero"
+          fill
+          className="object-cover transition-opacity duration-1000"
+          priority={true}
+        />
+      </div>
       <div className="relative z-20 text-center text-white max-w-7xl px-6">
         <h1
-          className={`${bubblegum.className} text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
+          className={`font-bestia text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
         >
           Shohorab H Shawon
         </h1>

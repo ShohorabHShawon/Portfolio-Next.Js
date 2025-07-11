@@ -39,17 +39,17 @@ body {
 
   /* Track of the scrollbar */
   ::-webkit-scrollbar-track {
-    @apply bg-inherit bg-zinc-900;
+    @apply bg-inherit bg-white dark:bg-[#181A1B];
   }
 
   /* Handle of the scrollbar */
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-400 rounded-2xl;
+    @apply bg-gray-400 dark:bg-gray-300 rounded-2xl;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-200;
+    @apply bg-gray-300 dark:bg-gray-100;
   }
 }
 /* globals.css */

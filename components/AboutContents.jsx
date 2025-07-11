@@ -3,25 +3,23 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import TypingAnimation from './magicui/typing-animation';
-import SparklesText from './magicui/sparkles-text';
 
 const AboutContents = () => {
   return (
-    <div className="bg-white dark:bg-gray-900 transition-all duration-300">
+    <div className="bg-white dark:bg-[#181A1B] transition-all duration-300">
       {/* Hero Section */}
       <motion.div
         className="relative py-12"
         initial={{ opacity: 0, y: -50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        viewport={{ once: false, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.5 }}
       >
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <SparklesText
-              text="About Me"
-              className="text-5xl md:text-6xl lg:text-7xl text-neutral-800 dark:text-neutral-200"
-            />
+            <div className="text-black dark:text-white">
+              <h1 className="text-5xl font-bold">ABOUT</h1>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -117,10 +115,7 @@ const AboutContents = () => {
                           {/* Typing animation positioned absolutely */}
                           <TypingAnimation
                             className="absolute top-0 left-0 text-gray-600 dark:text-gray-200 leading-relaxed text-xl text-start"
-                            text={`I'm a Software Engineer & Full Stack Developer
-                            with hands-on experience building modern, scalable
-                            web applications using Next.js, Nest.js, MongoDB,
-                            PostgreSQL and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
+                            text={`I'm a Software Engineer & Full Stack Developer with hands-on experience building modern, scalable web applications using Next.js, Nest.js, MongoDB, PostgreSQL and Tailwind CSS. I specialize in creating fast, responsive, and SEO-friendly websites—from designing sleek front-end interfaces to building robust back-end APIs.`}
                           />
                         </div>
                       </div>

@@ -3,7 +3,7 @@ import CurrentYear from './CurrentYear';
 
 const Footer = () => {
   return (
-    <footer className="bg-white dark:bg-gray-900 dark:text-white text-gray-800 py-12">
+    <footer className="bg-white dark:bg-black dark:text-white text-gray-800 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-8">
           {/* Divider */}
@@ -83,8 +83,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center text-gray-400 text-sm">
             <p>
-              &copy; <CurrentYear /> Shohorab H Shawon. All rights
-              reserved.
+              &copy; <CurrentYear /> Shohorab H Shawon. All rights reserved.
             </p>
           </div>
         </div>

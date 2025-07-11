@@ -1,142 +1,255 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CardBody, CardContainer, CardItem } from '@/components/ui/threeD-card';
-import SparklesText from './magicui/sparkles-text';
+import { FiFigma, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
-const webProjects = [
+// The project data remains the same
+const uiProjects = [
   {
     id: 1,
-    title: 'E-commerce Mobile App Ui Design',
-    description: 'Modern E-commerce Mobile App Ui Design using Figma.',
+    title: 'E-commerce Mobile App',
     image: '/projects/e-commerce-ui.png',
     prototype:
       'https://www.figma.com/proto/AA9oWuR6XVdQOKpk5Mw4et/E-Commerce-Mobile-App?node-id=0-1&t=OL0lot6tF71bfAHv-1',
   },
   {
     id: 2,
-    title: 'Food Delivery Website Ui Design.',
-    description: 'Food Delivery Website Ui Design and Prototype using Figma.',
+    title: 'Food Delivery Website',
     image: '/projects/food-delivery-ui.png',
     prototype:
       'https://www.figma.com/proto/clVgRF2aB3JTGS2beIqcOd/Hungry.com?node-id=0-1&t=CrEGqnhZsHcZOGes-1',
   },
   {
     id: 3,
-    title: 'Food Delivery APP Ui Design.',
-    description: 'Food Delivery APP Ui Design and Prototype using Figma.',
+    title: 'Food Delivery App',
     image: '/projects/food-delivery-app-ui.png',
     prototype:
       'https://www.figma.com/proto/gQ0wnLen5TbvS3l9MyDRE8/Hungry-Restaurant-App?node-id=0-1&t=pYCT7bfMVsvbkt6N-1',
   },
   {
     id: 4,
-    title: 'Classic Restaurant App.',
-    description: 'Classic Restaurant App Ui Design and Prototype using Figma.',
+    title: 'Classic Restaurant App',
     image: '/projects/classic-restaurant-ui.png',
     prototype:
       'https://www.figma.com/proto/zjkIpFq1uXLNg5p1HFf9pI/Restaurant?node-id=0-1&t=NHobr2iXW3my7TLa-1',
   },
   {
     id: 5,
-    title: ' Pizza / Restaurant Website Ui Design using Figma.',
-    description:
-      'Pizza / Restaurant Website Ui Design and Prototype using Figma.',
+    title: 'Pizza Restaurant Website',
     image: '/projects/pizza-ui.png',
-
     prototype:
       'https://www.figma.com/proto/89wxUVTcFgcjPiKFFuASZk/Untitled?node-id=0-1&t=XM96FXUWgoeZkmrT-1',
   },
   {
     id: 6,
-    title: 'Backpack Website Ui Design',
-    description: 'Backpack Website Ui Design and Prototype using Figma.',
+    title: 'Backpack E-commerce Site',
     image: '/projects/backpack-website-ui.png',
-
     prototype:
       'https://www.figma.com/proto/DDL0nQ6K2h1Of9BuoPcMfT/Backpack-Website-UI?node-id=0-1&t=GKf80MhA4gPH981X-1',
   },
 ];
 
 export default function UiProjects() {
+  const scrollContainerRef = useRef(null);
+  const projectRefs = useRef([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const observerRef = useRef(null);
+
+  // State for drag-to-scroll functionality
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  // Function to scroll to a specific project by its index
+  const scrollToIndex = useCallback((index) => {
+    if (projectRefs.current[index]) {
+      projectRefs.current[index].scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, []);
+
+  // Handlers for next/previous buttons
+  const goToNext = () => {
+    const nextIndex = (activeIndex + 1) % uiProjects.length;
+    scrollToIndex(nextIndex);
+  };
+
+  const goToPrev = () => {
+    const prevIndex = (activeIndex - 1 + uiProjects.length) % uiProjects.length;
+    scrollToIndex(prevIndex);
+  };
+
+  // This effect sets up the Intersection Observer to sync the active dot with any scroll action
+  useEffect(() => {
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        // Find the entry that is most central and intersecting
+        const intersectingEntries = entries.filter((e) => e.isIntersecting);
+        if (intersectingEntries.length > 0) {
+          const centralEntry = intersectingEntries.reduce((prev, curr) =>
+            prev.intersectionRatio > curr.intersectionRatio ? prev : curr,
+          );
+          const index = projectRefs.current.indexOf(centralEntry.target);
+          if (index !== -1) {
+            setActiveIndex(index);
+          }
+        }
+      },
+      {
+        root: scrollContainerRef.current,
+        threshold: 0.5, // Item is considered active when 50% is visible
+      },
+    );
+
+    const currentRefs = projectRefs.current;
+    currentRefs.forEach((ref) => {
+      if (ref) observerRef.current.observe(ref);
+    });
+
+    return () => {
+      currentRefs.forEach((ref) => {
+        if (ref && observerRef.current) observerRef.current.unobserve(ref);
+      });
+    };
+  }, []);
+
+  // Handlers for robust drag-to-scroll
+  const onMouseDown = (e) => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeft(scrollContainerRef.current.scrollLeft);
+    scrollContainerRef.current.style.cursor = 'grabbing';
+  };
+
+  const onMouseLeaveOrUp = () => {
+    if (!scrollContainerRef.current) return;
+    setIsDragging(false);
+    scrollContainerRef.current.style.cursor = 'grab';
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed multiplier
+    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const cardVariants = {
+    initial: { opacity: 0, y: 50 },
+    inView: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
+
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="mb-10 text-center"
-      >
-        <SparklesText text="UI/UX Projects" />
-      </motion.div>
+    <section
+      id="projects"
+      className="w-full py-24 bg-white dark:bg-[#181A1B] overflow-hidden"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
+            DESIGN PROJECTS
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
+            UI/UX Design Projects
+          </p>
+        </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {webProjects.map((project) => (
+        <div className="relative">
           <motion.div
-            key={project.id}
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: 'easeInOut' }}
-            viewport={{ once: true, amount: 0.2 }}
+            ref={scrollContainerRef}
+            className="flex gap-6 overflow-x-auto rounded-2xl snap-x snap-mandatory scroll-smooth scrollbar-hide pb-8 -mb-8 cursor-grab"
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeaveOrUp}
+            onMouseUp={onMouseLeaveOrUp}
+            onMouseMove={onMouseMove}
+            initial="initial"
+            whileInView="inView"
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ staggerChildren: 0.15 }}
           >
-            <CardContainer className="inter-var relative m-2 w-full lg:h-12 group">
-              <CardBody className="relative group/card dark:hover:shadow-xl dark:hover:shadow-emerald-500/[0.1] bg-gray-50 dark:bg-gray-950 w-auto sm:w-[30rem] h-auto rounded-xl p-0 overflow-hidden shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-2">
-                <CardItem translateZ="100" className="w-full">
-                  <Image
-                    src={project.image}
-                    height="1000"
-                    width="1000"
-                    className="h-auto w-full object-cover rounded-xl group-hover/card:shadow-xl drop-shadow-lg"
-                    alt="thumbnail"
-                  />
-                </CardItem>
+            {uiProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                ref={(el) => (projectRefs.current[index] = el)}
+                variants={cardVariants}
+                className="group relative w-[75vw] md:w-[450px] flex-shrink-0 snap-center aspect-video rounded-2xl overflow-hidden shadow-lg select-none"
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="w-full h-full object-cover pointer-events-none"
+                />
+                <div className="absolute inset-0 pointer-events-none" />
 
-                {/* Overlay with content - hidden by default, shown on hover */}
-                <div className="absolute inset-0 bg-black/80 flex flex-col justify-center items-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl backdrop-blur-sm">
-                  <CardItem
-                    translateZ="50"
-                    className="text-xl font-bold text-white text-center mb-2 drop-shadow-lg"
-                  >
+                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-sm">
+                  <h3 className="text-2xl font-bold text-white text-center mb-4">
                     {project.title}
-                  </CardItem>
-                  <CardItem
-                    as="p"
-                    translateZ="60"
-                    className="text-gray-300 text-sm text-center mb-6 drop-shadow-md"
+                  </h3>
+                  <Link
+                    href={project.prototype}
+                    target="_blank"
+                    className="inline-flex items-center gap-2 w-fit px-4 py-2 bg-white text-black font-semibold rounded-full shadow-lg hover:bg-gray-200 transition-colors"
                   >
-                    {project.description}
-                  </CardItem>
-
-                  <div className="flex gap-4">
-                    {project.live && (
-                      <CardItem
-                        translateZ={20}
-                        as={Link}
-                        href={project.live}
-                        target="_blank"
-                        className="px-4 py-2 rounded-xl bg-green-700 text-white text-xs font-bold hover:bg-green-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                      >
-                        Live
-                      </CardItem>
-                    )}
-                    <CardItem
-                      translateZ={20}
-                      as={Link}
-                      target="_blank"
-                      href={project.prototype}
-                      className="px-4 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-                    >
-                      Prototype
-                    </CardItem>
-                  </div>
+                    <FiFigma />
+                    View Prototype
+                  </Link>
                 </div>
-              </CardBody>
-            </CardContainer>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
+        </div>
+
+        <div className="flex justify-center items-center gap-6 mt-12">
+          <button
+            onClick={goToPrev}
+            aria-label="Previous project"
+            className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors"
+          >
+            <FiArrowLeft className="text-gray-700 dark:text-gray-200" />
+          </button>
+          <div className="flex items-center gap-2">
+            {uiProjects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToIndex(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  activeIndex === index
+                    ? 'bg-green-500 scale-125'
+                    : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
+                }`}
+                aria-label={`Go to project ${index + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={goToNext}
+            aria-label="Next project"
+            className="w-10 h-10 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors"
+          >
+            <FiArrowRight className="text-gray-700 dark:text-gray-200" />
+          </button>
+        </div>
       </div>
-    </>
+    </section>
   );
 }

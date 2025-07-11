@@ -3,12 +3,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import ThemeToggle from '@/components/ThemeToggle';
 
-const Navbar = () => {
+const DevNavbar = () => {
   const navItems = [
     { name: 'home()', href: 'home', icon: '💻', type: 'function' },
     { name: 'about.ts', href: 'about', icon: '📄', type: 'file' },
     { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
     { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
+    { name: 'blog.md', href: 'blog', icon: '📝', type: 'file' },
     { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
   ];
 
@@ -45,7 +46,7 @@ const Navbar = () => {
               className="relative z-50 flex flex-col justify-center items-center w-10 h-10 rounded-md bg-gray-300/50 dark:bg-black/20 backdrop-blur-sm border border-green-500/30 hover:border-green-400 transition-colors focus:outline-none font-mono"
               onClick={() => setMenuOpen((prev) => !prev)}
             >
-              <span className="text-green-400 text-md">
+              <span className="text-green-600 text-md">
                 {menuOpen ? 'exit' : 'menu'}
               </span>
             </button>
@@ -61,7 +62,7 @@ const Navbar = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
               <span className="ml-3 text-xs text-gray-600 dark:text-gray-400 font-mono">
-                navbar.tsx
+                Navbar.tsx
               </span>
             </div>
 
@@ -72,7 +73,7 @@ const Navbar = () => {
                   href={`#${item.href}`}
                   className={`text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-4 py-3 text-sm font-mono transition-all duration-200 relative group border-r border-gray-300/50 dark:border-gray-700/50 last:border-r-0 ${
                     activeItem === item.name
-                      ? 'bg-gray-300/50 dark:bg-black/20 backdrop-blur-sm text-green-600 dark:text-green-400'
+                      ? 'bg-gray-300/50 dark:bg-black/20 backdrop-blur-sm text-green-600 dark:text-green-600'
                       : ''
                   }`}
                   onClick={(e) => handleNavClick(e, item.href, item.name)}
@@ -88,7 +89,7 @@ const Navbar = () => {
                           : item.type === 'array'
                           ? 'text-yellow-600 dark:text-yellow-400'
                           : item.type === 'method'
-                          ? 'text-green-600 dark:text-green-400'
+                          ? 'text-green-600 dark:text-green-600'
                           : 'text-gray-600 dark:text-gray-400'
                       }`}
                     >
@@ -154,7 +155,7 @@ const Navbar = () => {
                 ✕
               </button>
             </div>
-            <div className="mt-2 text-green-600 dark:text-green-400 text-sm">
+            <div className="mt-2 text-green-600 dark:text-green-600 text-sm">
               <span className="text-gray-500 dark:text-gray-500">
                 ~/portfolio
               </span>{' '}
@@ -168,7 +169,7 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={`#${item.href}`}
-                className="block text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 text-sm py-2 transition-all duration-200 group"
+                className="block text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-600 text-sm py-2 transition-all duration-200 group"
                 onClick={(e) => handleNavClick(e, item.href, item.name)}
               >
                 <div className="flex items-center space-x-3">
@@ -184,7 +185,7 @@ const Navbar = () => {
                         : item.type === 'array'
                         ? 'text-yellow-600 dark:text-yellow-400'
                         : item.type === 'method'
-                        ? 'text-green-600 dark:text-green-400'
+                        ? 'text-green-600 dark:text-green-600'
                         : 'text-gray-600 dark:text-gray-400'
                     } group-hover:text-gray-900 dark:group-hover:text-white transition-colors`}
                   >
@@ -201,7 +202,7 @@ const Navbar = () => {
           {/* Terminal Footer */}
           <div className="border-t border-gray-300/50 dark:border-gray-700/50 p-4">
             <div className="text-xs text-gray-500 dark:text-gray-500">
-              <span className="text-green-600 dark:text-green-400">✓</span>{' '}
+              <span className="text-green-600 dark:text-green-600">✓</span>{' '}
               Ready for navigation
             </div>
           </div>
@@ -219,4 +220,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default DevNavbar;

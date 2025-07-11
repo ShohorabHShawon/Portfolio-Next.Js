@@ -51,7 +51,7 @@ export default async function BlogListPage() {
             Go Home
           </Link>
         </div>
-        <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
+        <div className="bg-white dark:bg-[#181A1B] transition-colors">
           <div className="max-w-3xl mx-auto px-6 py-12">
             <header className="text-center mb-16">
               <h1 className="font-grailga text-5xl font-bold text-gray-900 dark:text-white mb-4">
@@ -75,8 +75,8 @@ export default async function BlogListPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-white dark:bg-[#181A1B] transition-colors">
-        <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="bg-white dark:bg-[#181A1B] transition-colors">
+        <div className="max-w-7xl mx-auto px-6 py-12">
           <header className="text-center mb-16">
             <h1 className="text-6xl font-grailga font-bold text-gray-900 dark:text-white mb-4">
               Blog
@@ -87,25 +87,20 @@ export default async function BlogListPage() {
             <div className="w-24 h-px bg-gray-300 dark:bg-gray-700 mx-auto mt-6"></div>
           </header>
 
-          <div className="space-y-12">
+          <div className="flex flex-wrap justify-center gap-6">
             {posts
               .filter((post) => post && (post.id || post.slug))
               .map((post, index) => (
-                <BlogCard
+                <div
                   key={post.id || post.slug || `post-${index}`}
-                  post={post}
-                />
+                  className="w-full sm:w-80 md:w-96 flex-shrink-0"
+                >
+                  <BlogCard post={post} />
+                </div>
               ))}
           </div>
         </div>
       </div>
-      <footer className="bg-black text-white py-8">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="text-gray-300">
-            © 2025 Shohorab H Shawon. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </>
   );
 }
