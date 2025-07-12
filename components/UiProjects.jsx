@@ -75,14 +75,7 @@ export default function UiProjects() {
     }
   }, []);
 
-  // Effect to scroll to the initial active project (index 1) on component mount
-  useEffect(() => {
-    // Only scroll if there are projects and the ref is available
-    if (uiProjects.length > 1 && scrollContainerRef.current) {
-      // Scroll to the second project (index 1) on initial mount
-      scrollToIndex(1);
-    }
-  }, []); // Empty dependency array ensures this runs only once on mount
+  
 
   // Handlers for next/previous buttons
   const goToNext = () => {

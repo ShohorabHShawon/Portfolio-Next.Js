@@ -1,19 +1,53 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ThemeToggle from '@/components/ThemeToggle';
 
 const DevNavbar = () => {
   const navItems = [
-    { name: 'home()', href: 'home', icon: '💻', type: 'function' },
-    { name: 'about.ts', href: 'about', icon: '📄', type: 'file' },
+    { name: 'home()', href: 'home', icon: '💻', type: 'file' },
+    { name: 'about.ts', href: 'about', icon: '📄', type: 'function' },
     { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
     { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
     { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
   ];
 
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [activeItem, setActiveItem] = React.useState('home()');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('home()');
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const navItem = navItems.find((item) => item.href === entry.target.id);
+            if (navItem) {
+              setActiveItem(navItem.name);
+            }
+          }
+        });
+      },
+      { threshold: 0.5 } // A section is active when 50% is visible
+    );
+
+    observerRef.current = observer;
+
+    const sections = navItems.map((item) => document.getElementById(item.href));
+    sections.forEach((section) => {
+      if (section) {
+        observerRef.current.observe(section);
+      }
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        if (section && observerRef.current) {
+          observerRef.current.unobserve(section);
+        }
+      });
+    };
+  }, []);
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -24,8 +58,8 @@ const DevNavbar = () => {
 
   const handleNavClick = (e, href, name) => {
     e.preventDefault();
-    scrollToSection(href);
     setActiveItem(name);
+    scrollToSection(href);
     setMenuOpen(false);
   };
 

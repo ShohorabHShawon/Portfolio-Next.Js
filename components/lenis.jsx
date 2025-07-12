@@ -20,8 +20,11 @@ export default function LenisProvider({ children }) {
 
     lenisRef.current = lenis;
 
-    // Scroll to top on initial load
-    lenis.scrollTo(0, { immediate: true });
+    // Scroll to top only on the first visit of the session
+    if (!sessionStorage.getItem('hasVisited')) {
+      lenis.scrollTo(0, { immediate: true });
+      sessionStorage.setItem('hasVisited', 'true');
+    }
 
     function raf(time) {
       lenis.raf(time);
