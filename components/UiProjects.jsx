@@ -61,9 +61,14 @@ export default function UiProjects() {
 
   useEffect(() => {
     if (scrollContainerRef.current && projectRefs.current[1]) {
-      scrollContainerRef.current.scrollLeft = projectRefs.current[1].offsetLeft;
+      const projectElement = projectRefs.current[1];
+      const container = scrollContainerRef.current;
+      const scrollLeftValue = projectElement.offsetLeft - (container.offsetWidth / 2) + (projectElement.offsetWidth / 2);
+      container.scrollLeft = scrollLeftValue;
     }
   }, []);
+
+  
 
   // State for drag-to-scroll functionality
   const [isDragging, setIsDragging] = useState(false);
