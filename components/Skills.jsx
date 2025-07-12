@@ -151,7 +151,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
-          className="bg-gray-100 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4"
+          className="bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4"
         >
           <div className="space-y-2">
             {skillCategories.map((category) => (

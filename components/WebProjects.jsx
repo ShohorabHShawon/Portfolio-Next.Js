@@ -127,7 +127,7 @@ export default function WebProjects() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="flex flex-col lg:flex-row w-full min-h-[600px] bg-white dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl shadow-gray-500/10"
+          className="flex flex-col lg:flex-row w-full min-h-[600px] bg-gray-50 dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl shadow-gray-500/10"
         >
           {/* File Explorer (Left Panel) */}
           <div className="w-full lg:w-1/4 border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-700 p-4">

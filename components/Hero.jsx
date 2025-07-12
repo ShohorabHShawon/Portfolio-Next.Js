@@ -95,7 +95,7 @@ function Hero() {
               href="/Shohorab_Hossain_Shawon.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-semibold rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-200 hover:text-gray-800 transition-colors text-sm sm:text-base"
             >
               Resume
               <svg
