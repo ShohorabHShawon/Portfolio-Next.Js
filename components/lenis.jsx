@@ -20,6 +20,9 @@ export default function LenisProvider({ children }) {
 
     lenisRef.current = lenis;
 
+    // Scroll to top on initial load
+    lenis.scrollTo(0, { immediate: true });
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
