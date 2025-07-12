@@ -72,7 +72,18 @@ const webProjects = [
     image: '/projects/ai-content-generator.png',
     live: '',
     github: 'https://github.com/ShohorabHShawon/AI-Content-Generator',
-    tags: ['Generative-AI', 'Gemini API', 'Typescript'],
+    tags: ['Gemini API', 'Typescript', 'Clerk'],
+  },
+  {
+    id: 7,
+    title: 'Home Renovation Landing Page',
+    filename: 'HomeRenovation.tsx',
+    description:
+      'A sleek and modern landing page for a home renovation service, designed to attract potential clients with its clean layout and engaging visuals.',
+    image: '/projects/home-renovation.png',
+    live: 'https://homerenovationnextjs15.vercel.app/',
+    github: 'https://github.com/ShohorabHShawon/Home-Renovation-Landing-Page',
+    tags: ['Next.js', 'TailwindCSS', 'Landing Page'],
   },
 ];
 

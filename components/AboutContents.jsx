@@ -35,7 +35,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
@@ -51,7 +51,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="bg-gray-50 dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-8"
         >

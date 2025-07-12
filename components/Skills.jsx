@@ -50,18 +50,29 @@ const skillCategories = [
 const SkillCategory = ({ category, icons }) => {
   const [isOpen, setIsOpen] = useState(true);
 
+  // Variants for the grid container
   const gridVariants = {
-    hidden: { opacity: 0, height: 0 },
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      height: 'auto',
-      transition: { when: 'beforeChildren', staggerChildren: 0.2 },
+      transition: {
+        staggerChildren: 0.08, // This will stagger the animation of each icon
+      },
     },
   };
 
+  // Variants for each individual icon
   const iconVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
+    hidden: { opacity: 0, scale: 0.8, y: 10 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 0.4,
+        ease: 'easeOut',
+      },
+    },
   };
 
   return (
@@ -82,30 +93,30 @@ const SkillCategory = ({ category, icons }) => {
           <motion.div
             variants={gridVariants}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
             exit="hidden"
-            className="overflow-hidden"
+            // A lower `amount` triggers the animation sooner, which feels more responsive.
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 md:pl-12 ml-6 border-l-2 border-gray-300 dark:border-gray-700"
           >
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4 pl-12 border-l-2 border-gray-300 dark:border-gray-700 ml-5">
-              {icons.map((icon, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={iconVariants}
-                  className="group flex items-center gap-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
-                >
-                  <Image
-                    src={icon.src}
-                    alt={icon.title}
-                    width={32}
-                    height={32}
-                    className="object-contain"
-                  />
-                  <h4 className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-green-600">
-                    {icon.title}
-                  </h4>
-                </motion.div>
-              ))}
-            </div>
+            {icons.map((icon, idx) => (
+              <motion.div
+                key={idx}
+                variants={iconVariants} // These variants are now correctly orchestrated
+                className="group flex items-center gap-3 p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors"
+              >
+                <Image
+                  src={icon.src}
+                  alt={icon.title}
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
+                <h4 className="text-sm text-gray-700 dark:text-gray-300 group-hover:text-green-600">
+                  {icon.title}
+                </h4>
+              </motion.div>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>
