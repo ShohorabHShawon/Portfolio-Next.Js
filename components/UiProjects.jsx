@@ -59,6 +59,12 @@ export default function UiProjects() {
   const [activeIndex, setActiveIndex] = useState(1);
   const observerRef = useRef(null);
 
+  useEffect(() => {
+    if (scrollContainerRef.current && projectRefs.current[1]) {
+      scrollContainerRef.current.scrollLeft = projectRefs.current[1].offsetLeft;
+    }
+  }, []);
+
   // State for drag-to-scroll functionality
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -74,8 +80,6 @@ export default function UiProjects() {
       });
     }
   }, []);
-
-  
 
   // Handlers for next/previous buttons
   const goToNext = () => {
