@@ -59,17 +59,17 @@ export default function AboutSection() {
             {/* Left side: Profile Picture */}
             <div className="flex-shrink-0">
               <Image
-                src="/profile2.jpg"
+                src="/shohorab.jpg"
                 alt="Shohorab Hossain"
-                width={150}
-                height={150}
-                className="rounded-xl border border-gray-200 dark:border-gray-700 shadow-md"
+                width={200}
+                height={200}
+                className="rounded-xl border border-gray-200 dark:border-gray-700 shadow-md h-44 w-40 md:h-52 md:w-48 lg:h-64 lg:w-56 xl:h-72 xl:w-64 object-cover"
               />
             </div>
 
             {/* Right side: System Info */}
             <motion.div
-              className="font-mono text-sm text-gray-800 dark:text-gray-200 w-full pl-10"
+              className="font-mono text-sm md:text-md lg:text-lg text-gray-800 dark:text-gray-200 w-full md:pl-10 lg:pl-16"
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -104,7 +104,7 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-16 text-left"
+          className="mt-16 text-left pl-4 md:pl-0"
         >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             About Me

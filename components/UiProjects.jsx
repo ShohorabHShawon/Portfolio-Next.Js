@@ -63,12 +63,13 @@ export default function UiProjects() {
     if (scrollContainerRef.current && projectRefs.current[1]) {
       const projectElement = projectRefs.current[1];
       const container = scrollContainerRef.current;
-      const scrollLeftValue = projectElement.offsetLeft - (container.offsetWidth / 2) + (projectElement.offsetWidth / 2);
+      const scrollLeftValue =
+        projectElement.offsetLeft -
+        container.offsetWidth / 2 +
+        projectElement.offsetWidth / 2;
       container.scrollLeft = scrollLeftValue;
     }
   }, []);
-
-  
 
   // State for drag-to-scroll functionality
   const [isDragging, setIsDragging] = useState(false);
@@ -183,7 +184,7 @@ export default function UiProjects() {
             UI / UX PROJECTS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">
-            UI / UX Design Prototypes
+            UI / UX Design & Prototypes
           </p>
         </motion.div>
 

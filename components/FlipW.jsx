@@ -52,8 +52,8 @@ export function FlipW() {
   }, []);
 
   return (
-    <div className="h-20 flex justify-center items-center lg:justify-start">
-      <div className="text-green-600 font-mono text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mx-auto font-normal text-center lg:text-left">
+    <div className="flex justify-center items-center lg:justify-start">
+      <div className="text-green-600 font-mono text-2xl md:text-3xl lg:text-4xl mx-auto font-normal text-center lg:text-left">
         {displayedText}
         <span className={`${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
         <br />

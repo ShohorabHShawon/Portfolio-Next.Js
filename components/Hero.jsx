@@ -35,7 +35,7 @@ function Hero() {
       id="home"
     >
       {/* Background with a subtle grid */}
-      <div className="absolute inset-0 bg-grid-black/[0.04] dark:bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
+      <div className="absolute inset-0 bg-grid-black/[0.03] dark:bg-grid-white/[0.04] bg-[size:60px_60px]"></div>
       {/* A radial gradient for depth */}
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black dark:[mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
@@ -63,17 +63,16 @@ function Hero() {
               },
             }}
           >
-            <span className="text-gray-800 font-mono px-1 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
+            <p className="text-gray-800 font-mono px-1 py-2 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
               Hey! I&apos;m
-            </span>
-            <br />
+            </p>
             <span className="text-green-600">SHOHORAB</span>
             <br />
             HOSSAIN SHAWON
           </motion.h1>
 
           <motion.h2
-            className="text-xl md:text-2xl font-medium text-green-600 dark:text-green-400"
+            className="font-medium text-green-600 dark:text-green-400 py-2"
             variants={itemVariants}
           >
             <FlipW className="text-center lg:text-left" />
