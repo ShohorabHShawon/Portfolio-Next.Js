@@ -29,7 +29,7 @@ export default function AboutSection() {
   };
 
   return (
-    <section id="about" className="w-full py-24 bg-white dark:bg-[#181A1B]">
+    <section id="about" className="w-full py-14 bg-white dark:bg-[#181A1B]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -51,7 +51,7 @@ export default function AboutSection() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.8 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="bg-gray-50 dark:bg-gray-700/50  border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-8"
         >
@@ -100,10 +100,10 @@ export default function AboutSection() {
 
         {/* Narrative Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: 'easeInOut' }}
           className="mt-16 text-left pl-4 md:pl-0"
         >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
@@ -113,9 +113,9 @@ export default function AboutSection() {
             <p>
               As a Full Stack Developer, I thrive on the challenge of building
               complete, end-to-end web applications. My passion lies in the
-              entire lifecycle of a project, from architecting a scalable
-              back-end with Nest.js to designing an intuitive and responsive
-              front-end with Next.js and Tailwind CSS.
+              entire lifecycle of a project, from architect a scalable back-end
+              with Nest.js to designing an intuitive and responsive front-end
+              with Next.js and Tailwind CSS.
             </p>
             <p>
               My academic background in Computer Science & Engineering provided

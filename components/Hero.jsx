@@ -162,7 +162,7 @@ function Hero() {
         </div>
 
         {/* === RIGHT COLUMN: IMAGE & SOCIALS === */}
-        <div className="md:col-span-5 flex flex-col items-center md:items-end gap-6 order-1 md:order-2 mt-14 md:mt-0 w-full">
+        <div className="md:col-span-5 flex flex-col items-center md:items-end gap-6 order-1 md:order-2 mt-10 md:mt-0 w-full">
           <motion.div
             className="relative w-40 h-40 xs:w-52 xs:h-52 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80"
             variants={{

@@ -101,7 +101,7 @@ export default function WebProjects() {
   };
 
   return (
-    <section id="projects" className="w-full py-24 bg-white dark:bg-[#181A1B]">
+    <section id="projects" className="w-full py-14 bg-white dark:bg-[#181A1B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

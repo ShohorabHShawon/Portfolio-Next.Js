@@ -170,7 +170,7 @@ export default function UiProjects() {
   return (
     <section
       id="projects"
-      className="w-full py-24 bg-white dark:bg-[#181A1B] overflow-hidden"
+      className="w-full py-14 bg-white dark:bg-[#181A1B] overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
         <motion.div
