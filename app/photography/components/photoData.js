@@ -1,38 +1,24 @@
 const photos = [
-  {
-    src: '/images/photo1.png',
-    title: 'Magenta Bougainvillea Blooms Against a Summer Sky',
+    {
+    src: '/images/photo12.png',
+    title: 'Path of Whispering Shadows',
     description:
-      'A beautiful shot of vibrant magenta bougainvillea flowers reaching towards a pale blue sky with soft clouds. The image captures the delicate texture of the bracts and the lush green foliage, with a dreamy, slightly blurred foreground enhancing the depth of field.',
-    category: 'Flower',
-  },
-  {
-    src: '/images/photo2.png',
-    title: 'Urban Bougainvillea',
-    description:
-      'Vibrant bougainvillea flowers bloom beside a modern building under a soft sky.',
-    category: 'Urban',
-  },
-  {
-    src: '/images/photo3.png',
-    title: 'Bougainvillea Lined Street',
-    description:
-      'Vibrant pink bougainvillea overhangs a quiet street with a figure walking in the distance.',
-    category: 'Nature',
-  },
-  {
-    src: '/images/photo4.png',
-    title: 'Rickshaw Ride Under Bougainvillea',
-    description:
-      'A colorful rickshaw travels down a street, framed by overhanging pink bougainvillea and green trees.',
-    category: 'Urban',
-  },
-  {
-    src: '/images/photo5.png',
-    title: 'Cycling Past Bougainvillea',
-    description:
-      'A man on a bicycle with a blue crate rides down a street lined with bright pink bougainvillea.',
+      'Figures traverse a sun-dappled road, enveloped by an archway of dense trees that cast deep, contrasting shadows. This high-contrast black and white scene, possibly from a place like Irigolkavu as suggested by image data, evokes a sense of journey through a serene, almost mystical, natural tunnel.',
     category: 'Street',
+  },
+  {
+    src: '/images/photo19.png',
+    title: 'Citrus Jewel, Effervescent Dance',
+    description:
+      "A vividly green lime slice, illuminated from behind, reveals its radiant, translucent segments and a delicate crown of sparkling bubbles. Submerged in cool, dark water, it's a macro celebration of zest and refreshment, where light and liquid play.",
+    category: 'Conceptual',
+  },
+  {
+    src: '/images/photo10.png',
+    title: 'Skyward Fire, Petal & Plume',
+    description:
+      "Like a burst of floral fireworks, the intricate red and orange bloom, likely a Caesalpinia pulcherrima, reaches for the heavens. Its delicate, extended stamens and fern-like leaves are set against a soft, clouded sky, highlighting nature's vivid artistry.",
+    category: 'Flower',
   },
   {
     src: '/images/photo6.png',
@@ -42,11 +28,27 @@ const photos = [
     category: 'Conceptual',
   },
   {
+    src: '/images/photo4.png',
+    title: 'Rickshaw Ride Under Bougainvillea',
+    description:
+      'A colorful rickshaw travels down a street, framed by overhanging pink bougainvillea and green trees.',
+    category: 'Urban',
+  },
+    {
     src: '/images/photo7.png',
     title: 'Dreams and Weight',
     description: 'The Weight We Carry, the Dreams We Watch.',
     category: 'Street',
   },
+  {
+    src: '/images/photo5.png',
+    title: 'Cycling Past Bougainvillea',
+    description:
+      'A man on a bicycle with a blue crate rides down a street lined with bright pink bougainvillea.',
+    category: 'Street',
+  },
+
+
   {
     src: '/images/photo8.png',
     title: 'Sunset Hues & Fleeting Joys',
@@ -61,13 +63,7 @@ const photos = [
       'A solitary yellow trumpet flower, possibly Tecoma stans, defiantly blooms, its bright form a stark contrast to the dark, out-of-focus bars of a fence that partially obscure it. The image speaks to resilience and beauty found in unexpected places, a small sunbeam caught in a shadowed world.',
     category: 'Flower',
   },
-  {
-    src: '/images/photo10.png',
-    title: 'Skyward Fire, Petal & Plume',
-    description:
-      "Like a burst of floral fireworks, the intricate red and orange bloom, likely a Caesalpinia pulcherrima, reaches for the heavens. Its delicate, extended stamens and fern-like leaves are set against a soft, clouded sky, highlighting nature's vivid artistry.",
-    category: 'Flower',
-  },
+
   {
     src: '/images/photo11.png',
     title: "Twilight's Velvet Bloom",
@@ -75,13 +71,14 @@ const photos = [
       'Vibrant magenta flowers, possibly Mirabilis jalapa, emerge from the deep shadows, their delicate, trumpet-like forms glowing against a dark, textured backdrop. The image captures the quiet beauty of night-blooming flora, a splash of color in the encroaching darkness.',
     category: 'Flower',
   },
-  {
-    src: '/images/photo12.png',
-    title: 'Path of Whispering Shadows',
+   {
+    src: '/images/photo2.png',
+    title: 'Urban Bougainvillea',
     description:
-      'Figures traverse a sun-dappled road, enveloped by an archway of dense trees that cast deep, contrasting shadows. This high-contrast black and white scene, possibly from a place like Irigolkavu as suggested by image data, evokes a sense of journey through a serene, almost mystical, natural tunnel.',
-    category: 'Street',
+      'Vibrant bougainvillea flowers bloom beside a modern building under a soft sky.',
+    category: 'Urban',
   },
+
   {
     src: '/images/photo13.png',
     title: 'Stardust & Bokeh Dreams',
@@ -125,11 +122,11 @@ const photos = [
     category: 'Wildlife',
   },
   {
-    src: '/images/photo19.png',
-    title: 'Citrus Jewel, Effervescent Dance',
+    src: '/images/photo1.png',
+    title: 'Magenta Bougainvillea Blooms Against a Summer Sky',
     description:
-      "A vividly green lime slice, illuminated from behind, reveals its radiant, translucent segments and a delicate crown of sparkling bubbles. Submerged in cool, dark water, it's a macro celebration of zest and refreshment, where light and liquid play.",
-    category: 'Conceptual',
+      'A beautiful shot of vibrant magenta bougainvillea flowers reaching towards a pale blue sky with soft clouds. The image captures the delicate texture of the bracts and the lush green foliage, with a dreamy, slightly blurred foreground enhancing the depth of field.',
+    category: 'Flower',
   },
   {
     src: '/images/photo20.png',
@@ -174,6 +171,13 @@ const photos = [
     category: 'Wildlife',
   },
   {
+    src: '/images/photo3.png',
+    title: 'Bougainvillea Lined Street',
+    description:
+      'Vibrant pink bougainvillea overhangs a quiet street with a figure walking in the distance.',
+    category: 'Nature',
+  },
+  {
     src: '/images/photo26.png',
     title: "Monochrome Dreams in a Child's Gaze",
     description:
@@ -193,4 +197,5 @@ const categories = [
   'Wildlife',
 ];
 
-export { photos, categories };
+export { categories, photos };
+

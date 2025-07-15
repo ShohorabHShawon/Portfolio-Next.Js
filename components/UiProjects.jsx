@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiFigma, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { FiArrowLeft, FiArrowRight, FiFigma } from 'react-icons/fi';
 
 // The project data remains the same
 const uiProjects = [
@@ -188,10 +188,10 @@ export default function UiProjects() {
           </p>
         </motion.div>
 
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <motion.div
             ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto rounded-2xl snap-x snap-mandatory scroll-smooth scrollbar-hide pb-8 -mb-8 cursor-grab"
+            className="flex gap-6 overflow-x-auto rounded-2xl snap-x snap-mandatory scroll-smooth scrollbar-hide pb-8 -mb-8 cursor-grab hover:rounded-2xl"
             onMouseDown={onMouseDown}
             onMouseLeave={onMouseLeaveOrUp}
             onMouseUp={onMouseLeaveOrUp}
@@ -212,11 +212,11 @@ export default function UiProjects() {
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="w-full h-full object-cover pointer-events-none border-2 rounded-2xl"
+                  className="w-full h-full object-cover pointer-events-none border-2 rounded-2xl hover:rounded-2xl overflow-hidden"
                 />
                 <div className="absolute inset-0 pointer-events-none" />
 
-                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 backdrop-blur-sm">
+                <div className="absolute inset-0 p-6 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 group-hover:rounded-2xl bg-black/40 backdrop-blur-sm rounded-2xl transition-opacity ease-in-out duration-500">
                   <h3 className="text-2xl font-bold text-white text-center mb-4">
                     {project.title}
                   </h3>
