@@ -1,13 +1,13 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Contact } from '@/components/Contact';
-import Footer from '@/components/Footer';
-import Skills from '@/components/Skills';
 import AboutContents from '@/components/AboutContents';
-import WebProjects from '@/components/WebProjects';
-import UiProjects from '@/components/UiProjects';
+import { Contact } from '@/components/Contact';
 import DevNavbar from '@/components/DevNavbar';
+import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import BlogListPage from './blog/page';
+import Skills from '@/components/Skills';
+import UiProjects from '@/components/UiProjects';
+import WebProjects from '@/components/WebProjects';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 export default function Home() {
   return (
@@ -16,7 +16,6 @@ export default function Home() {
         <DevNavbar />
         {/* Hero Section */}
         <Hero />
-        {/* <HeroSection /> */}
         {/* About Section */}
         <section id="about">
           <div className="">
@@ -37,25 +36,12 @@ export default function Home() {
             <div className="w-full">
               <WebProjects />
             </div>
-
-            {/* UI/UX Projects Header */}
-
             {/* UI/UX Projects Grid */}
             <div className="w-full">
               <UiProjects />
             </div>
           </div>
         </section>
-
-        {/* Blogs Section  */}
-        {/* <section
-          className="w-full bg-white dark:bg-[#181A1B] text-gray-800 dark:text-white"
-          id="blog"
-        >
-          
-          <BlogListPage />
-        </section> */}
-
         {/* Contact Section */}
         <section id="contact" className="">
           <Contact />
