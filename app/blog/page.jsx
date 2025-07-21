@@ -1,8 +1,8 @@
-import { getAllPosts } from '@/lib/notion';
-import BlogCard from './components/BlogCard';
-import Link from 'next/link';
-import HomeButton from './components/HomeButton';
 import Footer from '@/components/Footer';
+import { getAllPosts } from '@/lib/notion';
+import Link from 'next/link';
+import BlogCard from './components/BlogCard';
+import HomeButton from './components/HomeButton';
 
 export const revalidate = 60; // ISR - revalidate every 60 seconds
 
@@ -79,10 +79,10 @@ export default async function BlogListPage() {
       <div className="bg-white dark:bg-[#181A1B] transition-colors min-h-screen">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <header className="text-center mb-16">
-            <h1 className="text-9xl font-grailga font-bold text-gray-800 dark:text-white mb-4">
+            <h1 className="text-9xl font-poppins font-bold text-gray-800 dark:text-white mb-4">
               Blog
             </h1>
-            <p className="text-lg font-lexend text-gray-600 dark:text-gray-300">
+            <p className="text-lg font-poppins text-gray-600 dark:text-gray-300">
               Thoughts, stories and ideas
             </p>
             <div className="w-24 h-px bg-gray-300 dark:bg-gray-700 mx-auto mt-6"></div>

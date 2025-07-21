@@ -3,39 +3,11 @@ import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import './globals.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
+const poppins = localFont({
+  src: './fonts/Poppins-Bold.ttf',
+  variable: '--font-poppins',
   weight: '100 900',
-});
-const Elmundo = localFont({
-  src: './fonts/Elmundo.ttf',
-  variable: '--font-elmundo',
-  weight: '400',
-});
-const Bestia = localFont({
-  src: './fonts/Bestia.otf',
-  variable: '--font-bestia',
-  weight: '400',
-});
-
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
-
-const lexend = localFont({
-  src: './fonts/Lexend-VariableFont_wght.ttf',
-  variable: '--font-lexend',
-  weight: '400',
-});
-
-const grailga = localFont({
-  src: './fonts/grailga-regular.otf',
-  variable: '--font-grailga',
-  display: 'swap',
-});
+})
 
 export const metadata = {
   title:
@@ -166,7 +138,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
+        className={`${poppins.variable} antialiased scroll-smooth`}
       >
         <LenisProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

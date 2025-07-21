@@ -180,7 +180,7 @@ export default function UiProjects() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-lexend text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold font-poppins text-gray-900 dark:text-white">
             UI / UX PROJECTS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">

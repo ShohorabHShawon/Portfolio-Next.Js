@@ -1,9 +1,9 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Bubblegum_Sans } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Bubblegum_Sans } from 'next/font/google';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const bubblegum = Bubblegum_Sans({
   subsets: ['latin'],
@@ -57,7 +57,7 @@ const HeroSection = ({ photos }) => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <motion.h1
-          className={`font-bestia text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
+          className={`font-poppins font-bold text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
@@ -66,7 +66,7 @@ const HeroSection = ({ photos }) => {
         </motion.h1>
 
         <motion.p
-          className="text-xl md:text-2xl font-light tracking-wide opacity-90"
+          className="font-poppins text-xl md:text-2xl font-light tracking-wide opacity-90"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}

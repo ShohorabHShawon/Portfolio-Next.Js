@@ -47,7 +47,7 @@ function Hero() {
         {/* === LEFT COLUMN: TEXT CONTENT === */}
         <div className="md:col-span-7 order-2 md:order-2 flex flex-col items-center md:items-start text-center md:text-left w-full">
           <motion.h1
-            className="text-center text-gray-800 dark:text-white md:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+            className="text-center text-gray-800 dark:text-white md:text-left font-poppins font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
             variants={{
               hidden: { x: -50, opacity: 0 },
               visible: {

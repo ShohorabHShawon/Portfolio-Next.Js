@@ -105,7 +105,7 @@ export function Contact() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-lexend text-gray-900 dark:text-slate-100">
+          <h2 className="text-4xl lg:text-5xl font-bold font-poppins text-gray-900 dark:text-slate-100">
             CONTACT
           </h2>
           <p className="text-lg text-gray-600 dark:text-slate-300 mt-4 max-w-2xl mx-auto">
