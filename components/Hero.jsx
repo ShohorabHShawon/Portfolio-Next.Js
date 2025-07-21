@@ -1,9 +1,8 @@
 'use client';
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 import { FlipW } from './FlipW';
 
 // This animation variant staggers the children components, making them appear one by one.
@@ -48,7 +47,7 @@ function Hero() {
         {/* === LEFT COLUMN: TEXT CONTENT === */}
         <div className="md:col-span-7 order-2 md:order-2 flex flex-col items-center md:items-start text-center md:text-left w-full">
           <motion.h1
-            className="text-center text-gray-800 dark:text-white md:text-left font-ttnorm font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
+            className="text-center text-gray-800 dark:text-white md:text-left font-lexend font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight"
             variants={{
               hidden: { x: -50, opacity: 0 },
               visible: {

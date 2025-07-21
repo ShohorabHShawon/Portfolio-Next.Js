@@ -1,9 +1,9 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiFile, FiFolder, FiArrowUpRight, FiGithub } from 'react-icons/fi';
+import { useState } from 'react';
+import { FiArrowUpRight, FiFile, FiFolder, FiGithub } from 'react-icons/fi';
 
 // All your project data, enriched with filenames and tags for the new design.
 const webProjects = [
@@ -111,7 +111,7 @@ export default function WebProjects() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold font-lexend text-gray-900 dark:text-white">
             WEB PROJECTS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl mx-auto">

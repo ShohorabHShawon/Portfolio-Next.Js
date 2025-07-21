@@ -1,13 +1,8 @@
+import LenisProvider from '@/components/lenis';
+import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
 import './globals.css';
-import { ThemeProvider } from 'next-themes';
-import LenisProvider from '@/components/lenis';
 
-const ttnorm = localFont({
-  src: './fonts/tt-norms-bold.otf',
-  variable: '--font-ttnorm',
-  weight: '400',
-});
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
   variable: '--font-geist-sans',
@@ -171,7 +166,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <body
-        className={`${geistSans.variable} ${ttnorm.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${grailga.variable} ${Elmundo.variable} ${Bestia.variable} antialiased scroll-smooth`}
       >
         <LenisProvider>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

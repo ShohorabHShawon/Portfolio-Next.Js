@@ -1,8 +1,8 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FiFolder, FiFolderMinus, FiFolderPlus } from 'react-icons/fi';
+import { useState } from 'react';
+import { FiFolderMinus, FiFolderPlus } from 'react-icons/fi';
 
 // --- Data structured for the file explorer ---
 const skillCategories = [
@@ -137,7 +137,7 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold font-ttnorm text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-bold font-lexend text-gray-900 dark:text-white">
             SKILLS
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">

@@ -39,7 +39,7 @@ export default function AboutSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-ttnorm font-bold text-gray-900 dark:text-white">
+          <h2 className="text-4xl lg:text-5xl font-lexend font-bold text-gray-900 dark:text-white">
             <span className="text-green-600">$</span> whoami
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
