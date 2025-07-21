@@ -191,7 +191,7 @@ export default function WebProjects() {
                   </div>
 
                   {/* Details */}
-                  <h3 className="text-2xl font-bold font-lexend text-gray-900 dark:text-white mb-3">
+                  <h3 className="text-2xl font-bold font-poppins text-gray-900 dark:text-white mb-3">
                     {activeProject.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-5">

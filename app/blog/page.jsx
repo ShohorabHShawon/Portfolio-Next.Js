@@ -55,7 +55,7 @@ export default async function BlogListPage() {
         <div className="bg-white dark:bg-[#181A1B] transition-colors">
           <div className="max-w-3xl mx-auto px-6 py-12">
             <header className="text-center mb-16">
-              <h1 className="font-grailga text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="font-poppins text-5xl font-bold text-gray-900 dark:text-white mb-4">
                 Blog
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300">

@@ -1,9 +1,9 @@
 'use client';
 
-import FormattedDate from './FormattedDate';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
+import FormattedDate from './FormattedDate';
 
 export default function BlogCard({ post }) {
   const router = useRouter();
@@ -61,7 +61,7 @@ export default function BlogCard({ post }) {
         {/* Content */}
         <div className="space-y-4 p-2">
           <div className="space-y-2">
-            <h2 className="font-lexend text-2xl hover:underline font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors duration-200 line-clamp-1">
+            <h2 className="font-poppins text-2xl hover:underline font-bold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors duration-200 line-clamp-1">
               {post.title}
             </h2>
 

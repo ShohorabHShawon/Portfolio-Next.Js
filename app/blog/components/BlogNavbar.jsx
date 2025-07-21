@@ -1,10 +1,10 @@
 'use client';
-import React, { useState } from 'react';
-import { FaHome } from 'react-icons/fa';
-import { RiFileInfoFill } from 'react-icons/ri';
-import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { FaHome } from 'react-icons/fa';
+import { HiMenuAlt3, HiX } from 'react-icons/hi';
+import { RiFileInfoFill } from 'react-icons/ri';
 import ThemeToggle from './ThemeToggle';
 
 function Navbar({ title, address, Icon }) {
@@ -32,7 +32,7 @@ function BlogNavbar() {
           transition={{ duration: 0.5 }}
         >
           <Link href="/" className="flex items-center">
-            <h1 className="text-2xl md:text-3xl font-lexend text-white font-semibold tracking-wide">
+            <h1 className="text-2xl md:text-3xl font-poppins text-white font-semibold tracking-wide">
               Shohorab
             </h1>
           </Link>
