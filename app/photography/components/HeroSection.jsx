@@ -57,7 +57,7 @@ const HeroSection = ({ photos }) => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <motion.h1
-          className={`font-poppins font-bold text-3xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
+          className={`font-poppins font-bold text-4xl md:text-6xl lg:text-7xl xl:text-8xl mb-6 md:mb-10 tracking-wider text-center`}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
@@ -66,7 +66,7 @@ const HeroSection = ({ photos }) => {
         </motion.h1>
 
         <motion.p
-          className="font-poppins text-xl md:text-2xl font-light tracking-wide opacity-90"
+          className="font-poppins text-md md:text-xl lg:text-2xl font-normal tracking-wide opacity-90"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
@@ -86,7 +86,7 @@ const HeroSection = ({ photos }) => {
                 .getElementById('gallery')
                 .scrollIntoView({ behavior: 'smooth' })
             }
-            className="px-5 mx-2 py-2 md:px-8 md:mx-2 md:py-3 rounded-xl border border-white/30 text-black bg-white hover:bg-transparent hover:text-white transition-all duration-300 backdrop-blur-sm"
+            className="px-4 mx-2 py-2 md:px-6 md:mx-2 md:py-3 text-xs md:text-sm lg:text-base rounded-xl border border-white/30 text-black bg-white hover:bg-transparent hover:text-white transition-all duration-300 backdrop-blur-sm"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -95,7 +95,7 @@ const HeroSection = ({ photos }) => {
 
           <Link href="/">
             <motion.button
-              className="px-5 mx-2 py-2 md:px-8 md:mx-2 md:py-3 rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+              className="px-5 mx-2 py-2 md:px-7 md:mx-2 md:py-3 text-xs md:text-sm lg:text-base rounded-xl border border-white/30 text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
