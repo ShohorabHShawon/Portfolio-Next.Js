@@ -1,12 +1,6 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
-import { Bubblegum_Sans } from 'next/font/google';
 
-const bubblegum = Bubblegum_Sans({
-  subsets: ['latin'],
-  weight: ['400'],
-});
 
 const PhotographyFooter = ({ year }) => {
   return (
@@ -16,7 +10,7 @@ const PhotographyFooter = ({ year }) => {
           {/* About Section */}
           <div className="text-center md:text-left">
             <h3
-              className={`${bubblegum.className} text-2xl font-bold text-white mb-4`}
+              className= "text-2xl font-poppins font-bold text-white mb-4"
             >
               SHOHORAB H SHAWON
             </h3>
