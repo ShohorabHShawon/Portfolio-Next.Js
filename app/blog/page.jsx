@@ -1,4 +1,4 @@
-import Footer from '@/components/Footer';
+import Footer from '@/components/dev-theme/Footer';
 import { getAllPosts } from '@/lib/notion';
 import Link from 'next/link';
 import BlogCard from './components/BlogCard';

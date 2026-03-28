@@ -1,5 +1,4 @@
-import React from 'react';
-import CurrentYear from './CurrentYear';
+import CurrentYear from '@/components/CurrentYear';
 
 const Footer = () => {
   return (
