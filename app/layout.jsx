@@ -1,6 +1,7 @@
 import LenisProvider from '@/components/lenis';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 import './globals.css';
 
 const poppins = localFont({
@@ -11,10 +12,10 @@ const poppins = localFont({
 
 export const metadata = {
   title:
-    'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer | Next.js & Nest.js Expert',
+    'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
 
   description:
-    'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern technologies. View portfolio, projects, and get in touch for development services.',
+    'Shohorab H Shawon is a Software Engineer and Web Developer specializing in Next.js and React, plus a talented Photographer and Cinematographer. Explore projects, portfolio, and creative work.',
   other: {
     'google-site-verification': 'OgeF8_GazjYsJM9yIDL8e_bmi3k2fHqRFAVBeGTiWkI',
     'application-name': 'Shohorab H Shawon',
@@ -28,50 +29,44 @@ export const metadata = {
     'theme-color': '#000000',
   },
   keywords: [
+    'Shohorab H Shawon',
     'Shohorab Hossain Shawon',
-    'Shohorab',
-    'Shawon',
-    'shohorab.com',
-    'shohorab h shawon',
-    'shohorab',
-    'shohorab hossain',
     'Software Engineer',
-    'Portfolio',
-    'Full Stack Web Developer',
-    'Next.js',
-    'Nest.js',
     'Web Developer',
-    'React',
-    'JavaScript',
-    'TypeScript',
-    'Web Development',
-    'Web Developer',
-    'Software Engineer',
-    'UI/UX Designer',
-    'AIUB Graduate',
-    'Web Development Services',
-    'Web Applications',
-    'Web Design',
-    'Web Technologies',
-    'Frontend Developer',
-    'Backend Developer',
-    'Frontend Engineer',
-    'Backend Engineer',
-    'Web Applications Developer',
-    'Full Stack Developer',
+    'Photographer',
+    'Cinematographer',
     'Next.js Developer',
     'React Developer',
+    'Frontend Engineer',
+    'Backend Engineer',
+    'Full Stack Engineer',
+    'Web Development',
+    'Software Development',
+    'Photography Portfolio',
+    'Cinematography',
+    'Web Developer Portfolio',
     'JavaScript Developer',
-    'TypeScript',
-    'Web Developer',
-    'Node.js',
-    'MongoDB',
-    'Express.js',
-    'Portfolio',
-    'Web Development Services',
+    'TypeScript Developer',
+    'Next.js Expert',
+    'Nest.js Developer',
+    'Node.js Developer',
+    'React.js Specialist',
+    'Web Applications',
+    'Custom Web Solutions',
     'UI/UX Designer',
-    'Software Engineer',
+    'Visual Content Creator',
+    'Photo Gallery',
+    'Video Production',
+    'Creative Services',
+    'Tech Portfolio',
+    'Developer Portfolio',
+    'Professional Services',
+    'shohorab.com',
+    'shohorab',
+    'Shawon',
     'AIUB Graduate',
+    'Tech and Creative Professional',
+    'Multi-disciplinary Developer',
   ],
   authors: [{ name: 'Shohorab Hossain Shawon', url: 'https://shohorab.com' }],
   creator: 'Shohorab Hossain Shawon',
@@ -88,18 +83,18 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
+    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
     description:
-      'Professional Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern web technologies.',
+      'Experienced Software Engineer and Web Developer specializing in Next.js and React. Also a talented Photographer and Cinematographer. Explore my portfolio and creative projects.',
     url: 'https://shohorab.com',
     siteName:
-      'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
+      'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
     images: [
       {
         url: '/profile.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
+        alt: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
       },
     ],
     locale: 'en_US',
@@ -107,9 +102,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab Hossain Shawon - Software Engineer & Full Stack Developer',
+    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
     description:
-      'Professional Software Engineer & Full Stack Developer specializing in Next.js, Nest.js, and modern web technologies.',
+      'Software Engineer, Web Developer, Photographer & Cinematographer. Specializing in Next.js, React, and creative visual content.',
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
@@ -135,8 +130,81 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+  const schemaData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Shohorab H Shawon',
+    alternateName: ['Shohorab Hossain Shawon', 'Shohorab Shawon'],
+    url: 'https://shohorab.com',
+    image: 'https://shohorab.com/profile.jpg',
+    description:
+      'Software Engineer, Web Developer, Photographer, and Cinematographer',
+    jobTitle: [
+      'Software Engineer',
+      'Web Developer',
+      'Photographer',
+      'Cinematographer',
+    ],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Freelance',
+    },
+    knowsAbout: [
+      'Web Development',
+      'Software Engineering',
+      'Next.js',
+      'React',
+      'Node.js',
+      'JavaScript',
+      'TypeScript',
+      'Photography',
+      'Cinematography',
+      'Visual Design',
+    ],
+    sameAs: [
+      'https://github.com/shohorabhshawon',
+      'https://www.instagram.com/shohorabs.pov/',
+      'https://www.facebook.com/shohorabhshawon/',
+      'https://www.linkedin.com/in/shohorabhshawon/',
+    ],
+    contact: {
+      '@type': 'ContactPoint',
+      contactType: 'General Inquiry',
+      url: 'https://shohorab.com/#contact',
+    },
+    hasOffered: [
+      {
+        '@type': 'Service',
+        name: 'Web Development Services',
+        url: 'https://shohorab.com',
+      },
+      {
+        '@type': 'Service',
+        name: 'Photography Services',
+        url: 'https://shohorab.com/photography',
+      },
+      {
+        '@type': 'Service',
+        name: 'Cinematography Services',
+        url: 'https://shohorab.com/photography',
+      },
+      {
+        '@type': 'Service',
+        name: 'Software Engineering Services',
+        url: 'https://shohorab.com',
+      },
+    ],
+  };
+
   return (
     <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
+      <head>
+        <Script
+          id="schema-org"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
+      </head>
       <body
         className={`${poppins.variable} antialiased scroll-smooth`}
       >
