@@ -3,7 +3,7 @@ import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Minimize2, X } from 'lucide-react';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const PhotoFullscreenModal = ({
   selectedPhoto,
@@ -14,6 +14,12 @@ const PhotoFullscreenModal = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+  // Reset loading state when photo changes
+  useEffect(() => {
+    setIsImageLoading(true);
+  }, [selectedPhoto?.src]);
   return (
     <Dialog
       open={!!selectedPhoto && isFullscreen}
@@ -56,12 +62,40 @@ const PhotoFullscreenModal = ({
 
           {selectedPhoto?.src && (
             <div className="relative w-full h-full flex items-center justify-center">
+              {/* Loading Skeleton */}
+              <AnimatePresence>
+                {isImageLoading && (
+                  <motion.div
+                    className="absolute inset-0 flex items-center justify-center bg-black/50"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-gray-700 dark:from-gray-900 via-gray-600 dark:via-gray-800 to-gray-700 dark:to-gray-900"
+                      animate={{
+                        backgroundPosition: ['0% 0%', '100% 0%'],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: 'linear',
+                      }}
+                      style={{
+                        backgroundSize: '200% 100%',
+                      }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <Image
                 src={selectedPhoto.src}
                 alt="Fullscreen"
                 width={1920}
                 height={1080}
                 className="max-w-full max-h-full object-contain"
+                onLoadingComplete={() => setIsImageLoading(false)}
               />
 
               {/* Toggle Details Button - Bottom Right */}

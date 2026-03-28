@@ -14,11 +14,13 @@ const PhotoDetailsModal = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(true);
 
   // Reset details visibility when photo changes
   useEffect(() => {
     setShowDetails(false);
     setExpandedDescription(false);
+    setIsImageLoading(true);
   }, [selectedPhoto?.src]);
 
   // Keyboard navigation
@@ -101,6 +103,33 @@ const PhotoDetailsModal = ({
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
+                  {/* Loading Skeleton */}
+                  <AnimatePresence>
+                    {isImageLoading && (
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center bg-black/50"
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-gray-700 dark:from-gray-900 via-gray-600 dark:via-gray-800 to-gray-700 dark:to-gray-900"
+                          animate={{
+                            backgroundPosition: ['0% 0%', '100% 0%'],
+                          }}
+                          transition={{
+                            duration: 1.5,
+                            repeat: Infinity,
+                            ease: 'linear',
+                          }}
+                          style={{
+                            backgroundSize: '200% 100%',
+                          }}
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
                   <Image
                     src={selectedPhoto.src}
                     alt={selectedPhoto.title}
@@ -109,6 +138,7 @@ const PhotoDetailsModal = ({
                     className="w-full h-auto max-h-[55vh] md:max-h-[65vh] object-contain"
                     quality={90}
                     priority
+                    onLoadingComplete={() => setIsImageLoading(false)}
                   />
 
                   {/* Toggle Details Button - Positioned on Image */}
