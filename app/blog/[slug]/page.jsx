@@ -1,11 +1,11 @@
 import { getAllPosts, getPostBySlug } from '@/lib/notion';
-import FormattedDate from '../components/FormattedDate';
 import { notion } from '@/lib/notion-client';
+import Image from 'next/image';
 import { parsePageId } from 'notion-utils';
-import NotionPageWrapper from '../components/NotionPageWrapper';
 import 'react-notion-x/src/styles.css';
 import BackButton from '../components/BackButton';
-import Image from 'next/image';
+import FormattedDate from '../components/FormattedDate';
+import NotionPageWrapper from '../components/NotionPageWrapper';
 
 // ✅ Enable ISR — regenerate every 60 seconds
 export const revalidate = 60;
@@ -62,20 +62,26 @@ export default async function BlogPostPage({ params }) {
     }
 
     const pageId = parsePageId(post.id);
+    if (!pageId) {
+      throw new Error('Invalid Notion page id');
+    }
+
     const recordMap = await notion.getPage(pageId);
 
     return (
       <div className="min-h-screen antialiased text-black dark:text-white bg-white dark:bg-[#181A1B]">
         <BackButton className="text-black dark:text-white" />
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <Image
-            src={post.thumbnail}
-            alt={post.title}
-            className="w-full h-64 object-cover rounded-lg shadow-md"
-            width={800}
-            height={400}
-          />
-        </div>
+        {post.thumbnail ? (
+          <div className="max-w-4xl mx-auto px-6 py-8">
+            <Image
+              src={post.thumbnail}
+              alt={post.title}
+              className="w-full h-64 object-cover rounded-lg shadow-md"
+              width={800}
+              height={400}
+            />
+          </div>
+        ) : null}
         <article className="max-w-4xl mx-auto px-6 py-6">
           <header className="mb-12 pb-6 border-b border-gray-200 dark:border-gray-800 px-4">
             <h1 className="text-2xl md:text-4xl font-bold mb-6 leading-tight">
