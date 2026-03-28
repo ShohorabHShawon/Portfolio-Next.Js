@@ -12,7 +12,11 @@ export default function AboutSection() {
     shell: 'Next.js',
     experience: '3+ Years',
     ide: 'VS Code',
-    core_skills: 'TypeScript, Next.Js, Tailwind CSS',
+    development_skills: 'TypeScript, Next.Js, Tailwind CSS',
+    design_skills: 'Figma, Framer, Adobe Photoshop',
+    photography_skills: 'Street, Product, Model Photography',
+    cinematography_skills: 'Cinematic Reels & Short Films',
+
   };
 
   const containerVariants = {
@@ -89,9 +93,9 @@ export default function AboutSection() {
               ></motion.div>
 
               {Object.entries(profileData).map(([key, value]) => (
-                <motion.div key={key} className="flex" variants={itemVariants}>
-                  <span className="w-28 text-green-600 font-bold">{key}</span>
-                  <span>{value}</span>
+                <motion.div key={key} className="flex gap-4" variants={itemVariants}>
+                  <span className="min-w-max md:min-w-56 text-green-600 font-bold">{key}</span>
+                  <span className="break-words">{value}</span>
                 </motion.div>
               ))}
             </motion.div>
@@ -110,21 +114,23 @@ export default function AboutSection() {
             About Me
           </h3>
           <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed md:text-xl text-lg">
-            <p>
-              As a Full Stack Developer, I thrive on the challenge of building
-              complete, end-to-end web applications. My passion lies in the
-              entire lifecycle of a project, from architect a scalable back-end
-              with Nest.js to designing an intuitive and responsive front-end
-              with Next.js and Tailwind CSS.
-            </p>
-            <p>
-              My academic background in Computer Science & Engineering provided
-              me with a strong theoretical foundation, but my practical
-              experience has taught me the art of turning complex requirements
-              into clean, maintainable, and user-friendly software. I believe in
-              writing code that is not only functional but also a pleasure to
-              read and build upon.
-            </p>
+          <p>
+  As a Software Engineer, Web Developer, and Designer, I thrive on building complete, 
+  end-to-end applications that look as good as they function. My academic background 
+  in Computer Science & Engineering provided a strong theoretical foundation, while my 
+  practical experience has taught me to turn complex requirements into intuitive, 
+  user-friendly software using tools like Next.js and Tailwind CSS.
+</p>
+<p>
+  Beyond the screen, I am a passionate Photographer and Cinematographer. My background 
+  in design deeply influences my visual storytelling, allowing me to bring a meticulous 
+  eye for composition to street, product, and model photography, as well as cinematic reels.
+</p>
+<p>
+  For me, technology and art are intrinsically linked. Whether I am engineering a robust 
+  platform, designing a seamless UI, or directing a shoot, I believe in crafting 
+  experiences that leave a lasting impact.
+</p>
           </div>
         </motion.div>
       </div>

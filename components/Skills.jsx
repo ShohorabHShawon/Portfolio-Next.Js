@@ -29,6 +29,21 @@ const skillCategories = [
     ],
   },
   {
+    title: 'Photography',
+    icons: [
+      { src: '/icons/lightroom.png', title: 'Adobe Lightroom' },
+      { src: '/icons/adobePS.png', title: 'Photoshop' },
+    ],
+  },
+  {
+    title: 'Cinematography & Video',
+    icons: [
+      { src: '/icons/premierecc.png', title: 'Premiere Pro' },
+      { src: '/icons/aftereffects.png', title: 'After Effects' },
+      { src: '/icons/davinci.png', title: 'DaVinci Resolve' },
+    ],
+  },
+    {
     title: 'Design & UI',
     icons: [
       { src: '/icons/figma.png', title: 'Figma' },
