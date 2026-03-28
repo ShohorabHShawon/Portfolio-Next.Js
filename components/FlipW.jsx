@@ -1,7 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const words = ['Full Stack Developer', 'UI/UX Designer', 'Photographer'];
+const words = ['Web Developer', 'Designer', 'Photographer' , 'Cinematographer'];
 
 export function FlipW() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -53,7 +53,7 @@ export function FlipW() {
 
   return (
     <div className="flex justify-center items-center lg:justify-start">
-      <div className="text-green-600 font-mono text-2xl md:text-3xl lg:text-4xl mx-auto font-normal text-center lg:text-left">
+      <div className="text-blue-500 font-mono text-2xl md:text-3xl lg:text-4xl mx-auto font-normal text-center lg:text-left">
         {displayedText}
         <span className={`${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
         <br />

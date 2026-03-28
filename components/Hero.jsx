@@ -11,26 +11,26 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
 };
 
 // This variant defines how each individual item will animate in.
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 10, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: 'spring', stiffness: 100, damping: 10 },
+    transition: { type: 'tween', duration: 0.6, ease: 'easeOut' },
   },
 };
 
 function Hero() {
   return (
     <section
-      className="relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-black/20 overflow-hidden px-4 pb-6 md:pb-0"
+      className="relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-[#181A1B] overflow-hidden px-4 pb-6 md:pb-0"
       id="home"
     >
       {/* Background with a subtle grid */}
@@ -65,13 +65,13 @@ function Hero() {
             <p className="text-gray-800 font-mono px-1 py-2 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
               Hey! I&apos;m
             </p>
-            <span className="text-green-600">SHOHORAB</span>
+            <span className="text-blue-600 dark:text-blue-500">SHOHORAB</span>
             <br />
             HOSSAIN SHAWON
           </motion.h1>
 
           <motion.h2
-            className="font-medium text-green-600 dark:text-green-400 py-2"
+            className="font-medium text-blue-600 dark:text-blue-400 py-2"
             variants={itemVariants}
           >
             <FlipW className="text-center lg:text-left" />
@@ -93,7 +93,7 @@ function Hero() {
               href="/Shohorab_Hossain_Shawon.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-200 hover:text-gray-800 transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 dark:hover:bg-blue-500 hover:text-white transition-colors text-sm sm:text-base"
             >
               Resume
               <svg
@@ -197,7 +197,8 @@ function Hero() {
               rel="noopener noreferrer"
               aria-label="GitHub"
               variants={itemVariants}
-              className="text-gray-400 hover:text-green-500 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <FiGithub size={24} />
             </motion.a>
@@ -207,7 +208,8 @@ function Hero() {
               rel="noopener noreferrer"
               aria-label="LinkedIn"
               variants={itemVariants}
-              className="text-gray-400 hover:text-green-500 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <FiLinkedin size={24} />
             </motion.a>
@@ -215,7 +217,8 @@ function Hero() {
               href="mailto:shohorabhshawon@gmail.com"
               aria-label="Email"
               variants={itemVariants}
-              className="text-gray-400 hover:text-green-500 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <FiMail size={24} />
             </motion.a>

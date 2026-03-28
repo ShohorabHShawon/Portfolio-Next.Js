@@ -1,7 +1,28 @@
 'use client';
-import React from 'react';
+import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSelectCategory = (category) => {
+    setSelectedCategory(category);
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex justify-center mb-16">
       {/* Desktop Filter */}
@@ -27,29 +48,38 @@ const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory }) =
       </div>
 
       {/* Mobile Dropdown */}
-      <div className="md:hidden relative">
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="appearance-none bg-white/5 backdrop-blur-lg border border-white/10 rounded-full px-6 py-3 text-white text-sm font-medium shadow-xl focus:outline-none focus:ring-2 focus:ring-white/30 min-w-[200px]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-            backgroundPosition: 'right 1rem center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: '1.5em 1.5em',
-            paddingRight: '3rem',
-          }}
+      <div className="md:hidden w-full px-4" ref={dropdownRef}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl px-6 py-3 text-white text-sm font-medium shadow-xl hover:bg-white/10 transition-all flex items-center justify-between"
         >
-          {categories.map((category) => (
-            <option
-              key={category}
-              value={category}
-              className="bg-zinc-900 text-white"
-            >
-              {category}
-            </option>
-          ))}
-        </select>
+          <span>{selectedCategory}</span>
+          <ChevronDown
+            className="w-5 h-5 transition-transform duration-300"
+            style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+          />
+        </button>
+
+        {/* Dropdown Menu */}
+        {isOpen && (
+          <div className="absolute top-full left-4 right-4 mt-2 bg-black/90 backdrop-blur-xl border border-white/20 rounded-xl shadow-2xl z-50 overflow-hidden">
+            <div className="max-h-[60vh] overflow-y-auto">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleSelectCategory(category)}
+                  className={`w-full px-6 py-4 text-left text-sm font-medium transition-all duration-200 border-b border-white/5 last:border-b-0 ${
+                    selectedCategory === category
+                      ? 'bg-white/20 text-white'
+                      : 'text-white/70 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

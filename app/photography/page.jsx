@@ -1,9 +1,11 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import HeroSection from './components/HeroSection';
-import CategoryFilter from './components/CategoryFilter';
-import PhotoGallery from './components/PhotoGallery';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
+import CategoryFilter from './components/CategoryFilter';
+import HeroSection from './components/HeroSection';
+import PhotoGallery from './components/PhotoGallery';
+import PhotographyFooter from './components/PhotographyFooter';
+import { categories, photos } from './components/photoData';
 
 const PhotoDetailsModal = dynamic(
   () => import('./components/PhotoDetailsModal'),
@@ -13,8 +15,6 @@ const PhotoFullscreenModal = dynamic(
   () => import('./components/PhotoFullscreenModal'),
   { ssr: false },
 );
-import PhotographyFooter from './components/PhotographyFooter';
-import { photos, categories } from './components/photoData';
 
 export default function Photography() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -44,6 +44,10 @@ export default function Photography() {
     setIsFullscreen(true);
   };
 
+  const exitFullscreen = () => {
+    setIsFullscreen(false);
+  };
+
   const closeModals = () => {
     setSelectedPhoto(null);
     setIsFullscreen(false);
@@ -60,7 +64,7 @@ export default function Photography() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-black to-zinc-900">
+    <div className="min-h-screen bg-[#181A1B] from-zinc-900 via-black to-zinc-900">
       <HeroSection photos={photos} />
 
       {/* Gallery Section */}
@@ -94,6 +98,7 @@ export default function Photography() {
         isFullscreen={isFullscreen}
         closeModals={closeModals}
         navigatePhoto={navigatePhoto}
+        exitFullscreen={exitFullscreen}
       />
 
       <style jsx>{`

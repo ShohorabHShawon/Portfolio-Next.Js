@@ -59,7 +59,7 @@ export default function AboutSection() {
             {/* Left side: Profile Picture */}
             <div className="flex-shrink-0">
               <Image
-                src="/shohorab.jpg"
+                src="/shohorab1.JPG"
                 alt="Shohorab Hossain"
                 width={200}
                 height={200}
