@@ -7,7 +7,7 @@ export default function AboutSection() {
   // --- Data for the neofetch-style display ---
   const profileData = {
     user: 'Shohorab Hossain Shawon',
-    status: 'Available for Opportunities',
+    status: 'Available for Projects & Collaborations',
     host: 'Portfolio v3.0',
     shell: 'Next.js',
     experience: '3+ Years',

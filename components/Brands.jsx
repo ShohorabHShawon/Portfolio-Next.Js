@@ -70,7 +70,7 @@ export default function Brands() {
           viewport={{ once: true, amount: 0.2 }}
           className="flex justify-center"
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
             {brandsData.map((brand, idx) => (
               <motion.div
                 key={idx}
