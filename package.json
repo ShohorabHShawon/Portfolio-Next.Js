@@ -23,7 +23,7 @@
     "katex": "^0.16.22",
     "lucide-react": "^0.441.0",
     "mini-svg-data-uri": "^1.4.4",
-    "next": "^15.3.3",
+    "next": "15.3.8",
     "next-themes": "^0.3.0",
     "notion-client": "^7.4.2",
     "notion-utils": "^7.4.2",
