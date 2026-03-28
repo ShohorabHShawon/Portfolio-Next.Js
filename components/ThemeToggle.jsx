@@ -1,7 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { useTheme } from 'next-themes';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+import { useEffect, useState } from 'react';
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -40,7 +40,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={handleThemeChange}
-      className="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+      className="flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
       aria-label="Toggle theme"
     >
       {getIcon()}

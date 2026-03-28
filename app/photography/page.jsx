@@ -5,6 +5,7 @@ import CategoryFilter from './components/CategoryFilter';
 import HeroSection from './components/HeroSection';
 import PhotoGallery from './components/PhotoGallery';
 import PhotographyFooter from './components/PhotographyFooter';
+import PhotographyNavbar from './components/PhotographyNavbar';
 import { categories, photos } from './components/photoData';
 
 const PhotoDetailsModal = dynamic(
@@ -64,11 +65,12 @@ export default function Photography() {
   };
 
   return (
-    <div className="min-h-screen bg-[#181A1B] from-zinc-900 via-black to-zinc-900">
+    <div className="min-h-screen bg-white dark:bg-[#181A1B]">
+      <PhotographyNavbar />
       <HeroSection photos={photos} />
 
       {/* Gallery Section */}
-      <div id="gallery" className="py-10 px-6">
+      <div id="gallery" className="py-10 px-6 bg-white dark:bg-[#181A1B]">
         <div className="max-w-7xl mx-auto">
           <CategoryFilter
             categories={categories}

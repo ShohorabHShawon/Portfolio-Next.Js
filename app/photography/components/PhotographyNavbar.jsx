@@ -2,7 +2,7 @@
 import ThemeToggle from '@/components/ThemeToggle';
 import { motion } from 'framer-motion';
 
-const DevNavbar = () => {
+export default function PhotographyNavbar() {
   return (
     <motion.nav
       className="fixed top-0 right-0 z-50 p-6"
@@ -13,6 +13,4 @@ const DevNavbar = () => {
       <ThemeToggle />
     </motion.nav>
   );
-};
-
-export default DevNavbar;
+}
