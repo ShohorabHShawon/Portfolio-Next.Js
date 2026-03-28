@@ -68,7 +68,7 @@ export default function Photography() {
       <HeroSection photos={photos} />
 
       {/* Gallery Section */}
-      <div id="gallery" className="py-20 px-6">
+      <div id="gallery" className="py-10 px-6">
         <div className="max-w-7xl mx-auto">
           <CategoryFilter
             categories={categories}
