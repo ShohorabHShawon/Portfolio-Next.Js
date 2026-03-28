@@ -63,7 +63,7 @@ const PhotographyFooter = ({ year }) => {
                 </svg>
               </a>
               <a
-                href="https://www.instagram.com/imagiography/"
+                href="https://www.instagram.com/shohorabs.pov/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-300 hover:scale-110"
