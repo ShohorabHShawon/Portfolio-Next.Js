@@ -291,7 +291,37 @@ const photos = [
   title: 'Modern Glass Building at Golden Hour',
   description: 'A striking low-angle shot of a modern geometric building with dark glass facades. The sun peeks from behind the structure\'s right edge, casting a warm golden glare that contrasts beautifully with the cool tones of the smooth gradient sky.',
   category: 'Architecture',
-},
+  },
+      {
+    src: '/images/photo45.jpg',
+    title: 'Streetlight Piercing the Fog',
+    description: 'A moody nighttime scene featuring a bright street lamp casting a dramatic beam through thick mist, contrasted by the silhouette of a bare tree and a warm, glowing moon in the distance.',
+    category: 'Nightscape',
+  },
+  {
+    src: '/images/photo46.jpg',
+    title: 'Glowing Moon Through the Branches',
+    description: 'A striking view of a bright orange moon framed perfectly by the dark, intricate silhouettes of bare tree branches, with soft green foliage slightly out of focus in the foreground.',
+    category: 'Nightscape',
+  },
+  {
+    src: '/images/photo47.jpg',
+    title: 'Orange Moon in the Night Sky',
+    description: 'A clear, isolated capture of a vibrant orange moon against a pitch-black sky, highlighting the subtle textures and glowing aura of the lunar surface.',
+    category: 'Nightscape',
+  },
+  {
+    src: '/images/photo48.jpg',
+    title: 'Misty Urban Nightscape',
+    description: 'A hazy urban night scene where a tall street lamp cuts through the atmospheric mist. The composition is layered with silhouetted trees, a distant moon, and a beautifully blurred fence with greenery in the foreground.',
+    category: 'Nightscape',
+  },
+  {
+  src: '/images/photo49.jpg',
+  title: 'Minimalist Bird on a Wire',
+  description: 'A striking, high-contrast minimalist composition featuring a single silhouetted bird perched on one of several parallel power lines, set against a stark, pure white background emphasizing negative space.',
+  category: 'Street',
+}
 
 ];
 
@@ -305,6 +335,7 @@ const categories = [
   'Street',
   'Urban',
   'Wildlife',
+  'Nightscape',
 ];
 
 export { categories, photos };
