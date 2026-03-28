@@ -1,4 +1,5 @@
 import AboutContents from '@/components/AboutContents';
+import Brands from '@/components/Brands';
 import { Contact } from '@/components/Contact';
 import DevNavbar from '@/components/DevNavbar';
 import Footer from '@/components/Footer';
@@ -25,6 +26,10 @@ export default function Home() {
         {/* Skills */}
         <section id="skills" className="">
           <Skills />
+        </section>
+        {/* Brands */}
+        <section id="brands" className="">
+          <Brands />
         </section>
         {/* Project Section */}
         <section
