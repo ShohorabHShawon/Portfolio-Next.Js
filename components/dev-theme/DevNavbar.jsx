@@ -3,16 +3,15 @@ import ThemeToggle from '@/components/ThemeToggle';
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
+const NAV_ITEMS = [
+  { name: 'home()', href: 'home', icon: '💻', type: 'file' },
+  { name: 'about.ts', href: 'about', icon: '📄', type: 'function' },
+  { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
+  { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
+  { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
+];
 
 const DevNavbar = () => {
-  const navItems = [
-    { name: 'home()', href: 'home', icon: '💻', type: 'file' },
-    { name: 'about.ts', href: 'about', icon: '📄', type: 'function' },
-    { name: 'skills[]', href: 'skills', icon: '🔧', type: 'array' },
-    { name: '<Projects />', href: 'projects', icon: '🚀', type: 'component' },
-    { name: 'contact.connect()', href: 'contact', icon: '🌐', type: 'method' },
-  ];
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeItem, setActiveItem] = useState('home()');
   const observerRef = useRef(null);
@@ -22,7 +21,7 @@ const DevNavbar = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const navItem = navItems.find((item) => item.href === entry.target.id);
+            const navItem = NAV_ITEMS.find((item) => item.href === entry.target.id);
             if (navItem) {
               setActiveItem(navItem.name);
             }
@@ -34,7 +33,7 @@ const DevNavbar = () => {
 
     observerRef.current = observer;
 
-    const sections = navItems.map((item) => document.getElementById(item.href));
+    const sections = NAV_ITEMS.map((item) => document.getElementById(item.href));
     sections.forEach((section) => {
       if (section) {
         observerRef.current.observe(section);
@@ -101,7 +100,7 @@ const DevNavbar = () => {
             </div>
 
             <div className="flex pt-8">
-              {navItems.map((item, index) => (
+              {NAV_ITEMS.map((item, index) => (
                 <a
                   key={item.name}
                   href={`#${item.href}`}
@@ -174,7 +173,7 @@ const DevNavbar = () => {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Terminal Header */}
-          <div className="bg-gray-black/50 dark:bg-black/20 backdrop-blur-sm border-b border-gray-300/50 dark:border-gray-700/50 p-4">
+          <div className="bg-gray-900/50 dark:bg-black/20 backdrop-blur-sm border-b border-gray-300/50 dark:border-gray-700/50 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -199,7 +198,7 @@ const DevNavbar = () => {
 
           {/* Terminal Content */}
           <div className="flex-1 p-4 space-y-2 overflow-y-auto">
-            {navItems.map((item, index) => (
+            {NAV_ITEMS.map((item, index) => (
               <a
                 key={item.name}
                 href={`#${item.href}`}

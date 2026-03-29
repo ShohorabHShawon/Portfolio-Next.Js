@@ -58,7 +58,7 @@ export default function Brands() {
             BRANDS and Companies
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 mt-4">
-            Brands and Companies I've had the privilege to collaborate with.
+            Brands and Companies I&apos;ve had the privilege to collaborate with.
           </p>
         </motion.div>
 
@@ -71,9 +71,9 @@ export default function Brands() {
           className="flex justify-center"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
-            {brandsData.map((brand, idx) => (
+            {brandsData.map((brand) => (
               <motion.div
-                key={idx}
+                key={brand.name}
                 variants={brandVariants}
                 className="group"
               >
@@ -83,7 +83,6 @@ export default function Brands() {
                   className="bg-gray-50 dark:bg-gray-700/50 from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 shadow-md hover:shadow-2xl dark:hover:shadow-gray-700/50 transition-all duration-300 h-56"
                 >
                   <motion.div
-                    
                     className="relative w-20 h-20 flex items-center justify-center"
                   >
                     <Image

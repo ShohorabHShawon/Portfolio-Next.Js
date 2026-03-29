@@ -1,8 +1,8 @@
 import { groq, PortableText } from 'next-sanity';
 import {
-  Bangers,
-  Comic_Neue,
-  Permanent_Marker,
+    Bangers,
+    Comic_Neue,
+    Permanent_Marker,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +13,10 @@ import { client } from '../../../sanity/lib/client';
 import { urlFor } from '../../../sanity/lib/image';
 
 export const revalidate = 120;
+export const dynamic = 'force-static';
+
+const SITE_URL = 'https://shohorab.com';
+const NAME_VARIATIONS = ['Shohorab H Shawon', 'Shohorab Hossain Shawon', 'Shohorab Shawon', 'Shawon'];
 
 const headingFont = Bangers({
   subsets: ['latin'],
@@ -38,6 +42,17 @@ const POST_QUERY = groq`
     body,
     "author": coalesce(author->name, "Unknown Author"),
     "categories": categories[]->title
+  }
+`;
+
+const POST_METADATA_QUERY = groq`
+  *[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
+    title,
+    publishedAt,
+    mainImage,
+    "author": coalesce(author->name, "Unknown Author"),
+    "categories": categories[]->title,
+    "excerpt": coalesce(pt::text(body)[0...220], "Read this post on the Shohorab H Shawon blog.")
   }
 `;
 
@@ -153,6 +168,21 @@ function formatDate(dateString) {
   }).format(new Date(dateString));
 }
 
+function toPlainText(blocks, fallback = 'Read this blog post by Shohorab H Shawon.') {
+  if (!Array.isArray(blocks)) return fallback;
+
+  const text = blocks
+    .filter((block) => block?._type === 'block' && Array.isArray(block.children))
+    .map((block) => block.children.map((child) => child?.text || '').join(' '))
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!text) return fallback;
+  if (text.length <= 165) return text;
+  return `${text.slice(0, 162).trim()}...`;
+}
+
 export async function generateStaticParams() {
   const slugs = await client.fetch(SLUGS_QUERY);
   return slugs.map((item) => ({ slug: item.slug }));
@@ -160,7 +190,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = await client.fetch(POST_QUERY, { slug });
+  const post = await client.fetch(POST_METADATA_QUERY, { slug }, { next: { revalidate } });
 
   if (!post) {
     return {
@@ -168,28 +198,128 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  const description = post.excerpt || `Read ${post.title} by ${post.author}.`;
+  const canonicalPath = `/blog/${slug}`;
+  const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+  const imageUrl = post.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).url()
+    : `${SITE_URL}/profile.jpg`;
+  const authorName = post.author || 'Shohorab Hossain Shawon';
+  const keywords = [
+    post.title,
+    `${post.title} blog`,
+    `${authorName} blog`,
+    'Shohorab H Shawon blog',
+    'Shohorab Hossain Shawon blog',
+    'Shohorab Shawon blog',
+    'Shawon blog',
+    'developer blog',
+    ...((post.categories || []).filter(Boolean)),
+  ];
+
   return {
-    title: `${post.title} | Blog`,
-    description: `Read ${post.title} by ${post.author}.`,
+    title: `${post.title} | Shohorab H Shawon Blog`,
+    description,
+    keywords,
+    authors: [{ name: authorName, url: `${SITE_URL}/blog` }],
+    creator: 'Shohorab Hossain Shawon',
+    publisher: 'Shohorab Hossain Shawon',
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      title: `${post.title} | Shohorab H Shawon Blog`,
+      description,
+      url: canonicalUrl,
+      siteName: 'Shohorab H Shawon Blog',
+      type: 'article',
+      publishedTime: post.publishedAt,
+      authors: [authorName, ...NAME_VARIATIONS.filter((name) => name !== authorName)],
+      tags: post.categories || [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} | Shohorab H Shawon Blog`,
+      description,
+      images: [imageUrl],
+      creator: '@shohorab',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
   };
 }
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const blogClient = client.withConfig({ useCdn: false });
   const [post, relatedPosts] = await Promise.all([
-    blogClient.fetch(POST_QUERY, { slug }, { next: { revalidate: 120 } }),
-    blogClient.fetch(RELATED_POSTS_QUERY, { slug }, { next: { revalidate: 120 } }),
+    client.fetch(POST_QUERY, { slug }, { next: { revalidate } }),
+    client.fetch(RELATED_POSTS_QUERY, { slug }, { next: { revalidate } }),
   ]);
 
   if (!post) {
     notFound();
   }
 
+  const canonicalUrl = `${SITE_URL}/blog/${slug}`;
+  const description = toPlainText(post.body, `Read ${post.title} by ${post.author}.`);
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    mainEntityOfPage: canonicalUrl,
+    url: canonicalUrl,
+    author: {
+      '@type': 'Person',
+      name: post.author || 'Shohorab H Shawon',
+      alternateName: NAME_VARIATIONS,
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Shohorab Hossain Shawon',
+      alternateName: NAME_VARIATIONS,
+      url: SITE_URL,
+    },
+    articleSection: post.categories || [],
+    inLanguage: 'en-US',
+  };
+
+  if (post.mainImage) {
+    articleSchema.image = [urlFor(post.mainImage).width(1200).height(630).url()];
+  } else {
+    articleSchema.image = [`${SITE_URL}/profile.jpg`];
+  }
+
   return (
     <main
       className={`${bodyFont.className} relative min-h-screen overflow-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#070b14] dark:text-[#eaf2ff] md:px-8 md:py-20`}
     >
+      <script
+        id={`blog-post-schema-${post._id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#67e8f9_0.6px,transparent_0.6px)] dark:opacity-[0.14]" />
         <div className="absolute -left-24 top-20 h-48 w-48 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#7dd3fc] dark:bg-[#12355b]" />

@@ -8,6 +8,65 @@ import { client } from '../../sanity/lib/client';
 import { urlFor } from '../../sanity/lib/image';
 
 export const revalidate = 120;
+export const dynamic = 'force-static';
+
+const SITE_URL = 'https://shohorab.com';
+
+export const metadata = {
+  title: 'Blog | Shohorab H Shawon',
+  description:
+    'Read software engineering stories, product lessons, and creative experiments by Shohorab H Shawon (Shohorab Hossain Shawon).',
+  keywords: [
+    'Shohorab H Shawon blog',
+    'Shohorab Hossain Shawon blog',
+    'Shohorab Shawon blog',
+    'Shawon blog',
+    'Shohorab blog',
+    'software engineering blog',
+    'Next.js blog',
+    'web development articles',
+    'developer journal',
+    'tech stories',
+  ],
+  alternates: {
+    canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Blog | Shohorab H Shawon',
+    description:
+      'Software engineering and creative stories by Shohorab H Shawon. Explore practical web development insights and project lessons.',
+    url: `${SITE_URL}/blog`,
+    siteName: 'Shohorab H Shawon Blog',
+    type: 'website',
+    images: [
+      {
+        url: '/profile.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Shohorab H Shawon Blog',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog | Shohorab H Shawon',
+    description:
+      'Read web development and software engineering stories by Shohorab H Shawon.',
+    images: ['/profile.jpg'],
+    creator: '@shohorab',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
 
 const comicTitleFont = Bangers({
   subsets: ['latin'],
@@ -20,11 +79,10 @@ const comicBodyFont = Comic_Neue({
 });
 
 const BLOG_POSTS_QUERY = groq`
-  *[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc) {
+  *[_type == "post" && defined(slug.current) && !(_id in path("drafts.**"))] | order(coalesce(publishedAt, _createdAt) desc) {
     _id,
     "title": coalesce(title, "Untitled post"),
     "slug": slug.current,
-    "isDraft": _id in path("drafts.**"),
     "publishedAt": coalesce(publishedAt, _createdAt),
     mainImage,
     "author": coalesce(author->name, "Unknown Author"),
@@ -44,14 +102,52 @@ function formatDate(dateString) {
 }
 
 export default async function BlogPage() {
-  // Read fresh content so newly created posts appear quickly.
-  const blogClient = client.withConfig({ useCdn: false });
-  const posts = await blogClient.fetch(BLOG_POSTS_QUERY, {}, { next: { revalidate: 120 } });
+  const posts = await client.fetch(BLOG_POSTS_QUERY, {}, { next: { revalidate } });
   const featured = posts?.[0];
   const restPosts = posts?.slice(1) || [];
+  const indexablePosts = posts || [];
+
+  const blogSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Shohorab H Shawon Blog',
+    alternateName: ['Shohorab Hossain Shawon Blog', 'Shohorab Shawon Blog', 'Shawon Blog'],
+    description:
+      'Software engineering stories, product lessons, and creative experiments by Shohorab H Shawon.',
+    url: `${SITE_URL}/blog`,
+    inLanguage: 'en-US',
+    author: {
+      '@type': 'Person',
+      name: 'Shohorab H Shawon',
+      alternateName: ['Shohorab Hossain Shawon', 'Shohorab Shawon', 'Shawon'],
+      url: SITE_URL,
+    },
+  };
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: indexablePosts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      name: post.title,
+    })),
+  };
 
   return (
     <main className={`${comicBodyFont.className} relative min-h-screen overflow-hidden bg-[#fff9e8] text-[#111111] transition-colors dark:bg-[#070b14] dark:text-[#eaf2ff]`}>
+      <script
+        id="blog-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
+      />
+      <script
+        id="blog-list-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#67e8f9_0.6px,transparent_0.6px)] dark:opacity-[0.14]" />
         <div className="absolute -left-24 top-24 h-52 w-52 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#7dd3fc] dark:bg-[#12355b]" />
@@ -74,6 +170,9 @@ export default async function BlogPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-base font-semibold text-[#1e293b] dark:text-[#cde3ff] md:text-lg">
             Adventures from software missions, product battles, and creative experiments.
+          </p>
+          <p className="mt-3 max-w-3xl text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#bfdbfe]">
+            By Shohorab H Shawon (Shohorab Hossain Shawon, Shawon)
           </p>
 
           <div className="mt-6">

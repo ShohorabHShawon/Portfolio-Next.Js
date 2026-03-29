@@ -1,7 +1,6 @@
 import LenisProvider from '@/components/lenis';
 import { ThemeProvider } from 'next-themes';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 import './globals.css';
 
 const poppins = localFont({
@@ -199,7 +198,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
       <head>
-        <Script
+        <script
           id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
