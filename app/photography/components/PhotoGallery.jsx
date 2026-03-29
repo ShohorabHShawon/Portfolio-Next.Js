@@ -4,24 +4,18 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) => {
-  const [randomizedPhotos, setRandomizedPhotos] = useState(filteredPhotos);
   const [loadingStates, setLoadingStates] = useState({});
 
-  // Randomize photos only on client side after hydration
   useEffect(() => {
-    const shuffled = [...filteredPhotos];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    setRandomizedPhotos(shuffled);
-    // Initialize loading states
-    const newLoadingStates = {};
-    shuffled.forEach((photo) => {
-      newLoadingStates[photo.src] = true;
+    // Initialize loading states only for incoming images
+    setLoadingStates((prev) => {
+      const next = {};
+      filteredPhotos.forEach((photo) => {
+        next[photo.src] = prev[photo.src] ?? true;
+      });
+      return next;
     });
-    setLoadingStates(newLoadingStates);
-  }, [selectedCategory, filteredPhotos]);
+  }, [filteredPhotos, selectedCategory]);
 
   const handleImageLoad = (src) => {
     setLoadingStates((prev) => ({
@@ -40,14 +34,16 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
       >
-        {randomizedPhotos.map((photo, index) => (
-          <motion.div
+        {filteredPhotos.map((photo, index) => (
+          <motion.button
+            type="button"
             key={photo.src}
-            className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg"
+            className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
             onClick={() => openDetailsModal(photo)}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.02 }}
+            aria-label={`Open ${photo.title}`}
           >
             <div className="relative bg-gray-200 dark:bg-gray-800 aspect-auto overflow-hidden">
               {/* Loading Skeleton */}
@@ -72,7 +68,7 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
                 src={photo.src}
                 alt={photo.title}
                 width={400}
-                height={0}
+                height={560}
                 style={{ height: 'auto' }}
                 className={`w-full transition-all duration-700 group-hover:scale-110 ${
                   loadingStates[photo.src] ? 'opacity-0' : 'opacity-100'
@@ -87,7 +83,7 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.button>
         ))}
       </motion.div>
     </AnimatePresence>

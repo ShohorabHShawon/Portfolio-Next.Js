@@ -1,6 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { useEffect, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
 import HeroSection from '../../components/HeroSection';
 import PhotoGallery from '../../components/PhotoGallery';
@@ -17,52 +17,72 @@ const PhotoFullscreenModal = dynamic(
   { ssr: false },
 );
 
+const deterministicHash = (value) => {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash << 5) - hash + value.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
 export default function PinterestPhotographyTheme() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [filteredPhotos, setFilteredPhotos] = useState(photos);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
+  const filteredPhotos = useMemo(() => {
     if (selectedCategory === 'All') {
-      setFilteredPhotos(photos);
-    } else {
-      setFilteredPhotos(
-        photos.filter((photo) => photo.category === selectedCategory),
-      );
+      return photos;
     }
+    return photos.filter((photo) => photo.category === selectedCategory);
   }, [selectedCategory]);
 
-  const openDetailsModal = (photo) => {
-    const index = filteredPhotos.findIndex((p) => p.src === photo.src);
-    setCurrentIndex(index);
+  const displayedPhotos = useMemo(() => {
+    return [...filteredPhotos].sort((a, b) => {
+      const aHash = deterministicHash(`${selectedCategory}-${a.src}`);
+      const bHash = deterministicHash(`${selectedCategory}-${b.src}`);
+      return aHash - bHash;
+    });
+  }, [filteredPhotos, selectedCategory]);
+
+  const openDetailsModal = useCallback((photo) => {
+    const index = displayedPhotos.findIndex((p) => p.src === photo.src);
+    const safeIndex = index >= 0 ? index : 0;
+    setCurrentIndex(safeIndex);
     setSelectedPhoto(photo);
     setIsFullscreen(false);
-  };
+  }, [displayedPhotos]);
 
-  const openFullscreen = () => {
+  const openFullscreen = useCallback(() => {
     setIsFullscreen(true);
-  };
+  }, []);
 
-  const exitFullscreen = () => {
+  const exitFullscreen = useCallback(() => {
     setIsFullscreen(false);
-  };
+  }, []);
 
-  const closeModals = () => {
+  const closeModals = useCallback(() => {
     setSelectedPhoto(null);
     setIsFullscreen(false);
-  };
+  }, []);
 
-  const navigatePhoto = (direction) => {
-    const newIndex =
-      direction === 'next'
-        ? (currentIndex + 1) % filteredPhotos.length
-        : (currentIndex - 1 + filteredPhotos.length) % filteredPhotos.length;
+  const navigatePhoto = useCallback((direction) => {
+    if (displayedPhotos.length === 0) {
+      return;
+    }
 
-    setCurrentIndex(newIndex);
-    setSelectedPhoto(filteredPhotos[newIndex]);
-  };
+    setCurrentIndex((prevIndex) => {
+      const newIndex =
+        direction === 'next'
+          ? (prevIndex + 1) % displayedPhotos.length
+          : (prevIndex - 1 + displayedPhotos.length) % displayedPhotos.length;
+
+      setSelectedPhoto(displayedPhotos[newIndex]);
+      return newIndex;
+    });
+  }, [displayedPhotos]);
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#181A1B]">
@@ -77,7 +97,7 @@ export default function PinterestPhotographyTheme() {
             setSelectedCategory={setSelectedCategory}
           />
           <PhotoGallery
-            filteredPhotos={filteredPhotos}
+            filteredPhotos={displayedPhotos}
             selectedCategory={selectedCategory}
             openDetailsModal={openDetailsModal}
           />

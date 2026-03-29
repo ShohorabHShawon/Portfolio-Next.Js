@@ -60,15 +60,17 @@ const PhotoDetailsModal = ({
               {/* Navigation Buttons */}
               <motion.button
                 onClick={() => navigatePhoto('prev')}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-200"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
+                aria-label="Previous image"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5" />
               </motion.button>
               <motion.button
                 onClick={() => navigatePhoto('next')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all duration-200"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
+                aria-label="Next image"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5" />
               </motion.button>
 
               {/* Top Right Controls */}
@@ -77,19 +79,21 @@ const PhotoDetailsModal = ({
               >
                 <motion.button
                   onClick={openFullscreen}
-                  className="text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+                  className="text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"
+                  aria-label="Open fullscreen"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Maximize2 className="w-6 h-6" />
+                  <Maximize2 className="w-5 h-5" />
                 </motion.button>
                 <motion.button
-                  className="text-white p-3 bg-white/10 hover:bg-white/20 rounded-full transition-all"
+                  className="text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"
                   onClick={closeModals}
+                  aria-label="Close details"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </motion.button>
               </motion.div>
 
@@ -144,7 +148,7 @@ const PhotoDetailsModal = ({
                   {/* Toggle Details Button - Positioned on Image */}
                   <motion.button
                     onClick={() => setShowDetails(!showDetails)}
-                    className="absolute bottom-4 right-4 z-20 px-6 py-2 flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/30 rounded-full transition-all backdrop-blur-sm"
+                    className="absolute bottom-5 right-4 z-20 px-4 py-1.5 flex items-center justify-center gap-1.5 bg-black/75 hover:bg-black/90 text-white border border-white/25 rounded-full transition-all backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.45)]"
                   >
                     {showDetails ? (
                       <>
@@ -170,7 +174,7 @@ const PhotoDetailsModal = ({
                         transition={{ duration: 0.3 }}
                       >
                         <motion.div
-                          className="p-6 md:p-8 overflow-y-auto max-h-[60%] scroll-smooth"
+                          className="p-6 pb-12 md:p-8 md:pb-16 overflow-y-auto max-h-[60%] scroll-smooth"
                           style={{ 
                             WebkitOverflowScrolling: 'touch',
                             overscrollBehavior: 'contain'
@@ -189,7 +193,10 @@ const PhotoDetailsModal = ({
                             {selectedPhoto.category}
                           </motion.span>
                           <motion.h2
-                            className="text-xl md:text-2xl font-light text-white mb-2"
+                            className="text-2xl md:text-[2rem] font-medium text-white mb-2"
+                            style={{
+                              fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+                            }}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: 0.15 }}
@@ -197,9 +204,12 @@ const PhotoDetailsModal = ({
                             {selectedPhoto.title}
                           </motion.h2>
                           <motion.p
-                            className={`text-gray-200 leading-relaxed mb-1 text-xs md:text-sm ${
+                            className={`text-gray-200 leading-relaxed mb-1 text-sm md:text-base ${
                               expandedDescription ? '' : 'md:line-clamp-none line-clamp-1'
                             }`}
+                            style={{
+                              fontFamily: '"Avenir Next", "Trebuchet MS", sans-serif',
+                            }}
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: 0.2 }}
@@ -209,57 +219,13 @@ const PhotoDetailsModal = ({
                           {/* See More Button - Mobile Only */}
                           <motion.button
                             onClick={() => setExpandedDescription(!expandedDescription)}
-                            className="md:hidden text-blue-400 hover:text-blue-300 text-xs font-medium mb-4 transition-colors"
+                            className="md:hidden text-blue-400 hover:text-blue-300 text-sm font-medium mb-4 transition-colors"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.25 }}
                           >
                             {expandedDescription ? 'See Less' : 'See More'}
                           </motion.button>
-                          <motion.div
-                            className="flex flex-row gap-1 sm:gap-2"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: 0.25 }}
-                          >
-                            <motion.a
-                              href="https://www.instagram.com/shohorabs.pov/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-1 px-2 sm:px-4 py-1 sm:py-2 border border-white/30 text-white text-xs rounded-lg hover:border-white/60 hover:bg-white/10 transition-all"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <svg
-                                className="w-3 h-3 sm:w-4 sm:h-4"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.117.6c-.779.263-1.613.686-2.228 1.3-.637.637-1.022 1.438-1.3 2.228-.267.788-.468 1.658-.6 2.936C.015 8.333 0 8.74 0 12s.015 3.667.072 5.053c.06 1.278.261 2.148.6 2.936.279.79.663 1.591 1.3 2.229.637.637 1.438 1.022 2.228 1.3.788.267 1.658.468 2.936.6 1.28.057 1.687.072 5.053.072s3.667-.015 5.053-.072c1.278-.132 2.148-.333 2.936-.6.79-.279 1.591-.663 2.229-1.3.637-.637 1.022-1.438 1.3-2.228.267-.788.468-1.658.6-2.936.057-1.28.072-1.687.072-5.053s-.015-3.667-.072-5.053c-.132-1.278-.333-2.148-.6-2.936-.279-.79-.663-1.591-1.3-2.229C21.137 1.022 20.336.637 19.546.6c-.788-.267-1.658-.468-2.936-.6C15.667.015 15.26 0 12 0zm0 2.16c3.203 0 3.585.009 4.849.07 1.171.053 1.805.248 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.361 1.057.413 2.227.061 1.266.07 1.646.07 4.849s-.009 3.585-.07 4.849c-.053 1.171-.248 1.805-.415 2.231-.217.562-.477.96-.896 1.382-.42.419-.819.679-1.381.896-.422.164-1.056.361-2.227.413-1.231.061-1.617.07-4.849.07s-3.628-.009-4.849-.07c-1.171-.052-1.805-.248-2.231-.415-.562-.217-.96-.477-1.382-.896-.419-.42-.679-.819-.896-1.381-.164-.422-.361-1.056-.413-2.227-.061-1.266-.07-1.646-.07-4.849s.009-3.585.07-4.849c.052-1.171.248-1.805.415-2.231.217-.562.477-.96.896-1.382.42-.419.819-.679 1.381-.896.422-.164 1.056-.361 2.227-.413 1.266-.061 1.646-.07 4.849-.07z" />
-                                <circle cx="12" cy="12" r="3.5" />
-                                <circle cx="18.5" cy="5.5" r=".5" />
-                              </svg>
-                              <span className="hidden sm:inline">Instagram</span>
-                            </motion.a>
-                            <motion.a
-                              href="https://www.facebook.com/shohorabhshawon/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center gap-1 px-2 sm:px-4 py-1 sm:py-2 border border-white/30 text-white text-xs rounded-lg hover:border-white/60 hover:bg-white/10 transition-all"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
-                              <svg
-                                className="w-3 h-3 sm:w-4 sm:h-4"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                              </svg>
-                              <span className="hidden sm:inline">Facebook</span>
-                            </motion.a>
-
-                          </motion.div>
                         </motion.div>
                       </motion.div>
                     )}
