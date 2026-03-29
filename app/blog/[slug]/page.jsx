@@ -356,7 +356,7 @@ export default async function BlogPostPage({ params }) {
               <span>{post.author}</span>
             </div>
 
-            <h1 className={`${headingFont.className} text-[3.3rem] uppercase leading-[0.88] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[5.2rem]`}>
+            <h1 className={`${headingFont.className} text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
               {post.title}
             </h1>
 

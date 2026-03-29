@@ -181,7 +181,7 @@ export default async function BlogPage() {
             By Shohorab H Shawon (Shohorab Hossain Shawon, Shawon)
           </p>
 
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/"
               className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
@@ -193,6 +193,30 @@ export default async function BlogPage() {
                 {'<'}
               </span>
               Go To Portfolio
+            </Link>
+
+            <Link
+              href="/photography"
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#ffedd5] px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]"
+            >
+              <span
+                aria-hidden="true"
+                className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-white text-slate-900 shadow-[2px_2px_0_#111111] transition-transform duration-200 group-hover:rotate-6 group-hover:scale-105 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:shadow-[2px_2px_0_#0a3a46] before:absolute before:-right-1 before:-top-1 before:h-2 before:w-2 before:rotate-45 before:border before:border-black before:bg-[#fbbf24] dark:before:border-[#5eead4] dark:before:bg-[#f59e0b]"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-3.5 w-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M4 8h4l1.4-2h5.2L16 8h4v10H4z" />
+                  <circle cx="12" cy="13" r="3.2" />
+                </svg>
+              </span>
+              Photography
             </Link>
           </div>
         </div>
