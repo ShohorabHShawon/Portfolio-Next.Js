@@ -89,22 +89,26 @@ export default function NeoContact() {
   };
 
   return (
-    <section id="contact" className="w-full bg-[#fff3d6] py-14 dark:bg-[#121214]">
+    <section id="contact" className="relative w-full bg-[#f9f3df] py-14 dark:bg-[#0f1218]">
+      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-10" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-10 text-center">
-          <h2 className="font-poppins text-4xl font-black uppercase text-[#111] [text-shadow:3px_3px_0px_#ffea00] dark:text-[#f6f2e8] dark:[text-shadow:3px_3px_0px_#2ac6ff] lg:text-5xl">
+        <div className="mb-10 text-center relative">
+          <p className="mb-3 inline-flex rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-1 text-xs font-black uppercase tracking-[0.18em] text-[#111] shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]">
+            CHAPTER 06
+          </p>
+          <h2 className="font-poppins text-4xl font-black uppercase text-[#111] [text-shadow:3px_3px_0px_#ffe063] dark:text-[#f6f2e8] dark:[text-shadow:3px_3px_0px_#39d5ff] lg:text-5xl">
             Contact Terminal
           </h2>
           <p className="mt-3 text-sm font-bold uppercase tracking-[0.16em] text-[#222]/80 dark:text-white/70">
-            Open a new mission request
+            Drop a message panel
           </p>
         </div>
 
-        <div className="overflow-hidden rounded-2xl border-[4px] border-[#131313] bg-white shadow-[8px_8px_0_0_#131313] dark:border-[#f6f2e8] dark:bg-[#1b1c21] dark:shadow-[8px_8px_0_0_#f6f2e8]">
-          <div className="flex items-center gap-2 border-b-[3px] border-[#131313] bg-[#131313] px-4 py-3 dark:border-[#f6f2e8] dark:bg-[#f6f2e8]">
-            <span className="h-3 w-3 rounded-full bg-[#ff5a36]" />
-            <span className="h-3 w-3 rounded-full bg-[#ffea00]" />
-            <span className="h-3 w-3 rounded-full bg-[#2ac6ff]" />
+        <div className="overflow-hidden rounded-2xl border-[4px] border-[#111] bg-white shadow-[8px_8px_0_0_#111] dark:border-[#f6f2e8] dark:bg-[#171b22] dark:shadow-[8px_8px_0_0_#f6f2e8]">
+          <div className="flex items-center gap-2 border-b-[3px] border-[#111] bg-[#111] px-4 py-3 dark:border-[#f6f2e8] dark:bg-[#f6f2e8]">
+            <span className="h-3 w-3 rounded-full bg-[#ef4b3f]" />
+            <span className="h-3 w-3 rounded-full bg-[#ffe063]" />
+            <span className="h-3 w-3 rounded-full bg-[#39d5ff]" />
             <span className="ml-2 text-xs font-black uppercase tracking-wide text-white dark:text-[#131313]">Message.exe</span>
           </div>
 
@@ -114,14 +118,14 @@ export default function NeoContact() {
               name="title"
               required
               placeholder="Title"
-              className="w-full rounded-md border-[3px] border-[#131313] bg-[#fff6e2] px-4 py-3 text-sm font-bold text-[#111] placeholder:text-[#111]/55 focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
+              className="w-full rounded-md border-[3px] border-[#111] bg-[#fff6e2] px-4 py-3 text-sm font-bold text-[#111] placeholder:text-[#111]/55 focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
             />
             <textarea
               name="message"
               required
               rows="7"
               placeholder="Write your message"
-              className="w-full resize-none rounded-md border-[3px] border-[#131313] bg-[#fff6e2] px-4 py-3 text-sm font-medium text-[#111] placeholder:text-[#111]/55 focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
+              className="w-full resize-none rounded-md border-[3px] border-[#111] bg-[#fff6e2] px-4 py-3 text-sm font-medium text-[#111] placeholder:text-[#111]/55 focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
             />
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               <input
@@ -129,14 +133,14 @@ export default function NeoContact() {
                 name="name"
                 required
                 placeholder="Your name"
-                className="rounded-md border-[3px] border-[#131313] bg-white px-4 py-3 text-sm font-bold text-[#111] focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
+                className="rounded-md border-[3px] border-[#111] bg-white px-4 py-3 text-sm font-bold text-[#111] focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
               />
               <input
                 type="email"
                 name="email"
                 required
                 placeholder="Your email"
-                className="rounded-md border-[3px] border-[#131313] bg-white px-4 py-3 text-sm font-bold text-[#111] focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
+                className="rounded-md border-[3px] border-[#111] bg-white px-4 py-3 text-sm font-bold text-[#111] focus:outline-none dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white"
               />
             </div>
 
@@ -147,7 +151,7 @@ export default function NeoContact() {
               <button
                 type="submit"
                 disabled={status === 'sending'}
-                className="inline-flex items-center justify-center gap-2 rounded-md border-[3px] border-[#131313] bg-[#ff5a1f] px-6 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[4px_4px_0_0_#131313] transition-transform hover:-translate-y-1 disabled:opacity-70 dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]"
+                className="inline-flex items-center justify-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ef4b3f] px-6 py-3 text-xs font-black uppercase tracking-wide text-white shadow-[4px_4px_0_0_#111] transition-transform hover:-translate-y-1 disabled:opacity-70 dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]"
               >
                 <FiMessageSquare />
                 {status === 'sending' ? 'Sending...' : 'Send Message'}
