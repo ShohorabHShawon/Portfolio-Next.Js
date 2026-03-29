@@ -68,7 +68,7 @@ const portableTextComponents = {
       const altText = value?.alt || value?.caption || 'Blog content image';
 
       return (
-        <figure className="my-10 overflow-hidden rounded-2xl border-4 border-black bg-white p-2 shadow-[6px_6px_0_#111111] dark:border-slate-100 dark:bg-[#1f2230] dark:shadow-[6px_6px_0_#e2e8f0]">
+        <figure className="my-10 overflow-hidden rounded-2xl border-4 border-black bg-white p-2 shadow-[6px_6px_0_#111111] dark:border-[#7dd3fc] dark:bg-[#111d30] dark:shadow-[6px_6px_0_#164e63]">
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
             <Image
               src={imageUrl}
@@ -79,7 +79,7 @@ const portableTextComponents = {
             />
           </div>
           {value?.caption && (
-            <figcaption className="px-2 pb-1 pt-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-slate-300">
+            <figcaption className="px-2 pb-1 pt-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#bfdbfe]">
               {value.caption}
             </figcaption>
           )}
@@ -90,33 +90,33 @@ const portableTextComponents = {
   block: {
     h2: ({ children }) => (
       <h2
-        className={`${headingFont.className} mt-14 text-[2.35rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#f8fafc] md:text-[3rem]`}
+        className={`${headingFont.className} mt-14 text-[2.35rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#f4f9ff] md:text-[3rem]`}
       >
         {children}
       </h2>
     ),
     h3: ({ children }) => (
       <h3
-        className={`${accentFont.className} mt-11 text-[1.5rem] leading-tight text-[#0f172a] dark:text-[#fde68a] md:text-[1.75rem]`}
+        className={`${accentFont.className} mt-11 text-[1.5rem] leading-tight text-[#0f172a] dark:text-[#f59e0b] md:text-[1.75rem]`}
       >
         {children}
       </h3>
     ),
     h4: ({ children }) => (
       <h4
-        className={`${bodyFont.className} mt-10 text-[1.08rem] font-bold uppercase tracking-[0.12em] text-[#1f2937] dark:text-[#e2e8f0] md:text-[1.2rem]`}
+        className={`${bodyFont.className} mt-10 text-[1.08rem] font-bold uppercase tracking-[0.12em] text-[#1f2937] dark:text-[#dbeafe] md:text-[1.2rem]`}
       >
         {children}
       </h4>
     ),
     normal: ({ children }) => (
-      <p className={`${bodyFont.className} mt-6 text-[1.12rem] leading-[1.9] text-[#1f2937] dark:text-[#e2e8f0] md:text-[1.24rem]`}>
+      <p className={`${bodyFont.className} mt-6 text-[1.12rem] leading-[1.9] text-[#1f2937] dark:text-[#bfdbfe] md:text-[1.24rem]`}>
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
       <blockquote
-        className={`${accentFont.className} mt-11 rounded-2xl border-4 border-black bg-[#fde047] px-5 py-4 text-[1.45rem] leading-[1.35] text-[#111111] shadow-[4px_4px_0_#111111] dark:border-slate-100 dark:bg-[#334155] dark:text-[#f8fafc] dark:shadow-[4px_4px_0_#e2e8f0]`}
+        className={`${accentFont.className} mt-11 rounded-2xl border-4 border-black bg-[#fde047] px-5 py-4 text-[1.45rem] leading-[1.35] text-[#111111] shadow-[4px_4px_0_#111111] dark:border-[#7dd3fc] dark:bg-[#133252] dark:text-[#f4f9ff] dark:shadow-[4px_4px_0_#164e63]`}
       >
         {children}
       </blockquote>
@@ -128,7 +128,7 @@ const portableTextComponents = {
         href={value?.href}
         target="_blank"
         rel="noreferrer"
-        className="font-bold text-[#0f172a] underline decoration-[#ef4444] decoration-2 underline-offset-4 transition-colors hover:text-[#ef4444] dark:text-[#fde68a] dark:decoration-[#fde68a] dark:hover:text-white"
+        className="font-bold text-[#0f172a] underline decoration-[#ef4444] decoration-2 underline-offset-4 transition-colors hover:text-[#ef4444] dark:text-[#f59e0b] dark:decoration-[#f59e0b] dark:hover:text-[#fde68a]"
       >
         {children}
       </a>
@@ -181,37 +181,37 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <main
-      className={`${bodyFont.className} relative min-h-screen overflow-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#181A1B] dark:text-slate-100 md:px-8 md:py-20`}
+      className={`${bodyFont.className} relative min-h-screen overflow-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#070b14] dark:text-[#eaf2ff] md:px-8 md:py-20`}
     >
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#f8fafc_0.8px,transparent_0.8px)] dark:opacity-[0.12]" />
-        <div className="absolute -left-24 top-20 h-48 w-48 rounded-full border-4 border-black bg-[#fb7185] dark:border-slate-100 dark:bg-[#0f172a]" />
-        <div className="absolute -right-20 bottom-16 h-40 w-40 rounded-full border-4 border-black bg-[#60a5fa] dark:border-slate-100 dark:bg-[#1e293b]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#67e8f9_0.6px,transparent_0.6px)] dark:opacity-[0.14]" />
+        <div className="absolute -left-24 top-20 h-48 w-48 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#7dd3fc] dark:bg-[#12355b]" />
+        <div className="absolute -right-20 bottom-16 h-40 w-40 rounded-full border-4 border-black bg-[#60a5fa] dark:border-[#7dd3fc] dark:bg-[#0f766e]" />
       </div>
 
       <div className="fixed right-6 top-6 z-50">
-        <ThemeToggle />
+        <ThemeToggle variant="manga" />
       </div>
 
-      <article className="relative mx-auto max-w-3xl rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-slate-100 dark:bg-[#1f2230] dark:shadow-[10px_10px_0_#e2e8f0]">
-        <span className="absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-slate-100 dark:bg-[#facc15] dark:text-slate-900">
+      <article className="relative mx-auto max-w-3xl rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-[#7dd3fc] dark:bg-[#111d30] dark:shadow-[10px_10px_0_#164e63]">
+        <span className="absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-[#7dd3fc] dark:bg-[#f59e0b] dark:text-[#111827]">
           Issue
         </span>
         <Link
           href="/blog"
-          className="inline-flex rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-slate-100 dark:bg-[#111827] dark:text-slate-200 dark:hover:bg-[#0f172a]"
+          className="inline-flex rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#7dd3fc] dark:bg-[#0f1b2d] dark:text-[#dbeafe] dark:hover:bg-[#133252]"
         >
           Back to blog
         </Link>
 
         <header className="mt-8">
-          <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-slate-300">
+          <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-[#bfdbfe]">
             <span>{formatDate(post.publishedAt)}</span>
-            <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fde68a]" />
+            <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#f59e0b]" />
             <span>{post.author}</span>
           </div>
 
-          <h1 className={`${headingFont.className} text-[3rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-slate-100 md:text-[4.8rem]`}>
+          <h1 className={`${headingFont.className} text-[3rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#f4f9ff] md:text-[4.8rem]`}>
             {post.title}
           </h1>
 
@@ -220,7 +220,7 @@ export default async function BlogPostPage({ params }) {
               {post.categories.map((cat) => (
                 <span
                   key={`${post._id}-${cat}`}
-                  className="rounded-full border-2 border-black bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-slate-100 dark:bg-[#111827] dark:text-slate-200"
+                  className="rounded-full border-2 border-black bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#7dd3fc] dark:bg-[#0f1b2d] dark:text-[#dbeafe]"
                 >
                   {cat}
                 </span>
@@ -230,8 +230,8 @@ export default async function BlogPostPage({ params }) {
         </header>
 
         {post.mainImage && (
-          <div className="relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-slate-100">
-            <span className="absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-slate-100 dark:bg-[#1e293b] dark:text-slate-100">
+          <div className="relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#7dd3fc]">
+            <span className="absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#7dd3fc] dark:bg-[#12355b] dark:text-[#f4f9ff]">
               Scene
             </span>
             <Image
@@ -245,7 +245,7 @@ export default async function BlogPostPage({ params }) {
           </div>
         )}
 
-        <section className="mt-12 max-w-none border-t-4 border-black pt-4 dark:border-slate-100">
+        <section className="mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#7dd3fc]">
           <PortableText value={post.body || []} components={portableTextComponents} />
         </section>
       </article>
@@ -253,10 +253,10 @@ export default async function BlogPostPage({ params }) {
       {relatedPosts?.length > 0 && (
         <section className="mx-auto mt-10 max-w-3xl pb-8">
           <div className="mb-5 flex items-end justify-between">
-            <h2 className={`${headingFont.className} text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-slate-100 md:text-[3.2rem]`}>Read Next</h2>
+            <h2 className={`${headingFont.className} text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-[#f4f9ff] md:text-[3.2rem]`}>Read Next</h2>
             <Link
               href="/blog"
-              className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:text-[#ef4444] dark:text-slate-300 dark:hover:text-[#fde68a]"
+              className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:text-[#ef4444] dark:text-[#bfdbfe] dark:hover:text-[#f59e0b]"
             >
               View all
             </Link>
@@ -267,7 +267,7 @@ export default async function BlogPostPage({ params }) {
               <Link
                 key={item._id}
                 href={`/blog/${item.slug}`}
-                className="group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-slate-100 dark:bg-[#1f2230] dark:shadow-[6px_6px_0_#e2e8f0] dark:hover:bg-[#263245]"
+                className="group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#7dd3fc] dark:bg-[#111d30] dark:shadow-[6px_6px_0_#164e63] dark:hover:bg-[#133252]"
               >
                 <div className="relative h-36 overflow-hidden rounded-xl">
                   {item.mainImage ? (
@@ -279,17 +279,17 @@ export default async function BlogPostPage({ params }) {
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-slate-700 dark:via-slate-600 dark:to-slate-500" />
+                    <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#1b3a6b] dark:via-[#21558a] dark:to-[#0f766e]" />
                   )}
                 </div>
 
-                <p className="mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-slate-100 dark:bg-[#111827] dark:text-slate-200">
+                <p className="mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#7dd3fc] dark:bg-[#0f1b2d] dark:text-[#dbeafe]">
                   {formatDate(item.publishedAt)}
                 </p>
-                <h3 className={`${accentFont.className} mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fde68a]`}>
+                <h3 className={`${accentFont.className} mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#f59e0b]`}>
                   {item.title}
                 </h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-[#bfdbfe]">
                   {item.excerpt}...
                 </p>
               </Link>

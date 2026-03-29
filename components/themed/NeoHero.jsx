@@ -47,7 +47,7 @@ function NeoHero() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-8">
         <motion.div
-          className="md:col-span-7"
+          className="order-2 md:order-1 md:col-span-7"
           initial="hidden"
           animate="visible"
         >
@@ -139,12 +139,12 @@ function NeoHero() {
         </motion.div>
 
         <motion.div
-          className="relative md:col-span-5"
+          className="relative order-1 md:order-2 md:col-span-5"
           variants={popIn}
           initial="hidden"
           animate="visible"
         >
-          <div className="relative mx-auto w-full max-w-sm lg:max-w-md">
+          <div className="relative mx-auto w-full max-w-[18rem] sm:max-w-sm lg:max-w-md">
             <div className="absolute -left-8 top-8 hidden h-[74%] w-10 -rotate-6 rounded-md border-[3px] border-[#111] bg-[#ef4b3f] shadow-[4px_4px_0_0_#111] md:block dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]" />
             <div className="absolute -right-7 -top-7 h-24 w-24 rotate-12 rounded-md border-[3px] border-[#111] bg-[#ffe063] shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]" />
 
@@ -159,7 +159,7 @@ function NeoHero() {
                   width={650}
                   height={800}
                   priority
-                  className="h-[400px] w-full object-cover sm:h-[460px] lg:h-[500px]"
+                  className="h-[320px] w-full object-cover sm:h-[460px] lg:h-[500px]"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(0,0,0,0.75)_100%)]" />
                 <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:14px_14px]" />
