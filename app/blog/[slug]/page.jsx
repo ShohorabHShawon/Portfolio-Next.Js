@@ -11,6 +11,7 @@ import { notFound } from 'next/navigation';
 import ThemeToggle from '@/components/ThemeToggle';
 import { client } from '../../../sanity/lib/client';
 import { urlFor } from '../../../sanity/lib/image';
+import BlogMotionSection from '../BlogMotionSection';
 
 export const revalidate = 120;
 export const dynamic = 'force-static';
@@ -331,117 +332,121 @@ export default async function BlogPostPage({ params }) {
         <ThemeToggle variant="manga" />
       </div>
 
-      <div className="relative mx-auto w-full max-w-[820px]">
-        <article className="relative w-full rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[10px_10px_0_#0a3a46]">
-          <span className="absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220]">
-            STORY
-          </span>
-          <Link
-            href="/blog"
-            className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
-          >
-            <span
-              aria-hidden="true"
-              className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#ef4444] text-[10px] font-black leading-none text-white shadow-[2px_2px_0_#111111] transition-transform duration-200 before:absolute before:-right-1 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rotate-45 before:border-b-2 before:border-r-2 before:border-black before:bg-[#ef4444] group-hover:-translate-x-0.5 dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220] dark:shadow-[2px_2px_0_#0a3a46] dark:before:border-[#5eead4] dark:before:bg-[#fbbf24]"
-            >
-              {'<'}
+      <BlogMotionSection delay={0.04} y={16}>
+        <div className="relative mx-auto w-full max-w-[820px]">
+          <article className="relative w-full rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[10px_10px_0_#0a3a46]">
+            <span className="absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220]">
+              STORY
             </span>
-            <span>Back to blog</span>
-          </Link>
-
-          <header className="mt-8">
-            <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-[#b7d6ea]">
-              <span>{formatDate(post.publishedAt)}</span>
-              <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
-              <span>{post.author}</span>
-            </div>
-
-            <h1 className={`${headingFont.className} text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
-              {post.title}
-            </h1>
-
-            {post.categories?.length > 0 && (
-              <div className="mt-7 flex flex-wrap gap-2">
-                {post.categories.map((cat) => (
-                  <span
-                    key={`${post._id}-${cat}`}
-                    className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#1b3652] dark:text-[#d8ebf8]"
-                  >
-                    {cat}
-                  </span>
-                ))}
-              </div>
-            )}
-          </header>
-
-          {post.mainImage && (
-            <div className="relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
-              <span className="absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#5eead4] dark:bg-[#1a2d52] dark:text-[#eef6ff]">
-                Scene
-              </span>
-              <Image
-                src={urlFor(post.mainImage).width(1600).height(1000).url()}
-                alt={post.title}
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1024px"
-              />
-            </div>
-          )}
-
-          <section className="mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#5eead4]">
-            <PortableText value={post.body || []} components={portableTextComponents} />
-          </section>
-        </article>
-      </div>
-
-      {relatedPosts?.length > 0 && (
-        <section className="mx-auto mt-10 max-w-3xl pb-8">
-          <div className="mb-5 flex items-end justify-between">
-            <h2 className={`${headingFont.className} text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[3.2rem]`}>Read Next</h2>
             <Link
               href="/blog"
-              className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:text-[#ef4444] dark:text-[#b7d6ea] dark:hover:text-[#fbbf24]"
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
             >
-              View all
-            </Link>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-3">
-            {relatedPosts.map((item) => (
-              <Link
-                key={item._id}
-                href={`/blog/${item.slug}`}
-                className="group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46] dark:hover:bg-[#1b3652]"
+              <span
+                aria-hidden="true"
+                className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#ef4444] text-[10px] font-black leading-none text-white shadow-[2px_2px_0_#111111] transition-transform duration-200 before:absolute before:-right-1 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rotate-45 before:border-b-2 before:border-r-2 before:border-black before:bg-[#ef4444] group-hover:-translate-x-0.5 dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220] dark:shadow-[2px_2px_0_#0a3a46] dark:before:border-[#5eead4] dark:before:bg-[#fbbf24]"
               >
-                <div className="relative h-36 overflow-hidden rounded-xl">
-                  {item.mainImage ? (
-                    <Image
-                      src={urlFor(item.mainImage).width(800).height(520).url()}
-                      alt={item.title}
-                      fill
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
-                  )}
-                </div>
+                {'<'}
+              </span>
+              <span>Back to blog</span>
+            </Link>
 
-                <p className="mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]">
-                  {formatDate(item.publishedAt)}
-                </p>
-                <h3 className={`${accentFont.className} mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fbbf24]`}>
-                  {item.title}
-                </h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">
-                  {item.excerpt}...
-                </p>
+            <header className="mt-8">
+              <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-[#b7d6ea]">
+                <span>{formatDate(post.publishedAt)}</span>
+                <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                <span>{post.author}</span>
+              </div>
+
+              <h1 className={`${headingFont.className} text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
+                {post.title}
+              </h1>
+
+              {post.categories?.length > 0 && (
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {post.categories.map((cat) => (
+                    <span
+                      key={`${post._id}-${cat}`}
+                      className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#1b3652] dark:text-[#d8ebf8]"
+                    >
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </header>
+
+            {post.mainImage && (
+              <div className="relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
+                <span className="absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#5eead4] dark:bg-[#1a2d52] dark:text-[#eef6ff]">
+                  Scene
+                </span>
+                <Image
+                  src={urlFor(post.mainImage).width(1600).height(1000).url()}
+                  alt={post.title}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                />
+              </div>
+            )}
+
+            <section className="mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#5eead4]">
+              <PortableText value={post.body || []} components={portableTextComponents} />
+            </section>
+          </article>
+        </div>
+      </BlogMotionSection>
+
+      {relatedPosts?.length > 0 && (
+        <BlogMotionSection delay={0.14} y={20}>
+          <section className="mx-auto mt-10 max-w-3xl pb-8">
+            <div className="mb-5 flex items-end justify-between">
+              <h2 className={`${headingFont.className} text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[3.2rem]`}>Read Next</h2>
+              <Link
+                href="/blog"
+                className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:text-[#ef4444] dark:text-[#b7d6ea] dark:hover:text-[#fbbf24]"
+              >
+                View all
               </Link>
-            ))}
-          </div>
-        </section>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {relatedPosts.map((item) => (
+                <Link
+                  key={item._id}
+                  href={`/blog/${item.slug}`}
+                  className="group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46] dark:hover:bg-[#1b3652]"
+                >
+                  <div className="relative h-36 overflow-hidden rounded-xl">
+                    {item.mainImage ? (
+                      <Image
+                        src={urlFor(item.mainImage).width(800).height(520).url()}
+                        alt={item.title}
+                        fill
+                        className="object-cover transition duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
+                    )}
+                  </div>
+
+                  <p className="mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]">
+                    {formatDate(item.publishedAt)}
+                  </p>
+                  <h3 className={`${accentFont.className} mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fbbf24]`}>
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">
+                    {item.excerpt}...
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </BlogMotionSection>
       )}
     </main>
   );

@@ -77,8 +77,6 @@ export default function QuoteOfDayCard({ initialQuote }) {
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
 
-  if (quotes.length === 0) return null;
-
   const activeQuote = quotes[currentIndex] || quotes[0];
   const isShortQuote = (activeQuote?.text || '').length <= 95;
 
@@ -154,6 +152,8 @@ export default function QuoteOfDayCard({ initialQuote }) {
     setRemainingIndices(rest);
   }
 
+  if (quotes.length === 0) return null;
+
   return (
     <div className="mb-6 rotate-[0.4deg] rounded-[24px] border-4 border-black bg-[#fff7cc] px-5 py-5 shadow-[7px_7px_0_#111111] transition-all duration-300 ease-out dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[7px_7px_0_#0a3a46] md:px-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -187,7 +187,7 @@ export default function QuoteOfDayCard({ initialQuote }) {
 
       <div className="mt-4 flex min-h-[62px] items-center md:min-h-[70px]">
         <blockquote className={`w-full text-lg font-bold leading-8 text-[#1e293b] transition-all duration-200 ease-out dark:text-[#e6f3ff] md:text-xl ${isShortQuote ? 'text-center' : 'text-left'}`}>
-          "{displayedText}"
+          &ldquo;{displayedText}&rdquo;
           <span className={`ml-0.5 inline-block h-[1.1em] w-[2px] align-middle bg-current ${isTyping ? 'animate-pulse' : 'opacity-0'}`} />
         </blockquote>
       </div>

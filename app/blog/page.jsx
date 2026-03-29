@@ -6,6 +6,7 @@ import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
 import { client } from '../../sanity/lib/client';
 import { urlFor } from '../../sanity/lib/image';
+import BlogMotionSection from './BlogMotionSection';
 import QuoteOfDayCard from './QuoteOfDayCard';
 import { getQuoteOfTheDay } from './quotes';
 
@@ -164,240 +165,247 @@ export default async function BlogPage() {
         <ThemeToggle variant="manga" />
       </div>
 
-      <section className="relative mx-auto max-w-6xl px-6 pb-10 pt-20 md:px-8 md:pt-24">
-        {quoteOfDay && <QuoteOfDayCard initialQuote={quoteOfDay} />}
+      <BlogMotionSection delay={0.04} y={16}>
+        <section className="relative mx-auto max-w-6xl px-6 pb-10 pt-20 md:px-8 md:pt-24">
+          {quoteOfDay && <QuoteOfDayCard initialQuote={quoteOfDay} />}
 
-        <div className="rotate-[-1deg] rounded-[30px] border-4 border-black bg-[#ffdb4d] px-6 py-8 shadow-[8px_8px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[8px_8px_0_#0a3a46] md:px-10 md:py-10">
-          <p className="inline-flex rounded-full border-2 border-black bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
-            Manga Journal
-          </p>
-          <h1 className={`${comicTitleFont.className} mt-5 max-w-4xl text-5xl uppercase leading-[0.95] tracking-wide dark:text-[#fbbf24] md:text-7xl`}>
-            Panels Of Code, Stories Of Shipping
-          </h1>
-          <p className="mt-5 max-w-2xl text-base font-semibold text-[#1e293b] dark:text-[#cfe7f7] md:text-lg">
-            Adventures from software missions, product battles, and creative experiments.
-          </p>
-          <p className="mt-3 max-w-3xl text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#b7d6ea]">
-            By Shohorab H Shawon (Shohorab Hossain Shawon, Shawon)
-          </p>
+          <div className="rotate-[-1deg] rounded-[30px] border-4 border-black bg-[#ffdb4d] px-6 py-8 shadow-[8px_8px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[8px_8px_0_#0a3a46] md:px-10 md:py-10">
+            <p className="inline-flex rounded-full border-2 border-black bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
+              Manga Journal
+            </p>
+            <h1 className={`${comicTitleFont.className} mt-5 max-w-4xl text-5xl uppercase leading-[0.95] tracking-wide dark:text-[#fbbf24] md:text-7xl`}>
+              Panels Of Code, Stories Of Shipping
+            </h1>
+            <p className="mt-5 max-w-2xl text-base font-semibold text-[#1e293b] dark:text-[#cfe7f7] md:text-lg">
+              Adventures from software missions, product battles, and creative experiments.
+            </p>
+            <p className="mt-3 max-w-3xl text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#b7d6ea]">
+              By Shohorab H Shawon (Shohorab Hossain Shawon, Shawon)
+            </p>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/"
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
-            >
-              <span
-                aria-hidden="true"
-                className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#ef4444] text-[10px] font-black leading-none text-white shadow-[2px_2px_0_#111111] transition-transform duration-200 before:absolute before:-right-1 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rotate-45 before:border-b-2 before:border-r-2 before:border-black before:bg-[#ef4444] group-hover:-translate-x-0.5 dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220] dark:shadow-[2px_2px_0_#0a3a46] dark:before:border-[#5eead4] dark:before:bg-[#fbbf24]"
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/"
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-white px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
               >
-                {'<'}
-              </span>
-              Go To Portfolio
-            </Link>
-
-            <Link
-              href="/photography"
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#ffedd5] px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]"
-            >
-              <span
-                aria-hidden="true"
-                className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-white text-slate-900 shadow-[2px_2px_0_#111111] transition-transform duration-200 group-hover:rotate-6 group-hover:scale-105 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:shadow-[2px_2px_0_#0a3a46] before:absolute before:-right-1 before:-top-1 before:h-2 before:w-2 before:rotate-45 before:border before:border-black before:bg-[#fbbf24] dark:before:border-[#5eead4] dark:before:bg-[#f59e0b]"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                <span
+                  aria-hidden="true"
+                  className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-[#ef4444] text-[10px] font-black leading-none text-white shadow-[2px_2px_0_#111111] transition-transform duration-200 before:absolute before:-right-1 before:top-1/2 before:h-2 before:w-2 before:-translate-y-1/2 before:rotate-45 before:border-b-2 before:border-r-2 before:border-black before:bg-[#ef4444] group-hover:-translate-x-0.5 dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220] dark:shadow-[2px_2px_0_#0a3a46] dark:before:border-[#5eead4] dark:before:bg-[#fbbf24]"
                 >
-                  <path d="M4 8h4l1.4-2h5.2L16 8h4v10H4z" />
-                  <circle cx="12" cy="13" r="3.2" />
-                </svg>
-              </span>
-              Photography
-            </Link>
+                  {'<'}
+                </span>
+                Go To Portfolio
+              </Link>
+
+              <Link
+                href="/photography"
+                className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#ffedd5] px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="relative inline-flex h-6 w-6 items-center justify-center rounded-full border-2 border-black bg-white text-slate-900 shadow-[2px_2px_0_#111111] transition-transform duration-200 group-hover:rotate-6 group-hover:scale-105 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:shadow-[2px_2px_0_#0a3a46] before:absolute before:-right-1 before:-top-1 before:h-2 before:w-2 before:rotate-45 before:border before:border-black before:bg-[#fbbf24] dark:before:border-[#5eead4] dark:before:bg-[#f59e0b]"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-3.5 w-3.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M4 8h4l1.4-2h5.2L16 8h4v10H4z" />
+                    <circle cx="12" cy="13" r="3.2" />
+                  </svg>
+                </span>
+                Photography
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </BlogMotionSection>
 
       {featured ? (
-        <section className="relative mx-auto max-w-6xl px-6 pb-12 md:px-8 md:pb-14">
-          {featured.slug && !featured.isDraft ? (
-            <Link
-              href={`/blog/${featured.slug}`}
-              className="group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] transition hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]"
-            >
-              <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
-                <div className="relative min-h-72 overflow-hidden rounded-2xl">
-                  {featured.mainImage ? (
-                    <Image
-                      src={urlFor(featured.mainImage).width(1400).height(900).url()}
-                      alt={featured.title}
-                      fill
-                      className="object-cover transition duration-700 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, 55vw"
-                      priority
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-[#fecdd3] via-[#fde68a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
-                  )}
-                </div>
-
-                <div className="flex flex-col justify-between rounded-2xl border-4 border-black bg-[#fff7cc] p-6 dark:border-[#5eead4] dark:bg-[#13233a]">
-                  <div>
-                    <p className="mb-4 inline-flex rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
-                      Main Episode
-                    </p>
-                    <h2 className={`${comicTitleFont.className} text-4xl uppercase leading-[0.95] tracking-wide text-slate-900 dark:text-[#fbbf24] md:text-5xl`}>
-                      {featured.title}
-                    </h2>
-                    <p className="mt-4 text-base leading-7 text-slate-700 dark:text-[#b7d6ea]">{featured.excerpt}...</p>
+        <BlogMotionSection delay={0.12} y={20}>
+          <section className="relative mx-auto max-w-6xl px-6 pb-12 md:px-8 md:pb-14">
+            {featured.slug && !featured.isDraft ? (
+              <Link
+                href={`/blog/${featured.slug}`}
+                className="group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] transition hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]"
+              >
+                <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
+                  <div className="relative min-h-72 overflow-hidden rounded-2xl">
+                    {featured.mainImage ? (
+                      <Image
+                        src={urlFor(featured.mainImage).width(1400).height(900).url()}
+                        alt={featured.title}
+                        fill
+                        className="object-cover transition duration-700 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 55vw"
+                        priority
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-[#fecdd3] via-[#fde68a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
+                    )}
                   </div>
-                  <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-slate-700 dark:text-[#b7d6ea]">
-                    <span>{formatDate(featured.publishedAt)}</span>
-                    <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
-                    <span>{featured.author}</span>
-                    <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
-                    <span>Read story</span>
+
+                  <div className="flex flex-col justify-between rounded-2xl border-4 border-black bg-[#fff7cc] p-6 dark:border-[#5eead4] dark:bg-[#13233a]">
+                    <div>
+                      <p className="mb-4 inline-flex rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
+                        Main Episode
+                      </p>
+                      <h2 className={`${comicTitleFont.className} text-4xl uppercase leading-[0.95] tracking-wide text-slate-900 dark:text-[#fbbf24] md:text-5xl`}>
+                        {featured.title}
+                      </h2>
+                      <p className="mt-4 text-base leading-7 text-slate-700 dark:text-[#b7d6ea]">{featured.excerpt}...</p>
+                    </div>
+                    <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-slate-700 dark:text-[#b7d6ea]">
+                      <span>{formatDate(featured.publishedAt)}</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>{featured.author}</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>Read story</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <div className="group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]">
+                <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
+                  <div className="relative min-h-72 overflow-hidden rounded-2xl">
+                    {featured.mainImage ? (
+                      <Image
+                        src={urlFor(featured.mainImage).width(1400).height(900).url()}
+                        alt={featured.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 55vw"
+                        priority
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-[#fecdd3] via-[#fde68a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
+                    )}
+                  </div>
+
+                  <div className="flex flex-col justify-between rounded-2xl border-4 border-black bg-[#fff7cc] p-6 dark:border-[#5eead4] dark:bg-[#13233a]">
+                    <div>
+                      <p className="mb-4 inline-flex rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
+                        Draft Episode
+                      </p>
+                      <h2 className={`${comicTitleFont.className} text-4xl uppercase leading-[0.95] tracking-wide text-slate-900 dark:text-[#fbbf24] md:text-5xl`}>
+                        {featured.title}
+                      </h2>
+                      <p className="mt-4 text-base leading-7 text-slate-700 dark:text-[#b7d6ea]">{featured.excerpt}...</p>
+                    </div>
+                    <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-slate-700 dark:text-[#b7d6ea]">
+                      <span>{formatDate(featured.publishedAt)}</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>{featured.author}</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>Add slug in Studio to open this post</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </Link>
-          ) : (
-            <div className="group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]">
-              <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
-                <div className="relative min-h-72 overflow-hidden rounded-2xl">
-                  {featured.mainImage ? (
-                    <Image
-                      src={urlFor(featured.mainImage).width(1400).height(900).url()}
-                      alt={featured.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 55vw"
-                      priority
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-gradient-to-br from-[#fecdd3] via-[#fde68a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
-                  )}
-                </div>
-
-                <div className="flex flex-col justify-between rounded-2xl border-4 border-black bg-[#fff7cc] p-6 dark:border-[#5eead4] dark:bg-[#13233a]">
-                  <div>
-                    <p className="mb-4 inline-flex rounded-full border-2 border-black bg-white px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
-                      Draft Episode
-                    </p>
-                    <h2 className={`${comicTitleFont.className} text-4xl uppercase leading-[0.95] tracking-wide text-slate-900 dark:text-[#fbbf24] md:text-5xl`}>
-                      {featured.title}
-                    </h2>
-                    <p className="mt-4 text-base leading-7 text-slate-700 dark:text-[#b7d6ea]">{featured.excerpt}...</p>
-                  </div>
-                  <div className="mt-8 flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.14em] text-slate-700 dark:text-[#b7d6ea]">
-                    <span>{formatDate(featured.publishedAt)}</span>
-                    <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
-                    <span>{featured.author}</span>
-                    <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
-                    <span>Add slug in Studio to open this post</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </section>
+            )}
+          </section>
+        </BlogMotionSection>
       ) : (
-        <section className="mx-auto max-w-6xl px-6 pb-16 md:px-8">
-          <div className="rounded-[28px] border-4 border-black bg-[#fde68a] p-8 text-center shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]">
-            <h2 className={`${comicTitleFont.className} text-4xl uppercase dark:text-[#fbbf24]`}>Next Episode Loading</h2>
-            <p className="mt-3 text-base font-semibold text-slate-700 dark:text-[#b7d6ea]">Create your first post in Sanity Studio and it will appear here automatically.</p>
-          </div>
-        </section>
+        <BlogMotionSection delay={0.12} y={20}>
+          <section className="mx-auto max-w-6xl px-6 pb-16 md:px-8">
+            <div className="rounded-[28px] border-4 border-black bg-[#fde68a] p-8 text-center shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]">
+              <h2 className={`${comicTitleFont.className} text-4xl uppercase dark:text-[#fbbf24]`}>Next Episode Loading</h2>
+              <p className="mt-3 text-base font-semibold text-slate-700 dark:text-[#b7d6ea]">Create your first post in Sanity Studio and it will appear here automatically.</p>
+            </div>
+          </section>
+        </BlogMotionSection>
       )}
 
       {restPosts.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 pb-20 md:px-8">
-          <div className="mb-7 flex items-end justify-between">
-            <h3 className={`${comicTitleFont.className} text-4xl uppercase dark:text-[#eef6ff] md:text-5xl`}>More Episodes</h3>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 dark:text-[#b7d6ea]">Recent drops</p>
-          </div>
+        <BlogMotionSection delay={0.2} y={22}>
+          <section className="mx-auto max-w-6xl px-6 pb-20 md:px-8">
+            <div className="mb-7 flex items-end justify-between">
+              <h3 className={`${comicTitleFont.className} text-4xl uppercase dark:text-[#eef6ff] md:text-5xl`}>More Episodes</h3>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 dark:text-[#b7d6ea]">Recent drops</p>
+            </div>
 
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {restPosts.map((post, index) => (
-              post.slug && !post.isDraft ? (
-                <Link
-                  href={`/blog/${post.slug}`}
-                  key={post._id}
-                  className="group rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] transition duration-300 hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
-                  style={{ animationDelay: `${index * 90}ms` }}
-                >
-                  <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
-                    {post.mainImage ? (
-                      <Image
-                        src={urlFor(post.mainImage).width(900).height(600).url()}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition duration-500 group-hover:scale-105"
-                        sizes="(max-width: 1024px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
-                    )}
+            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {restPosts.map((post) => (
+                post.slug && !post.isDraft ? (
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    key={post._id}
+                    className="group block h-full rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] transition duration-300 hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
+                  >
+                    <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
+                      {post.mainImage ? (
+                        <Image
+                          src={urlFor(post.mainImage).width(900).height(600).url()}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                          sizes="(max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
+                      )}
+                    </div>
+
+                    <p className="inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
+                    <h4 className={`${comicTitleFont.className} mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
+                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {(post.categories || []).slice(0, 2).map((cat) => (
+                        <span
+                          key={`${post._id}-${cat}`}
+                          className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]"
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                ) : (
+                  <div
+                    key={post._id}
+                    className="h-full rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
+                  >
+                    <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
+                      {post.mainImage ? (
+                        <Image
+                          src={urlFor(post.mainImage).width(900).height(600).url()}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 1024px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
+                      )}
+                    </div>
+
+                    <p className="inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
+                    <h4 className={`${comicTitleFont.className} mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
+                    <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
+                    <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">Add a slug in Studio to open this post</p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {(post.categories || []).slice(0, 2).map((cat) => (
+                        <span
+                          key={`${post._id}-${cat}`}
+                          className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]"
+                        >
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-
-                  <p className="inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
-                  <h4 className={`${comicTitleFont.className} mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
-                  <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {(post.categories || []).slice(0, 2).map((cat) => (
-                      <span
-                        key={`${post._id}-${cat}`}
-                        className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]"
-                      >
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                </Link>
-              ) : (
-                <div
-                  key={post._id}
-                  className="rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
-                >
-                  <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
-                    {post.mainImage ? (
-                      <Image
-                        src={urlFor(post.mainImage).width(900).height(600).url()}
-                        alt={post.title}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1024px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-[#fecaca] via-[#fef08a] to-[#bfdbfe] dark:from-[#243f73] dark:via-[#2a5f8f] dark:to-[#146368]" />
-                    )}
-                  </div>
-
-                  <p className="inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
-                  <h4 className={`${comicTitleFont.className} mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
-                  <p className="mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
-                  <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">Add a slug in Studio to open this post</p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {(post.categories || []).slice(0, 2).map((cat) => (
-                      <span
-                        key={`${post._id}-${cat}`}
-                        className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]"
-                      >
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )
-            ))}
-          </div>
-        </section>
+                )
+              ))}
+            </div>
+          </section>
+        </BlogMotionSection>
       )}
     </main>
   );
