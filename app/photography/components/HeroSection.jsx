@@ -89,6 +89,16 @@ const HeroSection = ({ photos }) => {
                 Full Portfolio
               </motion.button>
             </Link>
+
+            <Link href="/blog" className="w-full sm:w-auto">
+              <motion.button
+                className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm border-2 border-[#181A1B] dark:border-white text-[#181A1B] dark:text-white rounded-full font-medium hover:bg-[#181A1B]/5 dark:hover:bg-white/10 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Blog
+              </motion.button>
+            </Link>
           </motion.div>
 
           {/* Social Links */}
