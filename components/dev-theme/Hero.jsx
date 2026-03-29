@@ -81,8 +81,7 @@ function Hero() {
             className="max-w-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed"
             variants={itemVariants}
           >
-            I&apos;m a Software Engineer and Full Stack Developer who transforms
-            ideas into digital experiences.
+            I&apos;m a Software Engineer and Web Developer who builds polished digital products, while crafting visual narratives through photography and cinematic direction.
           </motion.p>
 
           <motion.div
