@@ -65,7 +65,7 @@ const HeroSection = ({ photos }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center sm:gap-4"
           >
             <motion.button
               onClick={() =>
@@ -73,16 +73,16 @@ const HeroSection = ({ photos }) => {
                   .getElementById('gallery')
                   .scrollIntoView({ behavior: 'smooth' })
               }
-              className="px-8 py-3 bg-[#181A1B] dark:bg-white text-white dark:text-black rounded-full font-medium hover:bg-[#181A1B]/90 dark:hover:bg-gray-200 transition-colors"
+              className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm bg-[#181A1B] dark:bg-white text-white dark:text-black rounded-full font-medium hover:bg-[#181A1B]/90 dark:hover:bg-gray-200 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               View Gallery
             </motion.button>
 
-            <Link href="/">
+            <Link href="/" className="w-full sm:w-auto">
               <motion.button
-                className="px-8 py-3 border-2 border-[#181A1B] dark:border-white text-[#181A1B] dark:text-white rounded-full font-medium hover:bg-[#181A1B]/5 dark:hover:bg-white/10 transition-colors"
+                className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm border-2 border-[#181A1B] dark:border-white text-[#181A1B] dark:text-white rounded-full font-medium hover:bg-[#181A1B]/5 dark:hover:bg-white/10 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

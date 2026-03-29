@@ -31,6 +31,9 @@ export default function PinterestPhotographyTheme() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visitSeed] = useState(() =>
+    `${Date.now()}-${Math.floor(Math.random() * 100000)}`,
+  );
 
   const filteredPhotos = useMemo(() => {
     if (selectedCategory === 'All') {
@@ -41,11 +44,11 @@ export default function PinterestPhotographyTheme() {
 
   const displayedPhotos = useMemo(() => {
     return [...filteredPhotos].sort((a, b) => {
-      const aHash = deterministicHash(`${selectedCategory}-${a.src}`);
-      const bHash = deterministicHash(`${selectedCategory}-${b.src}`);
+      const aHash = deterministicHash(`${visitSeed}-${a.src}`);
+      const bHash = deterministicHash(`${visitSeed}-${b.src}`);
       return aHash - bHash;
     });
-  }, [filteredPhotos, selectedCategory]);
+  }, [filteredPhotos, visitSeed]);
 
   const openDetailsModal = useCallback((photo) => {
     const index = displayedPhotos.findIndex((p) => p.src === photo.src);

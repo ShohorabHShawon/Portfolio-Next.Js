@@ -1,92 +1,51 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) => {
-  const [loadingStates, setLoadingStates] = useState({});
-
-  useEffect(() => {
-    // Initialize loading states only for incoming images
-    setLoadingStates((prev) => {
-      const next = {};
-      filteredPhotos.forEach((photo) => {
-        next[photo.src] = prev[photo.src] ?? true;
-      });
-      return next;
-    });
-  }, [filteredPhotos, selectedCategory]);
-
-  const handleImageLoad = (src) => {
-    setLoadingStates((prev) => ({
-      ...prev,
-      [src]: false,
-    }));
-  };
+  const prioritizedSrcSet = useMemo(() => {
+    return new Set(filteredPhotos.slice(0, 8).map((photo) => photo.src));
+  }, [filteredPhotos]);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={selectedCategory}
-        className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 gap-4 space-y-4"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -10 }}
-        transition={{ duration: 0.4, ease: 'easeInOut' }}
-      >
-        {filteredPhotos.map((photo, index) => (
-          <motion.button
-            type="button"
-            key={photo.src}
-            className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
-            onClick={() => openDetailsModal(photo)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: index * 0.02 }}
-            aria-label={`Open ${photo.title}`}
-          >
-            <div className="relative bg-gray-200 dark:bg-gray-800 aspect-auto overflow-hidden">
-              {/* Loading Skeleton */}
-              {loadingStates[photo.src] && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-gray-200 dark:from-gray-800 via-gray-100 dark:via-gray-700 to-gray-200 dark:to-gray-800"
-                  animate={{
-                    backgroundPosition: ['0% 0%', '100% 0%'],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                  style={{
-                    backgroundSize: '200% 100%',
-                  }}
-                />
-              )}
+    <motion.div
+      key={selectedCategory}
+      className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 [column-gap:1rem]"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.32, ease: 'easeOut' }}
+    >
+      {filteredPhotos.map((photo) => (
+        <button
+          type="button"
+          key={photo.src}
+          className="mb-4 block align-top break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
+          onClick={() => openDetailsModal(photo)}
+          aria-label={`Open ${photo.title}`}
+        >
+          <div className="relative bg-gray-200 dark:bg-gray-800 aspect-auto overflow-hidden">
+            <Image
+              src={photo.src}
+              alt={photo.title}
+              width={400}
+              height={560}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+              priority={prioritizedSrcSet.has(photo.src)}
+              style={{ height: 'auto' }}
+              className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.03] [transform:translateZ(0)] [backface-visibility:hidden]"
+            />
 
-              <Image
-                src={photo.src}
-                alt={photo.title}
-                width={400}
-                height={560}
-                style={{ height: 'auto' }}
-                className={`w-full transition-all duration-700 group-hover:scale-110 ${
-                  loadingStates[photo.src] ? 'opacity-0' : 'opacity-100'
-                }`}
-                onLoadingComplete={() => handleImageLoad(photo.src)}
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-4 left-4 text-white">
-                  <h3 className="font-semibold font-poppins text-sm">{photo.title}</h3>
-                  <p className="text-xs text-gray-300">{photo.category}</p>
-                </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-4 left-4 text-white">
+                <h3 className="font-semibold font-poppins text-sm">{photo.title}</h3>
+                <p className="text-xs text-gray-300">{photo.category}</p>
               </div>
             </div>
-          </motion.button>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+          </div>
+        </button>
+      ))}
+    </motion.div>
   );
 };
 

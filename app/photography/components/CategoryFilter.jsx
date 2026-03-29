@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -24,7 +25,12 @@ const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory }) =
   };
 
   return (
-    <div className="sticky top-0 flex justify-center mb-16 bg-white dark:bg-[#181A1B] py-4 z-50 border-b border-[#181A1B]/10 dark:border-gray-800">
+    <motion.div
+      className="sticky top-0 flex justify-center mb-16 bg-white dark:bg-[#181A1B] py-4 z-50 border-b border-[#181A1B]/10 dark:border-gray-800"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: 'easeOut' }}
+    >
       {/* Desktop Filter */}
       <div className="hidden md:block relative bg-white dark:bg-white/5 border border-[#181A1B]/10 dark:border-white/10 rounded-full p-2 shadow-lg backdrop-blur-lg">
         <div className="flex gap-1">
@@ -81,7 +87,7 @@ const CategoryFilter = ({ categories, selectedCategory, setSelectedCategory }) =
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
