@@ -1,8 +1,8 @@
 import { groq, PortableText } from 'next-sanity';
 import {
-    Bangers,
-    Comic_Neue,
-    Permanent_Marker,
+  Bangers,
+  Comic_Neue,
+  Permanent_Marker,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -88,23 +88,30 @@ const portableTextComponents = {
     },
   },
   block: {
+    h1: ({ children }) => (
+      <h1
+        className={`${headingFont.className} mt-16 text-[2.9rem] uppercase leading-[0.9] tracking-wide text-[#111111] dark:text-[#f4f9ff] md:text-[3.8rem]`}
+      >
+        {children}
+      </h1>
+    ),
     h2: ({ children }) => (
       <h2
-        className={`${headingFont.className} mt-14 text-[2.35rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#f4f9ff] md:text-[3rem]`}
+        className={`${headingFont.className} mt-12 text-[2.2rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#f4f9ff] md:text-[2.9rem]`}
       >
         {children}
       </h2>
     ),
     h3: ({ children }) => (
       <h3
-        className={`${accentFont.className} mt-11 text-[1.5rem] leading-tight text-[#0f172a] dark:text-[#f59e0b] md:text-[1.75rem]`}
+        className={`${accentFont.className} mt-9 text-[1.38rem] leading-tight text-[#0f172a] dark:text-[#f59e0b] md:text-[1.62rem]`}
       >
         {children}
       </h3>
     ),
     h4: ({ children }) => (
       <h4
-        className={`${bodyFont.className} mt-10 text-[1.08rem] font-bold uppercase tracking-[0.12em] text-[#1f2937] dark:text-[#dbeafe] md:text-[1.2rem]`}
+        className={`${bodyFont.className} mt-7 text-[1rem] font-bold uppercase tracking-[0.12em] text-[#1f2937] dark:text-[#dbeafe] md:text-[1.12rem]`}
       >
         {children}
       </h4>
@@ -211,7 +218,7 @@ export default async function BlogPostPage({ params }) {
             <span>{post.author}</span>
           </div>
 
-          <h1 className={`${headingFont.className} text-[3rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#f4f9ff] md:text-[4.8rem]`}>
+          <h1 className={`${headingFont.className} text-[3.75rem] uppercase leading-[0.88] tracking-wide text-slate-900 dark:text-[#f4f9ff] md:text-[6rem]`}>
             {post.title}
           </h1>
 

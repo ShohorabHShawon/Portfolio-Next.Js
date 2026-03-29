@@ -52,8 +52,12 @@ export default async function BlogPage() {
 
   return (
     <main className={`${comicBodyFont.className} relative min-h-screen overflow-hidden bg-[#fff9e8] text-[#111111] transition-colors dark:bg-[#070b14] dark:text-[#eaf2ff]`}>
-      <div className="pointer-events-none absolute inset-0 opacity-50">
-        <div className="absolute inset-0 bg-[radial-gradient(#0f172a_0.7px,transparent_0.7px)] [background-size:16px_16px] dark:bg-[radial-gradient(#67e8f9_0.6px,transparent_0.6px)]" />
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#67e8f9_0.6px,transparent_0.6px)] dark:opacity-[0.14]" />
+        <div className="absolute -left-24 top-24 h-52 w-52 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#7dd3fc] dark:bg-[#12355b]" />
+        <div className="absolute -right-24 bottom-24 h-44 w-44 rounded-full border-4 border-black bg-[#60a5fa] dark:border-[#7dd3fc] dark:bg-[#0f766e]" />
+        <div className="absolute left-[7%] top-[34%] h-8 w-36 rotate-[-8deg] rounded-full border-4 border-black bg-[#fde047] dark:border-[#7dd3fc] dark:bg-[#164e63]" />
+        <div className="absolute right-[11%] top-[18%] h-20 w-20 rounded-full border-4 border-black bg-[#fdba74] dark:border-[#7dd3fc] dark:bg-[#1d4e89]" />
       </div>
 
       <div className="fixed right-6 top-6 z-50">
