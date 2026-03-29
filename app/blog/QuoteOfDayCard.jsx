@@ -155,16 +155,16 @@ export default function QuoteOfDayCard({ initialQuote }) {
   if (quotes.length === 0) return null;
 
   return (
-    <div className="mb-6 rotate-[0.4deg] rounded-[24px] border-4 border-black bg-[#fff7cc] px-5 py-5 shadow-[7px_7px_0_#111111] transition-all duration-300 ease-out dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[7px_7px_0_#0a3a46] md:px-7">
+    <div className="blog-quote-card mb-6 rotate-[0.4deg] rounded-[24px] border-4 border-black bg-[#fff7cc] px-5 py-5 shadow-[7px_7px_0_#111111] transition-all duration-300 ease-out dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[7px_7px_0_#0a3a46] md:px-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="inline-flex rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
+        <p className="blog-theme-pill inline-flex rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
           Quote Of The Day
         </p>
         <button
           type="button"
           onClick={handleRefreshQuote}
           disabled={quotes.length <= 1}
-          className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fde047] px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-slate-900 shadow-[2px_2px_0_#111111] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#facc15] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:shadow-[2px_2px_0_#0a3a46] dark:hover:bg-[#2e5b86]"
+          className="blog-theme-action group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fde047] px-3.5 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-slate-900 shadow-[2px_2px_0_#111111] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#facc15] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:shadow-[2px_2px_0_#0a3a46] dark:hover:bg-[#2e5b86]"
         >
           <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-black bg-white/80 transition-transform duration-300 ease-out group-hover:rotate-180 dark:border-[#5eead4] dark:bg-[#13233a]">
             <svg
@@ -186,13 +186,13 @@ export default function QuoteOfDayCard({ initialQuote }) {
       </div>
 
       <div className="mt-4 flex min-h-[62px] items-center md:min-h-[70px]">
-        <blockquote className={`w-full text-lg font-bold leading-8 text-[#1e293b] transition-all duration-200 ease-out dark:text-[#e6f3ff] md:text-xl ${isShortQuote ? 'text-center' : 'text-left'}`}>
+        <blockquote className={`blog-quote-text w-full text-lg font-bold leading-8 text-[#1e293b] transition-all duration-200 ease-out dark:text-[#e6f3ff] md:text-xl ${isShortQuote ? 'text-center' : 'text-left'}`}>
           &ldquo;{displayedText}&rdquo;
           <span className={`ml-0.5 inline-block h-[1.1em] w-[2px] align-middle bg-current ${isTyping ? 'animate-pulse' : 'opacity-0'}`} />
         </blockquote>
       </div>
       {activeQuote.author && (
-        <p className={`mt-1 pr-1 text-right text-xs font-bold uppercase tracking-[0.14em] text-slate-700 transition-all duration-300 ease-out dark:text-[#b7d6ea] ${isTyping ? 'translate-y-1 opacity-0' : 'translate-y-0 opacity-100'}`}>
+        <p className={`blog-quote-author mt-1 pr-1 text-right text-xs font-bold uppercase tracking-[0.14em] text-slate-700 transition-all duration-300 ease-out dark:text-[#b7d6ea] ${isTyping ? 'translate-y-1 opacity-0' : 'translate-y-0 opacity-100'}`}>
           - {activeQuote.author}
         </p>
       )}

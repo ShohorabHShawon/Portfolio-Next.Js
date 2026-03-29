@@ -3,15 +3,17 @@ import {
   Bangers,
   Comic_Neue,
   Permanent_Marker,
+  Source_Serif_4,
+  Space_Grotesk,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import ThemeToggle from '@/components/ThemeToggle';
 import { client } from '../../../sanity/lib/client';
 import { urlFor } from '../../../sanity/lib/image';
 import BlogMotionSection from '../BlogMotionSection';
+import BlogThemeShell from '../BlogThemeShell';
 
 export const revalidate = 120;
 export const dynamic = 'force-static';
@@ -33,6 +35,27 @@ const accentFont = Permanent_Marker({
   subsets: ['latin'],
   weight: ['400'],
 });
+
+const modernSansFont = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-blog-modern-sans',
+});
+
+const modernSerifFont = Source_Serif_4({
+  subsets: ['latin'],
+  variable: '--font-blog-modern-serif',
+});
+
+const BLOG_THEME_BOOTSTRAP_SCRIPT = `(function () {
+  try {
+    var storedTheme = window.localStorage.getItem('blog-theme');
+    if (storedTheme === 'modern' || storedTheme === 'manga') {
+      document.documentElement.setAttribute('data-blog-theme', storedTheme);
+      return;
+    }
+  } catch (err) {}
+  document.documentElement.setAttribute('data-blog-theme', 'manga');
+})();`;
 
 const POST_QUERY = groq`
   *[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
@@ -84,7 +107,7 @@ const portableTextComponents = {
       const altText = value?.alt || value?.caption || 'Blog content image';
 
       return (
-        <figure className="my-10 overflow-hidden rounded-2xl border-4 border-black bg-white p-2 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]">
+        <figure className="blog-rich-image my-10 overflow-hidden rounded-2xl border-4 border-black bg-white p-2 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]">
           <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
             <Image
               src={imageUrl}
@@ -95,7 +118,7 @@ const portableTextComponents = {
             />
           </div>
           {value?.caption && (
-            <figcaption className="px-2 pb-1 pt-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#b7d6ea]">
+            <figcaption className="blog-rich-caption px-2 pb-1 pt-3 text-center text-sm font-bold uppercase tracking-[0.12em] text-slate-700 dark:text-[#b7d6ea]">
               {value.caption}
             </figcaption>
           )}
@@ -106,21 +129,21 @@ const portableTextComponents = {
   block: {
     h1: ({ children }) => (
       <h1
-        className={`${headingFont.className} mt-16 text-[2.9rem] uppercase leading-[0.9] tracking-wide text-[#111111] dark:text-[#eef6ff] md:text-[3.8rem]`}
+        className={`${headingFont.className} blog-theme-heading mt-16 text-[2.9rem] uppercase leading-[0.9] tracking-wide text-[#111111] dark:text-[#eef6ff] md:text-[3.8rem]`}
       >
         {children}
       </h1>
     ),
     h2: ({ children }) => (
       <h2
-        className={`${headingFont.className} mt-12 text-[2.2rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#eef6ff] md:text-[2.9rem]`}
+        className={`${headingFont.className} blog-theme-heading mt-12 text-[2.2rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#eef6ff] md:text-[2.9rem]`}
       >
         {children}
       </h2>
     ),
     h3: ({ children }) => (
       <h3
-        className={`${accentFont.className} mt-9 text-[1.38rem] leading-tight text-[#0f172a] dark:text-[#fbbf24] md:text-[1.62rem]`}
+        className={`${accentFont.className} blog-theme-heading mt-9 text-[1.38rem] leading-tight text-[#0f172a] dark:text-[#fbbf24] md:text-[1.62rem]`}
       >
         {children}
       </h3>
@@ -139,7 +162,7 @@ const portableTextComponents = {
     ),
     blockquote: ({ children }) => (
       <blockquote
-        className={`${accentFont.className} mt-11 rounded-2xl border-4 border-black bg-[#fde047] px-5 py-4 text-[1.45rem] leading-[1.35] text-[#111111] shadow-[4px_4px_0_#111111] dark:border-[#5eead4] dark:bg-[#1b2f4a] dark:text-[#eef6ff] dark:shadow-[4px_4px_0_#0a3a46]`}
+        className={`${accentFont.className} blog-rich-blockquote mt-11 rounded-2xl border-4 border-black bg-[#fde047] px-5 py-4 text-[1.45rem] leading-[1.35] text-[#111111] shadow-[4px_4px_0_#111111] dark:border-[#5eead4] dark:bg-[#1b2f4a] dark:text-[#eef6ff] dark:shadow-[4px_4px_0_#0a3a46]`}
       >
         {children}
       </blockquote>
@@ -312,35 +335,37 @@ export default async function BlogPostPage({ params }) {
   }
 
   return (
-    <main
-      className={`${bodyFont.className} relative min-h-screen overflow-x-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#050b18] dark:text-[#e6f3ff] md:px-8 md:py-20`}
-    >
-      <script
-        id={`blog-post-schema-${post._id}`}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
+    <BlogThemeShell>
+      <main
+        className={`${bodyFont.className} ${modernSansFont.variable} ${modernSerifFont.variable} blog-page-root blog-slug-page relative min-h-screen overflow-x-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#050b18] dark:text-[#e6f3ff] md:px-8 md:py-20`}
+      >
+        <script
+          id="blog-theme-bootstrap"
+          dangerouslySetInnerHTML={{ __html: BLOG_THEME_BOOTSTRAP_SCRIPT }}
+        />
+        <script
+          id={`blog-post-schema-${post._id}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        />
 
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#5eead4_0.8px,transparent_0.8px)] dark:opacity-[0.2]" />
-        <div className="absolute inset-0 hidden [background-image:radial-gradient(#020617_0.8px,transparent_0.8px)] opacity-[0.28] [background-size:16px_16px] [background-position:2px_2px] dark:block" />
-        <div className="absolute -left-24 top-20 h-48 w-48 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#5eead4] dark:bg-[#1a2d52]" />
-        <div className="absolute -right-20 bottom-16 h-40 w-40 rounded-full border-4 border-black bg-[#60a5fa] dark:border-[#5eead4] dark:bg-[#145e66]" />
-      </div>
+        <div className="blog-theme-decor pointer-events-none absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(#111111_0.8px,transparent_0.8px)] opacity-[0.14] [background-size:16px_16px] dark:bg-[radial-gradient(#5eead4_0.8px,transparent_0.8px)] dark:opacity-[0.2]" />
+          <div className="absolute inset-0 hidden [background-image:radial-gradient(#020617_0.8px,transparent_0.8px)] opacity-[0.28] [background-size:16px_16px] [background-position:2px_2px] dark:block" />
+          <div className="absolute -left-24 top-20 h-48 w-48 rounded-full border-4 border-black bg-[#fb7185] dark:border-[#5eead4] dark:bg-[#1a2d52]" />
+          <div className="absolute -right-20 bottom-16 h-40 w-40 rounded-full border-4 border-black bg-[#60a5fa] dark:border-[#5eead4] dark:bg-[#145e66]" />
+        </div>
 
-      <div className="fixed right-6 top-6 z-50">
-        <ThemeToggle variant="manga" />
-      </div>
-
+      <div className="blog-theme-view blog-theme-view-manga">
       <BlogMotionSection delay={0.04} y={16}>
-        <div className="relative mx-auto w-full max-w-[820px]">
-          <article className="relative w-full rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[10px_10px_0_#0a3a46]">
-            <span className="absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220]">
+        <div className="blog-slug-article-section relative mx-auto w-full max-w-[820px]">
+          <article className="blog-article-shell blog-modern-surface relative w-full rounded-[30px] border-4 border-black bg-white px-6 py-8 shadow-[10px_10px_0_#111111] md:px-10 md:py-12 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[10px_10px_0_#0a3a46]">
+            <span className="blog-theme-pill absolute -top-5 left-8 inline-flex rounded-full border-2 border-black bg-[#ef4444] px-4 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white dark:border-[#5eead4] dark:bg-[#fbbf24] dark:text-[#0b1220]">
               STORY
             </span>
             <Link
               href="/blog"
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
+              className="blog-theme-action group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#fff7cc] px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]"
             >
               <span
                 aria-hidden="true"
@@ -351,14 +376,14 @@ export default async function BlogPostPage({ params }) {
               <span>Back to blog</span>
             </Link>
 
-            <header className="mt-8">
-              <div className="mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-[#b7d6ea]">
+            <header className="blog-article-header mt-8">
+              <div className="blog-article-meta mb-6 flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.24em] text-slate-700 dark:text-[#b7d6ea]">
                 <span>{formatDate(post.publishedAt)}</span>
                 <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                 <span>{post.author}</span>
               </div>
 
-              <h1 className={`${headingFont.className} text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
+              <h1 className={`${headingFont.className} blog-theme-heading blog-post-title text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
                 {post.title}
               </h1>
 
@@ -367,7 +392,7 @@ export default async function BlogPostPage({ params }) {
                   {post.categories.map((cat) => (
                     <span
                       key={`${post._id}-${cat}`}
-                      className="rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#1b3652] dark:text-[#d8ebf8]"
+                      className="blog-theme-chip rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:border-[#5eead4] dark:bg-[#1b3652] dark:text-[#d8ebf8]"
                     >
                       {cat}
                     </span>
@@ -377,8 +402,8 @@ export default async function BlogPostPage({ params }) {
             </header>
 
             {post.mainImage && (
-              <div className="relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
-                <span className="absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#5eead4] dark:bg-[#1a2d52] dark:text-[#eef6ff]">
+              <div className="blog-article-hero blog-modern-surface relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
+                <span className="blog-theme-pill absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#5eead4] dark:bg-[#1a2d52] dark:text-[#eef6ff]">
                   Scene
                 </span>
                 <Image
@@ -392,7 +417,7 @@ export default async function BlogPostPage({ params }) {
               </div>
             )}
 
-            <section className="mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#5eead4]">
+            <section className="blog-rich-content mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#5eead4]">
               <PortableText value={post.body || []} components={portableTextComponents} />
             </section>
           </article>
@@ -401,9 +426,9 @@ export default async function BlogPostPage({ params }) {
 
       {relatedPosts?.length > 0 && (
         <BlogMotionSection delay={0.14} y={20}>
-          <section className="mx-auto mt-10 max-w-3xl pb-8">
+          <section className="blog-related-section mx-auto mt-10 max-w-3xl pb-8">
             <div className="mb-5 flex items-end justify-between">
-              <h2 className={`${headingFont.className} text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[3.2rem]`}>Read Next</h2>
+              <h2 className={`${headingFont.className} blog-theme-heading text-[2.7rem] uppercase leading-none tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[3.2rem]`}>Read Next</h2>
               <Link
                 href="/blog"
                 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-700 transition hover:text-[#ef4444] dark:text-[#b7d6ea] dark:hover:text-[#fbbf24]"
@@ -417,7 +442,7 @@ export default async function BlogPostPage({ params }) {
                 <Link
                   key={item._id}
                   href={`/blog/${item.slug}`}
-                  className="group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46] dark:hover:bg-[#1b3652]"
+                  className="blog-post-card blog-modern-surface group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46] dark:hover:bg-[#1b3652]"
                 >
                   <div className="relative h-36 overflow-hidden rounded-xl">
                     {item.mainImage ? (
@@ -433,13 +458,13 @@ export default async function BlogPostPage({ params }) {
                     )}
                   </div>
 
-                  <p className="mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]">
+                  <p className="blog-theme-pill mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]">
                     {formatDate(item.publishedAt)}
                   </p>
-                  <h3 className={`${accentFont.className} mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fbbf24]`}>
+                  <h3 className={`${accentFont.className} blog-theme-heading blog-post-title mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fbbf24]`}>
                     {item.title}
                   </h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">
+                  <p className="blog-post-excerpt mt-2 line-clamp-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">
                     {item.excerpt}...
                   </p>
                 </Link>
@@ -448,6 +473,109 @@ export default async function BlogPostPage({ params }) {
           </section>
         </BlogMotionSection>
       )}
-    </main>
+      </div>
+
+      <div className="blog-theme-view blog-theme-view-modern">
+        <BlogMotionSection delay={0.04} y={16}>
+          <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-12 pt-24 md:px-8 md:pt-28">
+            <article className="blog-modern-post-article">
+              <div className="blog-modern-post-topbar">
+                <Link href="/blog" className="blog-modern-back-btn">
+                  Back To Blog
+                </Link>
+                <div className="blog-modern-post-top-meta">
+                  <span>{formatDate(post.publishedAt)}</span>
+                  <span>{post.author}</span>
+                </div>
+              </div>
+
+              <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
+
+              {post.categories?.length > 0 && (
+                <div className="blog-modern-chip-row blog-modern-chip-row-top">
+                  {post.categories.map((cat) => (
+                    <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {post.mainImage && (
+                <div className="blog-modern-post-hero-image">
+                  <Image
+                    src={urlFor(post.mainImage).width(1600).height(1000).url()}
+                    alt={post.title}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 1024px"
+                  />
+                </div>
+              )}
+
+              <div className="blog-modern-post-body-grid">
+                <section className="blog-modern-post-content blog-rich-content">
+                  <PortableText value={post.body || []} components={portableTextComponents} />
+                </section>
+
+                <aside className="blog-modern-post-aside">
+                  <div className="blog-modern-aside-card">
+                    <p className="blog-modern-aside-label">Written by</p>
+                    <p className="blog-modern-aside-value">{post.author}</p>
+                  </div>
+                  <div className="blog-modern-aside-card">
+                    <p className="blog-modern-aside-label">Published</p>
+                    <p className="blog-modern-aside-value">{formatDate(post.publishedAt)}</p>
+                  </div>
+                  <div className="blog-modern-aside-card">
+                    <p className="blog-modern-aside-label">Read next</p>
+                    <p className="blog-modern-aside-value">Scroll below for related posts.</p>
+                  </div>
+                </aside>
+              </div>
+            </article>
+          </section>
+        </BlogMotionSection>
+
+        {relatedPosts?.length > 0 && (
+          <BlogMotionSection delay={0.14} y={20}>
+            <section className="blog-modern-related-shell mx-auto max-w-6xl px-6 pb-16 md:px-8">
+              <div className="blog-modern-grid-head">
+                <h2 className={`${modernSerifFont.className} blog-modern-grid-title`}>Read Next</h2>
+                <Link href="/blog" className="blog-modern-view-all-link">
+                  View all posts
+                </Link>
+              </div>
+
+              <div className="blog-modern-grid">
+                {relatedPosts.map((item) => (
+                  <Link key={item._id} href={`/blog/${item.slug}`} className="blog-modern-post-card group">
+                    <div className="blog-modern-post-media">
+                      {item.mainImage ? (
+                        <Image
+                          src={urlFor(item.mainImage).width(800).height(520).url()}
+                          alt={item.title}
+                          fill
+                          className="object-cover transition duration-500 group-hover:scale-105"
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                        />
+                      ) : (
+                        <div className="h-full w-full bg-[#dbeafe] dark:bg-[#1e293b]" />
+                      )}
+                    </div>
+
+                    <p className="blog-modern-meta">{formatDate(item.publishedAt)}</p>
+                    <h3 className={`${modernSerifFont.className} blog-modern-post-title`}>{item.title}</h3>
+                    <p className="blog-modern-post-excerpt">{item.excerpt}...</p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </BlogMotionSection>
+        )}
+      </div>
+      </main>
+    </BlogThemeShell>
   );
 }
