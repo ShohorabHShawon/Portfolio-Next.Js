@@ -1,8 +1,36 @@
 /** @type {import('next').NextConfig} */
+const studioPath = (process.env.NEXT_PUBLIC_STUDIO_PATH || 'studio').replace(/^\/+|\/+$/g, '');
+
 const nextConfig = {
   transpilePackages: ['next-themes'],
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/blog/studio',
+        destination: '/blog',
+        permanent: false,
+      },
+      {
+        source: '/blog/studio/:path*',
+        destination: '/blog',
+        permanent: false,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: `/${studioPath}`,
+        destination: '/blog/studio',
+      },
+      {
+        source: `/${studioPath}/:path*`,
+        destination: '/blog/studio/:path*',
+      },
+    ];
   },
   images: {
     remotePatterns: [

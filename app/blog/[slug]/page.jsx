@@ -1,121 +1,147 @@
-import { getAllPosts, getPostBySlug } from '@/lib/notion';
-import { notion } from '@/lib/notion-client';
+import { groq, PortableText } from 'next-sanity';
 import Image from 'next/image';
-import { parsePageId } from 'notion-utils';
-import 'react-notion-x/src/styles.css';
-import BackButton from '../components/BackButton';
-import FormattedDate from '../components/FormattedDate';
-import NotionPageWrapper from '../components/NotionPageWrapper';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-// ✅ Enable ISR — regenerate every 60 seconds
-export const revalidate = 60;
-// ✅ Pre-render top 10 popular blog slugs
-export async function generateStaticParams() {
-  try {
-    const posts = await getAllPosts();
-    return posts.slice(0, 10).map((post) => ({ slug: post.slug }));
-  } catch (error) {
-    console.error('Error generating static params:', error);
-    return [];
+import { client } from '../../../sanity/lib/client';
+import { urlFor } from '../../../sanity/lib/image';
+
+export const revalidate = 120;
+
+const POST_QUERY = groq`
+  *[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
+    _id,
+    title,
+    publishedAt,
+    mainImage,
+    body,
+    "author": coalesce(author->name, "Unknown Author"),
+    "categories": categories[]->title
   }
+`;
+
+const SLUGS_QUERY = groq`
+  *[_type == "post" && defined(slug.current) && !(_id in path("drafts.**"))]{
+    "slug": slug.current
+  }
+`;
+
+const portableTextComponents = {
+  block: {
+    h2: ({ children }) => <h2 className="mt-10 font-[family-name:var(--font-poppins)] text-3xl text-[#f8f2e8]">{children}</h2>,
+    h3: ({ children }) => <h3 className="mt-8 font-[family-name:var(--font-poppins)] text-2xl text-[#f8f2e8]">{children}</h3>,
+    normal: ({ children }) => <p className="mt-5 leading-8 text-[#d8d0c4]">{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="mt-8 border-l-2 border-[#f0c674] bg-[#f0c674]/10 px-4 py-3 italic text-[#f5e7cb]">
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noreferrer"
+        className="text-[#f0c674] underline decoration-[#f0c674]/40 underline-offset-4"
+      >
+        {children}
+      </a>
+    ),
+  },
+};
+
+function formatDate(dateString) {
+  if (!dateString) return 'Coming soon';
+
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  }).format(new Date(dateString));
 }
 
-// ✅ SEO metadata
-export async function generateMetadata({ params }) {
-  try {
-    const resolvedParams = await params;
-    const { slug } = resolvedParams;
-    const post = await getPostBySlug(slug);
-    if (!post) return { title: 'Not found' };
+export async function generateStaticParams() {
+  const slugs = await client.fetch(SLUGS_QUERY);
+  return slugs.map((item) => ({ slug: item.slug }));
+}
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const post = await client.fetch(POST_QUERY, { slug });
+
+  if (!post) {
     return {
-      title: post.title,
-      description: post.summary,
-      authors: [{ name: post.author }],
-      openGraph: {
-        title: post.title,
-        description: post.summary,
-        images: post.thumbnail ? [post.thumbnail] : [],
-      },
+      title: 'Post not found',
     };
-  } catch {
-    return { title: 'Error loading post' };
   }
+
+  return {
+    title: `${post.title} | Blog`,
+    description: `Read ${post.title} by ${post.author}.`,
+  };
 }
 
 export default async function BlogPostPage({ params }) {
-  try {
-    const resolvedParams = await params;
-    const { slug } = resolvedParams;
-    const post = await getPostBySlug(slug);
-    if (!post) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#181A1B]">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-black dark:text-white mb-4">
-              404
-            </h1>
-            <p className="text-gray-600 dark:text-white">Post not found</p>
+  const { slug } = await params;
+  const post = await client.fetch(POST_QUERY, { slug }, { next: { revalidate: 120 } });
+
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <main className="min-h-screen bg-[#0e0f13] px-6 py-16 text-[#f4efe5] md:px-8 md:py-20">
+      <article className="mx-auto max-w-4xl">
+        <Link
+          href="/blog"
+          className="inline-flex rounded-full border border-[#f4efe5]/25 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#e3dbcd] transition hover:border-[#f0c674] hover:text-[#f0c674]"
+        >
+          Back to blog
+        </Link>
+
+        <header className="mt-8">
+          <div className="mb-5 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.2em] text-[#f0c674]">
+            <span>{formatDate(post.publishedAt)}</span>
+            <span className="h-1 w-1 rounded-full bg-[#f0c674]" />
+            <span>{post.author}</span>
           </div>
-        </div>
-      );
-    }
 
-    const pageId = parsePageId(post.id);
-    if (!pageId) {
-      throw new Error('Invalid Notion page id');
-    }
+          <h1 className="font-[family-name:var(--font-poppins)] text-4xl leading-tight text-[#f9f4eb] md:text-6xl">
+            {post.title}
+          </h1>
 
-    const recordMap = await notion.getPage(pageId);
+          {post.categories?.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-2">
+              {post.categories.map((cat) => (
+                <span
+                  key={`${post._id}-${cat}`}
+                  className="rounded-full border border-[#2f8f8e]/45 bg-[#2f8f8e]/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#9ed6d4]"
+                >
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
+        </header>
 
-    return (
-      <div className="min-h-screen antialiased text-black dark:text-white bg-white dark:bg-[#181A1B]">
-        <BackButton className="text-black dark:text-white" />
-        {post.thumbnail ? (
-          <div className="max-w-4xl mx-auto px-6 py-8">
+        {post.mainImage && (
+          <div className="relative mt-10 h-[320px] w-full overflow-hidden rounded-3xl border border-[#f4efe5]/10 md:h-[460px]">
             <Image
-              src={post.thumbnail}
+              src={urlFor(post.mainImage).width(1600).height(1000).url()}
               alt={post.title}
-              className="w-full h-64 object-cover rounded-lg shadow-md"
-              width={800}
-              height={400}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
             />
           </div>
-        ) : null}
-        <article className="max-w-4xl mx-auto px-6 py-6">
-          <header className="mb-12 pb-6 border-b border-gray-200 dark:border-gray-800 px-4">
-            <h1 className="text-2xl md:text-4xl font-bold mb-6 leading-tight">
-              {post.title}
-            </h1>
-            <div className="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-400 space-x-4">
-              <span className="flex items-center">👤 {post.author}</span>
-              <FormattedDate date={post.date} />
-            </div>
-            {post.summary && (
-              <p className="text-lg text-gray-700 dark:text-gray-300 mt-4 leading-relaxed">
-                {post.summary}
-              </p>
-            )}
-          </header>
-          <div>
-            <NotionPageWrapper recordMap={recordMap} darkMode={true} />
-          </div>
-        </article>
-      </div>
-    );
-  } catch (error) {
-    console.error('Error loading blog post:', error);
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#181A1B]">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-black dark:text-white mb-4">
-            Oops! Something went wrong
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Failed to load this blog post. Try again.
-          </p>
-        </div>
-      </div>
-    );
-  }
+        )}
+
+        <section className="prose prose-invert mt-12 max-w-none">
+          <PortableText value={post.body || []} components={portableTextComponents} />
+        </section>
+      </article>
+    </main>
+  );
 }
