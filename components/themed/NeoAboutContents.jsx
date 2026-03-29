@@ -50,7 +50,7 @@ export default function NeoAboutContents() {
             <div className="md:col-span-4">
               <div className="relative mx-auto h-72 w-56 overflow-hidden rounded-2xl border-[3px] border-[#111] shadow-[5px_5px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[5px_5px_0_0_#f6f2e8]">
                 <Image
-                  src="/shohorab1.JPG"
+                  src="/about.JPG"
                   alt="Shohorab Hossain Shawon"
                   fill
                   className="object-cover"

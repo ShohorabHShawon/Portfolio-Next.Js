@@ -118,7 +118,7 @@ export default function StudioHero() {
 
             <div className="relative mt-7 overflow-hidden rounded-[1.5rem]">
               <Image
-                src="/profile.jpg"
+                src="/about.png"
                 alt="Shohorab Hossain Shawon"
                 width={640}
                 height={760}
