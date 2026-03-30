@@ -9,7 +9,7 @@ const brandsData = [
   { src: '/brands/mj_edu.jpg', name: 'MJ Education and Visa Services' },
 ];
 
-export default function NeoBrands() {
+export default function MangaBrands() {
   return (
     <section id="brands" className="relative w-full bg-[#f9f3df] py-14 dark:bg-[#0f1218]">
       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-10" />

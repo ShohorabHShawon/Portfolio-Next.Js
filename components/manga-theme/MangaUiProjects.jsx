@@ -44,7 +44,7 @@ const uiProjects = [
   },
 ];
 
-export default function NeoUiProjects() {
+export default function MangaUiProjects() {
   return (
     <section className="relative left-1/2 right-1/2 w-screen min-h-screen -translate-x-1/2 bg-[#f9f3df] py-14 dark:bg-[#0f1218]">
       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-10" />

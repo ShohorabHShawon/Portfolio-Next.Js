@@ -32,7 +32,7 @@ const popIn = {
   },
 };
 
-function NeoHero() {
+function MangaHero() {
   return (
     <section
       id="home"
@@ -47,12 +47,12 @@ function NeoHero() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-8">
         <motion.div
-          className="order-2 md:order-1 md:col-span-7"
+          className="order-2 text-center md:order-1 md:col-span-7 md:text-left"
           initial="hidden"
           animate="visible"
         >
           <motion.p
-            className="mb-6 inline-flex items-center rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-1 text-xs font-black uppercase tracking-[0.2em] text-[#111] shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8]"
+            className="mb-6 inline-flex items-center rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-1 text-xs font-black uppercase tracking-[0.2em] text-[#111] shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8] md:mx-0"
             variants={fadeUp}
             custom={0.05}
           >
@@ -69,7 +69,7 @@ function NeoHero() {
           </motion.h1>
 
           <motion.p
-            className="mt-6 max-w-2xl rounded-2xl border-[3px] border-[#111] bg-white/85 px-4 py-3 text-base font-medium leading-relaxed text-[#1e1e1e] shadow-[6px_6px_0_0_#111] backdrop-blur dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white/90 dark:shadow-[6px_6px_0_0_#f6f2e8] sm:text-lg"
+            className="mx-auto mt-6 max-w-xl rounded-2xl border-[3px] border-[#111] bg-white/85 px-4 py-3 text-base font-medium leading-relaxed text-[#1e1e1e] shadow-[6px_6px_0_0_#111] backdrop-blur dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white/90 dark:shadow-[6px_6px_0_0_#f6f2e8] sm:text-lg md:mx-0"
             variants={fadeUp}
             custom={0.2}
           >
@@ -79,7 +79,7 @@ function NeoHero() {
           </motion.p>
 
           <motion.div
-            className="mt-8 flex flex-wrap items-center gap-3"
+            className="mt-8 flex flex-wrap items-center justify-center gap-2.5 md:justify-start"
             variants={fadeUp}
             custom={0.3}
           >
@@ -87,26 +87,26 @@ function NeoHero() {
               href="/Shohorab_Hossain_Shawon.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#111] px-5 py-3 text-sm font-black uppercase tracking-wide text-white shadow-[4px_4px_0_0_#ef4b3f] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#f6f2e8] dark:text-[#131313] dark:shadow-[4px_4px_0_0_#39d5ff]"
+              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#111] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-white shadow-[4px_4px_0_0_#ef4b3f] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#f6f2e8] dark:text-[#131313] dark:shadow-[4px_4px_0_0_#39d5ff] sm:text-sm"
             >
               Resume File <FiArrowUpRight />
             </Link>
             <Link
               href="/photography"
-              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#39d5ff] px-5 py-3 text-sm font-black uppercase tracking-wide text-[#101010] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#39d5ff] dark:text-[#101010] dark:shadow-[4px_4px_0_0_#f6f2e8]"
+              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#39d5ff] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-[#101010] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#39d5ff] dark:text-[#101010] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
             >
               <FiPlay className="text-xs" /> Photography
             </Link>
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ffe063] px-5 py-3 text-sm font-black uppercase tracking-wide text-[#111] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8]"
+              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-[#111] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
             >
               Story Log
             </Link>
           </motion.div>
 
           <motion.div
-            className="mt-10 flex items-center gap-3"
+            className="mt-10 flex items-center justify-center gap-3 md:justify-start"
             variants={fadeUp}
             custom={0.38}
           >
@@ -144,7 +144,7 @@ function NeoHero() {
           initial="hidden"
           animate="visible"
         >
-          <div className="relative mx-auto w-full max-w-[17rem] sm:max-w-[19rem] lg:max-w-[21rem]">
+          <div className="relative mx-auto w-full max-w-[15.5rem] sm:max-w-[17.5rem] lg:max-w-[19.5rem]">
             <div className="absolute -left-8 top-8 hidden h-[74%] w-10 -rotate-6 rounded-md border-[3px] border-[#111] bg-[#ef4b3f] shadow-[4px_4px_0_0_#111] md:block dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]" />
             <div className="absolute -right-7 -top-7 h-24 w-24 rotate-12 rounded-md border-[3px] border-[#111] bg-[#ffe063] shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]" />
 
@@ -165,7 +165,7 @@ function NeoHero() {
                 <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:14px_14px]" />
               </div>
 
-              <div className="absolute bottom-7 left-7 right-7 rounded-md border-[3px] border-white/45 bg-[#111]/70 px-4 py-3 text-white backdrop-blur">
+              <div className="relative mt-3 rounded-md border-[3px] border-white/45 bg-[#111]/70 px-4 py-3 text-white backdrop-blur sm:absolute sm:bottom-7 sm:left-7 sm:right-7 sm:mt-0">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#ffe063]">Speech Bubble</p>
                 <p className="mt-1 text-sm font-semibold">I build worlds where code, design, and cinema share the same panel.</p>
               </div>
@@ -177,4 +177,4 @@ function NeoHero() {
   );
 }
 
-export default NeoHero;
+export default MangaHero;

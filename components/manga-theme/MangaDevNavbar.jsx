@@ -12,7 +12,7 @@ const navItems = [
   { name: 'CONTACT', href: 'contact' },
 ];
 
-export default function NeoDevNavbar() {
+export default function MangaDevNavbar() {
   const [activeItem, setActiveItem] = useState('home');
   const [menuOpen, setMenuOpen] = useState(false);
 

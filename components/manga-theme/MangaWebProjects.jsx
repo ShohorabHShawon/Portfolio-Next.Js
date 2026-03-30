@@ -79,7 +79,7 @@ const webProjects = [
   },
 ];
 
-export default function NeoWebProjects() {
+export default function MangaWebProjects() {
   const [activeProject, setActiveProject] = useState(webProjects[0]);
 
   return (

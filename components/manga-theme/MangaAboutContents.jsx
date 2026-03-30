@@ -16,7 +16,7 @@ const profileData = {
   cinematography_skills: 'Cinematic Reels & Short Films',
 };
 
-export default function NeoAboutContents() {
+export default function MangaAboutContents() {
   return (
     <section id="about" className="relative w-full overflow-hidden bg-[#f9f3df] py-14 dark:bg-[#0f1218]">
       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1.1px,transparent_0)] [background-size:18px_18px] dark:opacity-15" />

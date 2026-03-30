@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { FiAlertTriangle, FiCheckCircle, FiLoader, FiMessageSquare } from 'react-icons/fi';
 
-export default function NeoContact() {
+export default function MangaContact() {
   const [status, setStatus] = useState('idle');
   const [message, setMessage] = useState('');
 

@@ -39,7 +39,7 @@ const skillCategories = [
   },
 ];
 
-export default function NeoSkills() {
+export default function MangaSkills() {
   const [activeCategory, setActiveCategory] = useState(0);
 
   return (

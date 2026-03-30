@@ -1,6 +1,6 @@
 import CurrentYear from '@/components/CurrentYear';
 
-export default function NeoFooter() {
+export default function MangaFooter() {
   return (
     <footer className="relative bg-[#f9f3df] py-12 text-[#131313] dark:bg-[#0f1218] dark:text-[#f6f2e8]">
       <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-10" />
