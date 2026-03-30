@@ -38,10 +38,10 @@ function MangaHero() {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden bg-[#f9f3df] px-4 pb-12 pt-32 text-[#131313] dark:bg-[#0f1218] dark:text-[#f6f2e8] md:px-8 md:pt-36 lg:px-12"
     >
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute -left-24 top-16 h-[26rem] w-[26rem] rounded-full bg-[#ef4b3f]/35 blur-3xl dark:bg-[#ef4b3f]/20" />
         <div className="absolute -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-[#39d5ff]/35 blur-3xl dark:bg-[#39d5ff]/20" />
-        <div className="absolute inset-0 opacity-45 [background-image:radial-gradient(circle_at_2px_2px,#111_1.2px,transparent_0)] [background-size:18px_18px] dark:opacity-15" />
+        <div className="absolute inset-0 opacity-45 [background-image:radial-gradient(circle_at_2px_2px,#111_1.2px,transparent_0)] [background-size:18px_18px] dark:opacity-25 dark:[background-image:radial-gradient(circle_at_2px_2px,rgba(246,242,232,0.55)_1.2px,transparent_0)]" />
         <div className="absolute left-0 top-0 h-24 w-full opacity-40 [background-image:repeating-linear-gradient(165deg,transparent_0,transparent_14px,rgba(255,255,255,0.7)_14px,rgba(255,255,255,0.7)_18px)] dark:opacity-20" />
       </div>
 
@@ -60,12 +60,12 @@ function MangaHero() {
           </motion.p>
 
           <motion.h1
-            className="font-poppins text-4xl font-black uppercase leading-[0.92] text-[#111] [text-shadow:4px_4px_0px_#ffe063] dark:text-[#f6f2e8] dark:[text-shadow:4px_4px_0px_#ef4b3f] sm:text-6xl lg:text-8xl"
+            className="font-poppins text-4xl font-black uppercase leading-[0.92] text-[#111] [text-shadow:4px_4px_0px_#ffe063] dark:text-[#00f6ff] dark:[text-shadow:4px_4px_0px_#ffd60a] sm:text-6xl lg:text-8xl"
             variants={fadeUp}
             custom={0.12}
           >
             SHOHORAB
-            <span className="block text-[#ef4b3f] dark:text-[#ff8f7a]">HOSSAIN SHAWON</span>
+            <span className="block text-[#ef4b3f] dark:text-[#ffe066] dark:[text-shadow:3px_3px_0px_#00f6ff]">HOSSAIN SHAWON</span>
           </motion.h1>
 
           <motion.p
@@ -74,7 +74,7 @@ function MangaHero() {
             custom={0.2}
           >
             Boss level mix of engineering and visual storytelling. I build expressive
-            digital products as a Software Engineer and Full Stack Developer, while
+            digital products as a Software Engineer and Web Developer, while
             framing stories through photography and cinematography.
           </motion.p>
 
@@ -162,10 +162,9 @@ function MangaHero() {
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(0,0,0,0.75)_100%)]" />
-                <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.5)_1px,transparent_0)] [background-size:14px_14px]" />
               </div>
 
-              <div className="relative mt-3 rounded-md border-[3px] border-white/45 bg-[#111]/70 px-4 py-3 text-white backdrop-blur sm:absolute sm:bottom-7 sm:left-7 sm:right-7 sm:mt-0">
+              <div className="relative mt-3 rounded-md border-[3px] border-white/45 bg-[#111]/70 px-4 py-3 text-white backdrop-blur">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#ffe063]">Speech Bubble</p>
                 <p className="mt-1 text-sm font-semibold">I build worlds where code, design, and cinema share the same panel.</p>
               </div>

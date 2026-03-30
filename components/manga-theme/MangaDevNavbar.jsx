@@ -45,66 +45,86 @@ export default function MangaDevNavbar() {
 
   return (
     <motion.nav
-      className="fixed top-0 z-50 w-full px-4 pt-4"
+      className="fixed top-0 z-50 w-full px-3 pt-3 sm:px-4 sm:pt-4"
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between rounded-xl border-[3px] border-[#111] bg-[#fdf7e7]/95 px-3 shadow-[6px_6px_0_0_#111] backdrop-blur dark:border-[#f6f2e8] dark:bg-[#101216]/90 dark:shadow-[6px_6px_0_0_#f6f2e8]">
-        <div className="pointer-events-none absolute inset-0 rounded-xl opacity-50 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:16px_16px] dark:opacity-15" />
-        <a
-          href="#home"
-          onClick={(e) => handleClick(e, 'home')}
-          className="relative rounded-md border-[3px] border-[#111] bg-[#ffe063] px-3 py-1 text-xs font-black tracking-[0.15em] text-[#111] shadow-[3px_3px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[3px_3px_0_0_#f6f2e8]"
-        >
-          CH.00 SHOHORAB
-        </a>
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="relative flex h-[68px] items-center justify-between overflow-hidden rounded-2xl border-[3px] border-[#111] bg-[#fff4d6]/95 px-3.5 shadow-[7px_7px_0_0_#111] backdrop-blur-sm dark:border-[#f6f2e8] dark:bg-[#0f1319]/95 dark:shadow-[7px_7px_0_0_#f6f2e8] sm:px-4">
+          <div className="pointer-events-none absolute inset-0 opacity-45 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:14px_14px] dark:opacity-15" />
+          <div className="pointer-events-none absolute -bottom-8 -right-8 h-24 w-24 rounded-full bg-[#ff8a66]/25 blur-2xl dark:bg-[#38bdf8]/20" />
 
-        <div className="hidden items-center gap-2 md:flex relative z-10">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={`#${item.href}`}
-              onClick={(e) => handleClick(e, item.href)}
-              className={`rounded-md border-[3px] px-3 py-1.5 text-xs font-black tracking-[0.12em] transition-transform hover:-translate-y-0.5 ${
-                activeItem === item.href
-                  ? 'border-[#111] bg-[#45d7ff] text-[#111] shadow-[3px_3px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[3px_3px_0_0_#f6f2e8]'
-                  : 'border-[#111]/35 bg-white/80 text-[#111] dark:border-white/35 dark:bg-white/10 dark:text-white'
-              }`}
-            >
-              {item.name}
-            </a>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-2 relative z-10">
-          <ThemeToggle />
-          <button
-            aria-label="Toggle menu"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border-[3px] border-[#111] bg-[#ef4b3f] text-sm font-black text-white shadow-[3px_3px_0_0_#111] md:hidden dark:border-[#f6f2e8] dark:shadow-[3px_3px_0_0_#f6f2e8]"
+          <a
+            href="#home"
+            onClick={(e) => handleClick(e, 'home')}
+            className="relative z-10 rounded-lg border-[3px] border-[#111] bg-[#ffe063] px-3 py-1.5 text-[11px] font-black tracking-[0.14em] text-[#111] shadow-[3px_3px_0_0_#111] transition-transform hover:-translate-y-0.5 dark:border-[#f6f2e8] dark:bg-[#f59e0b] dark:text-[#111] dark:shadow-[3px_3px_0_0_#f6f2e8]"
           >
-            {menuOpen ? 'X' : 'GO'}
-          </button>
-        </div>
-      </div>
+            CH.00 SHOHORAB
+          </a>
 
-      {menuOpen && (
-        <div className="mx-auto mt-3 w-full max-w-7xl rounded-xl border-[3px] border-[#111] bg-[#fdf7e7] p-3 shadow-[6px_6px_0_0_#111] md:hidden dark:border-[#f6f2e8] dark:bg-[#101216] dark:shadow-[6px_6px_0_0_#f6f2e8]">
-          <div className="grid grid-cols-2 gap-2">
-            {navItems.map((item) => (
+          <div className="relative z-10 hidden items-center gap-2 md:flex">
+            {navItems.map((item, index) => (
               <a
                 key={item.href}
                 href={`#${item.href}`}
                 onClick={(e) => handleClick(e, item.href)}
-                className="rounded-md border-[3px] border-[#111] bg-white px-3 py-2 text-center text-xs font-black tracking-wide text-[#111] shadow-[3px_3px_0_0_#111] dark:border-[#f6f2e8] dark:bg-white/10 dark:text-white dark:shadow-[3px_3px_0_0_#f6f2e8]"
+                className={`rounded-lg border-[3px] px-3.5 py-1.5 text-xs font-black tracking-[0.12em] transition-all duration-200 hover:-translate-y-0.5 ${
+                  activeItem === item.href
+                    ? 'border-[#111] bg-[#45d7ff] text-[#111] shadow-[3px_3px_0_0_#111] dark:border-[#f6f2e8] dark:bg-[#7dd3fc] dark:text-[#111] dark:shadow-[3px_3px_0_0_#f6f2e8]'
+                    : index % 2 === 0
+                      ? 'border-[#111]/40 bg-white/85 text-[#111] hover:bg-[#fff8e6] dark:border-white/35 dark:bg-white/10 dark:text-white dark:hover:bg-white/20'
+                      : 'border-[#111]/40 bg-[#fef3c7]/75 text-[#111] hover:bg-[#fde68a] dark:border-white/35 dark:bg-[#1f2a37] dark:text-white dark:hover:bg-[#243244]'
+                }`}
               >
                 {item.name}
               </a>
             ))}
           </div>
+
+          <div className="relative z-10 flex items-center gap-2">
+            <ThemeToggle variant="manga" />
+            <button
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((prev) => !prev)}
+              className="inline-flex h-10 min-w-10 items-center justify-center rounded-lg border-[3px] border-[#111] bg-[#ef4b3f] px-2 text-[11px] font-black tracking-[0.08em] text-white shadow-[3px_3px_0_0_#111] transition-transform hover:-translate-y-0.5 md:hidden dark:border-[#f6f2e8] dark:bg-[#f97316] dark:shadow-[3px_3px_0_0_#f6f2e8]"
+            >
+              {menuOpen ? 'CLOSE' : 'MENU'}
+            </button>
+          </div>
         </div>
-      )}
+
+        {menuOpen && (
+          <div className="relative mt-3 overflow-hidden rounded-2xl border-[3px] border-[#111] bg-[#fff4d6] p-3.5 shadow-[7px_7px_0_0_#111] md:hidden dark:border-[#f6f2e8] dark:bg-[#0f1319] dark:shadow-[7px_7px_0_0_#f6f2e8]">
+            <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:14px_14px] dark:opacity-15" />
+            <p className="relative z-10 mb-3 text-[10px] font-black uppercase tracking-[0.16em] text-[#111] dark:text-[#f6f2e8]">
+              Jump To Chapter
+            </p>
+
+            <div className="relative z-10 grid grid-cols-1 gap-2.5">
+              {navItems.map((item, index) => (
+                <a
+                  key={item.href}
+                  href={`#${item.href}`}
+                  onClick={(e) => handleClick(e, item.href)}
+                  className={`flex items-center justify-between rounded-lg border-[3px] px-3 py-2.5 text-xs font-black tracking-[0.1em] shadow-[3px_3px_0_0_#111] transition-transform hover:-translate-y-0.5 dark:border-[#f6f2e8] dark:shadow-[3px_3px_0_0_#f6f2e8] ${
+                    activeItem === item.href
+                      ? 'border-[#111] bg-[#45d7ff] text-[#111] dark:bg-[#7dd3fc] dark:text-[#111]'
+                      : 'border-[#111] bg-white text-[#111] dark:bg-[#18202a] dark:text-white'
+                  }`}
+                >
+                  <span className="rounded-md border-2 border-current px-1.5 py-0.5 text-[10px] leading-none">
+                    0{index + 1}
+                  </span>
+                  <span>{item.name}</span>
+                  <span className="text-[10px]">&gt;&gt;</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </motion.nav>
   );
 }

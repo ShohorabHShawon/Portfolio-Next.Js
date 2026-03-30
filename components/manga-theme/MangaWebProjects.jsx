@@ -84,8 +84,8 @@ export default function MangaWebProjects() {
 
   return (
     <section className="relative left-1/2 right-1/2 w-screen min-h-screen -translate-x-1/2 bg-[#f9f3df] py-14 dark:bg-[#0f1218]">
-      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-10" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="pointer-events-none absolute inset-0 z-0 opacity-40 [background-image:radial-gradient(circle_at_2px_2px,#111_1px,transparent_0)] [background-size:18px_18px] dark:opacity-25 dark:[background-image:radial-gradient(circle_at_2px_2px,rgba(246,242,232,0.5)_1px,transparent_0)]" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 text-center relative">
           <p className="mb-3 inline-flex rounded-md border-[3px] border-[#111] bg-[#ef4b3f] px-4 py-1 text-xs font-black uppercase tracking-[0.18em] text-white shadow-[4px_4px_0_0_#111] dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8]">
             CHAPTER 05
