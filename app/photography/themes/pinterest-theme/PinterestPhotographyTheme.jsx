@@ -26,14 +26,13 @@ const deterministicHash = (value) => {
   return Math.abs(hash);
 };
 
+const PINTEREST_PHOTO_ORDER_SEED = 'pinterest-photo-order-v1';
+
 export default function PinterestPhotographyTheme() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [visitSeed] = useState(() =>
-    `${Date.now()}-${Math.floor(Math.random() * 100000)}`,
-  );
 
   const filteredPhotos = useMemo(() => {
     if (selectedCategory === 'All') {
@@ -44,11 +43,11 @@ export default function PinterestPhotographyTheme() {
 
   const displayedPhotos = useMemo(() => {
     return [...filteredPhotos].sort((a, b) => {
-      const aHash = deterministicHash(`${visitSeed}-${a.src}`);
-      const bHash = deterministicHash(`${visitSeed}-${b.src}`);
+      const aHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${a.src}`);
+      const bHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${b.src}`);
       return aHash - bHash;
     });
-  }, [filteredPhotos, visitSeed]);
+  }, [filteredPhotos]);
 
   const openDetailsModal = useCallback((photo) => {
     const index = displayedPhotos.findIndex((p) => p.src === photo.src);

@@ -196,7 +196,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en" className="dark" style={{ colorScheme: 'dark' }}>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           id="schema-org"
@@ -206,9 +206,15 @@ export default function RootLayout({ children }) {
       </head>
       <body
         className={`${poppins.variable} antialiased scroll-smooth`}
+        suppressHydrationWarning
       >
         <LenisProvider>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             {children}
           </ThemeProvider>
         </LenisProvider>

@@ -166,7 +166,7 @@ const PhotoFullscreenModal = ({
                         {selectedPhoto.category}
                       </motion.span>
                       <motion.h2
-                        className="text-2xl md:text-3xl font-medium text-white mb-3"
+                        className="text-xl sm:text-2xl md:text-3xl font-medium text-white mb-3"
                         style={{
                           fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
                         }}
@@ -177,7 +177,7 @@ const PhotoFullscreenModal = ({
                         {selectedPhoto.title}
                       </motion.h2>
                       <motion.p
-                        className={`text-gray-200 leading-relaxed mb-1 text-sm md:text-base ${
+                        className={`text-gray-200 leading-relaxed mb-1 text-xs sm:text-sm md:text-base ${
                           expandedDescription ? '' : 'md:line-clamp-none line-clamp-1'
                         }`}
                         style={{

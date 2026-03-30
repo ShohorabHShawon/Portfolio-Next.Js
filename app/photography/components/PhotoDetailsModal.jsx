@@ -60,14 +60,18 @@ const PhotoDetailsModal = ({
               {/* Navigation Buttons */}
               <motion.button
                 onClick={() => navigatePhoto('prev')}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
+                className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200 ${
+                  showDetails ? 'hidden md:flex' : 'flex'
+                }`}
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-5 h-5" />
               </motion.button>
               <motion.button
                 onClick={() => navigatePhoto('next')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
+                className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200 ${
+                  showDetails ? 'hidden md:flex' : 'flex'
+                }`}
                 aria-label="Next image"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -193,7 +197,7 @@ const PhotoDetailsModal = ({
                             {selectedPhoto.category}
                           </motion.span>
                           <motion.h2
-                            className="text-2xl md:text-[2rem] font-medium text-white mb-2"
+                            className="text-xl sm:text-2xl md:text-[2rem] font-medium text-white mb-2"
                             style={{
                               fontFamily: '"Palatino Linotype", "Book Antiqua", Palatino, serif',
                             }}
@@ -204,7 +208,7 @@ const PhotoDetailsModal = ({
                             {selectedPhoto.title}
                           </motion.h2>
                           <motion.p
-                            className={`text-gray-200 leading-relaxed mb-1 text-sm md:text-base ${
+                            className={`text-gray-200 leading-relaxed mb-1 text-xs sm:text-sm md:text-base ${
                               expandedDescription ? '' : 'md:line-clamp-none line-clamp-1'
                             }`}
                             style={{
