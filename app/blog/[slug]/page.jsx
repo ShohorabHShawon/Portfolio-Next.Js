@@ -1,10 +1,10 @@
 import { groq, PortableText } from 'next-sanity';
 import {
-  Bangers,
-  Comic_Neue,
-  Permanent_Marker,
-  Source_Serif_4,
-  Space_Grotesk,
+    Bangers,
+    Comic_Neue,
+    DM_Sans,
+    Permanent_Marker,
+    Source_Serif_4,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ const accentFont = Permanent_Marker({
   weight: ['400'],
 });
 
-const modernSansFont = Space_Grotesk({
+const modernSansFont = DM_Sans({
   subsets: ['latin'],
   variable: '--font-blog-modern-sans',
 });
@@ -477,29 +477,27 @@ export default async function BlogPostPage({ params }) {
 
       <div className="blog-theme-view blog-theme-view-modern">
         <BlogMotionSection delay={0.04} y={16}>
-          <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-12 pt-24 md:px-8 md:pt-28">
+          <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-8 pt-24 md:px-8 md:pt-28">
             <article className="blog-modern-post-article">
-              <div className="blog-modern-post-topbar">
+              <div className="blog-modern-post-header">
                 <Link href="/blog" className="blog-modern-back-btn">
-                  Back To Blog
+                  Back To Stories
                 </Link>
-                <div className="blog-modern-post-top-meta">
-                  <span>{formatDate(post.publishedAt)}</span>
-                  <span>{post.author}</span>
-                </div>
+                <p className="blog-modern-meta blog-modern-post-meta">
+                  {post.author} • {formatDate(post.publishedAt)}
+                </p>
+                <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
+
+                {post.categories?.length > 0 && (
+                  <div className="blog-modern-chip-row blog-modern-chip-row-top">
+                    {post.categories.map((cat) => (
+                      <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
-
-              <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
-
-              {post.categories?.length > 0 && (
-                <div className="blog-modern-chip-row blog-modern-chip-row-top">
-                  {post.categories.map((cat) => (
-                    <span key={`${post._id}-${cat}`} className="blog-modern-chip">
-                      {cat}
-                    </span>
-                  ))}
-                </div>
-              )}
 
               {post.mainImage && (
                 <div className="blog-modern-post-hero-image">
@@ -514,26 +512,9 @@ export default async function BlogPostPage({ params }) {
                 </div>
               )}
 
-              <div className="blog-modern-post-body-grid">
-                <section className="blog-modern-post-content blog-rich-content">
-                  <PortableText value={post.body || []} components={portableTextComponents} />
-                </section>
-
-                <aside className="blog-modern-post-aside">
-                  <div className="blog-modern-aside-card">
-                    <p className="blog-modern-aside-label">Written by</p>
-                    <p className="blog-modern-aside-value">{post.author}</p>
-                  </div>
-                  <div className="blog-modern-aside-card">
-                    <p className="blog-modern-aside-label">Published</p>
-                    <p className="blog-modern-aside-value">{formatDate(post.publishedAt)}</p>
-                  </div>
-                  <div className="blog-modern-aside-card">
-                    <p className="blog-modern-aside-label">Read next</p>
-                    <p className="blog-modern-aside-value">Scroll below for related posts.</p>
-                  </div>
-                </aside>
-              </div>
+              <section className="blog-modern-post-content blog-rich-content">
+                <PortableText value={post.body || []} components={portableTextComponents} />
+              </section>
             </article>
           </section>
         </BlogMotionSection>
@@ -544,30 +525,32 @@ export default async function BlogPostPage({ params }) {
               <div className="blog-modern-grid-head">
                 <h2 className={`${modernSerifFont.className} blog-modern-grid-title`}>Read Next</h2>
                 <Link href="/blog" className="blog-modern-view-all-link">
-                  View all posts
+                  View all stories
                 </Link>
               </div>
 
-              <div className="blog-modern-grid">
+              <div className="blog-modern-feed-list">
                 {relatedPosts.map((item) => (
-                  <Link key={item._id} href={`/blog/${item.slug}`} className="blog-modern-post-card group">
-                    <div className="blog-modern-post-media">
+                  <Link key={item._id} href={`/blog/${item.slug}`} className="blog-modern-feed-item group">
+                    <div className="blog-modern-feed-copy">
+                      <p className="blog-modern-meta">{formatDate(item.publishedAt)}</p>
+                      <h3 className={`${modernSerifFont.className} blog-modern-post-title`}>{item.title}</h3>
+                      <p className="blog-modern-post-excerpt">{item.excerpt}...</p>
+                    </div>
+
+                    <div className="blog-modern-feed-media">
                       {item.mainImage ? (
                         <Image
                           src={urlFor(item.mainImage).width(800).height(520).url()}
                           alt={item.title}
                           fill
                           className="object-cover transition duration-500 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, 33vw"
+                          sizes="(max-width: 1024px) 100vw, 240px"
                         />
                       ) : (
-                        <div className="h-full w-full bg-[#dbeafe] dark:bg-[#1e293b]" />
+                        <div className="h-full w-full bg-[#ececec] dark:bg-[#222222]" />
                       )}
                     </div>
-
-                    <p className="blog-modern-meta">{formatDate(item.publishedAt)}</p>
-                    <h3 className={`${modernSerifFont.className} blog-modern-post-title`}>{item.title}</h3>
-                    <p className="blog-modern-post-excerpt">{item.excerpt}...</p>
                   </Link>
                 ))}
               </div>

@@ -1,5 +1,5 @@
 import { groq } from 'next-sanity';
-import { Bangers, Comic_Neue, Source_Serif_4, Space_Grotesk } from 'next/font/google';
+import { Bangers, Comic_Neue, DM_Sans, Source_Serif_4 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -81,7 +81,7 @@ const comicBodyFont = Comic_Neue({
   weight: ['400', '700'],
 });
 
-const modernSansFont = Space_Grotesk({
+const modernSansFont = DM_Sans({
   subsets: ['latin'],
   variable: '--font-blog-modern-sans',
 });
@@ -436,54 +436,42 @@ export default async function BlogPage() {
 
       <div className="blog-theme-view blog-theme-view-modern">
         <BlogMotionSection delay={0.04} y={16}>
-          <section className="blog-modern-hero-section mx-auto max-w-6xl px-6 pb-12 pt-24 md:px-8 md:pt-28">
-            <div className="blog-modern-hero-shell">
-              <div className="blog-modern-hero-grid">
-                <div className="blog-modern-hero-copy">
-                  <p className="blog-modern-kicker">Journal</p>
-                  <h1 className={`${modernSerifFont.className} blog-modern-hero-title`}>
-                    A Clean Logbook Of Code, Product, And Experiments.
-                  </h1>
-                  <p className="blog-modern-hero-text">
-                    Practical engineering notes, product reflections, and shipping lessons from real projects.
-                  </p>
-                  <p className="blog-modern-hero-byline">Shohorab H Shawon</p>
-
-                  <div className="blog-modern-hero-actions">
-                    <Link href="/" className="blog-modern-link-btn">
-                      Portfolio
-                    </Link>
-                    <Link href="/photography" className="blog-modern-link-btn blog-modern-link-btn-secondary">
-                      Photography
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="blog-modern-hero-side">
-                  {quoteOfDay && <QuoteOfDayCard initialQuote={quoteOfDay} />}
-                  <div className="blog-modern-summary-card">
-                    <p className="blog-modern-summary-label">Published Posts</p>
-                    <p className="blog-modern-summary-value">{posts?.length || 0}</p>
-                    <p className="blog-modern-summary-text">Updated regularly from Sanity Studio.</p>
-                  </div>
-                </div>
+          <section className="blog-modern-home-shell mx-auto max-w-6xl px-6 pb-12 pt-24 md:px-8 md:pt-28">
+            <div className="blog-modern-home-head">
+              <p className="blog-modern-kicker">Shohorab H Shawon Blog</p>
+              <div className="blog-modern-hero-actions">
+                <Link href="/" className="blog-modern-link-btn">
+                  Portfolio
+                </Link>
+                <Link href="/photography" className="blog-modern-link-btn blog-modern-link-btn-secondary">
+                  Photography
+                </Link>
               </div>
             </div>
+            <h1 className={`${modernSerifFont.className} blog-modern-hero-title`}>
+              Stories, Ideas, And Real-World Notes From Building On The Web.
+            </h1>
+            <p className="blog-modern-hero-text">
+              Engineering lessons, product reflections, and creative experiments published in an editorial format inspired by Medium.
+            </p>
+            <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
           </section>
         </BlogMotionSection>
 
         {featured ? (
           <BlogMotionSection delay={0.12} y={20}>
-            <section className="blog-modern-featured-section mx-auto max-w-6xl px-6 pb-14 md:px-8">
+            <section className="blog-modern-featured-section mx-auto max-w-6xl px-6 pb-10 md:px-8">
               {featured.slug && !featured.isDraft ? (
                 <Link href={`/blog/${featured.slug}`} className="blog-modern-featured-card group">
                   <div className="blog-modern-featured-copy">
-                    <p className="blog-modern-meta">Featured Post</p>
+                    <p className="blog-modern-meta">Featured Story</p>
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
                     <p className="blog-modern-featured-excerpt">{featured.excerpt}...</p>
                     <div className="blog-modern-featured-footer">
-                      <span>{formatDate(featured.publishedAt)}</span>
                       <span>{featured.author}</span>
+                      <span>•</span>
+                      <span>{formatDate(featured.publishedAt)}</span>
+                      <span>•</span>
                       <span>Read article</span>
                     </div>
                   </div>
@@ -510,8 +498,10 @@ export default async function BlogPage() {
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
                     <p className="blog-modern-featured-excerpt">{featured.excerpt}...</p>
                     <div className="blog-modern-featured-footer">
-                      <span>{formatDate(featured.publishedAt)}</span>
                       <span>{featured.author}</span>
+                      <span>•</span>
+                      <span>{formatDate(featured.publishedAt)}</span>
+                      <span>•</span>
                       <span>Add slug in Studio to open this post</span>
                     </div>
                   </div>
@@ -549,69 +539,77 @@ export default async function BlogPage() {
 
         {restPosts.length > 0 && (
           <BlogMotionSection delay={0.2} y={22}>
-            <section className="blog-modern-grid-section mx-auto max-w-6xl px-6 pb-20 md:px-8">
+            <section className="blog-modern-feed-shell mx-auto max-w-6xl px-6 pb-20 md:px-8">
               <div className="blog-modern-grid-head">
-                <h3 className={`${modernSerifFont.className} blog-modern-grid-title`}>Latest Articles</h3>
-                <p className="blog-modern-grid-subtitle">Freshly published notes</p>
+                <h3 className={`${modernSerifFont.className} blog-modern-grid-title`}>Latest Stories</h3>
+                <p className="blog-modern-grid-subtitle">{posts?.length || 0} published posts</p>
               </div>
 
-              <div className="blog-modern-grid">
+              <div className="blog-modern-feed-list">
                 {restPosts.map((post) => (
                   post.slug && !post.isDraft ? (
-                    <Link href={`/blog/${post.slug}`} key={post._id} className="blog-modern-post-card group">
-                      <div className="blog-modern-post-media">
+                    <Link href={`/blog/${post.slug}`} key={post._id} className="blog-modern-feed-item group">
+                      <div className="blog-modern-feed-copy">
+                        <p className="blog-modern-meta">
+                          {post.author} • {formatDate(post.publishedAt)}
+                        </p>
+                        <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
+                        <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
+
+                        <div className="blog-modern-chip-row">
+                          {(post.categories || []).slice(0, 2).map((cat) => (
+                            <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                              {cat}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="blog-modern-feed-media">
                         {post.mainImage ? (
                           <Image
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
                             className="object-cover transition duration-500 group-hover:scale-105"
-                            sizes="(max-width: 1024px) 50vw, 33vw"
+                            sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (
-                          <div className="h-full w-full bg-[#dbeafe] dark:bg-[#1e293b]" />
+                          <div className="h-full w-full bg-[#ececec] dark:bg-[#222222]" />
                         )}
-                      </div>
-
-                      <p className="blog-modern-meta">{formatDate(post.publishedAt)}</p>
-                      <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
-                      <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
-
-                      <div className="blog-modern-chip-row">
-                        {(post.categories || []).slice(0, 2).map((cat) => (
-                          <span key={`${post._id}-${cat}`} className="blog-modern-chip">
-                            {cat}
-                          </span>
-                        ))}
                       </div>
                     </Link>
                   ) : (
-                    <div key={post._id} className="blog-modern-post-card blog-modern-post-card-draft">
-                      <div className="blog-modern-post-media">
+                    <div key={post._id} className="blog-modern-feed-item blog-modern-feed-item-draft">
+                      <div className="blog-modern-feed-copy">
+                        <p className="blog-modern-meta">
+                          {post.author} • {formatDate(post.publishedAt)}
+                        </p>
+                        <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
+                        <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
+                        <p className="blog-modern-draft-note">Add a slug in Studio to open this post</p>
+
+                        <div className="blog-modern-chip-row">
+                          {(post.categories || []).slice(0, 2).map((cat) => (
+                            <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                              {cat}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="blog-modern-feed-media">
                         {post.mainImage ? (
                           <Image
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 1024px) 50vw, 33vw"
+                            sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (
-                          <div className="h-full w-full bg-[#dbeafe] dark:bg-[#1e293b]" />
+                          <div className="h-full w-full bg-[#ececec] dark:bg-[#222222]" />
                         )}
-                      </div>
-
-                      <p className="blog-modern-meta">{formatDate(post.publishedAt)}</p>
-                      <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
-                      <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
-                      <p className="blog-modern-draft-note">Add a slug in Studio to open this post</p>
-
-                      <div className="blog-modern-chip-row">
-                        {(post.categories || []).slice(0, 2).map((cat) => (
-                          <span key={`${post._id}-${cat}`} className="blog-modern-chip">
-                            {cat}
-                          </span>
-                        ))}
                       </div>
                     </div>
                   )

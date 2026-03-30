@@ -27,7 +27,7 @@ export default function StudioHero() {
           <motion.p
             variants={fadeIn}
             custom={0.02}
-            className="mb-6 inline-flex items-center rounded-xl border border-[#1f2937]/10 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1e3a4d] dark:border-[#94a3b8]/25 dark:bg-[#121b26] dark:text-[#e8dfd1]"
+            className="mb-6 flex w-fit items-center justify-center rounded-xl border border-[#1f2937]/10 bg-white px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1e3a4d] dark:border-[#94a3b8]/25 dark:bg-[#121b26] dark:text-[#e8dfd1] mx-auto md:mx-0"
           >
             Web Developer | Designer | Cinematographer | Photographer
           </motion.p>
@@ -43,7 +43,7 @@ export default function StudioHero() {
           <motion.p
             variants={fadeIn}
             custom={0.2}
-            className="mt-5 max-w-2xl text-base leading-relaxed text-[#374151] dark:text-[#d4d4d8] sm:text-lg"
+            className="mt-5 mx-auto max-w-2xl text-center text-base leading-relaxed text-[#374151] dark:text-[#d4d4d8] sm:text-lg md:mx-0 md:text-left"
           >
             I&apos;m a Software Engineer and Web Developer who builds polished digital
             products, while crafting visual narratives through photography and cinematic direction.
@@ -111,33 +111,16 @@ export default function StudioHero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="relative mx-auto w-full max-w-[250px] overflow-hidden rounded-3xl border border-[#1f2937]/10 bg-white p-3 shadow-sm sm:max-w-[280px] md:max-w-[320px] lg:max-w-[340px] dark:border-[#94a3b8]/25 dark:bg-[#121b26]">
-            <div className="absolute right-5 top-5 rounded-xl border border-[#1f2937]/10 bg-[#f7f4ee] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#1f2937] dark:border-[#94a3b8]/30 dark:bg-[#233041] dark:text-[#e8dfd1]">
-              Open for selected projects
-            </div>
-
-            <div className="relative mt-7 overflow-hidden rounded-[1.5rem]">
+          <div className="relative mx-auto w-full max-w-[220px] overflow-hidden rounded-2xl border border-[#1f2937]/10 bg-white p-2 shadow-sm sm:max-w-[240px] md:max-w-[300px] md:rounded-3xl md:p-3 lg:max-w-[320px] dark:border-[#94a3b8]/25 dark:bg-[#121b26]">
+            <div className="overflow-hidden rounded-[1.25rem] md:rounded-[1.5rem]">
               <Image
                 src="/about.png"
                 alt="Shohorab Hossain Shawon"
                 width={640}
                 height={760}
                 priority
-                className="h-[230px] w-full object-cover sm:h-[265px] md:h-[320px] lg:h-[340px]"
+                className="h-[200px] w-full object-cover sm:h-[220px] md:h-[300px] lg:h-[320px]"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,20,0)_42%,rgba(20,20,20,0.72)_100%)]" />
-              <p className="absolute bottom-5 left-5 text-xs font-semibold uppercase tracking-[0.18em] text-white">
-                Story-first visual direction
-              </p>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <div className="rounded-xl bg-[#0f2233] px-3 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-[#f5f4ef]">
-                3+ Years Experience
-              </div>
-              <div className="rounded-xl bg-[#e8dfd1] px-3 py-3 text-center text-[11px] font-semibold uppercase tracking-[0.12em] text-[#1f2937] dark:bg-[#243244] dark:text-[#f5f4ef]">
-                Multi-Disciplinary
-              </div>
             </div>
           </div>
         </motion.div>
