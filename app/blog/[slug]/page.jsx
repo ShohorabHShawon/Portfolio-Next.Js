@@ -17,6 +17,7 @@ import BlogMotionSection from '../BlogMotionSection';
 import BlogThemeShell from '../BlogThemeShell';
 import PostShareActions from '../PostShareActions';
 import ReadingProgressBar from '../ReadingProgressBar';
+import { TableOfContentsManga, TableOfContentsModern } from '../TableOfContents';
 
 export const revalidate = 120;
 export const dynamic = 'force-static';
@@ -445,25 +446,7 @@ export default async function BlogPostPage({ params }) {
             </header>
 
             {showTableOfContents && (
-              <aside className="mt-8 rounded-2xl border-4 border-black bg-[#fff7cc] p-4 shadow-[5px_5px_0_#111111] dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[5px_5px_0_#0a3a46]">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">
-                  Jump To
-                </p>
-                <ul className="mt-3 space-y-2">
-                  {tableOfContents.map((heading) => (
-                    <li key={heading.id}>
-                      <a
-                        href={`#${heading.id}`}
-                        className={`inline-flex text-sm font-bold transition hover:text-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fff7cc] dark:focus-visible:ring-[#fbbf24] dark:focus-visible:ring-offset-[#13233a] ${
-                          heading.level === 3 ? 'ml-4 text-slate-600 dark:text-[#cfe7f7]' : 'text-slate-800 dark:text-[#e6f3ff]'
-                        }`}
-                      >
-                        {heading.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </aside>
+              <TableOfContentsManga tableOfContents={tableOfContents} />
             )}
 
             {post.mainImage && (
@@ -602,25 +585,7 @@ export default async function BlogPostPage({ params }) {
               </div>
 
               {showTableOfContents && (
-                <aside className="blog-modern-toc mt-6 rounded-xl border border-[#e6e6e6] bg-[#fafaf8] p-4 dark:border-[#2a2a2a] dark:bg-[#1b1d1e]">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6b6b6b] dark:text-[#a0a0a0]">
-                    Table of contents
-                  </p>
-                  <ul className="mt-3 space-y-2">
-                    {tableOfContents.map((heading) => (
-                      <li key={heading.id}>
-                        <a
-                          href={`#${heading.id}`}
-                          className={`inline-flex text-sm text-[#3f3f3f] transition hover:text-[#191919] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a8917] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafaf8] dark:text-[#d1d1d1] dark:hover:text-[#f3f3f3] dark:focus-visible:ring-[#35b24a] dark:focus-visible:ring-offset-[#1b1d1e] ${
-                            heading.level === 3 ? 'ml-4' : ''
-                          }`}
-                        >
-                          {heading.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </aside>
+                <TableOfContentsModern tableOfContents={tableOfContents} />
               )}
 
               {post.mainImage && (
