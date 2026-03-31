@@ -522,7 +522,7 @@ export default async function BlogPage() {
               Stories, Ideas, And Real-World Notes From Building On The Web.
             </h1>
             <p className="blog-modern-hero-text">
-              Engineering lessons, product reflections, and creative experiments published in an editorial format inspired by Medium.
+              Engineering lessons, product reflections, and creative experiments published in an editorial format.
             </p>
             <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
             {quoteOfDay && (
