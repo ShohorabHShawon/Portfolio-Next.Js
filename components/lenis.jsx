@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
+import { useEffect, useRef } from 'react';
 
 export default function LenisProvider({ children }) {
   const lenisRef = useRef(null);
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.75,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       smooth: true,
       direction: 'vertical',
       gestureDirection: 'vertical',
@@ -19,6 +19,7 @@ export default function LenisProvider({ children }) {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     // Scroll to top only on the first visit of the session
     if (!sessionStorage.getItem('hasVisited')) {
@@ -34,6 +35,9 @@ export default function LenisProvider({ children }) {
     requestAnimationFrame(raf);
 
     return () => {
+      if (window.lenis === lenis) {
+        delete window.lenis;
+      }
       lenis.destroy();
     };
   }, []);

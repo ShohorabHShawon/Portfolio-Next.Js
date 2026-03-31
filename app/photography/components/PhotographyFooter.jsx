@@ -2,6 +2,18 @@
 import Link from 'next/link';
 
 const PhotographyFooter = ({ year }) => {
+  const scrollToGallery = () => {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(gallery, { offset: -12 });
+      return;
+    }
+
+    gallery.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <footer className="bg-white dark:bg-[#181A1B] border-t border-[#181A1B]/10 dark:border-white/10 py-12 px-6">
       <div className="max-w-6xl mx-auto">
@@ -29,11 +41,7 @@ const PhotographyFooter = ({ year }) => {
             </Link>
             <span className="hidden sm:block text-gray-400 dark:text-gray-600">•</span>
             <button
-              onClick={() =>
-                document
-                  .getElementById('gallery')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+              onClick={scrollToGallery}
               className="text-[#181A1B]/70 dark:text-gray-400 hover:text-[#181A1B] dark:hover:text-white transition-colors text-sm font-medium"
             >
               Gallery

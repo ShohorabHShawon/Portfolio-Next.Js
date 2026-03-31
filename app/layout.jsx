@@ -129,68 +129,89 @@ export const viewport = {
 };
 
 export default function RootLayout({ children }) {
+  const socialProfiles = [
+    'https://github.com/ShohorabHShawon',
+    'https://www.instagram.com/shohorabs.pov/',
+    'https://www.facebook.com/shohorabhshawon/',
+    'https://www.linkedin.com/in/shohorabhshawon/',
+    'https://www.behance.net/shohorabhshawon',
+  ];
+
   const schemaData = {
     '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Shohorab H Shawon',
-    alternateName: ['Shohorab Hossain Shawon', 'Shohorab Shawon'],
-    url: 'https://shohorab.com',
-    image: 'https://shohorab.com/profile.jpg',
-    description:
-      'Software Engineer, Web Developer, Photographer, and Cinematographer',
-    jobTitle: [
-      'Software Engineer',
-      'Web Developer',
-      'Photographer',
-      'Cinematographer',
-    ],
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Freelance',
-    },
-    knowsAbout: [
-      'Web Development',
-      'Software Engineering',
-      'Next.js',
-      'React',
-      'Node.js',
-      'JavaScript',
-      'TypeScript',
-      'Photography',
-      'Cinematography',
-      'Visual Design',
-    ],
-    sameAs: [
-      'https://github.com/shohorabhshawon',
-      'https://www.instagram.com/shohorabs.pov/',
-      'https://www.facebook.com/shohorabhshawon/',
-      'https://www.linkedin.com/in/shohorabhshawon/',
-    ],
-    contact: {
-      '@type': 'ContactPoint',
-      contactType: 'General Inquiry',
-      url: 'https://shohorab.com/#contact',
-    },
-    hasOffered: [
+    '@graph': [
       {
-        '@type': 'Service',
-        name: 'Web Development Services',
+        '@type': 'Person',
+        '@id': 'https://shohorab.com/#person',
+        name: 'Shohorab H Shawon',
+        alternateName: ['Shohorab Hossain Shawon', 'Shohorab Shawon'],
         url: 'https://shohorab.com',
+        image: 'https://shohorab.com/profile.jpg',
+        description:
+          'Software Engineer, Web Developer, Photographer, and Cinematographer',
+        jobTitle: [
+          'Software Engineer',
+          'Web Developer',
+          'Photographer',
+          'Cinematographer',
+        ],
+        worksFor: {
+          '@type': 'Organization',
+          name: 'Freelance',
+        },
+        knowsAbout: [
+          'Web Development',
+          'Software Engineering',
+          'Next.js',
+          'React',
+          'Node.js',
+          'JavaScript',
+          'TypeScript',
+          'Photography',
+          'Cinematography',
+          'Visual Design',
+        ],
+        sameAs: socialProfiles,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          contactType: 'General Inquiry',
+          url: 'https://shohorab.com/#contact',
+        },
+        makesOffer: [
+          {
+            '@type': 'Service',
+            name: 'Web Development Services',
+            url: 'https://shohorab.com',
+          },
+          {
+            '@type': 'Service',
+            name: 'Photography Services',
+            url: 'https://shohorab.com/photography',
+          },
+          {
+            '@type': 'Service',
+            name: 'Cinematography Services',
+            url: 'https://shohorab.com/photography',
+          },
+          {
+            '@type': 'Service',
+            name: 'Software Engineering Services',
+            url: 'https://shohorab.com',
+          },
+        ],
       },
       {
-        '@type': 'Service',
-        name: 'Photography Services',
-        url: 'https://shohorab.com/photography',
-      },
-      {
-        '@type': 'Service',
-        name: 'Cinematography Services',
-        url: 'https://shohorab.com/photography',
-      },
-      {
-        '@type': 'Service',
-        name: 'Software Engineering Services',
+        '@type': 'WebSite',
+        '@id': 'https://shohorab.com/#website',
         url: 'https://shohorab.com',
+        name: 'Shohorab H Shawon Portfolio',
+        description:
+          'Portfolio of Shohorab H Shawon featuring software engineering, web development, photography, and cinematography work.',
+        inLanguage: 'en',
+        publisher: {
+          '@id': 'https://shohorab.com/#person',
+        },
+        sameAs: socialProfiles,
       },
     ],
   };

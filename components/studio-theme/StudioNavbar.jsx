@@ -42,7 +42,15 @@ export default function StudioNavbar() {
     e.preventDefault();
     setActiveItem(id);
     setMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(section, { offset: -12 });
+      return;
+    }
+
+    section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (

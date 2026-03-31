@@ -1,34 +1,40 @@
 'use client';
 
-import DevAboutContents from '@/components/dev-theme/AboutContents';
-import DevBrands from '@/components/dev-theme/Brands';
-import { Contact as DevContact } from '@/components/dev-theme/Contact';
-import DevNavbar from '@/components/dev-theme/DevNavbar';
-import DevFooter from '@/components/dev-theme/Footer';
-import DevHero from '@/components/dev-theme/Hero';
-import DevSkills from '@/components/dev-theme/Skills';
-import DevUiProjects from '@/components/dev-theme/UiProjects';
-import DevWebProjects from '@/components/dev-theme/WebProjects';
-import MangaAboutContents from '@/components/manga-theme/MangaAboutContents';
-import MangaBrands from '@/components/manga-theme/MangaBrands';
-import MangaContact from '@/components/manga-theme/MangaContact';
-import MangaDevNavbar from '@/components/manga-theme/MangaDevNavbar';
-import MangaFooter from '@/components/manga-theme/MangaFooter';
-import MangaHero from '@/components/manga-theme/MangaHero';
-import MangaSkills from '@/components/manga-theme/MangaSkills';
-import MangaUiProjects from '@/components/manga-theme/MangaUiProjects';
-import MangaWebProjects from '@/components/manga-theme/MangaWebProjects';
-import StudioAboutContents from '@/components/studio-theme/StudioAboutContents';
-import StudioBrands from '@/components/studio-theme/StudioBrands';
-import StudioContact from '@/components/studio-theme/StudioContact';
-import StudioFooter from '@/components/studio-theme/StudioFooter';
-import StudioHero from '@/components/studio-theme/StudioHero';
-import StudioNavbar from '@/components/studio-theme/StudioNavbar';
-import StudioSkills from '@/components/studio-theme/StudioSkills';
-import StudioUiProjects from '@/components/studio-theme/StudioUiProjects';
-import StudioWebProjects from '@/components/studio-theme/StudioWebProjects';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import dynamic from 'next/dynamic';
 import { useEffect, useMemo, useState } from 'react';
+
+const DevAboutContents = dynamic(() => import('@/components/dev-theme/AboutContents'));
+const DevBrands = dynamic(() => import('@/components/dev-theme/Brands'));
+const DevContact = dynamic(() =>
+  import('@/components/dev-theme/Contact').then((mod) => mod.Contact),
+);
+const DevNavbar = dynamic(() => import('@/components/dev-theme/DevNavbar'));
+const DevFooter = dynamic(() => import('@/components/dev-theme/Footer'));
+const DevHero = dynamic(() => import('@/components/dev-theme/Hero'));
+const DevSkills = dynamic(() => import('@/components/dev-theme/Skills'));
+const DevUiProjects = dynamic(() => import('@/components/dev-theme/UiProjects'));
+const DevWebProjects = dynamic(() => import('@/components/dev-theme/WebProjects'));
+
+const StudioAboutContents = dynamic(() => import('@/components/studio-theme/StudioAboutContents'));
+const StudioBrands = dynamic(() => import('@/components/studio-theme/StudioBrands'));
+const StudioContact = dynamic(() => import('@/components/studio-theme/StudioContact'));
+const StudioFooter = dynamic(() => import('@/components/studio-theme/StudioFooter'));
+const StudioHero = dynamic(() => import('@/components/studio-theme/StudioHero'));
+const StudioNavbar = dynamic(() => import('@/components/studio-theme/StudioNavbar'));
+const StudioSkills = dynamic(() => import('@/components/studio-theme/StudioSkills'));
+const StudioUiProjects = dynamic(() => import('@/components/studio-theme/StudioUiProjects'));
+const StudioWebProjects = dynamic(() => import('@/components/studio-theme/StudioWebProjects'));
+
+const MangaAboutContents = dynamic(() => import('@/components/manga-theme/MangaAboutContents'));
+const MangaBrands = dynamic(() => import('@/components/manga-theme/MangaBrands'));
+const MangaContact = dynamic(() => import('@/components/manga-theme/MangaContact'));
+const MangaDevNavbar = dynamic(() => import('@/components/manga-theme/MangaDevNavbar'));
+const MangaFooter = dynamic(() => import('@/components/manga-theme/MangaFooter'));
+const MangaHero = dynamic(() => import('@/components/manga-theme/MangaHero'));
+const MangaSkills = dynamic(() => import('@/components/manga-theme/MangaSkills'));
+const MangaUiProjects = dynamic(() => import('@/components/manga-theme/MangaUiProjects'));
+const MangaWebProjects = dynamic(() => import('@/components/manga-theme/MangaWebProjects'));
 
 const STORAGE_KEY = 'homepage-theme';
 
@@ -75,7 +81,6 @@ const HOMEPAGE_THEMES = {
 };
 
 const THEME_ORDER = ['dev', 'studio', 'comic'];
-
 
 export default function Home() {
   const [activeTheme, setActiveTheme] = useState('dev');

@@ -6,6 +6,18 @@ import Link from 'next/link';
 export default function VintageHero({ photos }) {
   const heroPhotos = photos?.slice(0, 4) || [];
 
+  const scrollToGallery = () => {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(gallery, { offset: -12 });
+      return;
+    }
+
+    gallery.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="relative overflow-hidden pt-24 pb-12 md:pt-28 md:pb-14">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-5 md:grid-cols-[1.25fr_0.95fr] md:px-8">
@@ -32,11 +44,7 @@ export default function VintageHero({ photos }) {
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() =>
-                document
-                  .getElementById('gallery')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
+              onClick={scrollToGallery}
               className="rounded-full border border-[#5f4a36] bg-[#5f4a36] px-7 py-2.5 text-sm uppercase tracking-[0.15em] text-[#f8f1e5] transition hover:bg-[#4d3b2b]"
             >
               Explore Archive

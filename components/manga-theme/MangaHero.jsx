@@ -33,6 +33,19 @@ const popIn = {
 };
 
 function MangaHero() {
+  const scrollToContact = (e) => {
+    e.preventDefault();
+    const section = document.getElementById('contact');
+    if (!section) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(section, { offset: -12 });
+      return;
+    }
+
+    section.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       id="home"
@@ -102,6 +115,13 @@ function MangaHero() {
               className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-[#111] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
             >
               Story Log
+            </Link>
+            <Link
+              href="#contact"
+              onClick={scrollToContact}
+              className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ef4b3f] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-white shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
+            >
+              Contact Now
             </Link>
           </motion.div>
 

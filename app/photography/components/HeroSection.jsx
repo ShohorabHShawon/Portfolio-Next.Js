@@ -6,6 +6,18 @@ import Link from 'next/link';
 const HeroSection = ({ photos }) => {
   if (!photos || photos.length === 0) return null;
 
+  const scrollToGallery = () => {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(gallery, { offset: -12 });
+      return;
+    }
+
+    gallery.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="relative bg-white dark:bg-[#181A1B] flex flex-col items-center overflow-hidden">
       {/* Top Decorative Element */}
@@ -68,11 +80,7 @@ const HeroSection = ({ photos }) => {
             className="flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center sm:gap-4"
           >
             <motion.button
-              onClick={() =>
-                document
-                  .getElementById('gallery')
-                  .scrollIntoView({ behavior: 'smooth' })
-              }
+              onClick={scrollToGallery}
               className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm bg-[#181A1B] dark:bg-white text-white dark:text-black rounded-full font-medium hover:bg-[#181A1B]/90 dark:hover:bg-gray-200 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

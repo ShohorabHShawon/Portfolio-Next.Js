@@ -28,6 +28,19 @@ const itemVariants = {
 };
 
 function Hero() {
+  const scrollToContact = (e) => {
+    e.preventDefault();
+    const section = document.getElementById('contact');
+    if (!section) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(section, { offset: -12 });
+      return;
+    }
+
+    section.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       className="relative flex items-center justify-center min-h-screen bg-gray-50 dark:bg-[#181A1B] overflow-hidden px-4 pb-6 md:pb-0"
@@ -153,6 +166,27 @@ function Hero() {
                   strokeLinejoin="round"
                   strokeWidth={2}
                   d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </Link>
+            <Link
+              href="#contact"
+              onClick={scrollToContact}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
+            >
+              Contact Now
+              <svg
+                className="inline-block ml-2 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 8h10M7 12h10m-7 4h7"
                 />
               </svg>
             </Link>

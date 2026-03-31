@@ -46,9 +46,9 @@ html.theme-transitioning *::after {
   }
 }
 @layer base {
-  /* Enable smooth scrolling for the entire document */
+  /* Lenis handles smooth scrolling to avoid stacked animations */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   /* Width of the scrollbar */

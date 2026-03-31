@@ -52,6 +52,10 @@ const DevNavbar = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
+      if (window.lenis) {
+        window.lenis.scrollTo(element, { offset: -12 });
+        return;
+      }
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };

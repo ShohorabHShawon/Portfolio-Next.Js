@@ -15,6 +15,19 @@ const fadeIn = {
 };
 
 export default function StudioHero() {
+  const scrollToContact = (e) => {
+    e.preventDefault();
+    const section = document.getElementById('contact');
+    if (!section) return;
+
+    if (window.lenis) {
+      window.lenis.scrollTo(section, { offset: -12 });
+      return;
+    }
+
+    section.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       id="home"
@@ -73,6 +86,13 @@ export default function StudioHero() {
               className="inline-flex items-center rounded-xl border border-[#1f2937]/10 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#1f2937] transition hover:bg-[#f3f4f6] dark:border-[#94a3b8]/25 dark:bg-[#121b26] dark:text-[#e5e7eb] dark:hover:bg-[#1f2a37]"
             >
               Blog
+            </Link>
+            <Link
+              href="#contact"
+              onClick={scrollToContact}
+              className="inline-flex items-center rounded-xl bg-emerald-600 px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-emerald-700"
+            >
+              Contact Now
             </Link>
           </motion.div>
 
