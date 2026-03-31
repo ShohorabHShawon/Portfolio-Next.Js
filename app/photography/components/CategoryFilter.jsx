@@ -16,12 +16,17 @@ const CategoryFilter = ({
   sortOptions,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const sortDropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+      }
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target)) {
+        setIsSortOpen(false);
       }
     };
 
@@ -64,21 +69,44 @@ const CategoryFilter = ({
             )}
           </label>
 
-          <label className="flex items-center gap-3 rounded-2xl border border-[#181A1B]/10 bg-white px-4 py-3 shadow-sm dark:border-white/10 dark:bg-[#121314]/80">
-            <SlidersHorizontal className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
-            <select
-              value={sortBy}
-              onChange={(event) => setSortBy(event.target.value)}
-              className="w-full bg-transparent text-sm text-[#181A1B] outline-none dark:text-white dark:[(appearance:none)]"
-              aria-label="Sort photos"
+          <div className="relative" ref={sortDropdownRef}>
+            <button
+              onClick={() => setIsSortOpen(!isSortOpen)}
+              className="flex w-full items-center gap-3 rounded-2xl border border-[#181A1B]/10 bg-white px-4 py-3 shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15"
             >
-              {sortOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
+              <SlidersHorizontal className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
+              <span className="flex-1 text-left text-sm text-[#181A1B] dark:text-white">
+                {sortOptions.find((opt) => opt.value === sortBy)?.label || 'Sort'}
+              </span>
+              <ChevronDown
+                className="h-4 w-4 shrink-0 text-[#181A1B]/50 transition-transform dark:text-white/45"
+                style={{ transform: isSortOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+              />
+            </button>
+
+            {isSortOpen && (
+              <div className="animation absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-white/10 bg-[#0f1011]/95 shadow-2xl backdrop-blur-xl">
+                <div className="max-h-[300px] overflow-y-auto">
+                  {sortOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setIsSortOpen(false);
+                      }}
+                      className={`w-full border-b border-white/5 px-6 py-4 text-left text-sm font-medium transition-all duration-200 last:border-b-0 ${
+                        sortBy === option.value
+                          ? 'bg-white/10 text-white'
+                          : 'text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           <div className="hidden text-right text-xs uppercase tracking-[0.18em] text-[#181A1B]/45 dark:text-white/35 lg:block">
             {resultCount} of {totalCount} photos

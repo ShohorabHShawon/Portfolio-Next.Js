@@ -31,8 +31,8 @@ const PINTEREST_PHOTO_ORDER_SEED = 'pinterest-photo-order-v1';
 
 const sortOptions = [
   { value: 'featured', label: 'Featured order' },
-  { value: 'title-asc', label: 'Title A-Z' },
-  { value: 'title-desc', label: 'Title Z-A' },
+  { value: 'recent', label: 'Recent photos' },
+  { value: 'old', label: 'Old photos' },
   { value: 'category', label: 'Category' },
 ];
 
@@ -93,10 +93,10 @@ export default function PinterestPhotographyTheme() {
     const nextPhotos = [...filteredPhotos];
 
     switch (sortBy) {
-      case 'title-asc':
-        return nextPhotos.sort((a, b) => a.title.localeCompare(b.title));
-      case 'title-desc':
-        return nextPhotos.sort((a, b) => b.title.localeCompare(a.title));
+      case 'recent':
+        return nextPhotos.sort((a, b) => photos.indexOf(b) - photos.indexOf(a));
+      case 'old':
+        return nextPhotos.sort((a, b) => photos.indexOf(a) - photos.indexOf(b));
       case 'category':
         return nextPhotos.sort(
           (a, b) =>
