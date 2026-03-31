@@ -321,7 +321,37 @@ const photos = [
   title: 'Minimalist Bird on a Wire',
   description: 'A striking, high-contrast minimalist composition featuring a single silhouetted bird perched on one of several parallel power lines, set against a stark, pure white background emphasizing negative space.',
   category: 'Street',
-}
+  },
+  {
+    src: '/images/photo50.jpg',
+    title: 'Balloon Vendor on the Sidewalk',
+    description: 'A candid street portrait of a vendor resting against a pole beside a massive, vibrant cluster of colorful balloons. Shot from a low angle, the image beautifully contrasts the playful balloons with the modern city buildings in the background.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo51.jpg',
+    title: 'Speeding Motorcyclist in the City',
+    description: 'A dynamic panning shot capturing a motorcyclist cutting through the city. The sharp focus on the rider and bike contrasts strikingly with the heavy horizontal motion blur of the background, conveying a powerful sense of speed.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo52.jpg',
+    title: 'Colorful Rickshaw in Motion',
+    description: 'An artistic panning shot of a cycle rickshaw moving quickly along a lush, tree-lined road. The sweeping motion blur turns the scene into an energetic, almost abstract display of sweeping lines and vibrant colors.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo53.jpg',
+    title: 'Night Ride Through the Streets',
+    description: 'A fast-paced nighttime panning shot featuring a commuter on a red motorcycle. The motion blur transforms the city lights and background buildings into smooth horizontal streaks, freezing the rider in a moment of rapid transit.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo54.jpg',
+    title: 'Evening Rickshaw Journey',
+    description: 'A vibrant evening street scene captured with a panning technique, showcasing a cycle rickshaw driver and his passenger. The motion blur stretches the glowing storefront lights into warm streaks, highlighting the constant motion of city life.',
+    category: 'Street',
+  }
 
 ];
 
