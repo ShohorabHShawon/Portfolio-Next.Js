@@ -510,10 +510,10 @@ export default async function BlogPage() {
             <div className="blog-modern-home-head">
               <p className="blog-modern-kicker">Shohorab H Shawon Blog</p>
               <div className="blog-modern-hero-actions">
-                <Link href="/" className="blog-modern-link-btn">
+                <Link href="/" className="inline-flex items-center justify-center rounded-full border border-black bg-black px-[0.95rem] py-[0.45rem] text-xs font-medium text-white transition hover:bg-[#242424] hover:text-white dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-black dark:hover:bg-[#e0e0e0]">
                   Portfolio
                 </Link>
-                <Link href="/photography" className="blog-modern-link-btn blog-modern-link-btn-secondary">
+                <Link href="/photography" className="inline-flex items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-[0.95rem] py-[0.45rem] text-xs font-medium text-black transition hover:border-[#aaaaaa] hover:bg-[#fafafa] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#f3f3f3] dark:hover:border-[#5a5a5a]">
                   Photography
                 </Link>
               </div>

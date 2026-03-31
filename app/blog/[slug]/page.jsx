@@ -1,10 +1,10 @@
 import { groq, PortableText } from 'next-sanity';
 import {
-    Bangers,
-    Comic_Neue,
-    DM_Sans,
-    Permanent_Marker,
-    Source_Serif_4,
+  Bangers,
+  Comic_Neue,
+  DM_Sans,
+  Permanent_Marker,
+  Source_Serif_4,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -560,11 +560,14 @@ export default async function BlogPostPage({ params }) {
 
       <div className="blog-theme-view blog-theme-view-modern">
         <BlogMotionSection delay={0.04} y={16}>
-          <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-8 pt-24 md:px-8 md:pt-28">
+          <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-8 md:px-8">
             <article className="blog-modern-post-article">
               <div className="blog-modern-post-header">
-                <Link href="/blog" className="blog-modern-back-btn">
-                  Back To Stories
+                <Link href="/blog" className="blog-modern-back-btn inline-flex items-center gap-2 justify-center rounded-full border border-[#181A1B] bg-[#181A1B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#0f1117] hover:border-[#0f1117] dark:border-white dark:bg-white dark:text-black dark:hover:bg-[#e6e6e6] dark:hover:border-[#e6e6e6] dark:hover:text-black">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Back to Blog
                 </Link>
                 <p className="blog-modern-meta blog-modern-post-meta">
                   {post.author} • {formatDate(post.publishedAt)} • {readingTimeMinutes} min read
@@ -574,7 +577,7 @@ export default async function BlogPostPage({ params }) {
                 {post.categories?.length > 0 && (
                   <div className="blog-modern-chip-row blog-modern-chip-row-top">
                     {post.categories.map((cat) => (
-                      <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                      <span key={`${post._id}-${cat}`} className="blog-modern-chip rounded-full border border-[#e0e0e0] bg-[#f5f5f3] px-3 py-1.5 text-xs font-medium text-[#3f3f3f] dark:border-[#3a3a3a] dark:bg-[#2a2a2a] dark:text-[#d1d1d1]">
                         {cat}
                       </span>
                     ))}
