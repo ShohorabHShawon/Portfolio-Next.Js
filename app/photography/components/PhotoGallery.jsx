@@ -1,7 +1,92 @@
 'use client';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
+
+const PhotoItem = ({ photo, isPriority, openDetailsModal }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageDimensions, setImageDimensions] = useState(null);
+
+  // Calculate aspect ratio from image dimensions
+  const aspectRatio = imageDimensions ? (imageDimensions.height / imageDimensions.width) : (560 / 400);
+
+  return (
+    <button
+      type="button"
+      className="mb-4 block align-top break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
+      onClick={() => openDetailsModal(photo)}
+      aria-label={`Open ${photo.title}`}
+    >
+      {/* Fixed aspect ratio container */}
+      <div 
+        className="relative bg-gray-200 dark:bg-gray-800 overflow-hidden"
+        style={{
+          paddingBottom: `${aspectRatio * 100}%`,
+          height: 0,
+        }}
+      >
+        {/* Skeleton Loader */}
+        <AnimatePresence>
+          {isLoading && (
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{
+                backgroundSize: '200% 100%',
+                animation: 'shimmer 2s infinite',
+              }}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Image Container */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoading ? 0 : 1 }}
+          transition={{ duration: 0.4, ease: 'easeOut' }}
+          className="absolute inset-0 w-full h-full"
+        >
+          <Image
+            src={photo.src}
+            alt={photo.title}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+            priority={isPriority}
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] [transform:translateZ(0)] [backface-visibility:hidden]"
+            onLoadingComplete={(result) => {
+              setImageDimensions({
+                width: result.naturalWidth,
+                height: result.naturalHeight,
+              });
+              setIsLoading(false);
+            }}
+          />
+        </motion.div>
+
+        {/* Hover Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-4 left-4 text-white">
+            <h3 className="font-semibold font-poppins text-sm">{photo.title}</h3>
+            <p className="text-xs text-gray-300">{photo.category}</p>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+      `}</style>
+    </button>
+  );
+};
 
 const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) => {
   const prioritizedSrcSet = useMemo(() => {
@@ -35,33 +120,12 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
       transition={{ duration: 0.32, ease: 'easeOut' }}
     >
       {filteredPhotos.map((photo) => (
-        <button
-          type="button"
+        <PhotoItem
           key={photo.src}
-          className="mb-4 block align-top break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
-          onClick={() => openDetailsModal(photo)}
-          aria-label={`Open ${photo.title}`}
-        >
-          <div className="relative bg-gray-200 dark:bg-gray-800 aspect-auto overflow-hidden">
-            <Image
-              src={photo.src}
-              alt={photo.title}
-              width={400}
-              height={560}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-              priority={prioritizedSrcSet.has(photo.src)}
-              style={{ height: 'auto' }}
-              className="block w-full h-auto transition-transform duration-500 group-hover:scale-[1.03] [transform:translateZ(0)] [backface-visibility:hidden]"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-4 left-4 text-white">
-                <h3 className="font-semibold font-poppins text-sm">{photo.title}</h3>
-                <p className="text-xs text-gray-300">{photo.category}</p>
-              </div>
-            </div>
-          </div>
-        </button>
+          photo={photo}
+          isPriority={prioritizedSrcSet.has(photo.src)}
+          openDetailsModal={openDetailsModal}
+        />
       ))}
     </motion.div>
   );

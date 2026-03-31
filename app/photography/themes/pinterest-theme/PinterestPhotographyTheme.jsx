@@ -102,12 +102,20 @@ export default function PinterestPhotographyTheme() {
           (a, b) =>
             a.category.localeCompare(b.category) || a.title.localeCompare(b.title),
         );
-      default:
-        return nextPhotos.sort((a, b) => {
-          const aHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${a.src}`);
-          const bHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${b.src}`);
-          return aHash - bHash;
-        });
+      default: {
+        // Featured order: arrange from middle outward
+        if (nextPhotos.length <= 1) return nextPhotos;
+        
+        const middleIndex = Math.floor(nextPhotos.length / 2);
+        const arranged = [nextPhotos[middleIndex]];
+        
+        for (let i = 1; i <= middleIndex; i++) {
+          if (middleIndex - i >= 0) arranged.push(nextPhotos[middleIndex - i]);
+          if (middleIndex + i < nextPhotos.length) arranged.push(nextPhotos[middleIndex + i]);
+        }
+        
+        return arranged;
+      }
     }
   }, [filteredPhotos, sortBy]);
 
