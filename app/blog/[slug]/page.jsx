@@ -12,8 +12,11 @@ import { notFound } from 'next/navigation';
 
 import { client } from '../../../sanity/lib/client';
 import { urlFor } from '../../../sanity/lib/image';
+import BackToTopButton from '../BackToTopButton';
 import BlogMotionSection from '../BlogMotionSection';
 import BlogThemeShell from '../BlogThemeShell';
+import PostShareActions from '../PostShareActions';
+import ReadingProgressBar from '../ReadingProgressBar';
 
 export const revalidate = 120;
 export const dynamic = 'force-static';
@@ -94,7 +97,16 @@ const RELATED_POSTS_QUERY = groq`
     "slug": slug.current,
     "publishedAt": coalesce(publishedAt, _createdAt),
     mainImage,
-    "excerpt": coalesce(pt::text(body)[0...120], "Read this post for practical ideas.")
+    "excerpt": coalesce(pt::text(body)[0...120], "Read this post for practical ideas."),
+    "plainText": coalesce(pt::text(body), "")
+  }
+`;
+
+const POST_NAV_QUERY = groq`
+  *[_type == "post" && defined(slug.current) && !(_id in path("drafts.**"))]
+  | order(coalesce(publishedAt, _createdAt) desc) {
+    "slug": slug.current,
+    "title": coalesce(title, "Untitled post")
   }
 `;
 
@@ -108,7 +120,7 @@ const portableTextComponents = {
 
       return (
         <figure className="blog-rich-image my-10 overflow-hidden rounded-2xl border-4 border-black bg-white p-2 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]">
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
+          <div className="blog-image-skeleton relative aspect-[16/10] w-full overflow-hidden rounded-xl">
             <Image
               src={imageUrl}
               alt={altText}
@@ -134,15 +146,17 @@ const portableTextComponents = {
         {children}
       </h1>
     ),
-    h2: ({ children }) => (
+    h2: ({ children, value }) => (
       <h2
+        id={getHeadingId(value)}
         className={`${headingFont.className} blog-theme-heading mt-12 text-[2.2rem] uppercase leading-[0.95] tracking-wide text-[#111111] dark:text-[#eef6ff] md:text-[2.9rem]`}
       >
         {children}
       </h2>
     ),
-    h3: ({ children }) => (
+    h3: ({ children, value }) => (
       <h3
+        id={getHeadingId(value)}
         className={`${accentFont.className} blog-theme-heading mt-9 text-[1.38rem] leading-tight text-[#0f172a] dark:text-[#fbbf24] md:text-[1.62rem]`}
       >
         {children}
@@ -190,6 +204,15 @@ function formatDate(dateString) {
     month: 'long',
     day: '2-digit',
   }).format(new Date(dateString));
+}
+
+function estimateReadingTime(textContent) {
+  const words = String(textContent || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+  return Math.max(1, Math.ceil(words / 220));
 }
 
 function toPlainText(blocks, fallback = 'Read this blog post by Shohorab H Shawon.') {
@@ -292,14 +315,27 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const [post, relatedPosts] = await Promise.all([
+  const [post, relatedPostsRaw, navPostsRaw] = await Promise.all([
     client.fetch(POST_QUERY, { slug }, { next: { revalidate } }),
     client.fetch(RELATED_POSTS_QUERY, { slug }, { next: { revalidate } }),
+    client.fetch(POST_NAV_QUERY, {}, { next: { revalidate } }),
   ]);
 
   if (!post) {
     notFound();
   }
+
+  const readingTimeMinutes = estimateReadingTime(toPlainText(post.body, ''));
+  const relatedPosts = (relatedPostsRaw || []).map((item) => ({
+    ...item,
+    readingTimeMinutes: estimateReadingTime(item.plainText || item.excerpt),
+  }));
+  const tableOfContents = buildTableOfContents(post.body);
+  const showTableOfContents = tableOfContents.length >= 3;
+  const navPosts = navPostsRaw || [];
+  const currentIndex = navPosts.findIndex((item) => item.slug === slug);
+  const newerPost = currentIndex > 0 ? navPosts[currentIndex - 1] : null;
+  const olderPost = currentIndex >= 0 ? navPosts[currentIndex + 1] : null;
 
   const canonicalUrl = `${SITE_URL}/blog/${slug}`;
   const description = toPlainText(post.body, `Read ${post.title} by ${post.author}.`);
@@ -339,6 +375,9 @@ export default async function BlogPostPage({ params }) {
       <main
         className={`${bodyFont.className} ${modernSansFont.variable} ${modernSerifFont.variable} blog-page-root blog-slug-page relative min-h-screen overflow-x-hidden bg-[#fff8e1] px-5 py-14 text-[#111111] transition-colors dark:bg-[#050b18] dark:text-[#e6f3ff] md:px-8 md:py-20`}
       >
+        <ReadingProgressBar />
+        <BackToTopButton />
+
         <script
           id="blog-theme-bootstrap"
           dangerouslySetInnerHTML={{ __html: BLOG_THEME_BOOTSTRAP_SCRIPT }}
@@ -381,6 +420,8 @@ export default async function BlogPostPage({ params }) {
                 <span>{formatDate(post.publishedAt)}</span>
                 <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                 <span>{post.author}</span>
+                <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                <span>{readingTimeMinutes} min read</span>
               </div>
 
               <h1 className={`${headingFont.className} blog-theme-heading blog-post-title text-[2.9rem] uppercase leading-[0.9] tracking-wide text-slate-900 dark:text-[#eef6ff] md:text-[4.6rem]`}>
@@ -399,10 +440,34 @@ export default async function BlogPostPage({ params }) {
                   ))}
                 </div>
               )}
+
+              <PostShareActions url={canonicalUrl} title={post.title} variant="manga" />
             </header>
 
+            {showTableOfContents && (
+              <aside className="mt-8 rounded-2xl border-4 border-black bg-[#fff7cc] p-4 shadow-[5px_5px_0_#111111] dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[5px_5px_0_#0a3a46]">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">
+                  Jump To
+                </p>
+                <ul className="mt-3 space-y-2">
+                  {tableOfContents.map((heading) => (
+                    <li key={heading.id}>
+                      <a
+                        href={`#${heading.id}`}
+                        className={`inline-flex text-sm font-bold transition hover:text-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fff7cc] dark:focus-visible:ring-[#fbbf24] dark:focus-visible:ring-offset-[#13233a] ${
+                          heading.level === 3 ? 'ml-4 text-slate-600 dark:text-[#cfe7f7]' : 'text-slate-800 dark:text-[#e6f3ff]'
+                        }`}
+                      >
+                        {heading.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            )}
+
             {post.mainImage && (
-              <div className="blog-article-hero blog-modern-surface relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
+              <div className="blog-article-hero blog-image-skeleton blog-modern-surface relative mt-10 h-[300px] w-full overflow-hidden rounded-3xl border-4 border-black md:h-[440px] dark:border-[#5eead4]">
                 <span className="blog-theme-pill absolute left-3 top-3 z-10 rounded-full border-2 border-black bg-[#fde047] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#111111] dark:border-[#5eead4] dark:bg-[#1a2d52] dark:text-[#eef6ff]">
                   Scene
                 </span>
@@ -420,6 +485,38 @@ export default async function BlogPostPage({ params }) {
             <section className="blog-rich-content mt-12 max-w-none border-t-4 border-black pt-4 dark:border-[#5eead4]">
               <PortableText value={post.body || []} components={portableTextComponents} />
             </section>
+
+            {(newerPost || olderPost) && (
+              <nav className="mt-10 grid gap-3 border-t-4 border-black pt-5 dark:border-[#5eead4] sm:grid-cols-2">
+                {newerPost ? (
+                  <Link
+                    href={`/blog/${newerPost.slug}`}
+                    className="group rounded-2xl border-2 border-black bg-[#ffedd5] px-4 py-3 text-left transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:hover:bg-[#1b3652]"
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:text-[#b7d6ea]">
+                      Newer Post
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-slate-900 dark:text-[#e6f3ff]">{newerPost.title}</p>
+                  </Link>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
+
+                {olderPost ? (
+                  <Link
+                    href={`/blog/${olderPost.slug}`}
+                    className="group rounded-2xl border-2 border-black bg-[#ffedd5] px-4 py-3 text-left transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:hover:bg-[#1b3652]"
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:text-[#b7d6ea]">
+                      Older Post
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-slate-900 dark:text-[#e6f3ff]">{olderPost.title}</p>
+                  </Link>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
+              </nav>
+            )}
           </article>
         </div>
       </BlogMotionSection>
@@ -444,7 +541,7 @@ export default async function BlogPostPage({ params }) {
                   href={`/blog/${item.slug}`}
                   className="blog-post-card blog-modern-surface group overflow-hidden rounded-2xl border-4 border-black bg-white p-3 shadow-[6px_6px_0_#111111] transition hover:-translate-y-1 hover:bg-[#fff7cc] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46] dark:hover:bg-[#1b3652]"
                 >
-                  <div className="relative h-36 overflow-hidden rounded-xl">
+                  <div className="blog-image-skeleton relative h-36 overflow-hidden rounded-xl">
                     {item.mainImage ? (
                       <Image
                         src={urlFor(item.mainImage).width(800).height(520).url()}
@@ -460,6 +557,9 @@ export default async function BlogPostPage({ params }) {
 
                   <p className="blog-theme-pill mt-3 inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]">
                     {formatDate(item.publishedAt)}
+                  </p>
+                  <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-700 dark:text-[#b7d6ea]">
+                    {item.readingTimeMinutes} min read
                   </p>
                   <h3 className={`${accentFont.className} blog-theme-heading blog-post-title mt-3 text-2xl leading-[1] text-slate-900 dark:text-[#fbbf24]`}>
                     {item.title}
@@ -484,7 +584,7 @@ export default async function BlogPostPage({ params }) {
                   Back To Stories
                 </Link>
                 <p className="blog-modern-meta blog-modern-post-meta">
-                  {post.author} • {formatDate(post.publishedAt)}
+                  {post.author} • {formatDate(post.publishedAt)} • {readingTimeMinutes} min read
                 </p>
                 <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
 
@@ -497,16 +597,41 @@ export default async function BlogPostPage({ params }) {
                     ))}
                   </div>
                 )}
+
+                <PostShareActions url={canonicalUrl} title={post.title} variant="modern" />
               </div>
 
+              {showTableOfContents && (
+                <aside className="blog-modern-toc mt-6 rounded-xl border border-[#e6e6e6] bg-[#fafaf8] p-4 dark:border-[#2a2a2a] dark:bg-[#1b1d1e]">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                    Table of contents
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    {tableOfContents.map((heading) => (
+                      <li key={heading.id}>
+                        <a
+                          href={`#${heading.id}`}
+                          className={`inline-flex text-sm text-[#3f3f3f] transition hover:text-[#191919] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a8917] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafaf8] dark:text-[#d1d1d1] dark:hover:text-[#f3f3f3] dark:focus-visible:ring-[#35b24a] dark:focus-visible:ring-offset-[#1b1d1e] ${
+                            heading.level === 3 ? 'ml-4' : ''
+                          }`}
+                        >
+                          {heading.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              )}
+
               {post.mainImage && (
-                <div className="blog-modern-post-hero-image">
+                <div className="blog-modern-post-hero-image blog-image-skeleton">
                   <Image
                     src={urlFor(post.mainImage).width(1600).height(1000).url()}
                     alt={post.title}
-                    fill
+                    width={1600}
+                    height={1000}
                     priority
-                    className="object-cover"
+                    className="h-auto w-full object-contain"
                     sizes="(max-width: 1024px) 100vw, 1024px"
                   />
                 </div>
@@ -515,6 +640,42 @@ export default async function BlogPostPage({ params }) {
               <section className="blog-modern-post-content blog-rich-content">
                 <PortableText value={post.body || []} components={portableTextComponents} />
               </section>
+
+              {(newerPost || olderPost) && (
+                <nav className="mt-8 grid gap-3 border-t border-[#e6e6e6] pt-5 dark:border-[#2a2a2a] sm:grid-cols-2">
+                  {newerPost ? (
+                    <Link
+                      href={`/blog/${newerPost.slug}`}
+                      className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
+                    >
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Newer Post
+                      </p>
+                      <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
+                        {newerPost.title}
+                      </p>
+                    </Link>
+                  ) : (
+                    <span aria-hidden="true" />
+                  )}
+
+                  {olderPost ? (
+                    <Link
+                      href={`/blog/${olderPost.slug}`}
+                      className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
+                    >
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Older Post
+                      </p>
+                      <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
+                        {olderPost.title}
+                      </p>
+                    </Link>
+                  ) : (
+                    <span aria-hidden="true" />
+                  )}
+                </nav>
+              )}
             </article>
           </section>
         </BlogMotionSection>
@@ -533,7 +694,9 @@ export default async function BlogPostPage({ params }) {
                 {relatedPosts.map((item) => (
                   <Link key={item._id} href={`/blog/${item.slug}`} className="blog-modern-feed-item group">
                     <div className="blog-modern-feed-copy">
-                      <p className="blog-modern-meta">{formatDate(item.publishedAt)}</p>
+                      <p className="blog-modern-meta">
+                        {formatDate(item.publishedAt)} • {item.readingTimeMinutes} min read
+                      </p>
                       <h3 className={`${modernSerifFont.className} blog-modern-post-title`}>{item.title}</h3>
                       <p className="blog-modern-post-excerpt">{item.excerpt}...</p>
                     </div>
@@ -544,7 +707,7 @@ export default async function BlogPostPage({ params }) {
                           src={urlFor(item.mainImage).width(800).height(520).url()}
                           alt={item.title}
                           fill
-                          className="object-cover transition duration-500 group-hover:scale-105"
+                          className="object-contain"
                           sizes="(max-width: 1024px) 100vw, 240px"
                         />
                       ) : (
@@ -561,4 +724,31 @@ export default async function BlogPostPage({ params }) {
       </main>
     </BlogThemeShell>
   );
+}
+
+function extractBlockText(block) {
+  if (!block || !Array.isArray(block.children)) return '';
+  return block.children
+    .map((child) => child?.text || '')
+    .join(' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getHeadingId(block) {
+  if (!block) return '';
+  return block._key ? `section-${block._key}` : '';
+}
+
+function buildTableOfContents(blocks) {
+  if (!Array.isArray(blocks)) return [];
+
+  return blocks
+    .filter((block) => block?._type === 'block' && (block.style === 'h2' || block.style === 'h3'))
+    .map((block) => ({
+      id: getHeadingId(block),
+      title: extractBlockText(block),
+      level: block.style === 'h3' ? 3 : 2,
+    }))
+    .filter((item) => item.id && item.title);
 }

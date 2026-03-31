@@ -1,10 +1,11 @@
 import { groq } from 'next-sanity';
-import { Bangers, Comic_Neue, DM_Sans, Source_Serif_4 } from 'next/font/google';
+import { Bangers, Comic_Neue, DM_Sans, Lora, Source_Serif_4 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { client } from '../../sanity/lib/client';
 import { urlFor } from '../../sanity/lib/image';
+import BlogModernFilterBar from './BlogModernFilterBar';
 import BlogMotionSection from './BlogMotionSection';
 import BlogThemeShell from './BlogThemeShell';
 import QuoteOfDayCard from './QuoteOfDayCard';
@@ -91,6 +92,12 @@ const modernSerifFont = Source_Serif_4({
   variable: '--font-blog-modern-serif',
 });
 
+const modernQuoteFont = Lora({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['italic'],
+});
+
 const BLOG_THEME_BOOTSTRAP_SCRIPT = `(function () {
   try {
     var storedTheme = window.localStorage.getItem('blog-theme');
@@ -111,7 +118,8 @@ const BLOG_POSTS_QUERY = groq`
     mainImage,
     "author": coalesce(author->name, "Unknown Author"),
     "categories": categories[]->title,
-    "excerpt": coalesce(pt::text(body)[0...190], "A thoughtful story is waiting for you here.")
+    "excerpt": coalesce(pt::text(body)[0...190], "A thoughtful story is waiting for you here."),
+    "plainText": coalesce(pt::text(body), "")
   }
 `;
 
@@ -125,12 +133,32 @@ function formatDate(dateString) {
   }).format(new Date(dateString));
 }
 
+function estimateReadingTime(textContent) {
+  const words = String(textContent || '')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+  return Math.max(1, Math.ceil(words / 220));
+}
+
 export default async function BlogPage() {
   const posts = await client.fetch(BLOG_POSTS_QUERY, {}, { next: { revalidate } });
   const quoteOfDay = getQuoteOfTheDay();
-  const featured = posts?.[0];
-  const restPosts = posts?.slice(1) || [];
-  const indexablePosts = posts || [];
+  const normalizedPosts = (posts || []).map((post) => ({
+    ...post,
+    readingTimeMinutes: estimateReadingTime(post.plainText || post.excerpt),
+  }));
+  const featured = normalizedPosts?.[0];
+  const restPosts = normalizedPosts?.slice(1) || [];
+  const indexablePosts = normalizedPosts || [];
+  const allCategories = Array.from(
+    new Set(
+      normalizedPosts.flatMap((post) => (Array.isArray(post.categories) ? post.categories : []))
+    )
+  )
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b));
 
   const blogSchema = {
     '@context': 'https://schema.org',
@@ -192,8 +220,6 @@ export default async function BlogPage() {
       <div className="blog-theme-view blog-theme-view-manga">
       <BlogMotionSection delay={0.04} y={16}>
         <section className="blog-list-hero-section relative mx-auto max-w-6xl px-6 pb-10 pt-20 md:px-8 md:pt-24">
-          {quoteOfDay && <QuoteOfDayCard initialQuote={quoteOfDay} />}
-
           <div className="blog-hero-panel blog-modern-surface rotate-[-1deg] rounded-[30px] border-4 border-black bg-[#ffdb4d] px-6 py-8 shadow-[8px_8px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[8px_8px_0_#0a3a46] md:px-10 md:py-10">
             <p className="blog-theme-pill inline-flex rounded-full border-2 border-black bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
               Manga Journal
@@ -247,6 +273,22 @@ export default async function BlogPage() {
               </Link>
             </div>
           </div>
+
+          {quoteOfDay && (
+            <div className="mt-5 md:mt-6">
+              <QuoteOfDayCard initialQuote={quoteOfDay} variant="manga" compact />
+            </div>
+          )}
+        </section>
+      </BlogMotionSection>
+
+      <BlogMotionSection delay={0.08} y={14}>
+        <section className="mx-auto max-w-6xl px-6 pb-8 md:px-8">
+          <BlogModernFilterBar
+            categories={allCategories}
+            totalPosts={normalizedPosts.length}
+            variant="manga"
+          />
         </section>
       </BlogMotionSection>
 
@@ -257,9 +299,13 @@ export default async function BlogPage() {
               <Link
                 href={`/blog/${featured.slug}`}
                 className="blog-featured-card blog-modern-surface group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] transition hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]"
+                data-blog-post-item="true"
+                data-slug={featured.slug}
+                data-search={`${featured.title} ${featured.excerpt} ${featured.author} ${(featured.categories || []).join(' ')}`}
+                data-categories={(featured.categories || []).join('|')}
               >
                 <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
-                  <div className="relative min-h-72 overflow-hidden rounded-2xl">
+                  <div className="blog-image-skeleton relative min-h-72 overflow-hidden rounded-2xl">
                     {featured.mainImage ? (
                       <Image
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
@@ -289,15 +335,23 @@ export default async function BlogPage() {
                       <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                       <span>{featured.author}</span>
                       <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>{featured.readingTimeMinutes} min read</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                       <span>Read story</span>
                     </div>
                   </div>
                 </div>
               </Link>
             ) : (
-                <div className="blog-featured-card blog-modern-surface group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]">
+                <div
+                  className="blog-featured-card blog-modern-surface group block overflow-hidden rounded-[28px] border-4 border-black bg-white p-4 shadow-[7px_7px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[7px_7px_0_#0a3a46]"
+                  data-blog-post-item="true"
+                  data-slug={featured.slug || featured._id}
+                  data-search={`${featured.title} ${featured.excerpt} ${featured.author} ${(featured.categories || []).join(' ')}`}
+                  data-categories={(featured.categories || []).join('|')}
+                >
                 <div className="grid gap-4 md:grid-cols-[1.1fr_1fr]">
-                  <div className="relative min-h-72 overflow-hidden rounded-2xl">
+                  <div className="blog-image-skeleton relative min-h-72 overflow-hidden rounded-2xl">
                     {featured.mainImage ? (
                       <Image
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
@@ -326,6 +380,8 @@ export default async function BlogPage() {
                       <span>{formatDate(featured.publishedAt)}</span>
                       <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                       <span>{featured.author}</span>
+                      <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
+                      <span>{featured.readingTimeMinutes} min read</span>
                       <span className="h-2 w-2 rounded-full bg-[#ef4444] dark:bg-[#fbbf24]" />
                       <span>Add slug in Studio to open this post</span>
                     </div>
@@ -361,8 +417,12 @@ export default async function BlogPage() {
                     href={`/blog/${post.slug}`}
                     key={post._id}
                     className="blog-post-card blog-modern-surface group block h-full rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] transition duration-300 hover:-translate-y-1 dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
+                    data-blog-post-item="true"
+                    data-slug={post.slug}
+                    data-search={`${post.title} ${post.excerpt} ${post.author} ${(post.categories || []).join(' ')}`}
+                    data-categories={(post.categories || []).join('|')}
                   >
-                    <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
+                    <div className="blog-image-skeleton relative mb-4 h-48 overflow-hidden rounded-xl">
                       {post.mainImage ? (
                         <Image
                           src={urlFor(post.mainImage).width(900).height(600).url()}
@@ -379,6 +439,9 @@ export default async function BlogPage() {
                     <p className="blog-theme-pill inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
                     <h4 className={`${comicTitleFont.className} blog-theme-heading blog-post-title mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
                     <p className="blog-post-excerpt mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
+                    <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:text-[#b7d6ea]">
+                      {post.readingTimeMinutes} min read
+                    </p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
                       {(post.categories || []).slice(0, 2).map((cat) => (
@@ -395,8 +458,12 @@ export default async function BlogPage() {
                   <div
                     key={post._id}
                     className="blog-post-card blog-modern-surface h-full rounded-[24px] border-4 border-black bg-white p-4 shadow-[6px_6px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[6px_6px_0_#0a3a46]"
+                    data-blog-post-item="true"
+                    data-slug={post.slug || post._id}
+                    data-search={`${post.title} ${post.excerpt} ${post.author} ${(post.categories || []).join(' ')}`}
+                    data-categories={(post.categories || []).join('|')}
                   >
-                    <div className="relative mb-4 h-48 overflow-hidden rounded-xl">
+                    <div className="blog-image-skeleton relative mb-4 h-48 overflow-hidden rounded-xl">
                       {post.mainImage ? (
                         <Image
                           src={urlFor(post.mainImage).width(900).height(600).url()}
@@ -413,6 +480,9 @@ export default async function BlogPage() {
                     <p className="blog-theme-pill inline-flex rounded-full border-2 border-black bg-[#ffedd5] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">{formatDate(post.publishedAt)}</p>
                     <h4 className={`${comicTitleFont.className} blog-theme-heading blog-post-title mt-3 text-3xl uppercase leading-[0.95] text-slate-900 dark:text-[#fbbf24]`}>{post.title}</h4>
                     <p className="blog-post-excerpt mt-3 text-sm leading-6 text-slate-700 dark:text-[#b7d6ea]">{post.excerpt}...</p>
+                    <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-700 dark:text-[#b7d6ea]">
+                      {post.readingTimeMinutes} min read
+                    </p>
                     <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">Add a slug in Studio to open this post</p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
@@ -455,6 +525,23 @@ export default async function BlogPage() {
               Engineering lessons, product reflections, and creative experiments published in an editorial format inspired by Medium.
             </p>
             <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
+            {quoteOfDay && (
+              <QuoteOfDayCard
+                initialQuote={quoteOfDay}
+                variant="modern"
+                quoteFontClassName={modernQuoteFont.className}
+              />
+            )}
+          </section>
+        </BlogMotionSection>
+
+        <BlogMotionSection delay={0.08} y={14}>
+          <section className="blog-modern-featured-section mx-auto px-6 pb-8 md:px-8">
+            <BlogModernFilterBar
+              categories={allCategories}
+              totalPosts={normalizedPosts.length}
+              variant="modern"
+            />
           </section>
         </BlogMotionSection>
 
@@ -462,7 +549,14 @@ export default async function BlogPage() {
           <BlogMotionSection delay={0.12} y={20}>
             <section className="blog-modern-featured-section mx-auto max-w-6xl px-6 pb-10 md:px-8">
               {featured.slug && !featured.isDraft ? (
-                <Link href={`/blog/${featured.slug}`} className="blog-modern-featured-card group">
+                <Link
+                  href={`/blog/${featured.slug}`}
+                  className="blog-modern-featured-card group"
+                  data-blog-post-item="true"
+                  data-slug={featured.slug}
+                  data-search={`${featured.title} ${featured.excerpt} ${featured.author} ${(featured.categories || []).join(' ')}`}
+                  data-categories={(featured.categories || []).join('|')}
+                >
                   <div className="blog-modern-featured-copy">
                     <p className="blog-modern-meta">Featured Story</p>
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
@@ -471,6 +565,8 @@ export default async function BlogPage() {
                       <span>{featured.author}</span>
                       <span>•</span>
                       <span>{formatDate(featured.publishedAt)}</span>
+                      <span>•</span>
+                      <span>{featured.readingTimeMinutes} min read</span>
                       <span>•</span>
                       <span>Read article</span>
                     </div>
@@ -482,7 +578,7 @@ export default async function BlogPage() {
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
                         alt={featured.title}
                         fill
-                        className="object-cover transition duration-700 group-hover:scale-105"
+                        className="object-contain"
                         sizes="(max-width: 768px) 100vw, 52vw"
                         priority
                       />
@@ -492,7 +588,13 @@ export default async function BlogPage() {
                   </div>
                 </Link>
               ) : (
-                <div className="blog-modern-featured-card">
+                <div
+                  className="blog-modern-featured-card"
+                  data-blog-post-item="true"
+                  data-slug={featured.slug || featured._id}
+                  data-search={`${featured.title} ${featured.excerpt} ${featured.author} ${(featured.categories || []).join(' ')}`}
+                  data-categories={(featured.categories || []).join('|')}
+                >
                   <div className="blog-modern-featured-copy">
                     <p className="blog-modern-meta">Draft Post</p>
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
@@ -501,6 +603,8 @@ export default async function BlogPage() {
                       <span>{featured.author}</span>
                       <span>•</span>
                       <span>{formatDate(featured.publishedAt)}</span>
+                      <span>•</span>
+                      <span>{featured.readingTimeMinutes} min read</span>
                       <span>•</span>
                       <span>Add slug in Studio to open this post</span>
                     </div>
@@ -512,7 +616,7 @@ export default async function BlogPage() {
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
                         alt={featured.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="(max-width: 768px) 100vw, 52vw"
                         priority
                       />
@@ -542,16 +646,24 @@ export default async function BlogPage() {
             <section className="blog-modern-feed-shell mx-auto max-w-6xl px-6 pb-20 md:px-8">
               <div className="blog-modern-grid-head">
                 <h3 className={`${modernSerifFont.className} blog-modern-grid-title`}>Latest Stories</h3>
-                <p className="blog-modern-grid-subtitle">{posts?.length || 0} published posts</p>
+                <p className="blog-modern-grid-subtitle">{normalizedPosts.length || 0} published posts</p>
               </div>
 
               <div className="blog-modern-feed-list">
                 {restPosts.map((post) => (
                   post.slug && !post.isDraft ? (
-                    <Link href={`/blog/${post.slug}`} key={post._id} className="blog-modern-feed-item group">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      key={post._id}
+                      className="blog-modern-feed-item group"
+                      data-blog-post-item="true"
+                      data-slug={post.slug}
+                      data-search={`${post.title} ${post.excerpt} ${post.author} ${(post.categories || []).join(' ')}`}
+                      data-categories={(post.categories || []).join('|')}
+                    >
                       <div className="blog-modern-feed-copy">
                         <p className="blog-modern-meta">
-                          {post.author} • {formatDate(post.publishedAt)}
+                          {post.author} • {formatDate(post.publishedAt)} • {post.readingTimeMinutes} min read
                         </p>
                         <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
                         <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
@@ -571,7 +683,7 @@ export default async function BlogPage() {
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
-                            className="object-cover transition duration-500 group-hover:scale-105"
+                            className="object-contain"
                             sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (
@@ -580,10 +692,17 @@ export default async function BlogPage() {
                       </div>
                     </Link>
                   ) : (
-                    <div key={post._id} className="blog-modern-feed-item blog-modern-feed-item-draft">
+                    <div
+                      key={post._id}
+                      className="blog-modern-feed-item blog-modern-feed-item-draft"
+                      data-blog-post-item="true"
+                      data-slug={post.slug || post._id}
+                      data-search={`${post.title} ${post.excerpt} ${post.author} ${(post.categories || []).join(' ')}`}
+                      data-categories={(post.categories || []).join('|')}
+                    >
                       <div className="blog-modern-feed-copy">
                         <p className="blog-modern-meta">
-                          {post.author} • {formatDate(post.publishedAt)}
+                          {post.author} • {formatDate(post.publishedAt)} • {post.readingTimeMinutes} min read
                         </p>
                         <h4 className={`${modernSerifFont.className} blog-modern-post-title`}>{post.title}</h4>
                         <p className="blog-modern-post-excerpt">{post.excerpt}...</p>
@@ -604,7 +723,7 @@ export default async function BlogPage() {
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
-                            className="object-cover"
+                            className="object-contain"
                             sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (
