@@ -54,6 +54,7 @@ const PhotoItem = ({ photo, isPriority, openDetailsModal }) => {
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
             priority={isPriority}
+            loading={isPriority ? 'eager' : 'lazy'}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.03] [transform:translateZ(0)] [backface-visibility:hidden]"
             onLoadingComplete={(result) => {
               setImageDimensions({
@@ -90,7 +91,8 @@ const PhotoItem = ({ photo, isPriority, openDetailsModal }) => {
 
 const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) => {
   const prioritizedSrcSet = useMemo(() => {
-    return new Set(filteredPhotos.slice(0, 8).map((photo) => photo.src));
+    // Prioritize more images for better initial perception (first 12-16 images based on viewport)
+    return new Set(filteredPhotos.slice(0, 16).map((photo) => photo.src));
   }, [filteredPhotos]);
 
   if (filteredPhotos.length === 0) {
