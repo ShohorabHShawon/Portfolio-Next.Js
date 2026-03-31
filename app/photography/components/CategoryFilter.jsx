@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { ChevronDown, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ChevronDown, Search, SlidersHorizontal, Tag, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const CategoryFilter = ({
@@ -124,9 +124,10 @@ const CategoryFilter = ({
           <div className="relative hidden md:block" ref={dropdownRef}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex w-full items-center justify-between rounded-xl border border-[#181A1B]/10 bg-white px-3 py-3 text-xs font-medium text-[#181A1B] shadow-sm transition-all hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:text-white dark:hover:border-white/15 lg:rounded-2xl lg:px-4 lg:text-sm"
+              className="flex w-full items-center gap-2 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-3 text-xs shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
             >
-              <span>{selectedCategory}</span>
+              <Tag className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
+              <span className="flex-1 text-left text-[#181A1B] dark:text-white">{selectedCategory}</span>
               <ChevronDown
                 className="h-4 w-4 shrink-0 text-[#181A1B]/50 transition-transform dark:text-white/45"
                 style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -158,11 +159,12 @@ const CategoryFilter = ({
         <div className="relative md:hidden" ref={dropdownRefMobile}>
           <button
             onClick={() => setIsOpenMobile(!isOpenMobile)}
-            className="flex w-full items-center justify-between rounded-xl border border-[#181A1B]/10 bg-white px-6 py-3 text-sm font-medium text-[#181A1B] shadow-lg transition-all hover:bg-[#181A1B]/5 dark:border-white/10 dark:bg-[#121314]/80 dark:text-white dark:hover:bg-[#121314]"
+            className="flex w-full items-center gap-2 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-3 text-xs shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
           >
-            <span>{selectedCategory}</span>
+            <Tag className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
+            <span className="flex-1 text-left text-[#181A1B] dark:text-white">{selectedCategory}</span>
             <ChevronDown
-              className="h-5 w-5 transition-transform duration-300"
+              className="h-4 w-4 shrink-0 text-[#181A1B]/50 transition-transform dark:text-white/45"
               style={{ transform: isOpenMobile ? 'rotate(180deg)' : 'rotate(0deg)' }}
             />
           </button>
