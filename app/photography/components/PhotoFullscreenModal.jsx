@@ -6,12 +6,15 @@ import {
     ChevronLeft,
     ChevronRight,
     ChevronUp,
+    Facebook,
+    Link2,
     Minimize2,
     Share2,
+    Twitter,
     X,
 } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const PhotoFullscreenModal = ({
   selectedPhoto,
@@ -24,20 +27,61 @@ const PhotoFullscreenModal = ({
   const [showDetails, setShowDetails] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
-  const [shareLabel, setShareLabel] = useState('Copy link');
+  const [shareLabel, setShareLabel] = useState('Share');
+  const [showShareMenu, setShowShareMenu] = useState(false);
+  const shareMenuRef = useRef(null);
 
   // Reset loading state when photo changes
   useEffect(() => {
     setIsImageLoading(true);
-    setShareLabel('Copy link');
+    setShareLabel('Share');
+    setShowShareMenu(false);
   }, [selectedPhoto?.src]);
 
-  const handleShare = async () => {
+  // Close share menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(e.target)) {
+        setShowShareMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleCopyLink = async () => {
     await onShare?.();
-    setShareLabel('Copied');
+    setShareLabel('Copied!');
     window.setTimeout(() => {
-      setShareLabel('Copy link');
+      setShareLabel('Share');
     }, 1500);
+  };
+
+  const handleSocialShare = (platform) => {
+    if (!selectedPhoto) return;
+    
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent(selectedPhoto.title);
+    let shareUrl = '';
+
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${title}&url=${url}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`;
+        break;
+      case 'instagram':
+        shareUrl = `https://instagram.com/`;
+        break;
+      default:
+        break;
+    }
+
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+      setShowShareMenu(false);
+    }
   };
 
   useEffect(() => {
@@ -65,15 +109,69 @@ const PhotoFullscreenModal = ({
         <DialogBackdrop className="fixed inset-0 bg-[#181A1B]" />
         <DialogPanel className="relative z-10 w-full h-full flex items-center justify-center p-4">
           <div className="absolute top-6 right-6 z-20 flex gap-3">
-            <button
-              className="flex items-center gap-2 rounded-full border border-white/25 bg-black/75 px-3 py-2 text-white shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all hover:bg-black/90"
-              onClick={handleShare}
-              title="Copy photo link"
-              aria-label="Copy photo link"
-            >
-              <Share2 className="h-4 w-4" />
-              <span className="text-xs font-medium">{shareLabel}</span>
-            </button>
+            <div className="relative" ref={shareMenuRef}>
+              <button
+                className="flex items-center gap-2 rounded-full border border-white/25 bg-black/75 px-3 py-2 text-white shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all hover:bg-black/90"
+                onClick={() => setShowShareMenu(!showShareMenu)}
+                title="Share photo"
+                aria-label="Share photo"
+              >
+                <Share2 className="h-4 w-4" />
+                <span className="text-xs font-medium">{shareLabel}</span>
+              </button>
+
+              <AnimatePresence>
+                {showShareMenu && (
+                  <motion.div
+                    className="absolute top-full right-0 mt-2 w-48 bg-[#0f1011]/95 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl"
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <button
+                      onClick={handleCopyLink}
+                      className="w-full px-4 py-2.5 text-left text-sm text-white/90 hover:bg-white/10 flex items-center gap-3 border-b border-white/5 transition-colors"
+                    >
+                      <Link2 className="w-4 h-4" />
+                      Copy Link
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSocialShare('twitter');
+                        setShowShareMenu(false);
+                      }}
+                      className="w-full px-4 py-2.5 text-left text-sm text-white/90 hover:bg-white/10 flex items-center gap-3 border-b border-white/5 transition-colors"
+                    >
+                      <Twitter className="w-4 h-4" />
+                      Share on Twitter
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSocialShare('facebook');
+                        setShowShareMenu(false);
+                      }}
+                      className="w-full px-4 py-2.5 text-left text-sm text-white/90 hover:bg-white/10 flex items-center gap-3 border-b border-white/5 transition-colors"
+                    >
+                      <Facebook className="w-4 h-4" />
+                      Share on Facebook
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleSocialShare('instagram');
+                        setShowShareMenu(false);
+                      }}
+                      className="w-full px-4 py-2.5 text-left text-sm text-white/90 hover:bg-white/10 flex items-center gap-3 transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.266.069 1.646.069 4.85 0 3.204-.012 3.584-.07 4.85-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.266-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                      </svg>
+                      Share on Instagram
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <button
               className="text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"
               onClick={exitFullscreen}
