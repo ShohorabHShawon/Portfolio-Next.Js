@@ -8,6 +8,24 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
     return new Set(filteredPhotos.slice(0, 8).map((photo) => photo.src));
   }, [filteredPhotos]);
 
+  if (filteredPhotos.length === 0) {
+    return (
+      <motion.div
+        className="mx-auto mt-14 max-w-2xl rounded-3xl border border-[#181A1B]/10 bg-white px-6 py-14 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] dark:border-white/10 dark:bg-white/5"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        <p className="text-lg font-medium text-[#181A1B] dark:text-white">
+          No photos match your current search.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-[#181A1B]/65 dark:text-white/55">
+          Try a different keyword, switch to another category, or change the sort order.
+        </p>
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       key={selectedCategory}

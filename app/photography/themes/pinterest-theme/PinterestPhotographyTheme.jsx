@@ -1,6 +1,7 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { useCallback, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import CategoryFilter from '../../components/CategoryFilter';
 import HeroSection from '../../components/HeroSection';
 import PhotoGallery from '../../components/PhotoGallery';
@@ -28,26 +29,145 @@ const deterministicHash = (value) => {
 
 const PINTEREST_PHOTO_ORDER_SEED = 'pinterest-photo-order-v1';
 
+const sortOptions = [
+  { value: 'featured', label: 'Featured order' },
+  { value: 'title-asc', label: 'Title A-Z' },
+  { value: 'title-desc', label: 'Title Z-A' },
+  { value: 'category', label: 'Category' },
+];
+
 export default function PinterestPhotographyTheme() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const hasAppliedInitialPhotoRef = useRef(false);
+
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('featured');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const filteredPhotos = useMemo(() => {
-    if (selectedCategory === 'All') {
-      return photos;
+  const sharePhoto = useCallback(async () => {
+    if (typeof window === 'undefined') {
+      return;
     }
-    return photos.filter((photo) => photo.category === selectedCategory);
-  }, [selectedCategory]);
+
+    const shareUrl = window.location.href;
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+        return;
+      }
+    } catch {
+      // Fall through to the prompt fallback.
+    }
+
+    window.prompt('Copy this photo link', shareUrl);
+  }, []);
+
+  const filteredPhotos = useMemo(() => {
+    const normalizedSearch = searchQuery.trim().toLowerCase();
+
+    return photos.filter((photo) => {
+      const categoryMatches =
+        selectedCategory === 'All' || photo.category === selectedCategory;
+
+      if (!categoryMatches) {
+        return false;
+      }
+
+      if (!normalizedSearch) {
+        return true;
+      }
+
+      return [photo.title, photo.description, photo.category].some((field) =>
+        field.toLowerCase().includes(normalizedSearch),
+      );
+    });
+  }, [searchQuery, selectedCategory]);
 
   const displayedPhotos = useMemo(() => {
-    return [...filteredPhotos].sort((a, b) => {
-      const aHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${a.src}`);
-      const bHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${b.src}`);
-      return aHash - bHash;
-    });
-  }, [filteredPhotos]);
+    const nextPhotos = [...filteredPhotos];
+
+    switch (sortBy) {
+      case 'title-asc':
+        return nextPhotos.sort((a, b) => a.title.localeCompare(b.title));
+      case 'title-desc':
+        return nextPhotos.sort((a, b) => b.title.localeCompare(a.title));
+      case 'category':
+        return nextPhotos.sort(
+          (a, b) =>
+            a.category.localeCompare(b.category) || a.title.localeCompare(b.title),
+        );
+      default:
+        return nextPhotos.sort((a, b) => {
+          const aHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${a.src}`);
+          const bHash = deterministicHash(`${PINTEREST_PHOTO_ORDER_SEED}-${b.src}`);
+          return aHash - bHash;
+        });
+    }
+  }, [filteredPhotos, sortBy]);
+
+  useEffect(() => {
+    const photoParam = searchParams.get('photo');
+
+    if (!hasAppliedInitialPhotoRef.current) {
+      hasAppliedInitialPhotoRef.current = true;
+
+      if (!photoParam) {
+        return;
+      }
+
+      const matchedPhoto = photos.find(
+        (photo) => photo.src === decodeURIComponent(photoParam),
+      );
+
+      if (matchedPhoto) {
+        setSelectedPhoto(matchedPhoto);
+        setIsFullscreen(false);
+        const matchingIndex = displayedPhotos.findIndex(
+          (photo) => photo.src === matchedPhoto.src,
+        );
+        setCurrentIndex(matchingIndex >= 0 ? matchingIndex : 0);
+      }
+
+      return;
+    }
+
+    const nextParams = new URLSearchParams(searchParams.toString());
+
+    if (selectedPhoto) {
+      nextParams.set('photo', selectedPhoto.src);
+    } else {
+      nextParams.delete('photo');
+    }
+
+    const nextUrl = nextParams.toString()
+      ? `${pathname}?${nextParams.toString()}`
+      : pathname;
+    const currentUrl = `${pathname}${window.location.search}`;
+
+    if (currentUrl !== nextUrl) {
+      router.replace(nextUrl, { scroll: false });
+    }
+  }, [displayedPhotos, pathname, router, searchParams, selectedPhoto]);
+
+  useEffect(() => {
+    if (!selectedPhoto) {
+      return;
+    }
+
+    const matchingIndex = displayedPhotos.findIndex(
+      (photo) => photo.src === selectedPhoto.src,
+    );
+
+    if (matchingIndex >= 0 && matchingIndex !== currentIndex) {
+      setCurrentIndex(matchingIndex);
+    }
+  }, [currentIndex, displayedPhotos, selectedPhoto]);
 
   const openDetailsModal = useCallback((photo) => {
     const index = displayedPhotos.findIndex((p) => p.src === photo.src);
@@ -97,6 +217,13 @@ export default function PinterestPhotographyTheme() {
             categories={categories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            resultCount={displayedPhotos.length}
+            totalCount={photos.length}
+            sortOptions={sortOptions}
           />
           <PhotoGallery
             filteredPhotos={displayedPhotos}
@@ -114,6 +241,7 @@ export default function PinterestPhotographyTheme() {
         closeModals={closeModals}
         navigatePhoto={navigatePhoto}
         openFullscreen={openFullscreen}
+        onShare={sharePhoto}
       />
 
       <PhotoFullscreenModal
@@ -122,6 +250,7 @@ export default function PinterestPhotographyTheme() {
         closeModals={closeModals}
         navigatePhoto={navigatePhoto}
         exitFullscreen={exitFullscreen}
+        onShare={sharePhoto}
       />
 
       <style jsx>{`

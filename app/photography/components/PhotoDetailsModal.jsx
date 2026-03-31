@@ -1,7 +1,15 @@
 'use client';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Maximize2, X } from 'lucide-react';
+import {
+    ChevronDown,
+    ChevronLeft,
+    ChevronRight,
+    ChevronUp,
+    Maximize2,
+    Share2,
+    X,
+} from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,17 +19,28 @@ const PhotoDetailsModal = ({
   closeModals,
   navigatePhoto,
   openFullscreen,
+  onShare,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [shareLabel, setShareLabel] = useState('Copy link');
 
   // Reset details visibility when photo changes
   useEffect(() => {
     setShowDetails(false);
     setExpandedDescription(false);
     setIsImageLoading(true);
+    setShareLabel('Copy link');
   }, [selectedPhoto?.src]);
+
+  const handleShare = async () => {
+    await onShare?.();
+    setShareLabel('Copied');
+    window.setTimeout(() => {
+      setShareLabel('Copy link');
+    }, 1500);
+  };
 
   // Keyboard navigation
   useEffect(() => {
@@ -81,6 +100,16 @@ const PhotoDetailsModal = ({
               <motion.div
                 className="absolute top-4 right-4 z-20 flex items-center gap-3"
               >
+                <motion.button
+                  onClick={handleShare}
+                  className="flex items-center gap-2 rounded-full border border-white/25 bg-black/75 px-3 py-2 text-white shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all hover:bg-black/90"
+                  aria-label="Copy photo link"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Share2 className="h-4 w-4" />
+                  <span className="text-xs font-medium">{shareLabel}</span>
+                </motion.button>
                 <motion.button
                   onClick={openFullscreen}
                   className="text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"

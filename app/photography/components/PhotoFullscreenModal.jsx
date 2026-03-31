@@ -1,7 +1,15 @@
 'use client';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Minimize2, X } from 'lucide-react';
+import {
+    ChevronDown,
+    ChevronLeft,
+    ChevronRight,
+    ChevronUp,
+    Minimize2,
+    Share2,
+    X,
+} from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -11,15 +19,26 @@ const PhotoFullscreenModal = ({
   closeModals,
   navigatePhoto,
   exitFullscreen,
+  onShare,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [expandedDescription, setExpandedDescription] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [shareLabel, setShareLabel] = useState('Copy link');
 
   // Reset loading state when photo changes
   useEffect(() => {
     setIsImageLoading(true);
+    setShareLabel('Copy link');
   }, [selectedPhoto?.src]);
+
+  const handleShare = async () => {
+    await onShare?.();
+    setShareLabel('Copied');
+    window.setTimeout(() => {
+      setShareLabel('Copy link');
+    }, 1500);
+  };
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -46,6 +65,15 @@ const PhotoFullscreenModal = ({
         <DialogBackdrop className="fixed inset-0 bg-[#181A1B]" />
         <DialogPanel className="relative z-10 w-full h-full flex items-center justify-center p-4">
           <div className="absolute top-6 right-6 z-20 flex gap-3">
+            <button
+              className="flex items-center gap-2 rounded-full border border-white/25 bg-black/75 px-3 py-2 text-white shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all hover:bg-black/90"
+              onClick={handleShare}
+              title="Copy photo link"
+              aria-label="Copy photo link"
+            >
+              <Share2 className="h-4 w-4" />
+              <span className="text-xs font-medium">{shareLabel}</span>
+            </button>
             <button
               className="text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"
               onClick={exitFullscreen}
