@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import ThemeToggle from '@/components/ThemeToggle';
@@ -28,10 +26,8 @@ function normalizeTheme(themeValue) {
 }
 
 export default function BlogThemeShell({ children }) {
-  const pathname = usePathname();
   const [activeTheme, setActiveTheme] = useState('manga');
   const [mounted, setMounted] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const isModern = activeTheme === 'modern';
 
   useEffect(() => {
@@ -48,162 +44,41 @@ export default function BlogThemeShell({ children }) {
     document.documentElement.setAttribute('data-blog-theme', activeTheme);
   }, [activeTheme, mounted]);
 
-  const setBlogTheme = (themeValue) => {
-    if (!BLOG_THEMES[themeValue]) return;
-    setActiveTheme(themeValue);
+  const changeTheme = () => {
+    const currentIndex = THEME_ORDER.indexOf(activeTheme);
+    const nextTheme = THEME_ORDER[(currentIndex + 1) % THEME_ORDER.length];
+    setActiveTheme(nextTheme);
   };
-
-  const links = [
-    { href: '/', label: 'Home' },
-    { href: '/blog', label: 'Blog' },
-    { href: '/photography', label: 'Photography' },
-  ];
-
-  const navShellClass = isModern
-    ? 'sticky top-0 z-[90] border-b border-[#e6e6e6] bg-[#fdfdfb]/90 backdrop-blur-xl dark:border-[#2a2a2a] dark:bg-[#181a1b]/90'
-    : 'sticky top-0 z-[90] border-b-4 border-black bg-[#fff7cc]/95 shadow-[0_6px_0_#111111] backdrop-blur-xl dark:border-[#5eead4] dark:bg-[#0f1a2e]/95 dark:shadow-[0_6px_0_#0a3a46]';
-
-  const linkClass = isModern
-    ? 'inline-flex min-h-[42px] items-center rounded-full border border-transparent px-3 py-2 text-sm font-medium text-[#4b4b4b] transition hover:border-[#d0d0d0] hover:text-[#191919] dark:text-[#d1d1d1] dark:hover:border-[#3a3a3a] dark:hover:text-[#f3f3f3]'
-    : 'inline-flex min-h-[42px] items-center rounded-full border-2 border-black bg-white px-3 py-2 text-sm font-bold uppercase tracking-[0.1em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]';
-
-  const linkActiveClass = isModern
-    ? 'border-[#d0d0d0] bg-white text-[#191919] dark:border-[#3a3a3a] dark:bg-[#1b1d1e] dark:text-[#f3f3f3]'
-    : 'bg-[#fde047] dark:bg-[#244a70]';
-
-  const themeSwitchWrapClass = isModern
-    ? 'inline-flex items-center rounded-full border border-[#d0d0d0] bg-white p-1 dark:border-[#3a3a3a] dark:bg-transparent'
-    : 'inline-flex items-center rounded-full border-2 border-black bg-[#fde047] p-1 dark:border-[#5eead4] dark:bg-[#244a70]';
-
-  const getThemeSwitchButtonClass = (themeValue) => {
-    const isActive = activeTheme === themeValue;
-
-    if (isModern) {
-      return `inline-flex min-h-[34px] items-center rounded-full px-3 text-xs font-semibold transition ${
-        isActive
-          ? 'bg-[#0f172a] text-white dark:bg-[#f3f3f3] dark:text-[#111111]'
-          : 'text-[#4b4b4b] hover:bg-[#f1f5f9] dark:text-[#d1d1d1] dark:hover:bg-[#1b1d1e]'
-      }`;
-    }
-
-    return `inline-flex min-h-[34px] items-center rounded-full px-3 text-[11px] font-bold uppercase tracking-[0.08em] transition ${
-      isActive
-        ? 'border border-black bg-white text-slate-900 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]'
-        : 'text-slate-800 hover:bg-[#facc15] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]'
-    }`;
-  };
-
-  const menuButtonClass = isModern
-    ? 'inline-flex min-h-[42px] items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-3 py-2 text-sm font-medium text-[#3f3f3f] transition hover:border-[#191919] hover:text-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#d1d1d1] dark:hover:border-[#f3f3f3] dark:hover:text-[#f3f3f3] md:hidden'
-    : 'inline-flex min-h-[42px] items-center justify-center rounded-full border-2 border-black bg-[#fde047] px-3 py-2 text-[11px] font-bold uppercase tracking-[0.1em] text-slate-900 transition hover:bg-[#facc15] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86] md:hidden';
-
-  const mobilePanelClass = isModern
-    ? 'mt-3 grid gap-2 border-t border-[#e6e6e6] pt-3 dark:border-[#2a2a2a] md:hidden'
-    : 'mt-3 grid gap-2 border-t-2 border-black pt-3 dark:border-[#5eead4] md:hidden';
 
   return (
     <>
-      <header className={navShellClass}>
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 md:px-8">
-          <Link
-            href="/blog"
-            className={`inline-flex min-h-[42px] items-center rounded-full px-3 py-2 ${
+      <div className="fixed right-6 top-6 z-[70] flex items-center gap-2">
+        <button
+          type="button"
+          onClick={changeTheme}
+          className="relative inline-flex h-9 w-[122px] items-center gap-1 rounded-full border border-[#cbd5e1] bg-white/95 p-1 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.55)] backdrop-blur-md transition hover:shadow-[0_14px_28px_-18px_rgba(15,23,42,0.75)] dark:border-[#334155] dark:bg-[#0f172a]/95"
+          aria-label="Change blog theme"
+          title={`Current blog theme: ${BLOG_THEMES[activeTheme]?.label || 'Manga'}`}
+        >
+          <span
+            aria-hidden="true"
+            className={`pointer-events-none absolute left-1 top-1 inline-flex h-7 w-[52px] items-center justify-center rounded-full transition-transform duration-300 ${
               isModern
-                ? 'text-sm font-semibold text-[#191919] dark:text-[#f3f3f3]'
-                : 'border-2 border-black bg-white text-xs font-bold uppercase tracking-[0.1em] text-slate-900 dark:border-[#5eead4] dark:bg-[#13233a] dark:text-[#d8ebf8]'
+                ? 'translate-x-[56px] bg-[#0f172a] dark:bg-[#e2e8f0]'
+                : 'translate-x-0 border border-black bg-[#fde047] dark:border-[#7dd3fc] dark:bg-[#f59e0b]'
             }`}
-          >
-            Shohorab Blog
-          </Link>
+          />
 
-          <nav className="hidden items-center gap-2 md:flex">
-            {links.map((item) => {
-              const isActive = item.href === '/blog'
-                ? pathname === '/blog' || pathname?.startsWith('/blog/')
-                : pathname === item.href;
+          <span className={`relative z-10 inline-flex w-[52px] items-center justify-center text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ${isModern ? 'text-[#64748b] dark:text-[#94a3b8]' : 'text-[#111827] dark:text-[#0b1220]'}`}>
+            Manga
+          </span>
+          <span className={`relative z-10 inline-flex w-[52px] items-center justify-center text-[10px] font-bold uppercase tracking-[0.06em] transition-colors ${isModern ? 'text-[#f8fafc] dark:text-[#111827]' : 'text-[#64748b] dark:text-[#94a3b8]'}`}>
+            Modern
+          </span>
+        </button>
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`${linkClass} ${isActive ? linkActiveClass : ''}`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="hidden items-center gap-2 md:flex">
-            <div className={themeSwitchWrapClass} aria-label="Blog theme switcher" role="group">
-              {THEME_ORDER.map((themeValue) => (
-                <button
-                  key={themeValue}
-                  type="button"
-                  onClick={() => setBlogTheme(themeValue)}
-                  className={getThemeSwitchButtonClass(themeValue)}
-                  aria-pressed={activeTheme === themeValue}
-                  disabled={!mounted}
-                >
-                  {BLOG_THEMES[themeValue].label}
-                </button>
-              ))}
-            </div>
-            <ThemeToggle variant={activeTheme === 'manga' ? 'blog-manga' : 'blog-modern'} />
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            className={menuButtonClass}
-            aria-expanded={menuOpen}
-            aria-label="Toggle navigation menu"
-          >
-            Menu
-          </button>
-        </div>
-
-        {menuOpen && (
-          <div className="mx-auto max-w-6xl px-5 pb-3 md:px-8">
-            <div className={mobilePanelClass}>
-              {links.map((item) => {
-                const isActive = item.href === '/blog'
-                  ? pathname === '/blog' || pathname?.startsWith('/blog/')
-                  : pathname === item.href;
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`${linkClass} ${isActive ? linkActiveClass : ''}`}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-
-              <div className="mt-2 flex flex-wrap items-center gap-2">
-                <div className={themeSwitchWrapClass} aria-label="Blog theme switcher" role="group">
-                  {THEME_ORDER.map((themeValue) => (
-                    <button
-                      key={themeValue}
-                      type="button"
-                      onClick={() => setBlogTheme(themeValue)}
-                      className={getThemeSwitchButtonClass(themeValue)}
-                      aria-pressed={activeTheme === themeValue}
-                      disabled={!mounted}
-                    >
-                      {BLOG_THEMES[themeValue].label}
-                    </button>
-                  ))}
-                </div>
-                <ThemeToggle variant={activeTheme === 'manga' ? 'blog-manga' : 'blog-modern'} />
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
+        <ThemeToggle variant={activeTheme === 'manga' ? 'manga' : 'default'} />
+      </div>
 
       {children}
     </>

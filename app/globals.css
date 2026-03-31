@@ -21,6 +21,25 @@ body {
   overflow-x: hidden;
 }
 
+/* Smooth light/dark switch for page surfaces and text during toggle */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition-property: background-color, color, border-color, text-decoration-color, fill, stroke, box-shadow;
+  transition-duration: 520ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition-duration: 0.01ms;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

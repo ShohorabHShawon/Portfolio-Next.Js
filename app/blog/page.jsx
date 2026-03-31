@@ -219,7 +219,7 @@ export default async function BlogPage() {
 
       <div className="blog-theme-view blog-theme-view-manga">
       <BlogMotionSection delay={0.04} y={16}>
-        <section className="blog-list-hero-section relative mx-auto max-w-6xl px-6 pb-10 pt-20 md:px-8 md:pt-24">
+        <section className="blog-list-hero-section relative mx-auto max-w-6xl px-6 pb-4 pt-20 md:px-8 md:pt-24">
           <div className="blog-hero-panel blog-modern-surface rotate-[-1deg] rounded-[30px] border-4 border-black bg-[#ffdb4d] px-6 py-8 shadow-[8px_8px_0_#111111] dark:border-[#5eead4] dark:bg-[#0f1a2e] dark:shadow-[8px_8px_0_#0a3a46] md:px-10 md:py-10">
             <p className="blog-theme-pill inline-flex rounded-full border-2 border-black bg-white px-4 py-1 text-xs font-bold uppercase tracking-[0.2em] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8]">
               Manga Journal
