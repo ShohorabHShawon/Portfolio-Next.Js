@@ -7,7 +7,6 @@ import CategoryFilter from '../../components/CategoryFilter';
 import HeroSection from '../../components/HeroSection';
 import PhotoGallery from '../../components/PhotoGallery';
 import PhotographyFooter from '../../components/PhotographyFooter';
-import PhotographyNavbar from '../../components/PhotographyNavbar';
 import VideoGallery from '../../components/VideoGallery';
 import { categories, photos } from '../../components/photoData';
 
@@ -271,6 +270,15 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
     setIsFullscreen(false);
   }, []);
 
+  const handleResetFilters = useCallback(() => {
+    setSearchQuery('');
+    setSelectedCategory('All');
+    setSortBy('featured');
+    setIsOpen(false);
+    setIsSortOpen(false);
+    setIsOpenMobile(false);
+  }, []);
+
   useEffect(() => {
     if (activeMedia === 'videos' && !videos.length) {
       setActiveMedia('photos');
@@ -327,13 +335,12 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#181A1B]">
-      <PhotographyNavbar />
       <HeroSection photos={photos} />
 
-      <div id="gallery" className="py-10 px-6 bg-white dark:bg-[#181A1B]">
+      <div id="gallery" className="bg-white px-4 py-10 dark:bg-[#181A1B] sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="mb-10 flex items-center justify-center"
+            className="mb-8 flex items-center justify-center"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
@@ -350,13 +357,22 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                 aria-pressed={activeMedia === 'photos'}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
                   activeMedia === 'photos'
                     ? 'bg-[#181A1B] text-white dark:bg-white dark:text-black'
                     : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
                 }`}
               >
-                Photo Gallery
+                <span>Photo Gallery</span>
+                <span
+                  className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
+                    activeMedia === 'photos'
+                      ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
+                      : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
+                  }`}
+                >
+                  {displayedPhotos.length}
+                </span>
               </motion.button>
               <motion.button
                 type="button"
@@ -365,7 +381,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                 disabled={!videos.length}
                 whileHover={videos.length ? { scale: 1.03 } : undefined}
                 whileTap={videos.length ? { scale: 0.97 } : undefined}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
+                className={`flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
                   !videos.length
                     ? 'cursor-not-allowed text-[#181A1B]/30 dark:text-white/25'
                     : activeMedia === 'videos'
@@ -373,7 +389,18 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                       : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
                 }`}
               >
-                Videos
+                <span>Videos</span>
+                <span
+                  className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
+                    !videos.length
+                      ? 'bg-[#181A1B]/5 text-[#181A1B]/35 dark:bg-white/10 dark:text-white/35'
+                      : activeMedia === 'videos'
+                        ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
+                        : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
+                  }`}
+                >
+                  {videos.length}
+                </span>
               </motion.button>
             </motion.div>
           </motion.div>
@@ -405,6 +432,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                     filteredPhotos={displayedPhotos}
                     selectedCategory={selectedCategory}
                     openDetailsModal={openDetailsModal}
+                    onClearFilters={handleResetFilters}
                   />
                 </div>
               </motion.div>

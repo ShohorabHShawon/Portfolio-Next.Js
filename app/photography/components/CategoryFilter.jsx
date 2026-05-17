@@ -115,6 +115,23 @@ const CategoryFilter = ({
     setIsOpenMobile(false);
   };
 
+  const handleResetFilters = () => {
+    setSearchQuery('');
+    setSelectedCategory('All');
+    setSortBy('featured');
+    setIsOpen(false);
+    setIsSortOpen(false);
+    setIsOpenMobile(false);
+  };
+
+  const hasActiveFilters =
+    searchQuery.trim() !== '' || selectedCategory !== 'All' || sortBy !== 'featured';
+
+  const resultSummary =
+    resultCount === totalCount
+      ? `Showing all ${totalCount} photos`
+      : `Showing ${resultCount} of ${totalCount} photos`;
+
   return (
     <div
       className={`sticky top-0 z-50 mb-16 border-b border-[#181A1B]/10 bg-white py-4 transition-[transform,opacity] duration-300 ease-out dark:border-gray-800 dark:bg-[#181A1B] md:translate-y-0 md:opacity-100 md:pointer-events-auto ${
@@ -329,6 +346,32 @@ const CategoryFilter = ({
               )}
             </div>
           </div>
+
+          <div className="flex items-center justify-between gap-3 rounded-xl bg-[#181A1B]/5 px-3 py-2 text-[11px] text-[#181A1B]/65 dark:bg-white/5 dark:text-white/55">
+            <p className="min-w-0 truncate">{resultSummary}</p>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={handleResetFilters}
+                className="shrink-0 rounded-full border border-[#181A1B]/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide text-[#181A1B]/75 transition hover:border-[#181A1B]/20 hover:bg-white dark:border-white/10 dark:text-white/70 dark:hover:border-white/20 dark:hover:bg-white/10"
+              >
+                Reset
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-3 hidden items-center justify-between gap-4 rounded-2xl bg-[#181A1B]/5 px-4 py-3 text-sm text-[#181A1B]/65 dark:bg-white/5 dark:text-white/55 md:flex">
+          <p>{resultSummary}</p>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={handleResetFilters}
+              className="rounded-full border border-[#181A1B]/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-[#181A1B]/75 transition hover:border-[#181A1B]/20 hover:bg-white dark:border-white/10 dark:text-white/70 dark:hover:border-white/20 dark:hover:bg-white/10"
+            >
+              Reset filters
+            </button>
+          )}
         </div>
       </div>
 

@@ -81,7 +81,7 @@ const HeroSection = ({ photos }) => {
           >
             <motion.button
               onClick={scrollToGallery}
-              className="inline-flex w-full min-w-0 items-center justify-center rounded-full bg-[#181A1B] px-2.5 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-white transition-colors hover:bg-[#181A1B]/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
+              className="inline-flex w-full min-w-0 items-center justify-center rounded-full bg-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-white transition-colors hover:bg-[#181A1B]/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -90,7 +90,7 @@ const HeroSection = ({ photos }) => {
 
             <Link href="/" className="w-full min-w-0 sm:w-auto">
               <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -100,7 +100,7 @@ const HeroSection = ({ photos }) => {
 
             <Link href="/blog" className="w-full min-w-0 sm:w-auto">
               <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

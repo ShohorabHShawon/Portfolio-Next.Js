@@ -88,5 +88,5 @@ export const metadata = {
 };
 
 export default function PhotographyLayout({ children }) {
-  return children;
+  return <div className="dark min-h-screen bg-[#181A1B] text-white">{children}</div>;
 }

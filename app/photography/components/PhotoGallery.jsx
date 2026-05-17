@@ -89,7 +89,12 @@ const PhotoItem = ({ photo, isPriority, openDetailsModal }) => {
   );
 };
 
-const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) => {
+const PhotoGallery = ({
+  filteredPhotos,
+  selectedCategory,
+  openDetailsModal,
+  onClearFilters,
+}) => {
   const prioritizedSrcSet = useMemo(() => {
     // Prioritize more images for better initial perception (first 12-16 images based on viewport)
     return new Set(filteredPhotos.slice(0, 16).map((photo) => photo.src));
@@ -109,6 +114,15 @@ const PhotoGallery = ({ filteredPhotos, selectedCategory, openDetailsModal }) =>
         <p className="mt-2 text-sm leading-relaxed text-[#181A1B]/65 dark:text-white/55">
           Try a different keyword, switch to another category, or change the sort order.
         </p>
+        {typeof onClearFilters === 'function' && (
+          <button
+            type="button"
+            onClick={onClearFilters}
+            className="mt-6 inline-flex items-center justify-center rounded-full border border-[#181A1B]/10 bg-[#181A1B] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#181A1B]/90 dark:border-white/10 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+          >
+            Reset filters
+          </button>
+        )}
       </motion.div>
     );
   }
