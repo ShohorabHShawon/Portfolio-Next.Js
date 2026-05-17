@@ -351,6 +351,24 @@ const photos = [
     title: 'Evening Rickshaw Journey',
     description: 'A vibrant evening street scene captured with a panning technique, showcasing a cycle rickshaw driver and his passenger. The motion blur stretches the glowing storefront lights into warm streaks, highlighting the constant motion of city life.',
     category: 'Street',
+  },
+  {
+    src: '/images/photo55.jpg',
+    title: 'Market Vendor in the Shadows',
+    description: 'A moody, high-contrast black and white street photograph of a vendor sitting in a dimly lit local market. The hanging lamps subtly illuminate his profile, creating a cinematic atmosphere amidst the deep shadows of the busy stall.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo56.jpg',
+    title: 'A Moment of Rest',
+    description: 'A striking monochrome portrait of a rickshaw puller taking a quiet break on his vehicle. The intricate web of overhead power lines and the blurred urban backdrop perfectly frame this candid, melancholic slice of daily city life.',
+    category: 'Street',
+  },
+  {
+    src: '/images/photo57.jpg',
+    title: 'The Weight of the City',
+    description: 'A powerful black and white capture of a worker pulling a heavily loaded cart across a wide road. The towering commercial buildings covered in signboards in the background emphasize the raw, poetic reality of urban labor.',
+    category: 'Street',
   }
 
 ];
