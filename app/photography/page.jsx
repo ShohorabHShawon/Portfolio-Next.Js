@@ -11,6 +11,8 @@ const SUPPORTED_VIDEO_EXTENSIONS = new Set([
   '.m4v',
 ]);
 
+const GIT_LFS_POINTER_HEADER = 'version https://git-lfs.github.com/spec/v1';
+
 const humanizeVideoTitle = (fileName) => {
   const base = fileName.replace(/\.[^.]+$/, '');
 
@@ -35,21 +37,49 @@ async function getPublicVideos() {
       .filter((name) => SUPPORTED_VIDEO_EXTENSIONS.has(path.extname(name).toLowerCase()))
       .sort((a, b) => a.localeCompare(b));
 
+    const isLfsPointer = async (filePath) => {
+      try {
+        const handle = await fs.open(filePath, 'r');
+
+        try {
+          const buffer = Buffer.alloc(256);
+          const { bytesRead } = await handle.read(buffer, 0, buffer.length, 0);
+          const header = buffer.slice(0, bytesRead).toString('utf8');
+
+          return header.startsWith(GIT_LFS_POINTER_HEADER);
+        } finally {
+          await handle.close();
+        }
+      } catch {
+        return true;
+      }
+    };
+
     const metadataByFileName = new Map(
       videoMetadata.map((video) => [video.fileName.toLowerCase(), video]),
     );
 
-    return files.map((fileName) => {
+    const playableFiles = [];
+
+    for (const fileName of files) {
+      const filePath = path.join(videosDir, fileName);
+
+      if (await isLfsPointer(filePath)) {
+        continue;
+      }
+
       const metadata = metadataByFileName.get(fileName.toLowerCase());
 
-      return {
+      playableFiles.push({
         src: `/videos/${encodeURIComponent(fileName)}`,
         fileName,
         title: metadata?.title ?? humanizeVideoTitle(fileName),
         description: metadata?.description ?? '',
         links: Array.isArray(metadata?.links) ? metadata.links : [],
-      };
-    });
+      });
+    }
+
+    return playableFiles;
   } catch {
     return [];
   }

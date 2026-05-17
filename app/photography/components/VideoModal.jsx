@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 export default function VideoModal({ selectedVideo, closeModals, navigateVideo }) {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const links = useMemo(() => {
     if (!selectedVideo) return [];
@@ -49,6 +50,7 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
       videoRef.current.volume = 0.5;
     }
     setIsPlaying(false);
+    setHasError(false);
   }, [selectedVideo?.src]);
 
   useEffect(() => {
@@ -138,20 +140,32 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
-                  <video
-                    ref={videoRef}
-                    src={selectedVideo.src}
-                    controls
-                    playsInline
-                    className="max-h-[70vh] w-full bg-black object-contain"
-                    onLoadedMetadata={() => {
-                      if (videoRef.current) {
-                        videoRef.current.volume = 0.5;
-                      }
-                    }}
-                  />
+                  {!hasError ? (
+                    <video
+                      ref={videoRef}
+                      src={selectedVideo.src}
+                      controls
+                      playsInline
+                      className="max-h-[70vh] w-full bg-black object-contain"
+                      onLoadedMetadata={() => {
+                        if (videoRef.current) {
+                          videoRef.current.volume = 0.5;
+                        }
+                      }}
+                      onError={() => setHasError(true)}
+                    />
+                  ) : (
+                    <div className="flex min-h-[50vh] w-full items-center justify-center bg-black px-6 text-center text-white">
+                      <div>
+                        <p className="text-base font-medium">Video unavailable</p>
+                        <p className="mt-2 text-sm text-white/70">
+                          The file could not be loaded by the browser or the deployment host.
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
-                  {!isPlaying ? (
+                  {!isPlaying && !hasError ? (
                     <button
                       type="button"
                       onClick={playFromOverlay}

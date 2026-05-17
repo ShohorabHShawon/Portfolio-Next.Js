@@ -280,12 +280,6 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   }, []);
 
   useEffect(() => {
-    if (activeMedia === 'videos' && !videos.length) {
-      setActiveMedia('photos');
-    }
-  }, [activeMedia, videos.length]);
-
-  useEffect(() => {
     closeModals();
   }, [activeMedia, closeModals]);
 
@@ -378,25 +372,20 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                 type="button"
                 onClick={() => setActiveMedia('videos')}
                 aria-pressed={activeMedia === 'videos'}
-                disabled={!videos.length}
-                whileHover={videos.length ? { scale: 1.03 } : undefined}
-                whileTap={videos.length ? { scale: 0.97 } : undefined}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className={`flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
-                  !videos.length
-                    ? 'cursor-not-allowed text-[#181A1B]/30 dark:text-white/25'
-                    : activeMedia === 'videos'
-                      ? 'bg-[#181A1B] text-white dark:bg-white dark:text-black'
-                      : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
+                  activeMedia === 'videos'
+                    ? 'bg-[#181A1B] text-white dark:bg-white dark:text-black'
+                    : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
                 }`}
               >
                 <span>Videos</span>
                 <span
                   className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
-                    !videos.length
-                      ? 'bg-[#181A1B]/5 text-[#181A1B]/35 dark:bg-white/10 dark:text-white/35'
-                      : activeMedia === 'videos'
-                        ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
-                        : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
+                    activeMedia === 'videos'
+                      ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
+                      : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
                   }`}
                 >
                   {videos.length}

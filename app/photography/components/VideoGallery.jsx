@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 const VideoItem = ({ video, openVideoModal }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [videoDimensions, setVideoDimensions] = useState(null);
 
   const aspectRatio = videoDimensions
@@ -46,20 +47,35 @@ const VideoItem = ({ video, openVideoModal }) => {
           transition={{ duration: 0.4, ease: 'easeOut' }}
           className="absolute inset-0 w-full h-full"
         >
-          <video
-            src={video.src}
-            muted
-            playsInline
-            preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] [transform:translateZ(0)] [backface-visibility:hidden]"
-            onLoadedMetadata={(event) => {
-              const el = event.currentTarget;
-              if (el.videoWidth && el.videoHeight) {
-                setVideoDimensions({ width: el.videoWidth, height: el.videoHeight });
-              }
-            }}
-            onLoadedData={() => setIsLoading(false)}
-          />
+          {!hasError ? (
+            <video
+              src={video.src}
+              muted
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] [transform:translateZ(0)] [backface-visibility:hidden]"
+              onLoadedMetadata={(event) => {
+                const el = event.currentTarget;
+                if (el.videoWidth && el.videoHeight) {
+                  setVideoDimensions({ width: el.videoWidth, height: el.videoHeight });
+                }
+              }}
+              onLoadedData={() => setIsLoading(false)}
+              onError={() => {
+                setHasError(true);
+                setIsLoading(false);
+              }}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/55 px-4 text-center text-white">
+              <div>
+                <p className="text-sm font-medium">Preview unavailable</p>
+                <p className="mt-1 text-xs text-white/70">
+                  This video could not be loaded in the deployed site.
+                </p>
+              </div>
+            </div>
+          )}
         </motion.div>
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -93,7 +109,21 @@ const VideoItem = ({ video, openVideoModal }) => {
 
 const VideoGallery = ({ videos, openVideoModal }) => {
   if (!videos?.length) {
-    return null;
+    return (
+      <motion.div
+        className="mx-auto mt-14 max-w-2xl rounded-3xl border border-[#181A1B]/10 bg-white px-6 py-14 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] dark:border-white/10 dark:bg-white/5"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+      >
+        <p className="text-lg font-medium text-[#181A1B] dark:text-white">
+          No videos are available in this deployment.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-[#181A1B]/65 dark:text-white/55">
+          If the files were pushed through Git LFS, the host may not have pulled the actual video assets.
+        </p>
+      </motion.div>
+    );
   }
 
   return (
