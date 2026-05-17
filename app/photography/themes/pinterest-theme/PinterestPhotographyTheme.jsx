@@ -44,6 +44,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const hasAppliedInitialPhotoRef = useRef(false);
+  const photoGridRef = useRef(null);
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -54,6 +55,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [, setCurrentVideoIndex] = useState(0);
   const [activeMedia, setActiveMedia] = useState('photos');
+  const [isGalleryGridInView, setIsGalleryGridInView] = useState(false);
 
   const sharePhoto = useCallback(async () => {
     if (typeof window === 'undefined') {
@@ -279,6 +281,34 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
     closeModals();
   }, [activeMedia, closeModals]);
 
+  useEffect(() => {
+    setIsGalleryGridInView(false);
+
+    if (activeMedia !== 'photos' || displayedPhotos.length === 0) {
+      return;
+    }
+
+    const target = photoGridRef.current;
+
+    if (!target) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsGalleryGridInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -20% 0px',
+      },
+    );
+
+    observer.observe(target);
+
+    return () => observer.disconnect();
+  }, [activeMedia, displayedPhotos.length]);
+
   const navigatePhoto = useCallback((direction) => {
     if (displayedPhotos.length === 0) {
       return;
@@ -368,12 +398,15 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                   resultCount={displayedPhotos.length}
                   totalCount={photos.length}
                   sortOptions={sortOptions}
+                  isGalleryGridInView={isGalleryGridInView}
                 />
-                <PhotoGallery
-                  filteredPhotos={displayedPhotos}
-                  selectedCategory={selectedCategory}
-                  openDetailsModal={openDetailsModal}
-                />
+                <div ref={photoGridRef}>
+                  <PhotoGallery
+                    filteredPhotos={displayedPhotos}
+                    selectedCategory={selectedCategory}
+                    openDetailsModal={openDetailsModal}
+                  />
+                </div>
               </motion.div>
             ) : (
               <motion.div

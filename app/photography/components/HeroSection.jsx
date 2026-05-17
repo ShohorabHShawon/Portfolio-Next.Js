@@ -77,20 +77,20 @@ const HeroSection = ({ photos }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex w-full max-w-md flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:justify-center sm:gap-4"
+            className="grid w-full max-w-md grid-cols-3 gap-2 sm:flex sm:w-auto sm:max-w-none sm:justify-center sm:gap-4"
           >
             <motion.button
               onClick={scrollToGallery}
-              className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm bg-[#181A1B] dark:bg-white text-white dark:text-black rounded-full font-medium hover:bg-[#181A1B]/90 dark:hover:bg-gray-200 transition-colors"
+              className="inline-flex w-full min-w-0 items-center justify-center rounded-full bg-[#181A1B] px-2.5 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-white transition-colors hover:bg-[#181A1B]/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               View Gallery
             </motion.button>
 
-            <Link href="/" className="w-full sm:w-auto">
+            <Link href="/" className="w-full min-w-0 sm:w-auto">
               <motion.button
-                className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm border-2 border-[#181A1B] dark:border-white text-[#181A1B] dark:text-white rounded-full font-medium hover:bg-[#181A1B]/5 dark:hover:bg-white/10 transition-colors"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -98,9 +98,9 @@ const HeroSection = ({ photos }) => {
               </motion.button>
             </Link>
 
-            <Link href="/blog" className="w-full sm:w-auto">
+            <Link href="/blog" className="w-full min-w-0 sm:w-auto">
               <motion.button
-                className="w-full sm:w-auto sm:min-w-[155px] px-6 sm:px-7 py-2.5 sm:py-2.5 text-sm sm:text-sm border-2 border-[#181A1B] dark:border-white text-[#181A1B] dark:text-white rounded-full font-medium hover:bg-[#181A1B]/5 dark:hover:bg-white/10 transition-colors"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2 py-2 text-[10px] font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
