@@ -156,6 +156,28 @@ export default async function BlogPage() {
     .filter(Boolean)
     .sort((a, b) => a.localeCompare(b));
 
+  const categoryCounts = normalizedPosts.reduce((acc, post) => {
+    (post.categories || []).forEach((category) => {
+      if (!category) return;
+      acc[category] = (acc[category] || 0) + 1;
+    });
+    return acc;
+  }, {});
+
+  const topCategories = Object.entries(categoryCounts)
+    .sort(([, countA], [, countB]) => countB - countA)
+    .slice(0, 6)
+    .map(([category]) => category);
+
+  const averageReadTime = normalizedPosts.length
+    ? Math.round(
+        normalizedPosts.reduce((sum, post) => sum + (post.readingTimeMinutes || 0), 0) /
+          normalizedPosts.length
+      )
+    : 0;
+
+  const latestPublishedDate = featured?.publishedAt ? formatDate(featured.publishedAt) : 'Updating';
+
   const blogSchema = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
@@ -503,41 +525,97 @@ export default async function BlogPage() {
       <div className="blog-theme-view blog-theme-view-modern">
         <BlogMotionSection delay={0.04} y={16}>
           <section className="blog-modern-home-shell mx-auto max-w-6xl px-6 pb-12 pt-24 md:px-8 md:pt-28">
-            <div className="blog-modern-home-head">
-              <p className="blog-modern-kicker">Shohorab H Shawon Blog</p>
-              <div className="blog-modern-hero-actions">
-                <Link href="/" className="inline-flex items-center justify-center rounded-full border border-black bg-black px-[0.95rem] py-[0.45rem] text-xs font-medium text-white transition hover:bg-[#242424] hover:text-white dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-black dark:hover:bg-[#e0e0e0]">
-                  Portfolio
-                </Link>
-                <Link href="/photography" className="inline-flex items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-[0.95rem] py-[0.45rem] text-xs font-medium text-black transition hover:border-[#aaaaaa] hover:bg-[#fafafa] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#f3f3f3] dark:hover:border-[#5a5a5a]">
-                  Photography
-                </Link>
+            <div className="blog-modern-hero-panel relative overflow-hidden rounded-[28px] border border-[#e6e6e6] bg-white/90 px-6 py-10 shadow-[0_30px_80px_-60px_rgba(15,23,42,0.55)] dark:border-[#2a2a2a] dark:bg-[#111213] md:px-10">
+              <div className="pointer-events-none absolute inset-0">
+                <div className="absolute -left-24 -top-28 h-64 w-64 rounded-full opacity-60 [background:radial-gradient(circle_at_center,var(--blog-accent)_0,transparent_70%)]" />
+                <div className="absolute -right-32 top-12 h-72 w-72 rounded-full opacity-40 [background:radial-gradient(circle_at_center,#0ea5e9_0,transparent_70%)]" />
+                <div className="absolute inset-0 opacity-[0.35] [background:radial-gradient(rgba(15,23,42,0.08)_1px,transparent_1px)] [background-size:20px_20px] dark:opacity-[0.18]" />
+              </div>
+
+              <div className="relative grid gap-10 md:grid-cols-[1.3fr_1fr]">
+                <div>
+                  <div className="blog-modern-home-head">
+                    <p className="blog-modern-kicker">Shohorab H Shawon Blog</p>
+                    <div className="blog-modern-hero-actions">
+                      <Link href="/" className="inline-flex items-center justify-center rounded-full border border-black bg-black px-[0.95rem] py-[0.45rem] text-xs font-medium text-white transition hover:bg-[#242424] hover:text-white dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-black dark:hover:bg-[#e0e0e0]">
+                        Portfolio
+                      </Link>
+                      <Link href="/photography" className="inline-flex items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-[0.95rem] py-[0.45rem] text-xs font-medium text-black transition hover:border-[#aaaaaa] hover:bg-[#fafafa] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#f3f3f3] dark:hover:border-[#5a5a5a]">
+                        Photography
+                      </Link>
+                    </div>
+                  </div>
+                  <h1 className={`${modernSerifFont.className} blog-modern-hero-title`}>
+                    Stories, ideas, and notes from building on the web.
+                  </h1>
+                  <p className="blog-modern-hero-text">
+                    Engineering lessons, product reflections, and creative experiments published in an editorial format.
+                  </p>
+                  <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
+                </div>
+
+                <div className="space-y-5">
+                  {quoteOfDay && (
+                    <QuoteOfDayCard
+                      initialQuote={quoteOfDay}
+                      variant="modern"
+                      quoteFontClassName={modernQuoteFont.className}
+                    />
+                  )}
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-2xl border border-[#e6e6e6] bg-white/90 px-4 py-3 shadow-[0_12px_28px_-20px_rgba(15,23,42,0.45)] dark:border-[#2a2a2a] dark:bg-[#151617]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Stories
+                      </p>
+                      <p className={`${modernSerifFont.className} text-2xl text-[#191919] dark:text-[#f3f3f3]`}>
+                        {normalizedPosts.length}
+                      </p>
+                      <p className="mt-1 text-xs text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Updated {latestPublishedDate}
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e6e6e6] bg-white/90 px-4 py-3 shadow-[0_12px_28px_-20px_rgba(15,23,42,0.45)] dark:border-[#2a2a2a] dark:bg-[#151617]">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Categories
+                      </p>
+                      <p className={`${modernSerifFont.className} text-2xl text-[#191919] dark:text-[#f3f3f3]`}>
+                        {allCategories.length}
+                      </p>
+                      <p className="mt-1 text-xs text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Curated topics
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-[#e6e6e6] bg-white/90 px-4 py-3 shadow-[0_12px_28px_-20px_rgba(15,23,42,0.45)] dark:border-[#2a2a2a] dark:bg-[#151617] sm:col-span-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Reading flow
+                      </p>
+                      <p className={`${modernSerifFont.className} text-2xl text-[#191919] dark:text-[#f3f3f3]`}>
+                        {averageReadTime ? `${averageReadTime} min avg` : 'Fresh reads soon'}
+                      </p>
+                      <p className="mt-1 text-xs text-[#6b6b6b] dark:text-[#a0a0a0]">
+                        Settle in with the latest notes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <h1 className={`${modernSerifFont.className} blog-modern-hero-title`}>
-              Stories, Ideas, And Real-World Notes From Building On The Web.
-            </h1>
-            <p className="blog-modern-hero-text">
-              Engineering lessons, product reflections, and creative experiments published in an editorial format.
-            </p>
-            <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
-            {quoteOfDay && (
-              <QuoteOfDayCard
-                initialQuote={quoteOfDay}
-                variant="modern"
-                quoteFontClassName={modernQuoteFont.className}
-              />
-            )}
           </section>
         </BlogMotionSection>
 
         <BlogMotionSection delay={0.08} y={14}>
           <section className="blog-modern-featured-section mx-auto px-6 pb-8 md:px-8">
-            <BlogModernFilterBar
-              categories={allCategories}
-              totalPosts={normalizedPosts.length}
-              variant="modern"
-            />
+            <div className="md:sticky md:top-6 z-30">
+              <BlogModernFilterBar
+                categories={allCategories}
+                totalPosts={normalizedPosts.length}
+                quickCategories={topCategories}
+                variant="modern"
+              />
+            </div>
           </section>
         </BlogMotionSection>
 
@@ -557,6 +635,15 @@ export default async function BlogPage() {
                     <p className="blog-modern-meta">Featured Story</p>
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
                     <p className="blog-modern-featured-excerpt">{featured.excerpt}...</p>
+                    {featured.categories?.length > 0 && (
+                      <div className="blog-modern-chip-row">
+                        {featured.categories.slice(0, 3).map((cat) => (
+                          <span key={`${featured._id}-${cat}`} className="blog-modern-chip">
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="blog-modern-featured-footer">
                       <span>{featured.author}</span>
                       <span>•</span>
@@ -574,7 +661,7 @@ export default async function BlogPage() {
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
                         alt={featured.title}
                         fill
-                        className="object-contain"
+                        className="object-cover"
                         sizes="(max-width: 768px) 100vw, 52vw"
                         priority
                       />
@@ -595,6 +682,15 @@ export default async function BlogPage() {
                     <p className="blog-modern-meta">Draft Post</p>
                     <h2 className={`${modernSerifFont.className} blog-modern-featured-title`}>{featured.title}</h2>
                     <p className="blog-modern-featured-excerpt">{featured.excerpt}...</p>
+                    {featured.categories?.length > 0 && (
+                      <div className="blog-modern-chip-row">
+                        {featured.categories.slice(0, 3).map((cat) => (
+                          <span key={`${featured._id}-${cat}`} className="blog-modern-chip">
+                            {cat}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="blog-modern-featured-footer">
                       <span>{featured.author}</span>
                       <span>•</span>
@@ -612,7 +708,7 @@ export default async function BlogPage() {
                         src={urlFor(featured.mainImage).width(1400).height(900).url()}
                         alt={featured.title}
                         fill
-                        className="object-contain"
+                        className="object-cover"
                         sizes="(max-width: 768px) 100vw, 52vw"
                         priority
                       />
@@ -642,7 +738,10 @@ export default async function BlogPage() {
             <section className="blog-modern-feed-shell mx-auto max-w-6xl px-6 pb-20 md:px-8">
               <div className="blog-modern-grid-head">
                 <h3 className={`${modernSerifFont.className} blog-modern-grid-title`}>Latest Stories</h3>
-                <p className="blog-modern-grid-subtitle">{normalizedPosts.length || 0} published posts</p>
+                <p className="blog-modern-grid-subtitle">
+                  {normalizedPosts.length || 0} published posts
+                  {averageReadTime ? ` - ${averageReadTime} min avg read` : ''}
+                </p>
               </div>
 
               <div className="blog-modern-feed-list">
@@ -679,7 +778,7 @@ export default async function BlogPage() {
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
-                            className="object-contain"
+                            className="object-cover"
                             sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (
@@ -719,7 +818,7 @@ export default async function BlogPage() {
                             src={urlFor(post.mainImage).width(900).height(600).url()}
                             alt={post.title}
                             fill
-                            className="object-contain"
+                            className="object-cover"
                             sizes="(max-width: 1024px) 100vw, 240px"
                           />
                         ) : (

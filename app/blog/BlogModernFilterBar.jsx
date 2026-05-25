@@ -21,6 +21,7 @@ function readUrlFilters() {
 export default function BlogModernFilterBar({
   categories = [],
   totalPosts = 0,
+  quickCategories = [],
   variant = 'modern',
 }) {
   const instanceId = useId();
@@ -35,6 +36,12 @@ export default function BlogModernFilterBar({
       ? categories.filter(Boolean).sort((a, b) => a.localeCompare(b))
       : [];
   }, [categories]);
+
+  const quickFilters = useMemo(() => {
+    return Array.isArray(quickCategories)
+      ? quickCategories.filter(Boolean)
+      : [];
+  }, [quickCategories]);
 
   useEffect(() => {
     const { query: initialQuery, category: initialCategory } = readUrlFilters();
@@ -142,6 +149,22 @@ export default function BlogModernFilterBar({
     ? 'rounded-xl border-2 border-black bg-[#fde047] px-3 py-2 text-sm font-bold text-slate-900 transition hover:-translate-y-0.5 hover:bg-[#facc15] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]'
     : 'rounded-xl border border-[#d0d0d0] bg-white px-3 py-2 text-sm font-medium text-[#3f3f3f] transition hover:border-[#191919] hover:text-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#d1d1d1] dark:hover:border-[#f3f3f3] dark:hover:text-[#f3f3f3]';
 
+  const quickLabelClass = isManga
+    ? 'text-[10px] font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]'
+    : 'text-[10px] font-semibold uppercase tracking-[0.18em] text-[#6b6b6b] dark:text-[#a0a0a0]';
+
+  const quickChipBase = isManga
+    ? 'rounded-full border-2 border-black px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] transition dark:border-[#5eead4]'
+    : 'rounded-full border border-[#d0d0d0] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] transition dark:border-[#3a3a3a]';
+
+  const quickChipInactive = isManga
+    ? 'bg-white text-slate-700 hover:bg-[#fde68a] dark:bg-[#0f1a2e] dark:text-[#d8ebf8] dark:hover:bg-[#1b3652]'
+    : 'bg-white text-[#4b4b4b] hover:border-[#191919] hover:text-[#191919] dark:bg-transparent dark:text-[#d1d1d1] dark:hover:border-[#f3f3f3] dark:hover:text-[#f3f3f3]';
+
+  const quickChipActive = isManga
+    ? 'bg-[#fde047] text-slate-900 dark:bg-[#244a70] dark:text-[#d8ebf8]'
+    : 'border-[#191919] bg-[#191919] text-white dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-[#0f1117]';
+
   return (
     <div className={panelClass}>
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -190,6 +213,36 @@ export default function BlogModernFilterBar({
           </button>
         </div>
       </div>
+
+      {quickFilters.length > 0 && (
+        <div className="mt-4">
+          <p className={quickLabelClass}>Quick filters</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setSelectedCategory('')}
+              aria-pressed={!selectedCategory}
+              className={`${quickChipBase} ${!selectedCategory ? quickChipActive : quickChipInactive}`}
+            >
+              All topics
+            </button>
+            {quickFilters.map((category) => {
+              const isActive = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedCategory(isActive ? '' : category)}
+                  aria-pressed={isActive}
+                  className={`${quickChipBase} ${isActive ? quickChipActive : quickChipInactive}`}
+                >
+                  {category}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {visibleCount === 0 && (
         <p className="mt-3 rounded-xl border border-[#e3c7c7] bg-[#fff4f4] px-3 py-2 text-sm text-[#8b3a3a] dark:border-[#5b2b2b] dark:bg-[#2a1616] dark:text-[#f1b7b7]">

@@ -76,11 +76,13 @@ export function TableOfContentsManga({ tableOfContents }) {
   );
 }
 
-export function TableOfContentsModern({ tableOfContents }) {
+export function TableOfContentsModern({ tableOfContents, className = '' }) {
   if (!tableOfContents.length) return null;
 
   return (
-    <aside className="blog-modern-toc mt-6 rounded-xl border border-[#e6e6e6] bg-[#fafaf8] p-4 dark:border-[#2a2a2a] dark:bg-[#1b1d1e]">
+    <aside
+      className={`blog-modern-toc mt-6 rounded-xl border border-[#e6e6e6] bg-[#fafaf8] p-4 dark:border-[#2a2a2a] dark:bg-[#1b1d1e] ${className}`}
+    >
       <div>
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#6b6b6b] dark:text-[#a0a0a0]">
           Table of contents

@@ -557,90 +557,152 @@ export default async function BlogPostPage({ params }) {
       <div className="blog-theme-view blog-theme-view-modern">
         <BlogMotionSection delay={0.04} y={16}>
           <section className="blog-modern-post-shell mx-auto max-w-6xl px-6 pb-8 md:px-8">
-            <article className="blog-modern-post-article">
-              <div className="blog-modern-post-header">
-                <Link href="/blog" className="blog-modern-back-btn inline-flex items-center gap-2 justify-center rounded-full border border-[#181A1B] bg-[#181A1B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#0f1117] hover:border-[#0f1117] dark:border-white dark:bg-white dark:text-black dark:hover:bg-[#e6e6e6] dark:hover:border-[#e6e6e6] dark:hover:text-black">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Back to Blog
-                </Link>
-                <p className="blog-modern-meta blog-modern-post-meta">
-                  {post.author} • {formatDate(post.publishedAt)} • {readingTimeMinutes} min read
-                </p>
-                <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
+            <div className="blog-modern-post-grid">
+              <article className="blog-modern-post-article">
+                <div className="blog-modern-post-header">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <Link href="/blog" className="blog-modern-back-btn inline-flex items-center gap-2 justify-center rounded-full border border-[#181A1B] bg-[#181A1B] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#0f1117] hover:border-[#0f1117] dark:border-white dark:bg-white dark:text-black dark:hover:bg-[#e6e6e6] dark:hover:border-[#e6e6e6] dark:hover:text-black">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      Back to Blog
+                    </Link>
+                    <p className="blog-modern-meta blog-modern-post-meta">
+                      {post.author} - {formatDate(post.publishedAt)} - {readingTimeMinutes} min read
+                    </p>
+                  </div>
+                  <h1 className={`${modernSerifFont.className} blog-modern-post-main-title`}>{post.title}</h1>
 
-                {post.categories?.length > 0 && (
-                  <div className="blog-modern-chip-row blog-modern-chip-row-top">
-                    {post.categories.map((cat) => (
-                      <span key={`${post._id}-${cat}`} className="blog-modern-chip rounded-full border border-[#e0e0e0] bg-[#f5f5f3] px-3 py-1.5 text-xs font-medium text-[#3f3f3f] dark:border-[#3a3a3a] dark:bg-[#2a2a2a] dark:text-[#d1d1d1]">
-                        {cat}
-                      </span>
-                    ))}
+                  {post.categories?.length > 0 && (
+                    <div className="blog-modern-chip-row blog-modern-chip-row-top">
+                      {post.categories.map((cat) => (
+                        <span key={`${post._id}-${cat}`} className="blog-modern-chip rounded-full border border-[#e0e0e0] bg-[#f5f5f3] px-3 py-1.5 text-xs font-medium text-[#3f3f3f] dark:border-[#3a3a3a] dark:bg-[#2a2a2a] dark:text-[#d1d1d1]">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <PostShareActions
+                    url={canonicalUrl}
+                    title={post.title}
+                    variant="modern"
+                    className="mt-3 md:hidden"
+                  />
+                </div>
+
+                {showTableOfContents && (
+                  <div className="md:hidden">
+                    <TableOfContentsModern tableOfContents={tableOfContents} />
                   </div>
                 )}
 
-                <PostShareActions url={canonicalUrl} title={post.title} variant="modern" />
-              </div>
+                {post.mainImage && (
+                  <div className="blog-modern-post-hero-image blog-image-skeleton">
+                    <Image
+                      src={urlFor(post.mainImage).width(1600).height(1000).url()}
+                      alt={post.title}
+                      width={1600}
+                      height={1000}
+                      priority
+                      className="h-auto w-full object-cover"
+                      sizes="(max-width: 1024px) 100vw, 1024px"
+                    />
+                  </div>
+                )}
 
-              {showTableOfContents && (
-                <TableOfContentsModern tableOfContents={tableOfContents} />
-              )}
+                <section className="blog-modern-post-content blog-rich-content">
+                  <PortableText value={post.body || []} components={portableTextComponents} />
+                </section>
 
-              {post.mainImage && (
-                <div className="blog-modern-post-hero-image blog-image-skeleton">
-                  <Image
-                    src={urlFor(post.mainImage).width(1600).height(1000).url()}
-                    alt={post.title}
-                    width={1600}
-                    height={1000}
-                    priority
-                    className="h-auto w-full object-contain"
-                    sizes="(max-width: 1024px) 100vw, 1024px"
+                {(newerPost || olderPost) && (
+                  <nav className="mt-8 grid gap-3 border-t border-[#e6e6e6] pt-5 dark:border-[#2a2a2a] sm:grid-cols-2">
+                    {newerPost ? (
+                      <Link
+                        href={`/blog/${newerPost.slug}`}
+                        className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
+                      >
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                          Newer Post
+                        </p>
+                        <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
+                          {newerPost.title}
+                        </p>
+                      </Link>
+                    ) : (
+                      <span aria-hidden="true" />
+                    )}
+
+                    {olderPost ? (
+                      <Link
+                        href={`/blog/${olderPost.slug}`}
+                        className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
+                      >
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
+                          Older Post
+                        </p>
+                        <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
+                          {olderPost.title}
+                        </p>
+                      </Link>
+                    ) : (
+                      <span aria-hidden="true" />
+                    )}
+                  </nav>
+                )}
+              </article>
+
+              <aside className="blog-modern-post-aside">
+                <div className="blog-modern-aside-card">
+                  <p className="blog-modern-aside-title">Story details</p>
+                  <div className="blog-modern-aside-meta">
+                    <div>
+                      <p className="blog-modern-aside-label">Published</p>
+                      <p className="blog-modern-aside-value">{formatDate(post.publishedAt)}</p>
+                    </div>
+                    <div>
+                      <p className="blog-modern-aside-label">Reading time</p>
+                      <p className="blog-modern-aside-value">{readingTimeMinutes} min</p>
+                    </div>
+                    <div>
+                      <p className="blog-modern-aside-label">Author</p>
+                      <p className="blog-modern-aside-value">{post.author}</p>
+                    </div>
+                  </div>
+
+                  {post.categories?.length > 0 && (
+                    <div className="blog-modern-aside-tags">
+                      {post.categories.map((cat) => (
+                        <span key={`${post._id}-${cat}`} className="blog-modern-chip">
+                          {cat}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="blog-modern-aside-card hidden md:block">
+                  <p className="blog-modern-aside-title">Share</p>
+                  <PostShareActions
+                    url={canonicalUrl}
+                    title={post.title}
+                    variant="modern"
+                    layout="column"
+                    className="mt-3"
                   />
                 </div>
-              )}
 
-              <section className="blog-modern-post-content blog-rich-content">
-                <PortableText value={post.body || []} components={portableTextComponents} />
-              </section>
-
-              {(newerPost || olderPost) && (
-                <nav className="mt-8 grid gap-3 border-t border-[#e6e6e6] pt-5 dark:border-[#2a2a2a] sm:grid-cols-2">
-                  {newerPost ? (
-                    <Link
-                      href={`/blog/${newerPost.slug}`}
-                      className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
-                    >
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
-                        Newer Post
-                      </p>
-                      <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
-                        {newerPost.title}
-                      </p>
-                    </Link>
-                  ) : (
-                    <span aria-hidden="true" />
-                  )}
-
-                  {olderPost ? (
-                    <Link
-                      href={`/blog/${olderPost.slug}`}
-                      className="rounded-xl border border-[#d0d0d0] bg-white px-4 py-3 transition hover:border-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:hover:border-[#f3f3f3]"
-                    >
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-[#6b6b6b] dark:text-[#a0a0a0]">
-                        Older Post
-                      </p>
-                      <p className={`mt-1 text-base text-[#191919] dark:text-[#f3f3f3] ${modernSerifFont.className}`}>
-                        {olderPost.title}
-                      </p>
-                    </Link>
-                  ) : (
-                    <span aria-hidden="true" />
-                  )}
-                </nav>
-              )}
-            </article>
+                {showTableOfContents && (
+                  <div className="blog-modern-aside-card hidden md:block">
+                    <p className="blog-modern-aside-title">On this page</p>
+                    <TableOfContentsModern
+                      tableOfContents={tableOfContents}
+                      className="mt-3 border-0 bg-transparent p-0 rounded-none"
+                    />
+                  </div>
+                )}
+              </aside>
+            </div>
           </section>
         </BlogMotionSection>
 
@@ -671,7 +733,7 @@ export default async function BlogPostPage({ params }) {
                           src={urlFor(item.mainImage).width(800).height(520).url()}
                           alt={item.title}
                           fill
-                          className="object-contain"
+                          className="object-cover"
                           sizes="(max-width: 1024px) 100vw, 240px"
                         />
                       ) : (
