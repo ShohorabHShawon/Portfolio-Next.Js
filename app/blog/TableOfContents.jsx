@@ -1,6 +1,76 @@
 'use client';
 
-export function TableOfContentsLink({ id, title, level, className, theme = 'manga' }) {
+import { useEffect, useState } from 'react';
+
+function isElementVisible(element) {
+  return (
+    element &&
+    getComputedStyle(element).display !== 'none' &&
+    element.offsetParent !== null
+  );
+}
+
+function getVisibleHeadingElement(id) {
+  const candidates = Array.from(document.querySelectorAll(`#${id}`));
+  if (candidates.length === 0) return null;
+
+  for (const candidate of candidates) {
+    if (isElementVisible(candidate)) {
+      return candidate;
+    }
+  }
+
+  return candidates[0];
+}
+
+function useActiveHeading(tableOfContents) {
+  const [activeId, setActiveId] = useState(
+    tableOfContents?.[0]?.id || ''
+  );
+
+  useEffect(() => {
+    if (!Array.isArray(tableOfContents) || tableOfContents.length === 0) return undefined;
+
+    const elements = tableOfContents
+      .map((heading) => getVisibleHeadingElement(heading.id))
+      .filter(Boolean);
+
+    if (elements.length === 0) return undefined;
+
+    setActiveId(elements[0].id);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+        if (visibleEntries.length === 0) return;
+
+        visibleEntries.sort(
+          (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
+        );
+        setActiveId(visibleEntries[0].target.id);
+      },
+      {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: [0, 1],
+      }
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, [tableOfContents]);
+
+  return activeId;
+}
+
+export function TableOfContentsLink({
+  id,
+  title,
+  level,
+  className,
+  theme = 'manga',
+  isActive = false,
+}) {
   const handleClick = (e) => {
     e.preventDefault();
     
@@ -43,6 +113,7 @@ export function TableOfContentsLink({ id, title, level, className, theme = 'mang
         href={`#${id}`}
         onClick={handleClick}
         className={className}
+        aria-current={isActive ? 'location' : undefined}
       >
         {title}
       </a>
@@ -53,24 +124,34 @@ export function TableOfContentsLink({ id, title, level, className, theme = 'mang
 export function TableOfContentsManga({ tableOfContents }) {
   if (!tableOfContents.length) return null;
 
+  const activeId = useActiveHeading(tableOfContents);
+
   return (
     <aside className="mt-8 rounded-2xl border-4 border-black bg-[#fff7cc] p-4 shadow-[5px_5px_0_#111111] dark:border-[#5eead4] dark:bg-[#13233a] dark:shadow-[5px_5px_0_#0a3a46]">
       <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-700 dark:text-[#b7d6ea]">
         Jump To
       </p>
       <ul className="mt-3 space-y-2">
-        {tableOfContents.map((heading) => (
-          <TableOfContentsLink
-            key={heading.id}
-            id={heading.id}
-            title={heading.title}
-            level={heading.level}
-            theme="manga"
-            className={`inline-flex text-sm font-bold transition hover:text-[#ef4444] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fff7cc] dark:focus-visible:ring-[#fbbf24] dark:focus-visible:ring-offset-[#13233a] ${
-              heading.level === 3 ? 'ml-4 text-slate-600 dark:text-[#cfe7f7]' : 'text-slate-800 dark:text-[#e6f3ff]'
-            }`}
-          />
-        ))}
+        {tableOfContents.map((heading) => {
+          const isActive = heading.id === activeId;
+          return (
+            <TableOfContentsLink
+              key={heading.id}
+              id={heading.id}
+              title={heading.title}
+              level={heading.level}
+              theme="manga"
+              isActive={isActive}
+              className={`inline-flex text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ef4444] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fff7cc] dark:focus-visible:ring-[#fbbf24] dark:focus-visible:ring-offset-[#13233a] ${
+                heading.level === 3 ? 'ml-4 text-slate-600 dark:text-[#cfe7f7]' : 'text-slate-800 dark:text-[#e6f3ff]'
+              } ${
+                isActive
+                  ? 'text-[#ef4444] dark:text-[#fbbf24]'
+                  : 'hover:text-[#ef4444] dark:hover:text-[#fbbf24]'
+              }`}
+            />
+          );
+        })}
       </ul>
     </aside>
   );
@@ -78,6 +159,8 @@ export function TableOfContentsManga({ tableOfContents }) {
 
 export function TableOfContentsModern({ tableOfContents, className = '' }) {
   if (!tableOfContents.length) return null;
+
+  const activeId = useActiveHeading(tableOfContents);
 
   return (
     <aside
@@ -92,18 +175,26 @@ export function TableOfContentsModern({ tableOfContents, className = '' }) {
         </p>
       </div>
       <ul className="mt-3 space-y-2">
-        {tableOfContents.map((heading) => (
-          <TableOfContentsLink
-            key={heading.id}
-            id={heading.id}
-            title={heading.title}
-            level={heading.level}
-            theme="modern"
-            className={`inline-flex text-sm text-[#3f3f3f] transition hover:text-[#191919] hover:font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a8917] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafaf8] dark:text-[#d1d1d1] dark:hover:text-[#f3f3f3] dark:focus-visible:ring-[#35b24a] dark:focus-visible:ring-offset-[#1b1d1e] ${
-              heading.level === 3 ? 'ml-4' : ''
-            }`}
-          />
-        ))}
+        {tableOfContents.map((heading) => {
+          const isActive = heading.id === activeId;
+          return (
+            <TableOfContentsLink
+              key={heading.id}
+              id={heading.id}
+              title={heading.title}
+              level={heading.level}
+              theme="modern"
+              isActive={isActive}
+              className={`inline-flex text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a8917] focus-visible:ring-offset-2 focus-visible:ring-offset-[#fafaf8] dark:focus-visible:ring-[#35b24a] dark:focus-visible:ring-offset-[#1b1d1e] ${
+                heading.level === 3 ? 'ml-4' : ''
+              } ${
+                isActive
+                  ? 'font-semibold text-[#191919] dark:text-[#f3f3f3]'
+                  : 'text-[#3f3f3f] hover:text-[#191919] dark:text-[#d1d1d1] dark:hover:text-[#f3f3f3]'
+              }`}
+            />
+          );
+        })}
       </ul>
     </aside>
   );

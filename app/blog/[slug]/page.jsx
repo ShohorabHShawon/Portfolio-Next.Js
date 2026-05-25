@@ -652,7 +652,7 @@ export default async function BlogPostPage({ params }) {
                 )}
               </article>
 
-              <aside className="blog-modern-post-aside">
+              <aside className="blog-modern-post-aside" data-blog-sticky-aside="true">
                 <div className="blog-modern-aside-card">
                   <p className="blog-modern-aside-title">Story details</p>
                   <div className="blog-modern-aside-meta">
@@ -667,6 +667,16 @@ export default async function BlogPostPage({ params }) {
                     <div>
                       <p className="blog-modern-aside-label">Author</p>
                       <p className="blog-modern-aside-value">{post.author}</p>
+                    </div>
+                  </div>
+
+                  <div className="blog-modern-progress">
+                    <div className="blog-modern-progress-head">
+                      <span className="blog-modern-aside-label">Reading progress</span>
+                      <span className="blog-modern-progress-value" data-reading-progress-value="true">0%</span>
+                    </div>
+                    <div className="blog-modern-progress-track">
+                      <span className="blog-modern-progress-bar" />
                     </div>
                   </div>
 

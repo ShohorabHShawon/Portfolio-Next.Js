@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { client } from '../../sanity/lib/client';
 import { urlFor } from '../../sanity/lib/image';
+import BackToTopButton from './BackToTopButton';
 import BlogModernFilterBar from './BlogModernFilterBar';
 import BlogMotionSection from './BlogMotionSection';
 import BlogThemeShell from './BlogThemeShell';
@@ -211,6 +212,7 @@ export default async function BlogPage() {
       <main
         className={`${comicBodyFont.className} ${modernSansFont.variable} ${modernSerifFont.variable} blog-page-root blog-list-page relative min-h-screen overflow-hidden bg-[#fff9e8] text-[#111111] transition-colors dark:bg-[#050b18] dark:text-[#e6f3ff]`}
       >
+        <BackToTopButton />
         <script
           id="blog-theme-bootstrap"
           dangerouslySetInnerHTML={{ __html: BLOG_THEME_BOOTSTRAP_SCRIPT }}
@@ -552,6 +554,22 @@ export default async function BlogPage() {
                     Engineering lessons, product reflections, and creative experiments published in an editorial format.
                   </p>
                   <p className="blog-modern-hero-byline">By Shohorab H Shawon</p>
+                  {normalizedPosts.length > 0 && (
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      <a
+                        href="#featured-story"
+                        className="inline-flex items-center justify-center rounded-full border border-[#191919] bg-[#191919] px-4 py-2 text-xs font-medium text-white transition hover:bg-[#0f1117] dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-[#0f1117]"
+                      >
+                        Start with featured
+                      </a>
+                      <a
+                        href="#latest-stories"
+                        className="inline-flex items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-4 py-2 text-xs font-medium text-[#3f3f3f] transition hover:border-[#191919] hover:text-[#191919] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#d1d1d1] dark:hover:border-[#f3f3f3] dark:hover:text-[#f3f3f3]"
+                      >
+                        Browse latest
+                      </a>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-5">
@@ -621,7 +639,10 @@ export default async function BlogPage() {
 
         {featured ? (
           <BlogMotionSection delay={0.12} y={20}>
-            <section className="blog-modern-featured-section mx-auto max-w-6xl px-6 pb-10 md:px-8">
+            <section
+              id="featured-story"
+              className="blog-modern-featured-section mx-auto max-w-6xl px-6 pb-10 md:px-8"
+            >
               {featured.slug && !featured.isDraft ? (
                 <Link
                   href={`/blog/${featured.slug}`}
@@ -735,7 +756,10 @@ export default async function BlogPage() {
 
         {restPosts.length > 0 && (
           <BlogMotionSection delay={0.2} y={22}>
-            <section className="blog-modern-feed-shell mx-auto max-w-6xl px-6 pb-20 md:px-8">
+            <section
+              id="latest-stories"
+              className="blog-modern-feed-shell mx-auto max-w-6xl px-6 pb-20 md:px-8"
+            >
               <div className="blog-modern-grid-head">
                 <h3 className={`${modernSerifFont.className} blog-modern-grid-title`}>Latest Stories</h3>
                 <p className="blog-modern-grid-subtitle">
