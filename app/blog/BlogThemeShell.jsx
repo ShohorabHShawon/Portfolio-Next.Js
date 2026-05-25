@@ -19,35 +19,45 @@ const THEME_ORDER = ['manga', 'modern'];
 
 function normalizeTheme(themeValue) {
   if (!themeValue || !BLOG_THEMES[themeValue]) {
-    return 'manga';
+    return 'modern';
   }
 
-  return themeValue;
+  return 'modern';
 }
 
 export default function BlogThemeShell({ children }) {
-  const [activeTheme, setActiveTheme] = useState('manga');
+  const [activeTheme, setActiveTheme] = useState('modern');
   const [mounted, setMounted] = useState(false);
   const isModern = activeTheme === 'modern';
 
   useEffect(() => {
     const savedTheme = normalizeTheme(window.localStorage.getItem(STORAGE_KEY));
-    setActiveTheme(savedTheme);
-    document.documentElement.setAttribute('data-blog-theme', savedTheme);
+
+    void savedTheme;
+
+    setActiveTheme('modern');
+    window.localStorage.setItem(STORAGE_KEY, 'modern');
+    document.documentElement.setAttribute('data-blog-theme', 'modern');
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
 
-    window.localStorage.setItem(STORAGE_KEY, activeTheme);
-    document.documentElement.setAttribute('data-blog-theme', activeTheme);
+    window.localStorage.setItem(STORAGE_KEY, 'modern');
+    document.documentElement.setAttribute('data-blog-theme', 'modern');
   }, [activeTheme, mounted]);
 
   const changeTheme = () => {
     const currentIndex = THEME_ORDER.indexOf(activeTheme);
     const nextTheme = THEME_ORDER[(currentIndex + 1) % THEME_ORDER.length];
-    setActiveTheme(nextTheme);
+
+    void currentIndex;
+    void nextTheme;
+
+    setActiveTheme('modern');
+    window.localStorage.setItem(STORAGE_KEY, 'modern');
+    document.documentElement.setAttribute('data-blog-theme', 'modern');
   };
 
   return (
@@ -56,7 +66,7 @@ export default function BlogThemeShell({ children }) {
         <button
           type="button"
           onClick={changeTheme}
-          className="relative inline-flex h-9 w-[122px] items-center gap-1 rounded-full border border-[#cbd5e1] bg-white/95 p-1 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.55)] backdrop-blur-md transition hover:shadow-[0_14px_28px_-18px_rgba(15,23,42,0.75)] dark:border-[#334155] dark:bg-[#0f172a]/95"
+          className="hidden relative inline-flex h-9 w-[122px] items-center gap-1 rounded-full border border-[#cbd5e1] bg-white/95 p-1 shadow-[0_10px_24px_-18px_rgba(15,23,42,0.55)] backdrop-blur-md transition hover:shadow-[0_14px_28px_-18px_rgba(15,23,42,0.75)] dark:border-[#334155] dark:bg-[#0f172a]/95"
           aria-label="Change blog theme"
           title={`Current blog theme: ${BLOG_THEMES[activeTheme]?.label || 'Manga'}`}
         >

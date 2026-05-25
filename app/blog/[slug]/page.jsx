@@ -1,10 +1,10 @@
 import { groq, PortableText } from 'next-sanity';
 import {
-  Bangers,
-  Comic_Neue,
-  DM_Sans,
-  Permanent_Marker,
-  Source_Serif_4,
+    Bangers,
+    Comic_Neue,
+    DM_Sans,
+    Permanent_Marker,
+    Source_Serif_4,
 } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -52,13 +52,9 @@ const modernSerifFont = Source_Serif_4({
 
 const BLOG_THEME_BOOTSTRAP_SCRIPT = `(function () {
   try {
-    var storedTheme = window.localStorage.getItem('blog-theme');
-    if (storedTheme === 'modern' || storedTheme === 'manga') {
-      document.documentElement.setAttribute('data-blog-theme', storedTheme);
-      return;
-    }
+    window.localStorage.setItem('blog-theme', 'modern');
   } catch (err) {}
-  document.documentElement.setAttribute('data-blog-theme', 'manga');
+  document.documentElement.setAttribute('data-blog-theme', 'modern');
 })();`;
 
 const POST_QUERY = groq`

@@ -90,19 +90,21 @@ export default function Home() {
     const normalizedTheme = savedTheme === 'neo' ? 'comic' : savedTheme;
 
     if (normalizedTheme && HOMEPAGE_THEMES[normalizedTheme]) {
-      setActiveTheme(normalizedTheme);
-      return;
+      window.localStorage.setItem(STORAGE_KEY, 'dev');
     }
 
-    // Keep first-time and invalid/legacy selections pinned to dev.
+    setActiveTheme('dev');
     window.localStorage.setItem(STORAGE_KEY, 'dev');
   }, []);
 
   const changeTheme = () => {
     const currentIndex = THEME_ORDER.indexOf(activeTheme);
     const nextTheme = THEME_ORDER[(currentIndex + 1) % THEME_ORDER.length];
-    setActiveTheme(nextTheme);
-    window.localStorage.setItem(STORAGE_KEY, nextTheme);
+
+    void nextTheme;
+
+    setActiveTheme('dev');
+    window.localStorage.setItem(STORAGE_KEY, 'dev');
   };
 
   const themeConfig = useMemo(() => {
@@ -129,7 +131,7 @@ export default function Home() {
       <button
         type="button"
         onClick={changeTheme}
-        className={`group fixed bottom-4 left-1/2 z-[70] inline-flex -translate-x-1/2 items-center gap-2 rounded-xl px-3 py-2 text-[11px] font-semibold backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 sm:bottom-5 sm:left-auto sm:right-5 sm:translate-x-0 sm:gap-2.5 sm:rounded-2xl sm:px-3.5 sm:py-2.5 sm:text-xs ${
+        className={`hidden group fixed bottom-4 left-1/2 z-[70] -translate-x-1/2 items-center gap-2 rounded-xl px-3 py-2 text-[11px] font-semibold backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 sm:bottom-5 sm:left-auto sm:right-5 sm:translate-x-0 sm:gap-2.5 sm:rounded-2xl sm:px-3.5 sm:py-2.5 sm:text-xs ${
           isStudio
             ? 'border border-[#60a5fa]/60 bg-[#0f172a]/95 text-white shadow-[0_16px_34px_-18px_rgba(2,6,23,0.95)] hover:border-[#93c5fd] hover:bg-[#111f35] dark:border-[#93c5fd]/60 dark:bg-[#0b1220]/95 dark:hover:border-[#bfdbfe] dark:hover:bg-[#152844]'
             : 'border border-[#93c5fd]/55 bg-[#14243d]/90 text-white shadow-[0_14px_32px_-18px_rgba(2,6,23,0.92)] hover:border-[#bfdbfe] hover:bg-[#1a3050] dark:border-[#93c5fd]/55 dark:bg-[#0b1727]/92 dark:text-white dark:shadow-[0_14px_32px_-18px_rgba(2,6,23,0.95)] dark:hover:border-[#bfdbfe] dark:hover:bg-[#152844]'

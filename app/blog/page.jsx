@@ -100,13 +100,9 @@ const modernQuoteFont = Lora({
 
 const BLOG_THEME_BOOTSTRAP_SCRIPT = `(function () {
   try {
-    var storedTheme = window.localStorage.getItem('blog-theme');
-    if (storedTheme === 'modern' || storedTheme === 'manga') {
-      document.documentElement.setAttribute('data-blog-theme', storedTheme);
-      return;
-    }
+    window.localStorage.setItem('blog-theme', 'modern');
   } catch (err) {}
-  document.documentElement.setAttribute('data-blog-theme', 'manga');
+  document.documentElement.setAttribute('data-blog-theme', 'modern');
 })();`;
 
 const BLOG_POSTS_QUERY = groq`
