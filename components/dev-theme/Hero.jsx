@@ -78,9 +78,13 @@ function Hero() {
             <p className="text-gray-800 font-mono px-1 py-2 dark:text-white text-xl sm:text-2xl lg:text-3xl xl:text-4xl transition-colors duration-300">
               Hey! I&apos;m
             </p>
-            <span className="text-blue-600 dark:text-blue-500">SHOHORAB</span>
+            <span className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-500 dark:to-blue-600">
+              SHOHORAB
+            </span>
             <br />
-            HOSSAIN SHAWON
+            <span className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 bg-clip-text text-transparent dark:from-blue-400 dark:via-blue-500 dark:to-blue-600">
+              HOSSAIN SHAWON
+            </span>
           </motion.h1>
 
           <motion.h2
@@ -105,7 +109,7 @@ function Hero() {
               href="/Shohorab_Hossain_Shawon.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 dark:hover:bg-blue-500 hover:text-white transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 text-white font-semibold rounded-full shadow-[0_12px_30px_-16px_rgba(59,130,246,0.9)] ring-1 ring-blue-400/30 hover:from-blue-500 hover:via-blue-400 hover:to-cyan-400 transition-all text-sm sm:text-base"
             >
               Resume
               <svg
@@ -125,7 +129,7 @@ function Hero() {
             </Link>
             <Link
               href="/photography"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-semibold rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full border border-gray-200/70 dark:border-gray-700/60 bg-white/70 dark:bg-gray-900/50 text-gray-800 dark:text-white font-semibold shadow-sm backdrop-blur-sm hover:border-blue-300/70 dark:hover:border-blue-400/60 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-white/90 dark:hover:bg-gray-900/70 transition-all text-sm sm:text-base"
             >
               Photography
               <svg
@@ -151,7 +155,7 @@ function Hero() {
             </Link>
             <Link
               href="/blog"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-white font-semibold rounded-lg shadow-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full border border-gray-200/70 dark:border-gray-700/60 bg-white/70 dark:bg-gray-900/50 text-gray-800 dark:text-white font-semibold shadow-sm backdrop-blur-sm hover:border-blue-300/70 dark:hover:border-blue-400/60 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-white/90 dark:hover:bg-gray-900/70 transition-all text-sm sm:text-base"
             >
               Blog
               <svg
@@ -172,7 +176,7 @@ function Hero() {
             <Link
               href="#contact"
               onClick={scrollToContact}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-colors text-sm sm:text-base"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold rounded-full shadow-[0_12px_30px_-18px_rgba(16,185,129,0.9)] ring-1 ring-emerald-400/30 hover:from-emerald-400 hover:to-green-500 transition-all text-sm sm:text-base"
             >
               Contact Now
               <svg
