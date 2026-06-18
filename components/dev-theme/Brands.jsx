@@ -7,6 +7,8 @@ const brandsData = [
   { src: '/brands/simple_declaration.jpg', name: 'Simple Declaration' },
   { src: '/brands/aat_art_cafe.jpg', name: 'AAT Art Cafe' },
   { src: '/brands/mj_edu.jpg', name: 'MJ Education and Visa Services' },
+  { src: '/brands/a_pause.jpg', name: 'A Pause' },
+  { src: '/brands/boho.png', name: 'Boho Boutique' },
 ];
 
 // --- Animation Variants ---
