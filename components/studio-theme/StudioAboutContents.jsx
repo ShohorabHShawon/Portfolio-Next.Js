@@ -54,7 +54,7 @@ export default function StudioAboutContents() {
               experiences that are functional, emotional, and visually memorable.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-[#374151] dark:text-[#d1d5db]">
-              Beyond code, I am a Photographer and Cinematographer focused on storytelling through
+              Beyond code, I am a Photographer and Filmmaker focused on storytelling through
               composition, mood, and motion.
             </p>
           </motion.div>

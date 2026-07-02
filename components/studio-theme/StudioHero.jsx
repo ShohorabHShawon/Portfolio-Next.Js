@@ -42,7 +42,7 @@ export default function StudioHero() {
             custom={0.02}
             className="mb-6 flex w-fit items-center justify-center rounded-xl border border-[#1f2937]/10 bg-white px-4 py-2 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1e3a4d] dark:border-[#94a3b8]/25 dark:bg-[#121b26] dark:text-[#e8dfd1] mx-auto md:mx-0"
           >
-            Web Developer | Designer | Cinematographer | Photographer
+            Web Developer | Designer | Filmmaker | Photographer
           </motion.p>
 
           <motion.h1

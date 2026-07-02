@@ -93,7 +93,7 @@ export default function MangaAboutContents() {
             experiences that are functional, emotional, and visually memorable.
           </p>
           <p className="mt-3 text-base leading-relaxed">
-            Beyond code, I am a Photographer and Cinematographer focused on storytelling through
+            Beyond code, I am a Photographer and Filmmaker focused on storytelling through
             composition, mood, and motion.
           </p>
         </motion.div>

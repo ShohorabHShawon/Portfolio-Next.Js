@@ -3,7 +3,7 @@ export const metadata = {
     'Shohorab H Shawon Photography & Cinematography | Professional Photographer',
 
   description:
-    'Shohorab H Shawon - Professional Photographer and Cinematographer. Explore photography portfolio, creative visual storytelling, and cinematography projects. Search Shohorab Shawon photographs and visual content.',
+    'Shohorab H Shawon - Professional Photographer and Filmmaker. Explore photography portfolio, creative visual storytelling, and cinematography projects. Search Shohorab Shawon photographs and visual content.',
 
   keywords: [
     'Shohorab H Shawon Photography',
@@ -11,13 +11,13 @@ export const metadata = {
     'Shohorab Photography',
     'Shawon Photography',
     'Shohorab H Shawon Cinematography',
-    'Shohorab Shawon Cinematographer',
+    'Shohorab Shawon Filmmaker',
     'Photography by Shohorab',
     'Cinematography by Shohorab',
     'Shohorab Hossain Photography',
     'Shohorab Hossain Cinematography',
     'Professional Photography',
-    'Professional Cinematographer',
+    'Professional Filmmaker',
     'Photography Portfolio',
     'Cinematography Portfolio',
     'Photographer Portfolio',
@@ -63,7 +63,7 @@ export const metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab H Shawon - Photographer & Cinematographer',
+    title: 'Shohorab H Shawon - Photographer & Filmmaker',
     description:
       'Professional photography and cinematography portfolio by Shohorab H Shawon. Visual storytelling and creative content.',
     images: ['/images/photography-hero.jpg'],

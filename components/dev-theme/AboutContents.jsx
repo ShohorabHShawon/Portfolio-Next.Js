@@ -122,7 +122,7 @@ export default function AboutSection() {
   user-friendly software using tools like Next.js and Tailwind CSS.
 </p>
 <p>
-  Beyond the screen, I am a passionate Photographer and Cinematographer. My background 
+  Beyond the screen, I am a passionate Photographer and Filmmaker. My background 
   in design deeply influences my visual storytelling, allowing me to bring a meticulous 
   eye for composition to street, product, and model photography, as well as cinematic reels.
 </p>

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-const words = ['Web Developer', 'Designer', 'Photographer' , 'Cinematographer'];
+const words = ['Web Developer', 'Designer', 'Photographer' , 'Filmmaker'];
 
 export function FlipW() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);

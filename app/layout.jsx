@@ -11,10 +11,10 @@ const poppins = localFont({
 
 export const metadata = {
   title:
-    'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
+    'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
 
   description:
-    'Shohorab H Shawon is a Software Engineer and Web Developer specializing in Next.js and React, plus a talented Photographer and Cinematographer. Explore projects, portfolio, and creative work.',
+    'Shohorab H Shawon is a Software Engineer and Web Developer specializing in Next.js and React, plus a talented Photographer and Filmmaker. Explore projects, portfolio, and creative work.',
   other: {
     'google-site-verification': 'OgeF8_GazjYsJM9yIDL8e_bmi3k2fHqRFAVBeGTiWkI',
     'application-name': 'Shohorab H Shawon',
@@ -33,7 +33,7 @@ export const metadata = {
     'Software Engineer',
     'Web Developer',
     'Photographer',
-    'Cinematographer',
+    'Filmmaker',
     'Next.js Developer',
     'React Developer',
     'Frontend Engineer',
@@ -82,18 +82,18 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
+    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
     description:
-      'Experienced Software Engineer and Web Developer specializing in Next.js and React. Also a talented Photographer and Cinematographer. Explore my portfolio and creative projects.',
+      'Experienced Software Engineer and Web Developer specializing in Next.js and React. Also a talented Photographer and Filmmaker. Explore my portfolio and creative projects.',
     url: 'https://shohorab.com',
     siteName:
-      'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
+      'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
     images: [
       {
         url: '/profile.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
+        alt: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
       },
     ],
     locale: 'en_US',
@@ -101,9 +101,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Cinematographer',
+    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
     description:
-      'Software Engineer, Web Developer, Photographer & Cinematographer. Specializing in Next.js, React, and creative visual content.',
+      'Software Engineer, Web Developer, Photographer & Filmmaker. Specializing in Next.js, React, and creative visual content.',
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
@@ -148,12 +148,12 @@ export default function RootLayout({ children }) {
         url: 'https://shohorab.com',
         image: 'https://shohorab.com/profile.jpg',
         description:
-          'Software Engineer, Web Developer, Photographer, and Cinematographer',
+          'Software Engineer, Web Developer, Photographer, and Filmmaker',
         jobTitle: [
           'Software Engineer',
           'Web Developer',
           'Photographer',
-          'Cinematographer',
+          'Filmmaker',
         ],
         worksFor: {
           '@type': 'Organization',
