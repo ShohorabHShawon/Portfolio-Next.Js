@@ -5,23 +5,21 @@ import { videos as videoMetadata } from './photography/components/videoData';
 import PinterestPhotographyTheme from './photography/themes/pinterest-theme/PinterestPhotographyTheme';
 
 export const metadata = {
-  title: 'Shohorab H Shawon - Photographer, Filmmaker & Visual Storyteller',
+  title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
   description:
-    'Shohorab H Shawon is a Photographer and Filmmaker first, with a secondary practice as a Software Engineer and Web Developer.',
+    'Shohorab H Shawon is a Dhaka-based Filmmaker and Visual Artist creating cinematography, visual poetry, and expressive moving-image work.',
   keywords: [
     'Shohorab H Shawon Photography',
     'Shohorab Shawon Photographer',
     'Shohorab Shawon Filmmaker',
-    'Photography Portfolio',
+    'Filmmaker Portfolio',
     'Cinematography Portfolio',
+    'Visual Poetry',
     'Visual Storytelling',
-    'Creative Photography',
-    'Professional Photographer',
-    'Professional Filmmaker',
     'Creative Direction',
+    'Dhaka Filmmaker',
     'Video Production',
-    'Software Engineer',
-    'Web Developer',
+    'Visual Artist',
     'shohorab.com',
     'shohorab',
     'Shawon',
@@ -30,9 +28,9 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Shohorab H Shawon - Photographer, Filmmaker & Visual Storyteller',
+    title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
     description:
-      'Discover photography and filmmaking by Shohorab H Shawon, with visual storytelling, cinematic direction, and selected technical work.',
+      'Discover cinematography, visual poetry, and expressive filmmaking by Dhaka-based artist Shohorab H Shawon.',
     url: 'https://shohorab.com',
     type: 'website',
     images: [
@@ -40,15 +38,15 @@ export const metadata = {
         url: '/images/photography-hero.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shohorab H Shawon Photography Portfolio',
+        alt: 'Shohorab H Shawon Filmmaker and Visual Artist',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab H Shawon - Photographer & Filmmaker',
+    title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
     description:
-      'Photography and filmmaking portfolio by Shohorab H Shawon, with visual storytelling and selected creative work.',
+      'Cinematography, visual poetry, and filmmaking by Dhaka-based artist Shohorab H Shawon.',
     images: ['/images/photography-hero.jpg'],
     creator: '@shohorab',
   },

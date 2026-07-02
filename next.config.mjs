@@ -11,12 +11,37 @@ const nextConfig = {
       {
         source: '/blog/studio',
         destination: '/blog',
-        permanent: false,
+        permanent: true,
       },
       {
         source: '/blog/studio/:path*',
         destination: '/blog',
-        permanent: false,
+        permanent: true,
+      },
+      {
+        source: '/portfolio',
+        destination: '/dev',
+        permanent: true,
+      },
+      {
+        source: '/projects',
+        destination: '/dev',
+        permanent: true,
+      },
+      {
+        source: '/web-projects',
+        destination: '/dev',
+        permanent: true,
+      },
+      {
+        source: '/ui-projects',
+        destination: '/dev',
+        permanent: true,
+      },
+      {
+        source: '/photography',
+        destination: '/',
+        permanent: true,
       },
     ];
   },

@@ -10,11 +10,10 @@ const poppins = localFont({
 })
 
 export const metadata = {
-  title:
-    'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
+  title: 'Shohorab H Shawon | Photographer,Filmmaker & Software Engineer',
 
   description:
-    'Shohorab H Shawon is a Software Engineer and Web Developer specializing in Next.js and React, plus a talented Photographer and Filmmaker. Explore projects, portfolio, and creative work.',
+    'Shohorab H Shawon is a Dhaka-based Filmmaker and Visual Artist crafting cinematography, visual poetry, and creative stories across film and digital media.',
   other: {
     'google-site-verification': 'OgeF8_GazjYsJM9yIDL8e_bmi3k2fHqRFAVBeGTiWkI',
     'application-name': 'Shohorab H Shawon',
@@ -30,42 +29,22 @@ export const metadata = {
   keywords: [
     'Shohorab H Shawon',
     'Shohorab Hossain Shawon',
-    'Software Engineer',
-    'Web Developer',
-    'Photographer',
     'Filmmaker',
-    'Next.js Developer',
-    'React Developer',
-    'Frontend Engineer',
-    'Backend Engineer',
-    'Full Stack Engineer',
-    'Web Development',
-    'Software Development',
-    'Photography Portfolio',
+    'Visual Artist',
     'Cinematography',
-    'Web Developer Portfolio',
-    'JavaScript Developer',
-    'TypeScript Developer',
-    'Next.js Expert',
-    'Nest.js Developer',
-    'Node.js Developer',
-    'React.js Specialist',
-    'Web Applications',
-    'Custom Web Solutions',
-    'UI/UX Designer',
-    'Visual Content Creator',
-    'Photo Gallery',
+    'Visual Poetry',
+    'Dhaka Filmmaker',
+    'Creative Direction',
     'Video Production',
+    'Visual Storytelling',
     'Creative Services',
-    'Tech Portfolio',
-    'Developer Portfolio',
-    'Professional Services',
+    'Motion Pictures',
+    'Independent Cinema',
     'shohorab.com',
     'shohorab',
     'Shawon',
     'AIUB Graduate',
-    'Tech and Creative Professional',
-    'Multi-disciplinary Developer',
+    'Creative Professional',
   ],
   authors: [{ name: 'Shohorab Hossain Shawon', url: 'https://shohorab.com' }],
   creator: 'Shohorab Hossain Shawon',
@@ -82,18 +61,18 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
+    title: 'Shohorab H Shawon | Photographer, Filmmaker & Software Engineer',
     description:
-      'Experienced Software Engineer and Web Developer specializing in Next.js and React. Also a talented Photographer and Filmmaker. Explore my portfolio and creative projects.',
+      'Dhaka-based filmmaker and visual artist working through filmmaking, visual poetry, and expressive storytelling.',
     url: 'https://shohorab.com',
     siteName:
-      'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
+      'Shohorab H Shawon | Photographer,Filmmaker & Software Engineer',
     images: [
       {
         url: '/profile.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
+        alt: 'Shohorab H Shawon | Photographer,Filmmaker & Software Engineer',
       },
     ],
     locale: 'en_US',
@@ -101,9 +80,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab H Shawon - Software Engineer, Web Developer, Photographer & Filmmaker',
+    title: 'Shohorab H Shawon | Photographer,Filmmaker & Software Engineer',
     description:
-      'Software Engineer, Web Developer, Photographer & Filmmaker. Specializing in Next.js, React, and creative visual content.',
+      'Dhaka-based filmmaker and visual artist focused on filmmaking, visual poetry, and creative storytelling.',
     images: ['/profile.jpg'],
     creator: '@shohorab',
   },
@@ -148,28 +127,27 @@ export default function RootLayout({ children }) {
         url: 'https://shohorab.com',
         image: 'https://shohorab.com/profile.jpg',
         description:
-          'Software Engineer, Web Developer, Photographer, and Filmmaker',
+          'Dhaka-based Filmmaker and Visual Artist working through filmmaking and visual poetry.',
         jobTitle: [
+          'Filmmaker',
+          'Visual Artist',
+          'Photographer',
+          'Visual Storyteller',
+          'Creative Director',
           'Software Engineer',
           'Web Developer',
-          'Photographer',
-          'Filmmaker',
         ],
         worksFor: {
           '@type': 'Organization',
           name: 'Freelance',
         },
         knowsAbout: [
-          'Web Development',
-          'Software Engineering',
-          'Next.js',
-          'React',
-          'Node.js',
-          'JavaScript',
-          'TypeScript',
-          'Photography',
+          'Software Engineer',
+          'Photographer',
           'Cinematography',
           'Visual Design',
+          'Visual Storytelling',
+          'filmmaker',
         ],
         sameAs: socialProfiles,
         contactPoint: {
@@ -190,7 +168,7 @@ export default function RootLayout({ children }) {
           },
           {
             '@type': 'Service',
-            name: 'Cinematography Services',
+            name: 'Filmmaking Services',
             url: 'https://shohorab.com',
           },
           {
@@ -206,7 +184,7 @@ export default function RootLayout({ children }) {
         url: 'https://shohorab.com',
         name: 'Shohorab H Shawon Portfolio',
         description:
-          'Portfolio of Shohorab H Shawon featuring software engineering, web development, photography, and cinematography work.',
+          'Portfolio of Shohorab H Shawon featuring filmmaking, visual poetry, and creative visual work.',
         inLanguage: 'en',
         publisher: {
           '@id': 'https://shohorab.com/#person',
