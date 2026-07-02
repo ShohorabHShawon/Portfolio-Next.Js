@@ -357,7 +357,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                     : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
                 }`}
               >
-                <span>Photo Gallery</span>
+                <span>Photos</span>
                 <span
                   className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
                     activeMedia === 'photos'
@@ -411,8 +411,6 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                   setSearchQuery={setSearchQuery}
                   sortBy={sortBy}
                   setSortBy={setSortBy}
-                  resultCount={displayedPhotos.length}
-                  totalCount={photos.length}
                   sortOptions={sortOptions}
                   isGalleryGridInView={isGalleryGridInView}
                 />

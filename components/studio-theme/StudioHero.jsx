@@ -76,7 +76,7 @@ export default function StudioHero() {
               Resume <FiArrowUpRight />
             </Link>
             <Link
-              href="/photography"
+              href="/"
               className="inline-flex items-center rounded-xl border border-[#1f2937]/10 bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-[#1f2937] transition hover:bg-[#f3f4f6] dark:border-[#94a3b8]/25 dark:bg-[#121b26] dark:text-[#e5e7eb] dark:hover:bg-[#1f2a37]"
             >
               Photography

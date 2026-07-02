@@ -269,7 +269,7 @@ export default async function BlogPage() {
               </Link>
 
               <Link
-                href="/photography"
+                href="/"
                 className="blog-theme-action group inline-flex items-center gap-2 rounded-full border-2 border-black bg-[#ffedd5] px-5 py-2 text-sm font-bold uppercase tracking-[0.16em] text-slate-800 transition hover:-translate-y-0.5 hover:bg-[#fde68a] dark:border-[#5eead4] dark:bg-[#244a70] dark:text-[#d8ebf8] dark:hover:bg-[#2e5b86]"
               >
                 <span
@@ -542,9 +542,7 @@ export default async function BlogPage() {
                       <Link href="/" className="inline-flex items-center justify-center rounded-full border border-black bg-black px-[0.95rem] py-[0.45rem] text-xs font-medium text-white transition hover:bg-[#242424] hover:text-white dark:border-[#f3f3f3] dark:bg-[#f3f3f3] dark:text-black dark:hover:bg-[#e0e0e0]">
                         Portfolio
                       </Link>
-                      <Link href="/photography" className="inline-flex items-center justify-center rounded-full border border-[#d0d0d0] bg-white px-[0.95rem] py-[0.45rem] text-xs font-medium text-black transition hover:border-[#aaaaaa] hover:bg-[#fafafa] dark:border-[#3a3a3a] dark:bg-transparent dark:text-[#f3f3f3] dark:hover:border-[#5a5a5a]">
-                        Photography
-                      </Link>
+                      
                     </div>
                   </div>
                   <h1 className={`${modernSerifFont.className} blog-modern-hero-title`}>

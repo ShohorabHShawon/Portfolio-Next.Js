@@ -11,8 +11,6 @@ const CategoryFilter = ({
   setSearchQuery,
   sortBy,
   setSortBy,
-  resultCount,
-  totalCount,
   sortOptions,
   isGalleryGridInView = false,
 }) => {
@@ -127,11 +125,6 @@ const CategoryFilter = ({
   const hasActiveFilters =
     searchQuery.trim() !== '' || selectedCategory !== 'All' || sortBy !== 'featured';
 
-  const resultSummary =
-    resultCount === totalCount
-      ? `Showing all ${totalCount} photos`
-      : `Showing ${resultCount} of ${totalCount} photos`;
-
   return (
     <div
       className={`sticky top-0 z-50 mb-16 border-b border-[#181A1B]/10 bg-white py-4 transition-[transform,opacity] duration-300 ease-out dark:border-gray-800 dark:bg-[#181A1B] md:translate-y-0 md:opacity-100 md:pointer-events-auto ${
@@ -145,7 +138,7 @@ const CategoryFilter = ({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
       >
-      <div className="mx-auto w-full max-w-7xl px-4">
+        <div className="mx-auto w-full max-w-7xl px-4">
         <div className="mb-4 hidden gap-3 md:grid md:grid-cols-[minmax(0,1fr)_180px_180px] lg:grid-cols-[minmax(0,1fr)_220px_180px] lg:items-center">
           <label className="flex items-center gap-3 rounded-2xl border border-[#181A1B]/10 bg-white px-4 py-3 shadow-sm transition focus-within:border-[#181A1B]/30 dark:border-white/10 dark:bg-[#121314]/80 dark:focus-within:border-white/25 md:rounded-xl md:px-3 md:py-3">
             <Search className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
@@ -347,9 +340,8 @@ const CategoryFilter = ({
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-3 rounded-xl bg-[#181A1B]/5 px-3 py-2 text-[11px] text-[#181A1B]/65 dark:bg-white/5 dark:text-white/55">
-            <p className="min-w-0 truncate">{resultSummary}</p>
-            {hasActiveFilters && (
+          {hasActiveFilters && (
+            <div className="flex justify-end rounded-xl bg-[#181A1B]/5 px-3 py-2 text-[11px] text-[#181A1B]/65 dark:bg-white/5 dark:text-white/55">
               <button
                 type="button"
                 onClick={handleResetFilters}
@@ -357,23 +349,12 @@ const CategoryFilter = ({
               >
                 Reset
               </button>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-3 hidden items-center justify-between gap-4 rounded-2xl bg-[#181A1B]/5 px-4 py-3 text-sm text-[#181A1B]/65 dark:bg-white/5 dark:text-white/55 md:flex">
-          <p>{resultSummary}</p>
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={handleResetFilters}
-              className="rounded-full border border-[#181A1B]/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-[#181A1B]/75 transition hover:border-[#181A1B]/20 hover:bg-white dark:border-white/10 dark:text-white/70 dark:hover:border-white/20 dark:hover:bg-white/10"
-            >
-              Reset filters
-            </button>
+            </div>
           )}
         </div>
       </div>
+
+      </motion.div>
 
       <style jsx global>{`
         input[type='search']::-webkit-search-cancel-button,
@@ -383,7 +364,6 @@ const CategoryFilter = ({
           -webkit-appearance: none;
         }
       `}</style>
-      </motion.div>
     </div>
   );
 };

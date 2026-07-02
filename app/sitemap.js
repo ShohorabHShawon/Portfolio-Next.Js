@@ -29,7 +29,7 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/photography`,
+      url: `${SITE_URL}/dev`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.85,

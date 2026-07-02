@@ -186,12 +186,12 @@ export default function RootLayout({ children }) {
           {
             '@type': 'Service',
             name: 'Photography Services',
-            url: 'https://shohorab.com/photography',
+            url: 'https://shohorab.com',
           },
           {
             '@type': 'Service',
             name: 'Cinematography Services',
-            url: 'https://shohorab.com/photography',
+            url: 'https://shohorab.com',
           },
           {
             '@type': 'Service',

@@ -128,7 +128,7 @@ function Hero() {
               </svg>
             </Link>
             <Link
-              href="/photography"
+              href="/"
               className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-6 sm:py-3 rounded-full border border-gray-200/70 dark:border-gray-700/60 bg-white/70 dark:bg-gray-900/50 text-gray-800 dark:text-white font-semibold shadow-sm backdrop-blur-sm hover:border-blue-300/70 dark:hover:border-blue-400/60 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-white/90 dark:hover:bg-gray-900/70 transition-all text-sm sm:text-base"
             >
               Photography

@@ -105,7 +105,7 @@ function MangaHero() {
               Resume File <FiArrowUpRight />
             </Link>
             <Link
-              href="/photography"
+              href="/"
               className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#39d5ff] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-[#101010] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#39d5ff] dark:text-[#101010] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
             >
               <FiPlay className="text-xs" /> Photography

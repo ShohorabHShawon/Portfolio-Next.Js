@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import ThemeToggle from '@/components/ThemeToggle';
+
 const HeroSection = ({ photos }) => {
   if (!photos || photos.length === 0) return null;
 
@@ -20,6 +22,10 @@ const HeroSection = ({ photos }) => {
 
   return (
     <div className="relative bg-white dark:bg-[#181A1B] flex flex-col items-center overflow-hidden">
+      <div className="absolute right-4 top-4 z-30 md:right-6 md:top-6">
+        <ThemeToggle />
+      </div>
+
       {/* Top Decorative Element */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
 
@@ -59,7 +65,7 @@ const HeroSection = ({ photos }) => {
             <h1 className="font-poppins text-4xl md:text-5xl font-light text-[#181A1B]/90 dark:text-white">
               Shohorab H Shawon
             </h1>
-            <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Photographer & Visual Creator</p>
+            <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Photographer & Visual Storyteller</p>
           </motion.div>
 
           {/* Bio */}
@@ -77,30 +83,21 @@ const HeroSection = ({ photos }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid w-full max-w-md grid-cols-3 gap-2 sm:flex sm:w-auto sm:max-w-none sm:justify-center sm:gap-4"
+            className="flex w-full max-w-md flex-row flex-wrap items-center justify-center gap-3 sm:max-w-none sm:gap-4"
           >
-            <motion.button
-              onClick={scrollToGallery}
-              className="inline-flex w-full min-w-0 items-center justify-center rounded-full bg-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-white transition-colors hover:bg-[#181A1B]/90 dark:bg-white dark:text-black dark:hover:bg-gray-200 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              View Gallery
-            </motion.button>
-
-            <Link href="/" className="w-full min-w-0 sm:w-auto">
+            <Link href="/dev" className="w-[calc(50%-0.25rem)] min-w-[120px] max-w-[150px] sm:w-auto sm:max-w-none sm:min-w-[155px]">
               <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Full Portfolio
+                Developer Portfolio
               </motion.button>
             </Link>
 
-            <Link href="/blog" className="w-full min-w-0 sm:w-auto">
+            <Link href="/blog" className="w-[calc(50%-0.25rem)] min-w-[120px] max-w-[150px] sm:w-auto sm:max-w-none sm:min-w-[155px]">
               <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:w-auto sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
+                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

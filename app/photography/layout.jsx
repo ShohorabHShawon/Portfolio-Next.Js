@@ -42,14 +42,14 @@ export const metadata = {
     'Custom Photography',
     'Shohorab',
     'Shawon',
-    'shohorab.com/photography',
+    'shohorab.com',
   ],
 
   openGraph: {
     title: 'Shohorab H Shawon - Photography & Cinematography Portfolio',
     description:
       'Discover professional photography and cinematography by Shohorab H Shawon. Visual storytelling through light, shadow, and composition.',
-    url: 'https://shohorab.com/photography',
+    url: 'https://shohorab.com',
     type: 'website',
     images: [
       {
@@ -83,10 +83,10 @@ export const metadata = {
   },
 
   alternates: {
-    canonical: '/photography',
+    canonical: '/',
   },
 };
 
 export default function PhotographyLayout({ children }) {
-  return <div className="dark min-h-screen bg-[#181A1B] text-white">{children}</div>;
+  return <div className="min-h-screen bg-white text-[#181A1B] transition-colors dark:bg-[#181A1B] dark:text-white">{children}</div>;
 }
