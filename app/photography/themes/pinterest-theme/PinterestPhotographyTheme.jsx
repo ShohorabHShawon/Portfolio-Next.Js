@@ -17,6 +17,14 @@ const PhotoFullscreenModal = dynamic(
   () => import('../../components/PhotoFullscreenModal'),
   { ssr: false },
 );
+const VideoGallery = dynamic(
+  () => import('../../components/VideoGallery'),
+  { ssr: false },
+);
+const VideoModal = dynamic(
+  () => import('../../components/VideoModal'),
+  { ssr: false },
+);
 
 const deterministicHash = (value) => {
   let hash = 0;
@@ -44,11 +52,13 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   const photoGridRef = useRef(null);
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [activeMedia, setActiveMedia] = useState('photos');
   const [isGalleryGridInView, setIsGalleryGridInView] = useState(false);
 
@@ -238,6 +248,32 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
     setIsFullscreen(false);
   }, []);
 
+  const openVideoModal = useCallback((video) => {
+    const index = videos.findIndex((v) => (v.id || v.src) === (video.id || video.src));
+    setCurrentVideoIndex(index >= 0 ? index : 0);
+    setSelectedVideo(video);
+  }, [videos]);
+
+  const closeVideoModal = useCallback(() => {
+    setSelectedVideo(null);
+  }, []);
+
+  const navigateVideo = useCallback((direction) => {
+    if (videos.length === 0) {
+      return;
+    }
+
+    setCurrentVideoIndex((prevIndex) => {
+      const newIndex =
+        direction === 'next'
+          ? (prevIndex + 1) % videos.length
+          : (prevIndex - 1 + videos.length) % videos.length;
+
+      setSelectedVideo(videos[newIndex]);
+      return newIndex;
+    });
+  }, [videos]);
+
   const handleResetFilters = useCallback(() => {
     setSearchQuery('');
     setSelectedCategory('All');
@@ -397,34 +433,13 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.28, ease: 'easeOut' }}
               >
-                <div className="mx-auto mt-8 max-w-3xl rounded-3xl border border-[#181A1B]/10 bg-white px-6 py-14 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] dark:border-white/10 dark:bg-white/5 sm:px-8">
-                  <span className="inline-flex rounded-full border border-[#181A1B]/10 bg-[#181A1B]/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#181A1B]/60 dark:border-white/10 dark:bg-white/10 dark:text-white/55">
-                    Under Development
-                  </span>
-                  <h2 className="mt-5 text-2xl font-light text-[#181A1B]/90 dark:text-white sm:text-3xl">
-                    This page is under development.
-                  </h2>
-                  <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[#181A1B]/65 dark:text-white/55 sm:text-base">
-                    The video section is still being prepared. Please check back later for the full collection.
+                <div className="mb-8 rounded-2xl border border-[#181A1B]/10 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-white/10 dark:bg-white/5">
+                  <p className="text-sm text-[#181A1B]/70 dark:text-white/65">
+                    Here are some of my videos, you can check other videos on my instagram and facebook page.
                   </p>
-                  <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <a
-                      href="https://www.instagram.com/shohorabs.pov/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded-full border border-[#181A1B]/10 bg-[#181A1B] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#181A1B]/90 dark:border-white/10 dark:bg-white dark:text-black dark:hover:bg-gray-200"
-                    >
-                      Check Videos on Instagram
-                    </a>
-                    <button
-                      type="button"
-                      onClick={() => setActiveMedia('photos')}
-                      className="inline-flex items-center justify-center rounded-full border border-[#181A1B]/10 bg-[#181A1B]/5 px-5 py-2.5 text-sm font-medium text-[#181A1B] transition-colors hover:bg-[#181A1B]/10 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
-                    >
-                      Back to Photos
-                    </button>
-                  </div>
                 </div>
+
+                <VideoGallery videos={videos} openVideoModal={openVideoModal} />
               </motion.div>
             )}
           </AnimatePresence>
@@ -449,6 +464,12 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
         navigatePhoto={navigatePhoto}
         exitFullscreen={exitFullscreen}
         onShare={sharePhoto}
+      />
+
+      <VideoModal
+        selectedVideo={selectedVideo}
+        closeModals={closeVideoModal}
+        navigateVideo={navigateVideo}
       />
 
       <style jsx>{`

@@ -13,6 +13,14 @@ const SUPPORTED_VIDEO_EXTENSIONS = new Set([
 
 const GIT_LFS_POINTER_HEADER = 'version https://git-lfs.github.com/spec/v1';
 
+const YOUTUBE_HOSTS = new Set([
+  'youtube.com',
+  'www.youtube.com',
+  'm.youtube.com',
+  'youtu.be',
+  'www.youtu.be',
+]);
+
 const humanizeVideoTitle = (fileName) => {
   const base = fileName.replace(/\.[^.]+$/, '');
 
@@ -23,6 +31,74 @@ const humanizeVideoTitle = (fileName) => {
     .trim();
 
   return cleaned || base;
+};
+
+const getYouTubeVideoId = (url) => {
+  if (!url || typeof url !== 'string') {
+    return null;
+  }
+
+  try {
+    const parsed = new URL(url);
+
+    if (!YOUTUBE_HOSTS.has(parsed.hostname.toLowerCase())) {
+      return null;
+    }
+
+    if (parsed.hostname.toLowerCase().includes('youtu.be')) {
+      const id = parsed.pathname.replace(/^\/+/, '').split('/')[0];
+      return id || null;
+    }
+
+    const watchId = parsed.searchParams.get('v');
+    if (watchId) {
+      return watchId;
+    }
+
+    const pathSegments = parsed.pathname.split('/').filter(Boolean);
+    const embedIndex = pathSegments.findIndex((segment) => segment === 'embed');
+
+    if (embedIndex >= 0 && pathSegments[embedIndex + 1]) {
+      return pathSegments[embedIndex + 1];
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+};
+
+const buildVideoLinks = (youtubeUrl, customLinks) => {
+  const normalizedCustomLinks = Array.isArray(customLinks) ? customLinks : [];
+  const nextLinks = [];
+  const seen = new Set();
+
+  const pushUnique = (link) => {
+    if (!link || typeof link.url !== 'string') return;
+
+    const trimmedUrl = link.url.trim();
+    if (!trimmedUrl) return;
+
+    const key = trimmedUrl.toLowerCase();
+    if (seen.has(key)) return;
+
+    seen.add(key);
+    nextLinks.push({
+      label: typeof link.label === 'string' && link.label.trim() ? link.label.trim() : 'Link',
+      url: trimmedUrl,
+    });
+  };
+
+  if (typeof youtubeUrl === 'string' && youtubeUrl.trim()) {
+    pushUnique({
+      label: 'Watch on YouTube',
+      url: youtubeUrl.trim(),
+    });
+  }
+
+  normalizedCustomLinks.forEach(pushUnique);
+
+  return nextLinks;
 };
 
 async function getPublicVideos() {
@@ -56,8 +132,34 @@ async function getPublicVideos() {
     };
 
     const metadataByFileName = new Map(
-      videoMetadata.map((video) => [video.fileName.toLowerCase(), video]),
+      videoMetadata
+        .filter((video) => typeof video.fileName === 'string' && video.fileName.trim())
+        .map((video) => [video.fileName.toLowerCase(), video]),
     );
+
+    const metadataEmbeddedVideos = videoMetadata
+      .filter((video) => typeof video.youtubeUrl === 'string' && video.youtubeUrl.trim())
+      .map((video) => {
+        const videoId = getYouTubeVideoId(video.youtubeUrl);
+
+        if (!videoId) {
+          return null;
+        }
+
+        const trimmedUrl = video.youtubeUrl.trim();
+
+        return {
+          id: video.id || `youtube-${videoId}`,
+          type: 'youtube',
+          src: `https://www.youtube.com/embed/${videoId}`,
+          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          fileName: video.fileName || 'YouTube',
+          title: video.title || 'YouTube Video',
+          description: video.description || '',
+          links: buildVideoLinks(trimmedUrl, video.links),
+        };
+      })
+      .filter(Boolean);
 
     const playableFiles = [];
 
@@ -71,6 +173,8 @@ async function getPublicVideos() {
       const metadata = metadataByFileName.get(fileName.toLowerCase());
 
       playableFiles.push({
+        id: `local-${fileName}`,
+        type: 'local',
         src: `/videos/${encodeURIComponent(fileName)}`,
         fileName,
         title: metadata?.title ?? humanizeVideoTitle(fileName),
@@ -79,9 +183,33 @@ async function getPublicVideos() {
       });
     }
 
-    return playableFiles;
+    return [...metadataEmbeddedVideos, ...playableFiles];
   } catch {
-    return [];
+    const metadataEmbeddedVideos = videoMetadata
+      .filter((video) => typeof video.youtubeUrl === 'string' && video.youtubeUrl.trim())
+      .map((video) => {
+        const videoId = getYouTubeVideoId(video.youtubeUrl);
+
+        if (!videoId) {
+          return null;
+        }
+
+        const trimmedUrl = video.youtubeUrl.trim();
+
+        return {
+          id: video.id || `youtube-${videoId}`,
+          type: 'youtube',
+          src: `https://www.youtube.com/embed/${videoId}`,
+          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          fileName: video.fileName || 'YouTube',
+          title: video.title || 'YouTube Video',
+          description: video.description || '',
+          links: buildVideoLinks(trimmedUrl, video.links),
+        };
+      })
+      .filter(Boolean);
+
+    return metadataEmbeddedVideos;
   }
 }
 

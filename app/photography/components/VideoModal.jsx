@@ -1,10 +1,11 @@
 'use client';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ExternalLink, Play, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ExternalLink, Instagram, Play, X, Youtube } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 export default function VideoModal({ selectedVideo, closeModals, navigateVideo }) {
+  const isYouTube = selectedVideo?.type === 'youtube';
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -32,6 +33,30 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
     });
   }, [links]);
 
+  const socialLinks = useMemo(() => {
+    const getHost = (value) => {
+      try {
+        return new URL(value).hostname.toLowerCase();
+      } catch {
+        return '';
+      }
+    };
+
+    const youtube = safeLinks.find((link) => {
+      const host = getHost(link.url);
+      return host.includes('youtube.com') || host.includes('youtu.be');
+    });
+
+    const instagram = safeLinks.find((link) => {
+      const host = getHost(link.url);
+      return host.includes('instagram.com');
+    });
+
+    const others = safeLinks.filter((link) => link !== youtube && link !== instagram);
+
+    return { youtube, instagram, others };
+  }, [safeLinks]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!selectedVideo) return;
@@ -54,6 +79,11 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
   }, [selectedVideo?.src]);
 
   useEffect(() => {
+    if (isYouTube) {
+      setIsPlaying(false);
+      return;
+    }
+
     const el = videoRef.current;
     if (!el) return;
 
@@ -70,7 +100,7 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
       el.removeEventListener('pause', handlePause);
       el.removeEventListener('ended', handleEnded);
     };
-  }, [selectedVideo?.src]);
+  }, [isYouTube, selectedVideo?.src]);
 
   const playFromOverlay = async () => {
     const el = videoRef.current;
@@ -106,32 +136,40 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
             />
 
             <DialogPanel className="relative z-10 bg-[#181A1B] backdrop-blur-xl rounded-2xl max-w-4xl w-full shadow-2xl overflow-hidden max-h-[90vh] flex flex-col border border-white/10">
-              <motion.button
-                onClick={() => navigateVideo?.('prev')}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
-                aria-label="Previous video"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </motion.button>
-              <motion.button
-                onClick={() => navigateVideo?.('next')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-black/75 hover:bg-black/90 rounded-full text-white border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm transition-all duration-200"
-                aria-label="Next video"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </motion.button>
-
-              <motion.button
-                className="absolute top-4 right-4 z-20 text-white p-2.5 bg-black/75 hover:bg-black/90 rounded-full transition-all border border-white/25 shadow-[0_8px_24px_rgba(0,0,0,0.45)] backdrop-blur-sm"
-                onClick={closeModals}
-                aria-label="Close video"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <X className="w-5 h-5" />
-              </motion.button>
-
               <div className="flex flex-col h-full overflow-hidden">
+                <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-5">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => navigateVideo?.('prev')}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-black/65"
+                      aria-label="Previous video"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>Prev</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => navigateVideo?.('next')}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-black/65"
+                      aria-label="Next video"
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+
+                  <motion.button
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/45 text-white transition hover:bg-black/65"
+                    onClick={closeModals}
+                    aria-label="Close video"
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <X className="h-5 w-5" />
+                  </motion.button>
+                </div>
+
                 <motion.div
                   className="flex-1 relative bg-black/50 flex items-center justify-center overflow-hidden"
                   key={selectedVideo.src}
@@ -141,19 +179,32 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
                   transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
                   {!hasError ? (
-                    <video
-                      ref={videoRef}
-                      src={selectedVideo.src}
-                      controls
-                      playsInline
-                      className="max-h-[70vh] w-full bg-black object-contain"
-                      onLoadedMetadata={() => {
-                        if (videoRef.current) {
-                          videoRef.current.volume = 0.5;
-                        }
-                      }}
-                      onError={() => setHasError(true)}
-                    />
+                    isYouTube ? (
+                      <iframe
+                        src={selectedVideo.src}
+                        title={selectedVideo.title}
+                        className="aspect-video w-full max-h-[70vh] bg-black"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allowFullScreen
+                        loading="lazy"
+                        onError={() => setHasError(true)}
+                      />
+                    ) : (
+                      <video
+                        ref={videoRef}
+                        src={selectedVideo.src}
+                        controls
+                        playsInline
+                        className="max-h-[70vh] w-full bg-black object-contain"
+                        onLoadedMetadata={() => {
+                          if (videoRef.current) {
+                            videoRef.current.volume = 0.5;
+                          }
+                        }}
+                        onError={() => setHasError(true)}
+                      />
+                    )
                   ) : (
                     <div className="flex min-h-[50vh] w-full items-center justify-center bg-black px-6 text-center text-white">
                       <div>
@@ -165,7 +216,7 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
                     </div>
                   )}
 
-                  {!isPlaying && !hasError ? (
+                  {!isYouTube && !isPlaying && !hasError ? (
                     <button
                       type="button"
                       onClick={playFromOverlay}
@@ -189,24 +240,46 @@ export default function VideoModal({ selectedVideo, closeModals, navigateVideo }
                   ) : null}
 
                   {safeLinks.length ? (
-                    <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-4">
-                      <p className="text-xs font-medium uppercase tracking-wide text-white/60">
-                        Links
-                      </p>
-                      <div className="mt-2 flex flex-col gap-2">
-                        {safeLinks.map((link) => (
-                          <a
-                            key={link.url}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm text-white/85 transition hover:bg-black/45"
-                          >
-                            <span className="truncate">{link.label}</span>
-                            <ExternalLink className="h-4 w-4 shrink-0 text-white/70" />
-                          </a>
-                        ))}
-                      </div>
+                    <div className="mt-4 flex items-center gap-2">
+                      {socialLinks.youtube ? (
+                        <a
+                          href={socialLinks.youtube.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Watch on YouTube"
+                          title="Watch on YouTube"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/35 text-white/90 transition hover:bg-[#FF0000] hover:text-white"
+                        >
+                          <Youtube className="h-4.5 w-4.5" />
+                        </a>
+                      ) : null}
+
+                      {socialLinks.instagram ? (
+                        <a
+                          href={socialLinks.instagram.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="Watch on Instagram"
+                          title="Watch on Instagram"
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/35 text-white/90 transition hover:bg-[#E1306C] hover:text-white"
+                        >
+                          <Instagram className="h-4.5 w-4.5" />
+                        </a>
+                      ) : null}
+
+                      {socialLinks.others.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={link.label}
+                          title={link.label}
+                          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/35 text-white/90 transition hover:bg-black/55"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      ))}
                     </div>
                   ) : null}
                 </div>

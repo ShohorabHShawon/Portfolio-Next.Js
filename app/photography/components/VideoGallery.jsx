@@ -4,6 +4,7 @@ import { Play } from 'lucide-react';
 import { useState } from 'react';
 
 const VideoItem = ({ video, openVideoModal }) => {
+  const isYouTube = video.type === 'youtube';
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [videoDimensions, setVideoDimensions] = useState(null);
@@ -48,30 +49,44 @@ const VideoItem = ({ video, openVideoModal }) => {
           className="absolute inset-0 w-full h-full"
         >
           {!hasError ? (
-            <video
-              src={video.src}
-              muted
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] [transform:translateZ(0)] [backface-visibility:hidden]"
-              onLoadedMetadata={(event) => {
-                const el = event.currentTarget;
-                if (el.videoWidth && el.videoHeight) {
-                  setVideoDimensions({ width: el.videoWidth, height: el.videoHeight });
-                }
-              }}
-              onLoadedData={() => setIsLoading(false)}
-              onError={() => {
-                setHasError(true);
-                setIsLoading(false);
-              }}
-            />
+            isYouTube ? (
+              <img
+                src={video.thumbnailSrc}
+                alt={video.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] [transform:translateZ(0)] [backface-visibility:hidden]"
+                onLoad={() => setIsLoading(false)}
+                onError={() => {
+                  setHasError(true);
+                  setIsLoading(false);
+                }}
+              />
+            ) : (
+              <video
+                src={video.src}
+                muted
+                playsInline
+                preload="metadata"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02] [transform:translateZ(0)] [backface-visibility:hidden]"
+                onLoadedMetadata={(event) => {
+                  const el = event.currentTarget;
+                  if (el.videoWidth && el.videoHeight) {
+                    setVideoDimensions({ width: el.videoWidth, height: el.videoHeight });
+                  }
+                }}
+                onLoadedData={() => setIsLoading(false)}
+                onError={() => {
+                  setHasError(true);
+                  setIsLoading(false);
+                }}
+              />
+            )
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-black/55 px-4 text-center text-white">
               <div>
                 <p className="text-sm font-medium">Preview unavailable</p>
                 <p className="mt-1 text-xs text-white/70">
-                  This video could not be loaded in the deployed site.
+                  This video preview could not be loaded in the deployed site.
                 </p>
               </div>
             </div>
@@ -134,7 +149,7 @@ const VideoGallery = ({ videos, openVideoModal }) => {
       transition={{ duration: 0.32, ease: 'easeOut' }}
     >
       {videos.map((video) => (
-        <VideoItem key={video.src} video={video} openVideoModal={openVideoModal} />
+        <VideoItem key={video.id || video.src} video={video} openVideoModal={openVideoModal} />
       ))}
     </motion.div>
   );
