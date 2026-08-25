@@ -47,35 +47,23 @@ const videos = [
     ],
   },
   {
-    fileName: 'Attention.mov',
-    title: 'Attention',
-    description: '',
-    links: [],
-  },
-  {
-    fileName: 'dekho.mov',
-    title: 'dekho',
-    description: '',
-    links: [],
-  },
-  {
-    fileName: 'Detached..mov',
-    title: 'Detached',
-    description: '',
-    links: [],
-  },
-  {
-    fileName: 'gym1.mov',
-    title: 'gym1',
-    description: '',
-    links: [],
-  },
-  {
-    fileName: 'healing.mov',
-    title: 'healing',
-    description: '',
-    links: [],
-  },
+  id: 'youtube-F5Clk4j3CEo',
+  type: 'youtube',
+  youtubeUrl: 'https://youtu.be/F5Clk4j3CEo?si=mOidCbq4qgxsMjXz',
+  title: 'Nothing Left to Lose - by Shohorab H Shawon',
+  description: 'Check it on youtube and instagram',
+  links: [
+    {
+      label: 'Watch on YouTube',
+      url: 'https://youtu.be/F5Clk4j3CEo?si=mOidCbq4qgxsMjXz',
+    },
+    {
+      label: 'Watch on Instagram',
+      url: 'https://www.instagram.com/reel/DbyIbiSS4IQ/?utm_source=ig_web_copy_link&igsi=MzRlODBiNWFlZA==',
+    },
+  ],
+}
+
 ];
 
 export { videos };
