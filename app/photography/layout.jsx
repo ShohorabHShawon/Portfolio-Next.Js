@@ -1,6 +1,6 @@
 export const metadata = {
   title:
-    'Shohorab H Shawon Visual Storyteller & Aspiring Filmmaker | Professional Photographer',
+    'Shohorab H Shawon Visual Storyteller |  Aspiring Filmmaker',
 
   description:
     'Shohorab H Shawon - Visual Storyteller & Aspiring Filmmaker. Explore photography portfolio, creative visual storytelling, and filmmaking projects. Search Shohorab Shawon Visual Storyteller & Aspiring Filmmaker.',
