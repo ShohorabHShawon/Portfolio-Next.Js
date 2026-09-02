@@ -62,7 +62,7 @@ const HeroSection = ({ photos }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-2"
           >
-            <h1 className="flex flex-wrap items-center justify-center gap-[0.22em] font-poppins text-4xl font-light text-[#181A1B]/90 dark:text-white md:text-5xl">
+            <h1 className="flex flex-nowrap items-center justify-center gap-[0.1em] whitespace-nowrap font-poppins text-2xl font-light text-[#181A1B]/90 dark:text-white md:text-5xl">
               Shohorab H Shawon
               <svg
                 aria-label="Verified profile"
@@ -83,7 +83,7 @@ const HeroSection = ({ photos }) => {
                 <rect width="24" height="24" fill="currentColor" mask="url(#verified-badge-cutout)" />
               </svg>
             </h1>
-            <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Photographer & Visual Storyteller</p>
+            <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Visual Storyteller & Aspiring Filmmaker</p>
           </motion.div>
 
           {/* Bio */}
@@ -93,7 +93,7 @@ const HeroSection = ({ photos }) => {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="max-w-xl text-[#181A1B]/70 dark:text-gray-300 text-base leading-relaxed"
           >
-            Capturing moments that tell stories. Exploring the aesthetics of light, shadow, and composition through photography and visual design.
+            Capturing moments that tell stories. Exploring the aesthetics of light, shadow, and composition through photography, visual design, and filmmaking.
           </motion.p>
 
           {/* CTA Buttons */}

@@ -1,13 +1,13 @@
 export const metadata = {
   title:
-    'Shohorab H Shawon Photography & Cinematography | Professional Photographer',
+    'Shohorab H Shawon Visual Storyteller & Aspiring Filmmaker | Professional Photographer',
 
   description:
-    'Shohorab H Shawon - Professional Photographer and Filmmaker. Explore photography portfolio, creative visual storytelling, and cinematography projects. Search Shohorab Shawon photographs and visual content.',
+    'Shohorab H Shawon - Visual Storyteller & Aspiring Filmmaker. Explore photography portfolio, creative visual storytelling, and filmmaking projects. Search Shohorab Shawon Visual Storyteller & Aspiring Filmmaker.',
 
   keywords: [
-    'Shohorab H Shawon Photography',
-    'Shohorab Shawon Photographer',
+    'Shohorab H Shawon Visual Storyteller',
+    'Shohorab Shawon Aspiring Filmmaker',
     'Shohorab Photography',
     'Shawon Photography',
     'Shohorab H Shawon Cinematography',
@@ -22,7 +22,7 @@ export const metadata = {
     'Cinematography Portfolio',
     'Photographer Portfolio',
     'Professional Photographer Portfolio',
-    'Creative Photography',
+    'Visual Storyteller & Aspiring Filmmaker',
     'Visual Storytelling',
     'Photo Gallery',
     'Professional Photo Gallery',
@@ -46,9 +46,9 @@ export const metadata = {
   ],
 
   openGraph: {
-    title: 'Shohorab H Shawon - Photography & Cinematography Portfolio',
+    title: 'Shohorab H Shawon - Visual Storyteller & Aspiring Filmmaker Portfolio',
     description:
-      'Discover professional photography and cinematography by Shohorab H Shawon. Visual storytelling through light, shadow, and composition.',
+      'Discover professional Visual Storyteller & Aspiring Filmmaker work by Shohorab H Shawon. Visual storytelling through light, shadow, and composition.',
     url: 'https://shohorab.com',
     type: 'website',
     images: [
@@ -63,9 +63,9 @@ export const metadata = {
 
   twitter: {
     card: 'summary_large_image',
-    title: 'Shohorab H Shawon - Photographer & Filmmaker',
+    title: 'Shohorab H Shawon - Visual Storyteller & Aspiring Filmmaker',
     description:
-      'Professional photography and cinematography portfolio by Shohorab H Shawon. Visual storytelling and creative content.',
+      'Professional photography and cinematography portfolio by Shohorab H Shawon. Visual Storyteller & Aspiring Filmmaker.',
     images: ['/images/photography-hero.jpg'],
     creator: '@shohorab',
   },
