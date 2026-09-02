@@ -62,8 +62,26 @@ const HeroSection = ({ photos }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-2"
           >
-            <h1 className="font-poppins text-4xl md:text-5xl font-light text-[#181A1B]/90 dark:text-white">
+            <h1 className="flex flex-wrap items-center justify-center gap-[0.22em] font-poppins text-4xl font-light text-[#181A1B]/90 dark:text-white md:text-5xl">
               Shohorab H Shawon
+              <svg
+                aria-label="Verified profile"
+                role="img"
+                viewBox="0 0 24 24"
+                className="h-[0.86em] w-[0.86em] shrink-0 text-[#1877F2]"
+              >
+                <defs>
+                  <mask id="verified-badge-cutout">
+                    <rect width="24" height="24" fill="black" />
+                    <polygon
+                      points="12,0.5 14.46,2.82 17.75,2.04 18.72,5.28 21.96,6.25 21.18,9.54 23.5,12 21.18,14.46 21.96,17.75 18.72,18.72 17.75,21.96 14.46,21.18 12,23.5 9.54,21.18 6.25,21.96 5.28,18.72 2.04,17.75 2.82,14.46 0.5,12 2.82,9.54 2.04,6.25 5.28,5.28 6.25,2.04 9.54,2.82"
+                      fill="white"
+                    />
+                    <path d="m9 12 2 2 4-4" fill="none" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.25" />
+                  </mask>
+                </defs>
+                <rect width="24" height="24" fill="currentColor" mask="url(#verified-badge-cutout)" />
+              </svg>
             </h1>
             <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Photographer & Visual Storyteller</p>
           </motion.div>
