@@ -290,7 +290,7 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
 
       <footer id="contact" className="border-t border-white/15 px-5 pb-8 pt-20 md:px-10 md:pt-28">
         <div className="mx-auto flex w-full max-w-[88rem] flex-col justify-between gap-16 md:flex-row">
-          <div><p className="mb-6 font-mono text-[10px] uppercase tracking-[0.25em] text-[#d6a85f]">Have a story in mind?</p><a href="mailto:hello@shohorab.com" className="group flex items-center gap-4 text-3xl tracking-[-0.05em] transition hover:text-[#d6a85f] md:text-6xl">Let&apos;s make it <ArrowUpRight className="h-8 w-8 transition group-hover:-translate-y-2 group-hover:translate-x-2 md:h-12 md:w-12" /></a></div>
+          <div><p className="mb-6 font-mono text-[10px] uppercase tracking-[0.25em] text-[#d6a85f]">Have a story in mind?</p><a href="mailto:shohorabhshawon@gmail.com" className="group flex items-center gap-4 text-3xl tracking-[-0.05em] transition hover:text-[#d6a85f] md:text-6xl">Let&apos;s make it <ArrowUpRight className="h-8 w-8 transition group-hover:-translate-y-2 group-hover:translate-x-2 md:h-12 md:w-12" /></a></div>
           <div className="flex flex-wrap gap-8 text-xs uppercase tracking-[0.2em] text-white/55">
             <Link href="/dev" className="hover:text-white">Developer</Link>
             <Link href="/blog" className="hover:text-white">Blog</Link>
