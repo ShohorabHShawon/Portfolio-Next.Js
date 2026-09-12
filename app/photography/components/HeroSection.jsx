@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ThemeToggle from '@/components/ThemeToggle';
-
 const HeroSection = ({ photos }) => {
   if (!photos || photos.length === 0) return null;
 
@@ -21,13 +19,16 @@ const HeroSection = ({ photos }) => {
   };
 
   return (
-    <div className="relative bg-white dark:bg-[#181A1B] flex flex-col items-center overflow-hidden">
-      <div className="absolute right-4 top-4 z-30 md:right-6 md:top-6">
-        <ThemeToggle />
-      </div>
-
+    <div className="relative flex flex-col items-center overflow-hidden bg-[#1a1512] text-[#f2efe9]">
       {/* Top Decorative Element */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-[#d6a85f] to-transparent" />
+      <Link
+        href="/"
+        className="absolute left-5 top-5 z-30 inline-flex items-center gap-2 border border-[#d6a85f]/45 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[#d6a85f] transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512] md:left-8 md:top-7"
+      >
+        <span aria-hidden="true">←</span>
+        Back Home
+      </Link>
 
       {/* Main Content */}
       <motion.div
@@ -36,13 +37,13 @@ const HeroSection = ({ photos }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="flex flex-col items-center text-center space-y-8">
+        <div className="flex flex-col items-center space-y-8 text-center">
           {/* Profile Avatar - Circular with Border */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="w-28 h-28 rounded-full border-2 border-[#181A1B]/20 dark:border-white/40 overflow-hidden bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+            className="flex h-28 w-28 items-center justify-center overflow-hidden rounded-full border-2 border-[#d6a85f]/50 bg-[#211914]"
           >
             {photos[0] && (
               <Image
@@ -62,7 +63,7 @@ const HeroSection = ({ photos }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-2"
           >
-            <h1 className="flex flex-nowrap items-center justify-center gap-[0.1em] whitespace-nowrap font-poppins text-2xl font-light text-[#181A1B]/90 dark:text-white md:text-5xl">
+            <h1 className="flex flex-wrap items-center justify-center gap-[0.1em] text-[clamp(1.55rem,6.5vw,3.4rem)] font-light leading-tight text-white">
               Shohorab H Shawon
               <svg
                 aria-label="Verified profile"
@@ -83,7 +84,7 @@ const HeroSection = ({ photos }) => {
                 <rect width="24" height="24" fill="currentColor" mask="url(#verified-badge-cutout)" />
               </svg>
             </h1>
-            <p className="text-lg text-[#181A1B]/70 dark:text-gray-400 font-light">Visual Storyteller & Aspiring Filmmaker</p>
+            <p className="text-lg font-light text-[#d6a85f]/80">Visual Storyteller & Aspiring Filmmaker</p>
           </motion.div>
 
           {/* Bio */}
@@ -91,38 +92,10 @@ const HeroSection = ({ photos }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-xl text-[#181A1B]/70 dark:text-gray-300 text-base leading-relaxed"
+            className="max-w-xl text-base leading-relaxed text-white/65"
           >
             Capturing moments that tell stories. Exploring the aesthetics of light, shadow, and composition through photography, visual design, and filmmaking.
           </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex w-full max-w-md flex-row flex-wrap items-center justify-center gap-3 sm:max-w-none sm:gap-4"
-          >
-            <Link href="/dev" className="w-[calc(50%-0.25rem)] min-w-[120px] max-w-[150px] sm:w-auto sm:max-w-none sm:min-w-[155px]">
-              <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Developer Portfolio
-              </motion.button>
-            </Link>
-
-            <Link href="/blog" className="w-[calc(50%-0.25rem)] min-w-[120px] max-w-[150px] sm:w-auto sm:max-w-none sm:min-w-[155px]">
-              <motion.button
-                className="inline-flex w-full min-w-0 items-center justify-center rounded-full border-2 border-[#181A1B] px-2.5 py-2 text-xs font-medium leading-none tracking-[0.01em] text-[#181A1B] transition-colors hover:bg-[#181A1B]/5 dark:border-white dark:text-white dark:hover:bg-white/10 sm:min-w-[155px] sm:px-7 sm:py-2.5 sm:text-sm"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Blog
-              </motion.button>
-            </Link>
-          </motion.div>
 
           {/* Social Links */}
           <motion.div
@@ -135,17 +108,17 @@ const HeroSection = ({ photos }) => {
               href="https://www.instagram.com/shohorabs.pov/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#181A1B]/70 dark:text-gray-400 hover:text-[#181A1B] dark:hover:text-white transition-colors text-sm font-medium"
+              className="text-white/55 transition-colors hover:text-[#d6a85f] text-sm font-medium"
               whileHover={{ y: -2 }}
             >
               Instagram
             </motion.a>
-            <span className="text-[#181A1B]/70 dark:text-gray-600">•</span>
+            <span className="text-[#d6a85f]/60">•</span>
             <motion.a
               href="https://www.facebook.com/shohorabhshawon/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#181A1B]/70 dark:text-gray-400 hover:text-[#181A1B] dark:hover:text-white transition-colors text-sm font-medium"
+              className="text-white/55 transition-colors hover:text-[#d6a85f] text-sm font-medium"
               whileHover={{ y: -2 }}
             >
               Facebook

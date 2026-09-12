@@ -40,7 +40,7 @@ const nextConfig = {
       },
       {
         source: '/photography',
-        destination: '/',
+        destination: '/photos',
         permanent: true,
       },
     ];

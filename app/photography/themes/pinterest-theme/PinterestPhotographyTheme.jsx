@@ -1,5 +1,5 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -15,14 +15,6 @@ const PhotoDetailsModal = dynamic(
 );
 const PhotoFullscreenModal = dynamic(
   () => import('../../components/PhotoFullscreenModal'),
-  { ssr: false },
-);
-const VideoGallery = dynamic(
-  () => import('../../components/VideoGallery'),
-  { ssr: false },
-);
-const VideoModal = dynamic(
-  () => import('../../components/VideoModal'),
   { ssr: false },
 );
 
@@ -44,7 +36,7 @@ const sortOptions = [
   { value: 'category', label: 'Category' },
 ];
 
-export default function PinterestPhotographyTheme({ videos = [] }) {
+export default function PinterestPhotographyTheme() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -52,14 +44,11 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   const photoGridRef = useRef(null);
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [selectedVideo, setSelectedVideo] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [activeMedia, setActiveMedia] = useState('photos');
   const [isGalleryGridInView, setIsGalleryGridInView] = useState(false);
 
   const sharePhoto = useCallback(async () => {
@@ -248,32 +237,6 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
     setIsFullscreen(false);
   }, []);
 
-  const openVideoModal = useCallback((video) => {
-    const index = videos.findIndex((v) => (v.id || v.src) === (video.id || video.src));
-    setCurrentVideoIndex(index >= 0 ? index : 0);
-    setSelectedVideo(video);
-  }, [videos]);
-
-  const closeVideoModal = useCallback(() => {
-    setSelectedVideo(null);
-  }, []);
-
-  const navigateVideo = useCallback((direction) => {
-    if (videos.length === 0) {
-      return;
-    }
-
-    setCurrentVideoIndex((prevIndex) => {
-      const newIndex =
-        direction === 'next'
-          ? (prevIndex + 1) % videos.length
-          : (prevIndex - 1 + videos.length) % videos.length;
-
-      setSelectedVideo(videos[newIndex]);
-      return newIndex;
-    });
-  }, [videos]);
-
   const handleResetFilters = useCallback(() => {
     setSearchQuery('');
     setSelectedCategory('All');
@@ -286,7 +249,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   useEffect(() => {
     setIsGalleryGridInView(false);
 
-    if (activeMedia !== 'photos' || displayedPhotos.length === 0) {
+    if (displayedPhotos.length === 0) {
       return;
     }
 
@@ -309,7 +272,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
     observer.observe(target);
 
     return () => observer.disconnect();
-  }, [activeMedia, displayedPhotos.length]);
+  }, [displayedPhotos.length]);
 
   const navigatePhoto = useCallback((direction) => {
     if (displayedPhotos.length === 0) {
@@ -328,81 +291,12 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
   }, [displayedPhotos]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#181A1B]">
+    <div className="min-h-screen bg-[#1a1512] font-[Arial,Helvetica,sans-serif] text-[#f2efe9]">
       <HeroSection photos={photos} />
 
-      <div id="gallery" className="bg-white px-4 py-10 dark:bg-[#181A1B] sm:px-6">
+      <div id="gallery" className="bg-[#1a1512] px-4 py-10 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="mb-8 flex items-center justify-center"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-          >
-            <motion.div
-              className="inline-flex rounded-full border border-[#181A1B]/10 bg-white p-1 shadow-sm dark:border-white/10 dark:bg-[#121314]/80"
-              initial={{ scale: 0.98 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
-            >
-              <motion.button
-                type="button"
-                onClick={() => setActiveMedia('photos')}
-                aria-pressed={activeMedia === 'photos'}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
-                  activeMedia === 'photos'
-                    ? 'bg-[#181A1B] text-white dark:bg-white dark:text-black'
-                    : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
-                }`}
-              >
-                <span>Photos</span>
-                <span
-                  className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
-                    activeMedia === 'photos'
-                      ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
-                      : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
-                  }`}
-                >
-                  {displayedPhotos.length}
-                </span>
-              </motion.button>
-              <motion.button
-                type="button"
-                onClick={() => setActiveMedia('videos')}
-                aria-pressed={activeMedia === 'videos'}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`flex items-center rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-5 ${
-                  activeMedia === 'videos'
-                    ? 'bg-[#181A1B] text-white dark:bg-white dark:text-black'
-                    : 'text-[#181A1B]/70 hover:text-[#181A1B] dark:text-white/70 dark:hover:text-white'
-                }`}
-              >
-                <span>Videos</span>
-                <span
-                  className={`ml-2 hidden rounded-full px-2 py-0.5 text-[11px] font-medium leading-none sm:inline-flex ${
-                    activeMedia === 'videos'
-                      ? 'bg-white/15 text-white dark:bg-black/10 dark:text-black'
-                      : 'bg-[#181A1B]/5 text-[#181A1B]/60 dark:bg-white/10 dark:text-white/65'
-                  }`}
-                >
-                  {videos.length}
-                </span>
-              </motion.button>
-            </motion.div>
-          </motion.div>
-
-          <AnimatePresence mode="wait">
-            {activeMedia === 'photos' ? (
-              <motion.div
-                key="photos"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.28, ease: 'easeOut' }}
-              >
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }}>
                 <CategoryFilter
                   categories={categories}
                   selectedCategory={selectedCategory}
@@ -422,25 +316,7 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
                     onClearFilters={handleResetFilters}
                   />
                 </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="videos"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.28, ease: 'easeOut' }}
-              >
-                <div className="mb-8 rounded-2xl border border-[#181A1B]/10 bg-white/80 px-5 py-4 text-center shadow-sm dark:border-white/10 dark:bg-white/5">
-                  <p className="text-sm text-[#181A1B]/70 dark:text-white/65">
-                    Here are some of my videos, you can check other videos on my instagram and facebook page.
-                  </p>
-                </div>
-
-                <VideoGallery videos={videos} openVideoModal={openVideoModal} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          </motion.div>
         </div>
       </div>
 
@@ -462,12 +338,6 @@ export default function PinterestPhotographyTheme({ videos = [] }) {
         navigatePhoto={navigatePhoto}
         exitFullscreen={exitFullscreen}
         onShare={sharePhoto}
-      />
-
-      <VideoModal
-        selectedVideo={selectedVideo}
-        closeModals={closeVideoModal}
-        navigateVideo={navigateVideo}
       />
 
       <style jsx>{`

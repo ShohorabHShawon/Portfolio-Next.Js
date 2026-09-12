@@ -127,7 +127,7 @@ const CategoryFilter = ({
 
   return (
     <div
-      className={`sticky top-0 z-50 mb-16 border-b border-[#181A1B]/10 bg-white py-4 transition-[transform,opacity] duration-300 ease-out dark:border-gray-800 dark:bg-[#181A1B] md:translate-y-0 md:opacity-100 md:pointer-events-auto ${
+      className={`sticky top-0 z-50 mb-16 border-b border-[#d6a85f]/20 bg-[#1a1512] py-4 text-[#f2efe9] transition-[transform,opacity] duration-300 ease-out md:translate-y-0 md:opacity-100 md:pointer-events-auto ${
         isMobileControlsVisible
           ? 'translate-y-0 opacity-100 pointer-events-auto'
           : '-translate-y-full opacity-0 pointer-events-none'
@@ -140,14 +140,14 @@ const CategoryFilter = ({
       >
         <div className="mx-auto w-full max-w-7xl px-4">
         <div className="mb-4 hidden gap-3 md:grid md:grid-cols-[minmax(0,1fr)_180px_180px] lg:grid-cols-[minmax(0,1fr)_220px_180px] lg:items-center">
-          <label className="flex items-center gap-3 rounded-2xl border border-[#181A1B]/10 bg-white px-4 py-3 shadow-sm transition focus-within:border-[#181A1B]/30 dark:border-white/10 dark:bg-[#121314]/80 dark:focus-within:border-white/25 md:rounded-xl md:px-3 md:py-3">
-            <Search className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
+          <label className="flex items-center gap-3 rounded-2xl border border-white/15 bg-[#211914] px-4 py-3 shadow-sm transition focus-within:border-[#d6a85f]/50 md:rounded-xl md:px-3 md:py-3">
+            <Search className="h-4 w-4 shrink-0 text-white/45" />
             <input
               type="search"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Search title, category, or description"
-              className="w-full bg-transparent text-sm text-[#181A1B] outline-none placeholder:text-[#181A1B]/40 dark:text-white dark:placeholder:text-white/35 md:text-xs lg:text-sm"
+              className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/40 md:text-xs lg:text-sm"
             />
             {searchQuery && (
               <button
@@ -164,13 +164,13 @@ const CategoryFilter = ({
           <div className="relative" ref={sortDropdownRef}>
             <button
               onClick={() => setIsSortOpen(!isSortOpen)}
-              className="flex w-full items-center gap-2 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-3 text-xs shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
+              className="flex w-full items-center gap-2 rounded-xl border border-white/15 bg-[#211914] px-3 py-3 text-xs text-white shadow-sm transition hover:border-[#d6a85f]/40 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
             >
-              <SlidersHorizontal className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
-              <span className="hidden flex-1 text-left text-[#181A1B] dark:text-white lg:block">
+              <SlidersHorizontal className="h-4 w-4 shrink-0 text-white/45" />
+              <span className="hidden flex-1 text-left text-white lg:block">
                 {sortOptions.find((opt) => opt.value === sortBy)?.label || 'Sort'}
               </span>
-              <span className="flex-1 text-left text-[#181A1B] dark:text-white lg:hidden">
+              <span className="flex-1 text-left text-white lg:hidden">
                 {sortOptions.find((opt) => opt.value === sortBy)?.label?.split(' ')[0] || 'Sort'}
               </span>
               <ChevronDown
@@ -206,10 +206,10 @@ const CategoryFilter = ({
           <div className="relative hidden md:block" ref={dropdownRef}>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex w-full items-center gap-2 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-3 text-xs shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
+              className="flex w-full items-center gap-2 rounded-xl border border-white/15 bg-[#211914] px-3 py-3 text-xs text-white shadow-sm transition hover:border-[#d6a85f]/40 lg:gap-3 lg:rounded-2xl lg:px-4 lg:text-sm"
             >
-              <Tag className="h-4 w-4 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
-              <span className="flex-1 text-left text-[#181A1B] dark:text-white">{selectedCategory}</span>
+              <Tag className="h-4 w-4 shrink-0 text-white/45" />
+              <span className="flex-1 text-left text-white">{selectedCategory}</span>
               <ChevronDown
                 className="h-4 w-4 shrink-0 text-[#181A1B]/50 transition-transform dark:text-white/45"
                 style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -239,14 +239,14 @@ const CategoryFilter = ({
         </div>
 
         <div className="grid gap-2 md:hidden">
-          <label className="flex items-center gap-2 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-2.5 shadow-sm transition focus-within:border-[#181A1B]/30 dark:border-white/10 dark:bg-[#121314]/80 dark:focus-within:border-white/25">
-            <Search className="h-3.5 w-3.5 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
+          <label className="flex items-center gap-2 rounded-xl border border-white/15 bg-[#211914] px-3 py-2.5 shadow-sm transition focus-within:border-[#d6a85f]/50">
+            <Search className="h-3.5 w-3.5 shrink-0 text-white/45" />
             <input
               type="search"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Search title, category, or description"
-              className="min-w-0 flex-1 bg-transparent text-xs text-[#181A1B] outline-none placeholder:text-[#181A1B]/35 dark:text-white dark:placeholder:text-white/30"
+              className="min-w-0 flex-1 bg-transparent text-xs text-white outline-none placeholder:text-white/35"
             />
             {searchQuery && (
               <button
@@ -264,7 +264,7 @@ const CategoryFilter = ({
             <div className="relative" ref={sortDropdownRef}>
               <button
                 onClick={() => setIsSortOpen(!isSortOpen)}
-                className="flex w-full min-w-0 items-center gap-1.5 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-2.5 text-[11px] font-medium shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15"
+                className="flex w-full min-w-0 items-center gap-1.5 rounded-xl border border-white/15 bg-[#211914] px-3 py-2.5 text-[11px] font-medium text-white shadow-sm transition hover:border-[#d6a85f]/40"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
                 <span className="min-w-0 flex-1 truncate whitespace-nowrap text-left text-[#181A1B] dark:text-white">
@@ -303,7 +303,7 @@ const CategoryFilter = ({
             <div className="relative" ref={dropdownRefMobile}>
               <button
                 onClick={() => setIsOpenMobile(!isOpenMobile)}
-                className="flex w-full min-w-0 items-center gap-1.5 rounded-xl border border-[#181A1B]/10 bg-white px-3 py-2.5 text-[11px] font-medium shadow-sm transition hover:border-[#181A1B]/20 dark:border-white/10 dark:bg-[#121314]/80 dark:hover:border-white/15"
+                className="flex w-full min-w-0 items-center gap-1.5 rounded-xl border border-white/15 bg-[#211914] px-3 py-2.5 text-[11px] font-medium text-white shadow-sm transition hover:border-[#d6a85f]/40"
               >
                 <Tag className="h-3.5 w-3.5 shrink-0 text-[#181A1B]/50 dark:text-white/45" />
                 <span

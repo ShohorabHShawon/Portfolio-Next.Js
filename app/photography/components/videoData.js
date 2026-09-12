@@ -1,9 +1,22 @@
 const videos = [
   {
+    id: 'youtube-0v21Brf6zbE',
+    type: 'youtube',
+    youtubeUrl: 'https://youtu.be/0v21Brf6zbE?si=H6_EFpATegiyL7Db',
+    title: 'Left Unsaid',
+    description: 'Check it on youtube and instagram',
+    links: [
+      {
+        label: 'Watch on Instagram',
+        url: 'https://www.instagram.com/reel/DcwG1MCSRF0/?utm_source=ig_web_copy_link&stkn=NTc4MTIwNjQ2YQ==',
+      },
+    ],
+  },
+  {
     id: 'youtube-neuKu0sZqVc',
     type: 'youtube',
     youtubeUrl: 'https://youtu.be/neuKu0sZqVc?si=wSDEx2yCJKF4uJPb',
-    title: 'Featured YouTube Video',
+    title: 'Left Unsaid',
     description: 'Check it on youtube and instagram',
     links: [
       {
@@ -16,7 +29,7 @@ const videos = [
     id: 'youtube-P08i18v2OF0',
     type: 'youtube',
     youtubeUrl: 'https://youtu.be/P08i18v2OF0?si=Zbner7Isud2ecVlD',
-    title: 'Featured YouTube Video 2',
+    title: 'The Night We Met',
     description: 'Check it on youtube and instagram',
     links: [
       {
@@ -33,7 +46,7 @@ const videos = [
     id: 'youtube-oxB2tzkwPzU',
     type: 'youtube',
     youtubeUrl: 'https://youtu.be/oxB2tzkwPzU?si=Yo44H09uUJoY4i6X',
-    title: 'Featured YouTube Video 3',
+    title: 'You Hate Rain?',
     description: 'Check it on youtube and instagram',
     links: [
       {

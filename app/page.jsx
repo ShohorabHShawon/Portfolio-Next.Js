@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { Suspense } from 'react';
 import { videos as videoMetadata } from './photography/components/videoData';
-import PinterestPhotographyTheme from './photography/themes/pinterest-theme/PinterestPhotographyTheme';
+import FilmmakerPhotographyTheme from './photography/themes/filmmaker-theme/FilmmakerPhotographyTheme';
 
 export const metadata = {
   title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
@@ -277,7 +277,7 @@ export default async function Home() {
 
   return (
     <Suspense fallback={<div className="min-h-screen bg-white dark:bg-[#181A1B]" />}>
-      <PinterestPhotographyTheme videos={videos} />
+      <FilmmakerPhotographyTheme videos={videos} />
     </Suspense>
   );
 }
