@@ -27,6 +27,7 @@ module.exports = {
       animation: {
         spotlight: 'spotlight 2s ease .75s 1 forwards',
         'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+        marquee: 'marquee var(--marquee-duration, 40s) linear infinite',
       },
 
       keyframes: {
@@ -45,10 +46,25 @@ module.exports = {
             'offset-distance': '100%',
           },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        // Journal palette (film theme), defined in globals.css for light and dark mode
+        journal: {
+          paper: 'rgb(var(--journal-paper) / <alpha-value>)',
+          surface: 'rgb(var(--journal-surface) / <alpha-value>)',
+          ink: 'rgb(var(--journal-ink) / <alpha-value>)',
+          body: 'rgb(var(--journal-body) / <alpha-value>)',
+          muted: 'rgb(var(--journal-muted) / <alpha-value>)',
+          line: 'rgb(var(--journal-line) / <alpha-value>)',
+          accent: 'rgb(var(--journal-accent) / <alpha-value>)',
+          rec: 'rgb(var(--journal-rec) / <alpha-value>)',
+        },
       },
     },
   },

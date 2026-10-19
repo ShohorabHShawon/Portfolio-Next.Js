@@ -23,7 +23,7 @@ export default async function sitemap() {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/blog`,
+      url: `${SITE_URL}/journal`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
@@ -37,7 +37,7 @@ export default async function sitemap() {
   ];
 
   const postRoutes = (posts || []).map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
+    url: `${SITE_URL}/journal/${post.slug}`,
     lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,

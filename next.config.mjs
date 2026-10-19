@@ -6,13 +6,29 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/blog/studio',
-        destination: '/blog',
+        source: '/journal/studio',
+        destination: '/journal',
         permanent: true,
       },
       {
+        source: '/journal/studio/:path*',
+        destination: '/journal',
+        permanent: true,
+      },
+      // The blog was renamed to the journal; keep old links and search results working.
+      {
         source: '/blog/studio/:path*',
-        destination: '/blog',
+        destination: '/journal',
+        permanent: true,
+      },
+      {
+        source: '/blog',
+        destination: '/journal',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/journal/:slug',
         permanent: true,
       },
       {
@@ -46,11 +62,11 @@ const nextConfig = {
     return [
       {
         source: `/${studioPath}`,
-        destination: '/blog/studio',
+        destination: '/journal/studio',
       },
       {
         source: `/${studioPath}/:path*`,
-        destination: '/blog/studio/:path*',
+        destination: '/journal/studio/:path*',
       },
     ];
   },

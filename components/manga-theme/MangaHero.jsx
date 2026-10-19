@@ -111,7 +111,7 @@ function MangaHero() {
               <FiPlay className="text-xs" /> Photography
             </Link>
             <Link
-              href="/blog"
+              href="/journal"
               className="inline-flex items-center gap-2 rounded-md border-[3px] border-[#111] bg-[#ffe063] px-4 py-2.5 text-xs font-black uppercase tracking-wide text-[#111] shadow-[4px_4px_0_0_#111] transition-transform duration-300 hover:-translate-y-1 dark:border-[#f6f2e8] dark:bg-[#ffe063] dark:text-[#121214] dark:shadow-[4px_4px_0_0_#f6f2e8] sm:text-sm"
             >
               Story Log
