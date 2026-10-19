@@ -3,9 +3,6 @@ const studioPath = (process.env.NEXT_PUBLIC_STUDIO_PATH || 'studio').replace(/^\
 
 const nextConfig = {
   transpilePackages: ['next-themes'],
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   async redirects() {
     return [
       {
