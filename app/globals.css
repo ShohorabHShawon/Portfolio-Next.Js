@@ -349,14 +349,53 @@ html.dark .notion pre .token {
   box-shadow: none !important;
 }
 
-/* Blog */
+/* Journal (film theme) */
+:root {
+  --journal-paper: 243 238 229;
+  --journal-surface: 250 247 241;
+  --journal-ink: 26 21 18;
+  --journal-body: 61 52 45;
+  --journal-muted: 110 98 86;
+  --journal-line: 221 211 196;
+  --journal-accent: 138 93 26;
+  --journal-rec: 167 67 54;
+}
+
+html.dark {
+  --journal-paper: 26 21 18;
+  --journal-surface: 33 25 20;
+  --journal-ink: 242 239 233;
+  --journal-body: 217 210 199;
+  --journal-muted: 154 143 130;
+  --journal-line: 58 47 39;
+  --journal-accent: 214 168 95;
+  --journal-rec: 199 92 76;
+}
+
+/* Fine film grain over the journal pages */
+.journal-grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(rgb(var(--journal-ink)) 0.6px, transparent 0.7px);
+  background-size: 4px 4px;
+}
+
+html.dark .journal-grain::before {
+  opacity: 0.045;
+  mix-blend-mode: screen;
+}
+
 .blog-reading-progress-track {
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
   z-index: 120;
-  height: 3px;
+  height: 2px;
   background: transparent;
   pointer-events: none;
   opacity: 0;
@@ -372,7 +411,7 @@ html.dark .notion pre .token {
   width: 100%;
   height: 100%;
   transform-origin: left center;
-  background: #10b981;
+  background: rgb(var(--journal-accent));
 }
 
 /* The sidebar shows reading progress on wide screens, so the top bar is only for smaller ones */
@@ -392,16 +431,14 @@ html.dark .notion pre .token {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
-  border: 1px solid #e4e4e7;
-  background: rgba(255, 255, 255, 0.9);
-  color: #3f3f46;
-  box-shadow: 0 10px 30px -12px rgba(24, 24, 27, 0.35);
+  border: 1px solid rgb(var(--journal-line));
+  background: rgb(var(--journal-surface) / 0.92);
+  color: rgb(var(--journal-body));
   backdrop-filter: blur(8px);
   opacity: 0;
   transform: translateY(8px);
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .blog-back-to-top.is-visible {
@@ -411,27 +448,17 @@ html.dark .notion pre .token {
 }
 
 .blog-back-to-top:hover {
-  border-color: #a1a1aa;
-  color: #18181b;
-}
-
-html.dark .blog-back-to-top {
-  border-color: #27272a;
-  background: rgba(24, 24, 27, 0.9);
-  color: #d4d4d8;
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
-}
-
-html.dark .blog-back-to-top:hover {
-  border-color: #52525b;
-  color: #ffffff;
+  border-color: rgb(var(--journal-accent));
+  background: rgb(var(--journal-accent));
+  color: rgb(var(--journal-paper));
 }
 
 .blog-image-skeleton {
+  background-color: rgb(var(--journal-line) / 0.5);
   background-image: linear-gradient(
     100deg,
     rgba(255, 255, 255, 0) 20%,
-    rgba(255, 255, 255, 0.35) 40%,
+    rgba(255, 255, 255, 0.25) 40%,
     rgba(255, 255, 255, 0) 60%
   );
   background-size: 220% 100%;
@@ -460,15 +487,11 @@ html.dark .blog-image-skeleton {
   font-family: var(--font-blog-modern-serif), Georgia, serif;
 }
 
-.blog-post-body :is(h1, h2, h3, h4, figcaption) {
+.blog-post-body :is(h1, h2, h3, h4) {
   font-family: var(--font-blog-modern-sans), 'Helvetica Neue', Arial, sans-serif;
 }
 
 .blog-aside-toc {
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d8 transparent;
-}
-
-html.dark .blog-aside-toc {
-  scrollbar-color: #3f3f46 transparent;
+  scrollbar-color: rgb(var(--journal-line)) transparent;
 }

@@ -6,10 +6,19 @@ import Link from 'next/link';
 import { client } from '../../sanity/lib/client';
 import { urlFor } from '../../sanity/lib/image';
 import BackToTopButton from './BackToTopButton';
-import { BlogFooter, BlogHeader } from './BlogChrome';
+import { AuthorAvatar, BlogFooter, BlogHeader, isSiteAuthor } from './BlogChrome';
 import BlogModernFilterBar from './BlogModernFilterBar';
 import BlogMotionSection from './BlogMotionSection';
 import BlogThemeShell from './BlogThemeShell';
+import {
+  ArrowIcon,
+  CategoryChips,
+  EntryRow,
+  entryNumber,
+  formatDate,
+  ImageFallback,
+  SectionLabel,
+} from './JournalUI';
 import QuoteOfDayCard from './QuoteOfDayCard';
 import { getQuoteOfTheDay } from './quotes';
 import { estimateReadingTime } from './readingTime';
@@ -108,16 +117,6 @@ const BLOG_POSTS_QUERY = groq`
   }
 `;
 
-function formatDate(dateString) {
-  if (!dateString) return 'Coming soon';
-
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-  }).format(new Date(dateString));
-}
-
 function getFilterAttributes(post) {
   return {
     'data-blog-post-item': 'true',
@@ -127,88 +126,16 @@ function getFilterAttributes(post) {
   };
 }
 
-function PostLink({ post, className, children }) {
-  const isLinkable = post.slug && !post.isDraft;
-
-  if (isLinkable) {
-    return (
-      <Link href={`/journal/${post.slug}`} className={className} {...getFilterAttributes(post)}>
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <div className={className} {...getFilterAttributes(post)}>
-      {children}
-    </div>
-  );
+function getPostHref(post) {
+  return post.slug && !post.isDraft ? `/journal/${post.slug}` : null;
 }
 
-function PostMeta({ post, className = '' }) {
-  return (
-    <div
-      className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500 dark:text-zinc-400 ${className}`}
-    >
-      <span className="font-medium text-zinc-700 dark:text-zinc-300">{post.author}</span>
-      <span aria-hidden="true" className="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-600" />
-      <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-      <span aria-hidden="true" className="h-1 w-1 rounded-full bg-zinc-300 dark:bg-zinc-600" />
-      <span>{post.readingTimeMinutes} min read</span>
-    </div>
-  );
-}
-
-function CategoryChips({ post, limit }) {
-  const categories = (post.categories || []).filter(Boolean).slice(0, limit);
-  if (categories.length === 0) return null;
-
-  return (
-    <div className="flex flex-wrap gap-1.5">
-      {categories.map((cat) => (
-        <span
-          key={`${post._id}-${cat}`}
-          className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/15 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/20"
-        >
-          {cat}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function ImageFallback() {
-  return (
-    <div className="h-full w-full bg-gradient-to-br from-zinc-100 via-zinc-50 to-emerald-50 dark:from-zinc-800 dark:via-zinc-900 dark:to-emerald-950/60" />
-  );
-}
-
-function ArrowIcon({ className = '' }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      className={className}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14" />
-      <path d="m13 6 6 6-6 6" />
-    </svg>
-  );
-}
-
-const cardSurface =
-  'rounded-2xl border border-zinc-200/80 bg-white shadow-[0_1px_2px_rgba(24,24,27,0.04)] transition duration-300 hover:-translate-y-0.5 hover:border-zinc-300 hover:shadow-[0_18px_40px_-24px_rgba(24,24,27,0.35)] dark:border-zinc-800 dark:bg-zinc-900/60 dark:hover:border-zinc-700 dark:hover:shadow-[0_18px_40px_-24px_rgba(0,0,0,0.9)]';
-
-export default async function BlogPage() {
+export default async function JournalPage() {
   const posts = await client.fetch(BLOG_POSTS_QUERY, {}, { next: { revalidate } });
   const quoteOfDay = getQuoteOfTheDay();
-  const normalizedPosts = (posts || []).map((post) => ({
+  const normalizedPosts = (posts || []).map((post, index, list) => ({
     ...post,
+    entryNumber: list.length - index,
     readingTimeMinutes: estimateReadingTime(post.plainText || post.excerpt, post.imageCount),
   }));
   const featured = normalizedPosts[0];
@@ -241,12 +168,11 @@ export default async function BlogPage() {
       )
     : 0;
 
-  const latestPublishedDate = featured?.publishedAt ? formatDate(featured.publishedAt) : 'Updating';
-
   const stats = [
-    { label: 'Stories', value: normalizedPosts.length },
-    { label: 'Topics', value: allCategories.length },
+    { label: 'Entries', value: String(normalizedPosts.length).padStart(2, '0') },
+    { label: 'Topics', value: String(allCategories.length).padStart(2, '0') },
     { label: 'Avg. read', value: averageReadTime ? `${averageReadTime} min` : '—' },
+    { label: 'Last entry', value: featured?.publishedAt ? formatDate(featured.publishedAt) : '—' },
   ];
 
   const blogSchema = {
@@ -277,10 +203,13 @@ export default async function BlogPage() {
     })),
   };
 
+  const featuredHref = featured ? getPostHref(featured) : null;
+  const FeaturedWrapper = featuredHref ? Link : 'div';
+
   return (
     <BlogThemeShell showToggle={false}>
       <main
-        className={`${sansFont.className} ${sansFont.variable} blog-list-page relative min-h-screen bg-zinc-50 text-zinc-900 antialiased transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-100 [&_:is(a,button,input,select):focus-visible]:outline-none [&_:is(a,button,input,select):focus-visible]:ring-2 [&_:is(a,button,input,select):focus-visible]:ring-emerald-500/60`}
+        className={`${sansFont.className} ${sansFont.variable} journal-grain blog-list-page relative min-h-screen bg-journal-paper text-journal-ink antialiased transition-colors duration-300 selection:bg-journal-accent selection:text-journal-paper [&_:is(a,button,input,select):focus-visible]:outline-none [&_:is(a,button,input,select):focus-visible]:ring-2 [&_:is(a,button,input,select):focus-visible]:ring-journal-accent/60`}
       >
         <BackToTopButton />
         <script
@@ -298,71 +227,53 @@ export default async function BlogPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
         />
 
-        {/* Soft ambient glow */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-[520px] overflow-hidden">
-          <div className="absolute left-1/2 top-[-260px] h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-500/10" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(24,24,27,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(24,24,27,0.04)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(ellipse_at_top,black_20%,transparent_70%)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)]" />
-        </div>
-
         <BlogHeader />
 
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative z-[1] mx-auto max-w-6xl px-5 md:px-8">
+          {/* Masthead */}
           <BlogMotionSection delay={0.04} y={16}>
-            <section className="grid gap-10 pb-12 pt-14 md:pt-20 lg:grid-cols-[1.35fr_1fr] lg:items-end lg:gap-14">
+            <section className="grid gap-12 border-b border-journal-line pb-14 pt-14 md:pt-20 lg:grid-cols-[1.4fr_1fr] lg:items-end lg:gap-16">
               <div>
-                <p className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/70 px-3 py-1 text-xs font-medium text-zinc-600 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/70 dark:text-zinc-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  Updated {latestPublishedDate}
+                <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-journal-accent">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-journal-rec" />
+                  SHS Journal · Vol. {new Date().getFullYear()}
                 </p>
-                <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-[1.05] tracking-[-0.035em] text-zinc-900 dark:text-white sm:text-5xl md:text-6xl">
-                  Notes on building for the web,{' '}
-                  <span className="text-zinc-400 dark:text-zinc-500">one story at a time.</span>
+                <h1 className="mt-7 max-w-3xl text-[clamp(2.8rem,7.5vw,6rem)] font-medium leading-[0.9] tracking-[-0.06em] text-journal-ink">
+                  Notes from behind <span className="text-journal-accent">the lens.</span>
                 </h1>
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-600 dark:text-zinc-400 md:text-lg">
-                  Engineering lessons, product reflections, and creative experiments by Shohorab H
-                  Shawon.
+                <p className="mt-7 max-w-lg text-base leading-relaxed text-journal-body md:text-lg">
+                  Field notes on filmmaking, photography and building for the web — the process, the
+                  gear, and the stories in between.
                 </p>
-
-                <div className="mt-8 flex flex-wrap items-center gap-3">
-                  {normalizedPosts.length > 0 && (
-                    <a
-                      href="#latest-stories"
-                      className="group inline-flex items-center gap-2 rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-                    >
-                      Browse stories
-                      <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-                  )}
-                  <Link
-                    href="/"
-                    className="inline-flex items-center rounded-full border border-zinc-300 bg-white/60 px-5 py-2.5 text-sm font-medium text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:bg-transparent dark:text-zinc-300 dark:hover:border-zinc-500 dark:hover:text-white"
+                {normalizedPosts.length > 0 && (
+                  <a
+                    href="#featured-entry"
+                    className="group mt-9 inline-flex items-center gap-3 border border-journal-accent bg-journal-accent px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-journal-paper transition hover:bg-transparent hover:text-journal-accent"
                   >
-                    About me
-                  </Link>
-                </div>
-
-                <dl className="mt-10 flex flex-wrap gap-x-10 gap-y-4">
-                  {stats.map((stat) => (
-                    <div key={stat.label}>
-                      <dt className="text-xs font-medium uppercase tracking-[0.14em] text-zinc-500 dark:text-zinc-500">
-                        {stat.label}
-                      </dt>
-                      <dd className="mt-1 text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">
-                        {stat.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                    Read the entries
+                    <ArrowIcon className="h-4 w-4 rotate-90 transition-transform group-hover:translate-y-0.5" />
+                  </a>
+                )}
               </div>
 
               {quoteOfDay && (
                 <QuoteOfDayCard initialQuote={quoteOfDay} quoteFontClassName={quoteFont.className} />
               )}
             </section>
+
+            <dl className="grid grid-cols-2 gap-px border-b border-journal-line bg-journal-line md:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="bg-journal-paper py-5 pr-4 [&:nth-child(even)]:pl-5 md:[&:not(:first-child)]:pl-6">
+                  <dt className="font-mono text-[10px] uppercase tracking-[0.22em] text-journal-muted">{stat.label}</dt>
+                  <dd className="mt-1.5 text-xl font-medium tracking-[-0.02em] text-journal-ink md:text-2xl">{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
           </BlogMotionSection>
 
+          {/* Filters */}
           <BlogMotionSection delay={0.08} y={14}>
-            <section className="pb-10">
+            <section className="py-10">
               <BlogModernFilterBar
                 categories={allCategories}
                 totalPosts={normalizedPosts.length}
@@ -371,67 +282,81 @@ export default async function BlogPage() {
             </section>
           </BlogMotionSection>
 
+          {/* Featured entry */}
           {featured ? (
             <BlogMotionSection delay={0.12} y={20}>
-              <section id="featured-story" className="pb-14">
-                <PostLink
-                  post={featured}
-                  className={`group grid overflow-hidden md:grid-cols-[1.15fr_1fr] ${cardSurface}`}
+              <section id="featured-entry" className="scroll-mt-24 pb-16">
+                <SectionLabel index="01" className="mb-6">Latest entry</SectionLabel>
+                <FeaturedWrapper
+                  {...(featuredHref ? { href: featuredHref } : {})}
+                  {...getFilterAttributes(featured)}
+                  className="group grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-center lg:gap-12"
                 >
-                  <div className="blog-image-skeleton relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[360px]">
-                    {featured.mainImage ? (
-                      <Image
-                        src={urlFor(featured.mainImage).width(1400).height(900).url()}
-                        alt={featured.title}
-                        fill
-                        className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                        sizes="(max-width: 768px) 100vw, 55vw"
-                        priority
-                      />
-                    ) : (
-                      <ImageFallback />
-                    )}
+                  <div className="relative">
+                    <div className="blog-image-skeleton relative aspect-[16/10] overflow-hidden">
+                      {featured.mainImage ? (
+                        <Image
+                          src={urlFor(featured.mainImage).width(1600).height(1000).url()}
+                          alt={featured.title}
+                          fill
+                          priority
+                          className="object-cover transition duration-1000 group-hover:scale-[1.03]"
+                          sizes="(max-width: 1024px) 100vw, 60vw"
+                        />
+                      ) : (
+                        <ImageFallback />
+                      )}
+                      <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[7%] bg-black/55" />
+                      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[7%] bg-black/55" />
+                      <span className="absolute left-4 top-[9%] flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/85">
+                        <span className="h-1.5 w-1.5 rounded-full bg-journal-rec" />
+                        {entryNumber(featured.entryNumber)}
+                      </span>
+                    </div>
+                    <div className="mt-3 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted">
+                      <span>FR {String(featured.entryNumber).padStart(3, '0')}</span>
+                      <span>{formatDate(featured.publishedAt, 'long')}</span>
+                    </div>
                   </div>
 
-                  <div className="flex flex-col justify-between gap-8 p-6 sm:p-8 lg:p-10">
-                    <div>
-                      <div className="flex flex-wrap items-center gap-3">
-                        <span className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-600 dark:text-emerald-400">
-                          {featured.slug && !featured.isDraft ? 'Featured' : 'Draft'}
-                        </span>
-                        <CategoryChips post={featured} limit={2} />
-                      </div>
-                      <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-[-0.025em] text-zinc-900 dark:text-white sm:text-3xl lg:text-[2.1rem]">
-                        {featured.title}
-                      </h2>
-                      <p className="mt-4 line-clamp-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
-                        {featured.excerpt}…
-                      </p>
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-4 border-t border-zinc-100 pt-5 dark:border-zinc-800">
-                      <PostMeta post={featured} />
-                      {featured.slug && !featured.isDraft ? (
-                        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-900 dark:text-white">
-                          Read article
+                  <div>
+                    <CategoryChips categories={featured.categories} limit={3} />
+                    <h2 className="mt-5 text-[clamp(2rem,4.2vw,3.4rem)] font-medium leading-[0.98] tracking-[-0.05em] text-journal-ink transition-colors group-hover:text-journal-accent">
+                      {featured.title}
+                    </h2>
+                    <p className="mt-5 line-clamp-4 text-base leading-relaxed text-journal-body">
+                      {featured.excerpt}…
+                    </p>
+                    <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-journal-line pt-5">
+                      <span className="flex items-center gap-2.5 text-sm text-journal-ink">
+                        {isSiteAuthor(featured.author) && <AuthorAvatar size={28} />}
+                        {featured.author}
+                      </span>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted">
+                        {featured.readingTimeMinutes} min read
+                      </span>
+                      {featuredHref ? (
+                        <span className="ml-auto inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-journal-accent">
+                          Read entry
                           <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </span>
                       ) : (
-                        <span className="text-xs text-zinc-500">Add a slug in Studio to open this post</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted">
+                          Add a slug in Studio to open
+                        </span>
                       )}
                     </div>
                   </div>
-                </PostLink>
+                </FeaturedWrapper>
               </section>
             </BlogMotionSection>
           ) : (
             <BlogMotionSection delay={0.12} y={20}>
-              <section className="pb-20">
-                <div className="rounded-2xl border border-dashed border-zinc-300 bg-white/60 px-6 py-16 text-center dark:border-zinc-700 dark:bg-zinc-900/40">
-                  <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-white">
-                    No posts yet
-                  </h2>
-                  <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+              <section className="pb-24">
+                <div className="border border-dashed border-journal-line px-6 py-20 text-center">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-journal-accent">Reel empty</p>
+                  <h2 className="mt-3 text-3xl font-medium tracking-[-0.04em] text-journal-ink">No entries yet</h2>
+                  <p className="mt-2 text-sm text-journal-body">
                     Create your first post in Sanity Studio and it will appear here.
                   </p>
                 </div>
@@ -439,55 +364,31 @@ export default async function BlogPage() {
             </BlogMotionSection>
           )}
 
+          {/* Entries log */}
           {restPosts.length > 0 && (
             <BlogMotionSection delay={0.18} y={22}>
-              <section id="latest-stories" className="scroll-mt-24 pb-24">
-                <div className="mb-6 flex flex-wrap items-end justify-between gap-2">
-                  <h2 className="text-xl font-semibold tracking-tight text-zinc-900 dark:text-white sm:text-2xl">
-                    Latest stories
-                  </h2>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {normalizedPosts.length} published
+              <section id="entries" className="scroll-mt-24 pb-24">
+                <div className="mb-2 flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <SectionLabel index="02" className="mb-4">The log</SectionLabel>
+                    <h2 className="text-4xl font-medium tracking-[-0.05em] text-journal-ink md:text-5xl">
+                      Earlier entries
+                    </h2>
+                  </div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted">
+                    {String(restPosts.length).padStart(2, '0')} more
                   </p>
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="border-b border-journal-line">
                   {restPosts.map((post) => (
-                    <PostLink
+                    <EntryRow
                       key={post._id}
                       post={post}
-                      className={`group flex h-full flex-col overflow-hidden ${cardSurface}`}
-                    >
-                      <div className="blog-image-skeleton relative aspect-[16/10] overflow-hidden">
-                        {post.mainImage ? (
-                          <Image
-                            src={urlFor(post.mainImage).width(900).height(600).url()}
-                            alt={post.title}
-                            fill
-                            className="object-cover transition duration-500 group-hover:scale-[1.04]"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <ImageFallback />
-                        )}
-                      </div>
-
-                      <div className="flex flex-1 flex-col p-5">
-                        <CategoryChips post={post} limit={2} />
-                        <h3 className="mt-3 line-clamp-2 text-lg font-semibold leading-snug tracking-[-0.015em] text-zinc-900 transition-colors group-hover:text-emerald-700 dark:text-white dark:group-hover:text-emerald-300">
-                          {post.title}
-                        </h3>
-                        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                          {post.excerpt}…
-                        </p>
-                        {!(post.slug && !post.isDraft) && (
-                          <p className="mt-2 text-xs text-zinc-500">Add a slug in Studio to open this post</p>
-                        )}
-                        <div className="mt-auto pt-5">
-                          <PostMeta post={post} className="border-t border-zinc-100 pt-4 dark:border-zinc-800" />
-                        </div>
-                      </div>
-                    </PostLink>
+                      number={post.entryNumber}
+                      href={getPostHref(post)}
+                      filterAttributes={getFilterAttributes(post)}
+                    />
                   ))}
                 </div>
               </section>

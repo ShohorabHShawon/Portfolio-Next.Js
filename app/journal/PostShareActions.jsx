@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 const iconButtonClass =
-  'inline-flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 ring-1 ring-inset ring-zinc-200 transition hover:text-zinc-900 hover:ring-zinc-300 dark:text-zinc-400 dark:ring-zinc-800 dark:hover:text-white dark:hover:ring-zinc-600';
+  'inline-flex h-8 w-8 items-center justify-center border border-journal-line text-journal-muted transition hover:border-journal-accent hover:text-journal-accent';
 
 const strokeIconProps = {
   'aria-hidden': true,
@@ -51,7 +51,7 @@ export default function PostShareActions({ url, title, className = '' }) {
       <button
         type="button"
         onClick={copyLink}
-        className={`${iconButtonClass} ${copied ? 'text-emerald-600 ring-emerald-500/40 dark:text-emerald-400' : ''}`}
+        className={`${iconButtonClass} ${copied ? 'border-journal-accent text-journal-accent' : ''}`}
         aria-label={copied ? 'Link copied' : 'Copy link'}
         title={feedback || 'Copy link'}
       >

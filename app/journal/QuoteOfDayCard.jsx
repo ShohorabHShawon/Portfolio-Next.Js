@@ -157,24 +157,18 @@ export default function QuoteOfDayCard({
   if (quotes.length === 0) return null;
 
   return (
-    <figure className="blog-quote-card relative overflow-hidden rounded-2xl border border-zinc-200/80 bg-white/80 p-6 shadow-[0_1px_2px_rgba(24,24,27,0.04)] backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/60 sm:p-7">
-      <span
-        aria-hidden="true"
-        className={`${quoteFontClassName} pointer-events-none absolute -right-2 -top-10 select-none text-[10rem] leading-none text-emerald-500/10 dark:text-emerald-400/10`}
-      >
-        &rdquo;
-      </span>
+    <figure className="blog-quote-card relative border border-journal-line bg-journal-surface p-6 sm:p-7">
+      <span aria-hidden="true" className="absolute -left-px -top-px h-4 w-4 border-l-2 border-t-2 border-journal-accent" />
+      <span aria-hidden="true" className="absolute -bottom-px -right-px h-4 w-4 border-b-2 border-r-2 border-journal-accent" />
 
-      <div className="relative flex items-center justify-between gap-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-zinc-500 dark:text-zinc-400">
-          Quote of the day
-        </p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-journal-accent">Quote of the day</p>
         <button
           type="button"
           onClick={handleRefreshQuote}
           disabled={quotes.length <= 1}
           aria-label="Show another quote"
-          className="group inline-flex h-8 w-8 items-center justify-center rounded-full text-zinc-500 ring-1 ring-inset ring-zinc-200 transition hover:text-zinc-900 hover:ring-zinc-300 disabled:cursor-not-allowed disabled:opacity-50 dark:text-zinc-400 dark:ring-zinc-700 dark:hover:text-white dark:hover:ring-zinc-500"
+          className="group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-journal-muted transition hover:text-journal-accent disabled:cursor-not-allowed disabled:opacity-50"
         >
           <svg
             aria-hidden="true"
@@ -182,32 +176,33 @@ export default function QuoteOfDayCard({
             className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover:rotate-180"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.2"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
             <path d="M21 12a9 9 0 1 1-3.3-6.9" />
             <path d="M21 3v6h-6" />
           </svg>
+          Next
         </button>
       </div>
 
       <blockquote
-        className={`${quoteFontClassName} blog-quote-text relative mt-5 min-h-[84px] text-lg italic leading-relaxed text-zinc-800 dark:text-zinc-100 md:text-xl`}
+        className={`${quoteFontClassName} blog-quote-text mt-5 min-h-[84px] text-lg italic leading-relaxed text-journal-ink md:text-xl`}
       >
         &ldquo;{displayedText}&rdquo;
         <span
-          className={`ml-0.5 inline-block h-[1.05em] w-[2px] align-middle bg-emerald-500 ${isTyping ? 'animate-pulse' : 'opacity-0'}`}
+          className={`ml-0.5 inline-block h-[1.05em] w-[2px] align-middle bg-journal-accent ${isTyping ? 'animate-pulse' : 'opacity-0'}`}
         />
       </blockquote>
 
       {activeQuote.author && (
         <figcaption
-          className={`blog-quote-author relative mt-4 flex items-center gap-2 text-sm text-zinc-500 transition-all duration-300 ease-out dark:text-zinc-400 ${
+          className={`blog-quote-author mt-4 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted transition-all duration-300 ease-out ${
             isTyping ? 'translate-y-1 opacity-0' : 'translate-y-0 opacity-100'
           }`}
         >
-          <span aria-hidden="true" className="h-px w-6 bg-zinc-300 dark:bg-zinc-600" />
+          <span aria-hidden="true" className="h-px w-6 bg-journal-line" />
           {activeQuote.author}
         </figcaption>
       )}

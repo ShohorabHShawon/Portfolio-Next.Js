@@ -55,7 +55,7 @@ export default function TableOfContents({ tableOfContents = [], className = '' }
   if (!tableOfContents.length) return null;
 
   return (
-    <ul className={`space-y-0.5 border-l border-zinc-200 dark:border-zinc-800 ${className}`}>
+    <ul className={`space-y-0.5 border-l border-journal-line ${className}`}>
       {tableOfContents.map((heading) => {
         const isActive = heading.id === activeId;
         return (
@@ -71,8 +71,8 @@ export default function TableOfContents({ tableOfContents = [], className = '' }
                 heading.level === 3 ? 'pl-7' : 'pl-4'
               } ${
                 isActive
-                  ? 'border-emerald-500 font-medium text-zinc-900 dark:border-emerald-400 dark:text-white'
-                  : 'border-transparent text-zinc-500 hover:border-zinc-300 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-600 dark:hover:text-white'
+                  ? 'border-journal-accent font-medium text-journal-ink'
+                  : 'border-transparent text-journal-muted hover:border-journal-line hover:text-journal-ink'
               }`}
             >
               {heading.title}

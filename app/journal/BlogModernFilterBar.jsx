@@ -131,45 +131,46 @@ export default function BlogModernFilterBar({
   const showCategorySelect = normalizedCategories.length > quickFilters.length;
 
   const chipBase =
-    'shrink-0 rounded-full px-3.5 py-1.5 text-xs font-medium transition';
+    'shrink-0 border px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] transition';
   const chipInactive =
-    'bg-white text-zinc-600 ring-1 ring-inset ring-zinc-200 hover:text-zinc-900 hover:ring-zinc-300 dark:bg-zinc-900 dark:text-zinc-400 dark:ring-zinc-800 dark:hover:text-white dark:hover:ring-zinc-700';
-  const chipActive =
-    'bg-zinc-900 text-white ring-1 ring-inset ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:ring-white';
+    'border-journal-line text-journal-muted hover:border-journal-accent hover:text-journal-accent';
+  const chipActive = 'border-journal-accent bg-journal-accent text-journal-paper';
 
   return (
-    <div className="rounded-2xl border border-zinc-200/80 bg-white/70 p-3 backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/50 sm:p-4">
-      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+    <div>
+      <div className="flex flex-col gap-4 md:flex-row md:items-end">
         <label className="relative flex-1">
-          <span className="sr-only">Search blog posts</span>
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m20 20-3.5-3.5" />
-          </svg>
-          <input
-            type="search"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search stories, topics, or authors"
-            className="h-11 w-full rounded-xl border border-zinc-200 bg-white pl-10 pr-3 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-600"
-          />
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-journal-muted">Search the journal</span>
+          <span className="relative mt-2 block">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-journal-muted"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-3.5-3.5" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Titles, topics, ideas…"
+              className="h-12 w-full border-0 border-b border-journal-line bg-transparent pl-7 pr-2 text-lg text-journal-ink outline-none transition placeholder:text-journal-muted/70 focus:border-journal-accent focus:ring-0"
+            />
+          </span>
         </label>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {showCategorySelect && (
             <select
               value={selectedCategory}
               onChange={(event) => setSelectedCategory(event.target.value)}
-              className="h-11 min-w-0 flex-1 rounded-xl border border-zinc-200 bg-white px-3 text-sm text-zinc-700 outline-none transition focus:border-zinc-400 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:focus:border-zinc-600 md:w-48 md:flex-none"
+              className="h-10 min-w-0 flex-1 border border-journal-line bg-journal-paper px-3 font-mono text-[11px] uppercase tracking-[0.12em] text-journal-body outline-none transition focus:border-journal-accent md:w-48 md:flex-none"
               aria-label="Filter by category"
             >
               <option value="">All categories</option>
@@ -181,8 +182,8 @@ export default function BlogModernFilterBar({
             </select>
           )}
 
-          <p className="whitespace-nowrap px-2 text-xs tabular-nums text-zinc-500 dark:text-zinc-400" aria-live="polite">
-            {visibleCount} / {totalPosts}
+          <p className="whitespace-nowrap font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted" aria-live="polite">
+            {String(visibleCount).padStart(2, '0')} / {String(totalPosts).padStart(2, '0')} shown
           </p>
 
           {hasActiveFilters && (
@@ -192,7 +193,7 @@ export default function BlogModernFilterBar({
                 setQuery('');
                 setSelectedCategory('');
               }}
-              className="h-11 rounded-xl px-3 text-sm font-medium text-zinc-600 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-white"
+              className="font-mono text-[10px] uppercase tracking-[0.2em] text-journal-accent underline-offset-4 hover:underline"
             >
               Clear
             </button>
@@ -201,7 +202,7 @@ export default function BlogModernFilterBar({
       </div>
 
       {quickFilters.length > 0 && (
-        <div className="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="-mx-1 mt-5 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <button
             type="button"
             onClick={() => setSelectedCategory('')}
@@ -228,8 +229,8 @@ export default function BlogModernFilterBar({
       )}
 
       {visibleCount === 0 && (
-        <p className="mt-3 rounded-xl bg-zinc-100 px-4 py-3 text-sm text-zinc-600 dark:bg-zinc-800/60 dark:text-zinc-300">
-          No stories match your search. Try a different keyword or topic.
+        <p className="mt-5 border border-dashed border-journal-line px-4 py-4 font-mono text-[11px] uppercase tracking-[0.16em] text-journal-muted">
+          Nothing on this reel. Try another word or topic.
         </p>
       )}
     </div>
