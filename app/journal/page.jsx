@@ -1,3 +1,4 @@
+import { pageMetadata, PERSON_ID, PERSON_NAME, WEBSITE_ID } from '@/lib/site';
 import { groq } from 'next-sanity';
 import { DM_Sans, Lora } from 'next/font/google';
 import Image from 'next/image';
@@ -28,61 +29,12 @@ export const dynamic = 'force-static';
 
 const SITE_URL = 'https://shohorab.com';
 
-export const metadata = {
-  title: 'Journal | Shohorab H Shawon',
+export const metadata = pageMetadata({
+  title: 'Journal',
   description:
-    'Read software engineering stories, product lessons, and creative experiments by Shohorab H Shawon (Shohorab Hossain Shawon).',
-  keywords: [
-    'Shohorab H Shawon journal',
-    'Shohorab Hossain Shawon journal',
-    'Shohorab Shawon journal',
-    'Shawon journal',
-    'Shohorab journal',
-    'software engineering journal',
-    'Next.js journal',
-    'web development articles',
-    'developer journal',
-    'tech stories',
-  ],
-  alternates: {
-    canonical: '/journal',
-  },
-  openGraph: {
-    title: 'Journal | Shohorab H Shawon',
-    description:
-      'Software engineering and creative stories by Shohorab H Shawon. Explore practical web development insights and project lessons.',
-    url: `${SITE_URL}/journal`,
-    siteName: 'Shohorab H Shawon Journal',
-    type: 'website',
-    images: [
-      {
-        url: '/profile.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Shohorab H Shawon Journal',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Journal | Shohorab H Shawon',
-    description:
-      'Read web development and software engineering stories by Shohorab H Shawon.',
-    images: ['/profile.jpg'],
-    creator: '@shohorab',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-};
+    'The journal of Shohorab H Shawon (Shohorab Hossain Shawon): notes on filmmaking, photography, visual storytelling and software development.',
+  path: '/journal',
+});
 
 const sansFont = DM_Sans({
   subsets: ['latin'],
@@ -184,12 +136,10 @@ export default async function JournalPage() {
       'Software engineering stories, product lessons, and creative experiments by Shohorab H Shawon.',
     url: `${SITE_URL}/journal`,
     inLanguage: 'en-US',
-    author: {
-      '@type': 'Person',
-      name: 'Shohorab H Shawon',
-      alternateName: ['Shohorab Hossain Shawon', 'Shohorab Shawon', 'Shawon'],
-      url: SITE_URL,
-    },
+    // Same Person node as the site-wide graph in the root layout.
+    author: { '@type': 'Person', '@id': PERSON_ID, name: PERSON_NAME, url: SITE_URL },
+    publisher: { '@id': PERSON_ID },
+    isPartOf: { '@id': WEBSITE_ID },
   };
 
   const itemListSchema = {

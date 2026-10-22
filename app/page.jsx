@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { DEFAULT_TITLE, pageMetadata, PERSON_ID, SITE_URL, WEBSITE_ID } from '@/lib/site';
 import { Instrument_Serif } from 'next/font/google';
 import path from 'path';
 import { Suspense } from 'react';
@@ -14,63 +15,18 @@ const displaySerif = Instrument_Serif({
   display: 'swap',
 });
 
-export const metadata = {
-  title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
-  description:
-    'Shohorab H Shawon is a Dhaka-based Filmmaker and Visual Artist creating cinematography, visual poetry, and expressive moving-image work.',
-  keywords: [
-    'Shohorab H Shawon Photography',
-    'Shohorab Shawon Photographer',
-    'Shohorab Shawon Filmmaker',
-    'Filmmaker Portfolio',
-    'Cinematography Portfolio',
-    'Visual Poetry',
-    'Visual Storytelling',
-    'Creative Direction',
-    'Dhaka Filmmaker',
-    'Video Production',
-    'Visual Artist',
-    'shohorab.com',
-    'shohorab',
-    'Shawon',
-  ],
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
-    description:
-      'Discover cinematography, visual poetry, and expressive filmmaking by Dhaka-based artist Shohorab H Shawon.',
-    url: 'https://shohorab.com',
-    type: 'website',
-    images: [
-      {
-        url: '/cover-web.jpg',
-        width: 1920,
-        height: 1072,
-        alt: 'Shohorab H Shawon Filmmaker and Visual Artist',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
-    description:
-      'Cinematography, visual poetry, and filmmaking by Dhaka-based artist Shohorab H Shawon.',
-    images: ['/cover-web.jpg'],
-    creator: '@shohorab',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+// Home keeps the site's default title ("Shohorab H Shawon — Filmmaker, Visual Storyteller, …").
+export const metadata = pageMetadata({ path: '/' });
+
+// Google's ProfilePage: tells search engines this page is about the person.
+const profilePageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': `${SITE_URL}/#profile`,
+  url: SITE_URL,
+  name: DEFAULT_TITLE,
+  mainEntity: { '@id': PERSON_ID },
+  isPartOf: { '@id': WEBSITE_ID },
 };
 
 const SUPPORTED_VIDEO_EXTENSIONS = new Set([
@@ -289,6 +245,10 @@ export default async function Home() {
 
   return (
     <div className={displaySerif.variable}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageJsonLd) }}
+      />
       <Suspense fallback={<div className="min-h-screen bg-white dark:bg-[#181A1B]" />}>
         <FilmmakerPhotographyTheme videos={videos} />
       </Suspense>

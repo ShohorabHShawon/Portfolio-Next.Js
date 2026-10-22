@@ -1,3 +1,4 @@
+import { OG_IMAGE, PERSON_ID, PERSON_NAME, WEBSITE_ID } from '@/lib/site';
 import { groq, PortableText } from 'next-sanity';
 import { DM_Sans, Source_Serif_4 } from 'next/font/google';
 import Image from 'next/image';
@@ -235,67 +236,36 @@ export async function generateMetadata({ params }) {
   const description = post.excerpt || `Read ${post.title} by ${post.author}.`;
   const canonicalPath = `/journal/${slug}`;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(1200).height(630).url()
-    : `${SITE_URL}/profile.jpg`;
-  const authorName = post.author || 'Shohorab Hossain Shawon';
-  const keywords = [
-    post.title,
-    `${post.title} journal`,
-    `${authorName} journal`,
-    'Shohorab H Shawon journal',
-    'Shohorab Hossain Shawon journal',
-    'Shohorab Shawon journal',
-    'Shawon journal',
-    'developer journal',
-    ...((post.categories || []).filter(Boolean)),
-  ];
+  const image = post.mainImage
+    ? { url: urlFor(post.mainImage).width(1200).height(630).url(), width: 1200, height: 630, alt: post.title }
+    : OG_IMAGE;
+  const authorName = post.author || PERSON_NAME;
+  // The root layout's title template adds " | Shohorab H Shawon".
+  const title = `${post.title} — Journal`;
 
   return {
-    title: `${post.title} | Shohorab H Shawon Journal`,
+    title,
     description,
-    keywords,
-    authors: [{ name: authorName, url: `${SITE_URL}/journal` }],
-    creator: 'Shohorab Hossain Shawon',
-    publisher: 'Shohorab Hossain Shawon',
+    authors: [{ name: authorName, url: SITE_URL }],
     alternates: {
       canonical: canonicalPath,
     },
     openGraph: {
-      title: `${post.title} | Shohorab H Shawon Journal`,
+      title: `${title} | ${PERSON_NAME}`,
       description,
       url: canonicalUrl,
-      siteName: 'Shohorab H Shawon Journal',
+      siteName: PERSON_NAME,
       type: 'article',
       publishedTime: post.publishedAt,
-      authors: [authorName, ...NAME_VARIATIONS.filter((name) => name !== authorName)],
+      authors: [authorName],
       tags: post.categories || [],
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      images: [image],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${post.title} | Shohorab H Shawon Journal`,
+      title: `${title} | ${PERSON_NAME}`,
       description,
-      images: [imageUrl],
-      creator: '@shohorab',
-    },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
+      images: [image.url],
     },
   };
 }
@@ -341,18 +311,12 @@ export default async function JournalEntryPage({ params }) {
     dateModified: post.publishedAt,
     mainEntityOfPage: canonicalUrl,
     url: canonicalUrl,
-    author: {
-      '@type': 'Person',
-      name: post.author || 'Shohorab H Shawon',
-      alternateName: NAME_VARIATIONS,
-      url: SITE_URL,
-    },
-    publisher: {
-      '@type': 'Person',
-      name: 'Shohorab Hossain Shawon',
-      alternateName: NAME_VARIATIONS,
-      url: SITE_URL,
-    },
+    // Posts by the site owner point at the same Person node as the root layout's graph.
+    author: !post.author || isSiteAuthor(post.author)
+      ? { '@type': 'Person', '@id': PERSON_ID, name: PERSON_NAME, alternateName: NAME_VARIATIONS, url: SITE_URL }
+      : { '@type': 'Person', name: post.author },
+    publisher: { '@id': PERSON_ID },
+    isPartOf: { '@id': WEBSITE_ID },
     articleSection: categories,
     inLanguage: 'en-US',
     timeRequired: `PT${readingTimeMinutes}M`,

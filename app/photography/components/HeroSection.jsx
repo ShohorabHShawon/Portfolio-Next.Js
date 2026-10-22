@@ -108,7 +108,7 @@ const HeroSection = ({ photos, categoryCount = 0, onOpenPhoto }) => {
             </span>
           </motion.p>
 
-          <motion.h1
+          <motion.p
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -117,7 +117,7 @@ const HeroSection = ({ photos, categoryCount = 0, onOpenPhoto }) => {
             Still
             <br />
             <span className="italic text-[#d6a85f]">frames.</span>
-          </motion.h1>
+          </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}

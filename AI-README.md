@@ -76,15 +76,14 @@ Legacy redirects (`next.config.mjs`): `/blog*` → `/journal*`, `/portfolio`, `/
 ```
 .
 ├── app/
-│   ├── layout.jsx                 # Root layout: metadata, JSON-LD, Poppins font, <LenisProvider>, next-themes <ThemeProvider>
+│   ├── layout.jsx                 # Root layout: site-wide SEO defaults + title template, Person/WebSite JSON-LD, Poppins, Lenis, next-themes
 │   ├── globals.css                # Base styles, Lenis CSS, journal colour tokens, keyframes (kenburns), scroll-margin for #sections
-│   ├── page.jsx                   # HOME (server): reads video list (videoData + public/videos), loads Instrument Serif (--font-display)
-│   ├── head.jsx                   # Legacy favicon links
-│   ├── robots.js / sitemap.js     # SEO
+│   ├── page.jsx                   # HOME (server): metadata, ProfilePage JSON-LD, video list (videoData + public/videos), Instrument Serif (--font-display)
+│   ├── robots.js / sitemap.js     # SEO (the sitemap lists every page + all gallery images + journal posts)
+│   ├── manifest.js                # Web app manifest
 │   ├── fonts/Poppins-Bold.ttf     # Local font (--font-poppins)
 │   │
 │   ├── photography/               # ⚠ Name is historical: holds code for BOTH the home page and /photos
-│   │   ├── layout.jsx             # Only wraps the /photography redirect route
 │   │   ├── page.jsx               # redirect('/photos')
 │   │   ├── themes/
 │   │   │   ├── filmmaker-theme/FilmmakerPhotographyTheme.jsx   # THE HOME PAGE UI (~1100 lines, see §8)
@@ -119,6 +118,9 @@ Legacy redirects (`next.config.mjs`): `/blog*` → `/journal*`, `/portfolio`, `/
 │       ├── page.jsx               # /dev metadata
 │       └── DevPortfolioClient.jsx # Theme switcher that lazy-loads components/{dev,studio,manga}-theme/*
 │
+├── lib/
+│   └── site.js                    # ★ SEO source of truth: names, roles, links, JSON-LD graph, pageMetadata() (see §8a)
+│
 ├── components/
 │   ├── SiteNavbar.jsx             # ★ Shared navbar for /, /photos, /clients, /journal (see §8)
 │   ├── lenis.jsx                  # LenisProvider (smooth scroll, window.lenis)
@@ -145,7 +147,8 @@ Legacy redirects (`next.config.mjs`): `/blog*` → `/journal*`, `/portfolio`, `/
 │   ├── brands/*.jpg|png           # Client logos (originals, used on /clients)
 │   ├── brands/mono/*.png          # Single-colour logos (generated, used on the home page)
 │   ├── herocover.mp4              # Home hero background video (~16 MB)
-│   ├── cover.jpeg / cover-web.jpg # Hero poster (cover-web is the 95 KB web copy, also the Open Graph image)
+│   ├── cover.jpeg / cover-web.jpg # Hero poster (cover-web is the 95 KB web copy)
+│   ├── og-image.jpg               # 1200×630 share card (name, roles, AIUB), used for every page's Open Graph/Twitter image
 │   ├── shohorab1.JPG              # Portrait: navbar avatar, about section, /photos hero
 │   ├── profile.jpg, about.*       # Older portraits (/dev, metadata)
 │   ├── icons/, projects/          # /dev skill icons and project screenshots
@@ -231,6 +234,19 @@ aesthetic**. Keep new UI inside it.
   - **`solid`:** sticky and always dark (used in the journal because of light mode).
 - **Height** is `h-16` / `md:h-20`. Sticky things below it use `top-16 md:top-20`. Scroll offsets use `-72`.
 - **`scrollToId(id)`** is exported and handles Lenis plus the navbar offset. Reuse it instead of writing a new one.
+
+### 8a. SEO: `lib/site.js`
+- **Goal:** rank for every form of the owner's name: **Shohorab H Shawon**, **Shohorab Hossain Shawon**, "Shohorab", "Shohorab H", "Shawon". The main categories are **Filmmaker, Visual Storyteller, Photographer, Software Developer**. Education: **B.Sc. in CSE, American International University-Bangladesh (AIUB)**.
+- **One place for facts:** `lib/site.js` holds `PERSON_NAME`, `FULL_NAME`, `ALTERNATE_NAMES`, `ROLES`, `SOCIAL_PROFILES`, `OG_IMAGE`, the JSON-LD graph (`siteJsonLd`: a Person with `alternateName`, `alumniOf`, `hasCredential`, `hasOccupation` and `sameAs`, plus WebSite) and `pageMetadata()`. Change names, roles or links **there**.
+- **Every page** exports `metadata = pageMetadata({ title, description, path })`. That makes each page self-canonical (`alternates.canonical`), with its own Open Graph and Twitter tags. The layout's title template appends " | Shohorab H Shawon", so pass short titles ("Photography").
+- **Never set `alternates.canonical` in `app/layout.jsx`.** Every page would inherit it and tell Google it's a duplicate of the home page.
+- **No `keywords` meta:** Google ignores it. Put name variations in JSON-LD (`alternateName`) and in visible text instead.
+- **Journal JSON-LD** (`Blog`, `BlogPosting`) links its author and publisher to the same Person via `'@id': PERSON_ID`.
+- **Headings:** one `<h1>` per page.
+  - **Home:** the name "Shohorab H Shawon" (styled as the small line above "Stories that move.", which is a `<p>`).
+  - **/photos:** a visually hidden server-rendered h1. The page renders on the client, so "Still frames." is a `<p>`.
+- **Visible name and education text:** the About section shows "B.Sc. in CSE · American International University-Bangladesh (AIUB)", and the footer shows both name forms. Keep these.
+- **After deploying:** submit `https://shohorab.com/sitemap.xml` in Google Search Console (the site is already verified via `verification.google` in the layout).
 
 ### Home: `FilmmakerPhotographyTheme.jsx`
 One large client component. **Find parts by these markers instead of reading the whole file:**

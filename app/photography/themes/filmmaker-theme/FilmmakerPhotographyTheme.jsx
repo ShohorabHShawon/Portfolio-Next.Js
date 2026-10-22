@@ -702,7 +702,11 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
               Dhaka · Bangladesh · {new Date().getFullYear()}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05, duration: 0.6 }} className="mb-6 flex items-center gap-2 text-[clamp(0.75rem,1.3vw,1.05rem)] font-medium uppercase tracking-[0.24em] text-white/80">
-              <span>Shohorab H Shawon</span>
+              {/* The page's main heading is the name (the strongest on-page SEO signal); it looks the same as before. */}
+              <h1 className="font-medium">
+                Shohorab H Shawon
+                <span className="sr-only"> — Filmmaker, Visual Storyteller, Photographer &amp; Software Developer</span>
+              </h1>
               <svg aria-label="Verified profile" role="img" viewBox="0 0 24 24" className="h-[clamp(0.85rem,1.6vw,1.15rem)] w-[clamp(0.85rem,1.6vw,1.15rem)] shrink-0 text-[#1877F2]">
                 <defs>
                   <mask id="filmmaker-verified-badge-cutout">
@@ -714,10 +718,10 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
                 <rect width="24" height="24" fill="currentColor" mask="url(#filmmaker-verified-badge-cutout)" />
               </svg>
             </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }} className="max-w-5xl text-[clamp(3.6rem,10vw,9.5rem)] font-medium leading-[0.86] tracking-[-0.07em]">
+            <motion.p initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.8 }} className="max-w-5xl text-[clamp(3.6rem,10vw,9.5rem)] font-medium leading-[0.86] tracking-[-0.07em]">
               Stories that<br />
               <span className="text-[#d6a85f]">move.</span>
-            </motion.h1>
+            </motion.p>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.45, duration: 0.8 }} className="mt-10 max-w-xl">
               <p className="max-w-md text-base leading-relaxed text-white/70 md:text-lg">
                 Filmmaker and visual artist crafting intimate films, visual poetry, and images with a pulse.
@@ -961,6 +965,11 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
                 <motion.p variants={reveal} className="mt-9 max-w-xl text-lg leading-relaxed text-white/60">
                   I specialize in brand shoots and visual storytelling, bringing narratives to life with intentional craft. Through cinematic color grading and street photography, I capture authentic moments that resonate on a deeper level.
                 </motion.p>
+                <motion.p variants={reveal} className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+                  <span className="text-[#d6a85f]">B.Sc. in CSE</span>
+                  <span aria-hidden="true" className="text-white/25">·</span>
+                  American International University-Bangladesh (AIUB)
+                </motion.p>
 
                 <motion.ul variants={reveal} className="mt-14 grid gap-3 sm:grid-cols-2">
                   {SERVICES.map((service, index) => (
@@ -1121,7 +1130,7 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
             </div>
 
             <div className="mt-20 flex flex-col justify-between gap-3 border-t border-white/15 pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35 sm:flex-row">
-              <span>© {new Date().getFullYear()} Shohorab H Shawon · SHS Films</span>
+              <span>© {new Date().getFullYear()} Shohorab H Shawon (Shohorab Hossain Shawon) · SHS Films</span>
               <button type="button" onClick={() => scrollToId('top')} className="self-start uppercase transition hover:text-white sm:self-auto">
                 Back to top ↑
               </button>

@@ -1,13 +1,13 @@
-const SITE_URL = 'https://shohorab.com';
+import { SITE_URL } from '@/lib/site';
 
 export default function robots() {
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/journal/studio', '/studio'],
+      // The CMS editor is not content.
+      disallow: ['/studio', '/journal/studio'],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }

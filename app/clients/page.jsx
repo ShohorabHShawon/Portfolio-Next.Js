@@ -1,13 +1,16 @@
 import SiteNavbar from '@/components/SiteNavbar';
+import { pageMetadata } from '@/lib/site';
 import Image from 'next/image';
 import Link from 'next/link';
 import { clients } from './clientData';
 import { ClientListReveal, ClientReveal, ClientRowReveal } from './ClientsMotion';
 
-export const metadata = {
-  title: 'Clients | Shohorab H Shawon',
-  description: 'Selected collaborations and client work by filmmaker and visual artist Shohorab H Shawon.',
-};
+export const metadata = pageMetadata({
+  title: 'Clients & Collaborations',
+  description:
+    'Brands and people Shohorab H Shawon (Shohorab Hossain Shawon) has worked with as a filmmaker, photographer and visual storyteller in Dhaka, Bangladesh.',
+  path: '/clients',
+});
 
 export default function ClientsPage() {
   return (
