@@ -5,11 +5,22 @@ import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Menu
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { clients } from '../../../clients/clientData';
 import { photos } from '../../components/photoData';
 
 const stills = photos.slice(0, 6);
-const filmStrip = photos.slice(0, 12);
+const FILM_STRIP_LENGTH = 12;
+
+// Fisher-Yates pick of `count` random photos from the whole archive.
+const pickRandomPhotos = (count) => {
+  const pool = [...photos];
+  for (let i = pool.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, count);
+};
 
 const DISCIPLINES = [
   'Cinematography',
@@ -31,6 +42,11 @@ const SOCIALS = [
   { label: 'Instagram', href: 'https://www.instagram.com/shohorabs.pov/' },
   { label: 'Facebook', href: 'https://www.facebook.com/shohorabhshawon/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/shohorabhshawon/' },
+];
+
+const HERO_SOCIALS = [
+  { label: 'Instagram', href: 'https://www.instagram.com/shohorabs.pov/', Icon: FaInstagram },
+  { label: 'Facebook', href: 'https://www.facebook.com/shohorabhshawon/', Icon: FaFacebookF },
 ];
 
 const NAV_ITEMS = [
@@ -392,6 +408,14 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [visibleVideoCount, setVisibleVideoCount] = useState(5);
   const filmStripRef = useOffscreenPause();
+  // Server and first client render share the same strip (no hydration mismatch);
+  // a fresh random selection replaces it right after mount, well before it scrolls into view.
+  const [filmStrip, setFilmStrip] = useState(() => photos.slice(0, FILM_STRIP_LENGTH));
+
+  useEffect(() => {
+    const rafId = requestAnimationFrame(() => setFilmStrip(pickRandomPhotos(FILM_STRIP_LENGTH)));
+    return () => cancelAnimationFrame(rafId);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -561,6 +585,19 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
                     Watch showreel
                   </button>
                 ) : null}
+                {HERO_SOCIALS.map(({ label, href, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Shohorab H Shawon on ${label}`}
+                    title={label}
+                    className="flex h-[42px] w-[42px] items-center justify-center border border-white/35 text-white transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512]"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
               </div>
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
                 <Link href="/photos" className="group inline-flex items-center gap-1.5 transition hover:text-[#d6a85f]">

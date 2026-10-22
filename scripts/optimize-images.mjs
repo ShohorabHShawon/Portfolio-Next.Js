@@ -44,3 +44,17 @@ for (const fileName of files) {
   const { size } = await fs.stat(output);
   console.log(`${fileName} (${(inputStat.size / 1e6).toFixed(1)}MB) -> web/${path.basename(output)} (${(size / 1e6).toFixed(2)}MB)`);
 }
+
+// Record each web photo's size so the masonry gallery can reserve space
+// before images load (no layout jumps while scrolling).
+const DIMENSIONS_FILE = path.join(process.cwd(), 'app', 'photography', 'components', 'photoDimensions.json');
+const webFiles = (await fs.readdir(OUTPUT_DIR)).filter((name) => name.endsWith('.jpg')).sort();
+const dimensions = {};
+
+for (const fileName of webFiles) {
+  const { width, height } = await sharp(path.join(OUTPUT_DIR, fileName)).metadata();
+  dimensions[`/images/web/${fileName}`] = [width, height];
+}
+
+await fs.writeFile(DIMENSIONS_FILE, `${JSON.stringify(dimensions, null, 2)}\n`);
+console.log(`Wrote ${webFiles.length} photo sizes to ${path.relative(process.cwd(), DIMENSIONS_FILE)}`);

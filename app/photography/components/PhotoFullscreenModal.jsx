@@ -302,6 +302,7 @@ const PhotoFullscreenModal = ({
                       >
                         {selectedPhoto.title}
                       </motion.h2>
+                      {selectedPhoto.description && (<>
                       <motion.p
                         className={`text-gray-200 leading-relaxed mb-1 text-xs sm:text-sm md:text-base ${
                           expandedDescription ? '' : 'md:line-clamp-none line-clamp-1'
@@ -325,6 +326,7 @@ const PhotoFullscreenModal = ({
                       >
                         {expandedDescription ? 'See Less' : 'See More'}
                       </motion.button>
+                      </>)}
                     </motion.div>
                   </motion.div>
                 )}

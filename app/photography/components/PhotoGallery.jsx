@@ -1,124 +1,117 @@
 'use client';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState, useSyncExternalStore } from 'react';
 
-const PhotoItem = ({ photo, isPriority, openDetailsModal }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [imageDimensions, setImageDimensions] = useState(null);
+// Columns per breakpoint, matching Tailwind's sm / lg / xl.
+const getColumnCount = () => {
+  const width = window.innerWidth;
+  if (width >= 1280) return 5;
+  if (width >= 1024) return 4;
+  if (width >= 640) return 3;
+  return 2;
+};
 
-  // Calculate aspect ratio from image dimensions
-  const aspectRatio = imageDimensions ? (imageDimensions.height / imageDimensions.width) : (560 / 400);
+const subscribeToResize = (callback) => {
+  window.addEventListener('resize', callback);
+  return () => window.removeEventListener('resize', callback);
+};
+
+// The server can't know the viewport; the client corrects it right after hydration.
+const useColumnCount = () => useSyncExternalStore(subscribeToResize, getColumnCount, () => 4);
+
+// Pinterest-style placement: each photo goes into the currently shortest column,
+// so the grid reads left-to-right in rows while keeping columns balanced.
+const buildColumns = (photos, columnCount) => {
+  const columns = Array.from({ length: columnCount }, () => ({ height: 0, items: [] }));
+
+  photos.forEach((photo, index) => {
+    let shortest = columns[0];
+    for (const column of columns) {
+      if (column.height < shortest.height - 0.01) shortest = column;
+    }
+    shortest.items.push({ photo, index });
+    shortest.height += photo.height / photo.width;
+  });
+
+  return columns.map((column) => column.items);
+};
+
+const PhotoCard = memo(function PhotoCard({ photo, index, openDetailsModal }) {
+  const [isLoaded, setIsLoaded] = useState(false);
 
   return (
     <button
       type="button"
-      className="mb-4 block align-top break-inside-avoid cursor-pointer group relative overflow-hidden rounded-lg w-full text-left"
       onClick={() => openDetailsModal(photo)}
       aria-label={`Open ${photo.title}`}
+      className="group relative block w-full overflow-hidden rounded-2xl bg-[#211914] text-left outline-none ring-[#d6a85f] ring-offset-2 ring-offset-[#1a1512] focus-visible:ring-2"
+      // The real aspect ratio is known up front, so nothing shifts when the image arrives.
+      style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
     >
-      {/* Fixed aspect ratio container */}
-      <div 
-        className="relative bg-gray-200 dark:bg-gray-800 overflow-hidden"
-        style={{
-          paddingBottom: `${aspectRatio * 100}%`,
-          height: 0,
-        }}
-      >
-        {/* Skeleton Loader */}
-        <AnimatePresence>
-          {isLoading && (
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              style={{
-                backgroundSize: '200% 100%',
-                animation: 'shimmer 2s infinite',
-              }}
-            />
-          )}
-        </AnimatePresence>
+      {!isLoaded && <span aria-hidden="true" className="absolute inset-0 animate-pulse bg-[#2a211b]" />}
 
-        {/* Image Container */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isLoading ? 0 : 1 }}
-          transition={{ duration: 0.4, ease: 'easeOut' }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <Image
-            src={photo.src}
-            alt={photo.title}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
-            priority={isPriority}
-            loading={isPriority ? 'eager' : 'lazy'}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03] [transform:translateZ(0)] [backface-visibility:hidden]"
-            onLoadingComplete={(result) => {
-              setImageDimensions({
-                width: result.naturalWidth,
-                height: result.naturalHeight,
-              });
-              setIsLoading(false);
-            }}
-          />
-        </motion.div>
+      <Image
+        src={photo.src}
+        alt={photo.title}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 260px"
+        loading={index < 10 ? 'eager' : 'lazy'}
+        onLoad={() => setIsLoaded(true)}
+        className={`object-cover transition-[opacity,transform] duration-500 ease-out group-hover:scale-[1.03] ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
+        }`}
+      />
 
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="absolute bottom-4 left-4 text-white">
-            <h3 className="font-semibold font-poppins text-sm">{photo.title}</h3>
-            <p className="text-xs text-gray-300">{photo.category}</p>
-          </div>
-        </div>
-      </div>
-
-      <style jsx>{`
-        @keyframes shimmer {
-          0% {
-            background-position: -200% 0;
-          }
-          100% {
-            background-position: 200% 0;
-          }
-        }
-      `}</style>
+      {/* Hover overlay */}
+      <span className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/75 via-black/10 to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 md:p-4">
+        <span className="line-clamp-2 font-poppins text-xs font-semibold leading-snug text-white md:text-sm">
+          {photo.title}
+        </span>
+        <span className="mt-1.5 inline-flex w-fit rounded-full bg-[#d6a85f]/90 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#1a1512]">
+          {photo.category}
+        </span>
+      </span>
     </button>
   );
-};
+});
 
 const PhotoGallery = ({
   filteredPhotos,
-  selectedCategory,
   openDetailsModal,
   onClearFilters,
 }) => {
-  const prioritizedSrcSet = useMemo(() => {
-    // Prioritize more images for better initial perception (first 12-16 images based on viewport)
-    return new Set(filteredPhotos.slice(0, 16).map((photo) => photo.src));
-  }, [filteredPhotos]);
+  const columnCount = useColumnCount();
+  const columns = useMemo(
+    () => buildColumns(filteredPhotos, columnCount),
+    [filteredPhotos, columnCount],
+  );
+
+  // Re-run the fade-in whenever the set or order of photos changes.
+  const gridKey = useMemo(
+    () => filteredPhotos.map((photo) => photo.src).join('|'),
+    [filteredPhotos],
+  );
 
   if (filteredPhotos.length === 0) {
     return (
       <motion.div
-        className="mx-auto mt-14 max-w-2xl rounded-3xl border border-[#181A1B]/10 bg-white px-6 py-14 text-center shadow-[0_18px_50px_rgba(0,0,0,0.06)] dark:border-white/10 dark:bg-white/5"
+        className="mx-auto mt-6 max-w-2xl rounded-3xl border border-white/10 bg-white/5 px-6 py-14 text-center"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        <p className="text-lg font-medium text-[#181A1B] dark:text-white">
+        <p className="text-lg font-medium text-white">
           No photos match your current search.
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-[#181A1B]/65 dark:text-white/55">
+        <p className="mt-2 text-sm leading-relaxed text-white/55">
           Try a different keyword, switch to another category, or change the sort order.
         </p>
         {typeof onClearFilters === 'function' && (
           <button
             type="button"
             onClick={onClearFilters}
-            className="mt-6 inline-flex items-center justify-center rounded-full border border-[#181A1B]/10 bg-[#181A1B] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#181A1B]/90 dark:border-white/10 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-[#d6a85f] px-5 py-2 text-sm font-medium text-[#1a1512] transition-colors hover:bg-white"
           >
             Reset filters
           </button>
@@ -129,19 +122,23 @@ const PhotoGallery = ({
 
   return (
     <motion.div
-      key={selectedCategory}
-      className="columns-2 sm:columns-3 lg:columns-4 xl:columns-5 [column-gap:1rem]"
-      initial={{ opacity: 0, y: 10 }}
+      key={gridKey}
+      className="flex items-start gap-3 md:gap-4"
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.32, ease: 'easeOut' }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
     >
-      {filteredPhotos.map((photo) => (
-        <PhotoItem
-          key={photo.src}
-          photo={photo}
-          isPriority={prioritizedSrcSet.has(photo.src)}
-          openDetailsModal={openDetailsModal}
-        />
+      {columns.map((items, columnIndex) => (
+        <div key={columnIndex} className="flex min-w-0 flex-1 flex-col gap-3 md:gap-4">
+          {items.map(({ photo, index }) => (
+            <PhotoCard
+              key={photo.src}
+              photo={photo}
+              index={index}
+              openDetailsModal={openDetailsModal}
+            />
+          ))}
+        </div>
       ))}
     </motion.div>
   );

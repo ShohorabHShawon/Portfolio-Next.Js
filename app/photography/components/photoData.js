@@ -1,50 +1,39 @@
-const photos = [
+import photoDimensions from './photoDimensions.json';
+
+const rawPhotos = [
     {
     src: '/images/web/photo12.jpg',
     title: 'Path of Whispering Shadows',
-    description:
-      'Figures traverse a sun-dappled road, enveloped by an archway of dense trees that cast deep, contrasting shadows. This high-contrast black and white scene, possibly from a place like Irigolkavu as suggested by image data, evokes a sense of journey through a serene, almost mystical, natural tunnel.',
     category: 'Street',
   },
   {
     src: '/images/web/photo19.jpg',
     title: 'Citrus Jewel, Effervescent Dance',
-    description:
-      "A vividly green lime slice, illuminated from behind, reveals its radiant, translucent segments and a delicate crown of sparkling bubbles. Submerged in cool, dark water, it's a macro celebration of zest and refreshment, where light and liquid play.",
     category: 'Conceptual',
   },
   {
     src: '/images/web/photo10.jpg',
     title: 'Skyward Fire, Petal & Plume',
-    description:
-      "Like a burst of floral fireworks, the intricate red and orange bloom, likely a Caesalpinia pulcherrima, reaches for the heavens. Its delicate, extended stamens and fern-like leaves are set against a soft, clouded sky, highlighting nature's vivid artistry.",
     category: 'Flower',
   },
   {
     src: '/images/web/photo6.jpg',
     title: 'Cat Silhouette Against the Full Moon',
-    description:
-      'A charming silhouette of a cat sits on grass, gazing up at a large, detailed full moon in a dark night sky.',
     category: 'Conceptual',
   },
   {
     src: '/images/web/photo4.jpg',
     title: 'Rickshaw Ride Under Bougainvillea',
-    description:
-      'A colorful rickshaw travels down a street, framed by overhanging pink bougainvillea and green trees.',
     category: 'Urban',
   },
     {
     src: '/images/web/photo7.jpg',
     title: 'Dreams and Weight',
-    description: 'The Weight We Carry, the Dreams We Watch.',
     category: 'Street',
   },
   {
     src: '/images/web/photo5.jpg',
     title: 'Cycling Past Bougainvillea',
-    description:
-      'A man on a bicycle with a blue crate rides down a street lined with bright pink bougainvillea.',
     category: 'Street',
   },
 
@@ -52,512 +41,528 @@ const photos = [
   {
     src: '/images/web/photo8.jpg',
     title: 'Sunset Hues & Fleeting Joys',
-    description:
-      "In the warm embrace of the evening light, a vibrant cluster of balloons offers a beacon of delight. Figures, perhaps a family, are gathered, suggesting a shared moment of simple happiness. The scene, with its soft focus and rich colors, evokes a sense of community and the ephemeral beauty of daily life. The attire of the woman in the yellow garment and the man's lungi might suggest a South Asian setting.",
     category: 'Street',
   },
   {
     src: '/images/web/photo9.jpg',
     title: 'Gilded Hope, Barred from View',
-    description:
-      'A solitary yellow trumpet flower, possibly Tecoma stans, defiantly blooms, its bright form a stark contrast to the dark, out-of-focus bars of a fence that partially obscure it. The image speaks to resilience and beauty found in unexpected places, a small sunbeam caught in a shadowed world.',
     category: 'Flower',
   },
 
   {
     src: '/images/web/photo11.jpg',
     title: "Twilight's Velvet Bloom",
-    description:
-      'Vibrant magenta flowers, possibly Mirabilis jalapa, emerge from the deep shadows, their delicate, trumpet-like forms glowing against a dark, textured backdrop. The image captures the quiet beauty of night-blooming flora, a splash of color in the encroaching darkness.',
     category: 'Flower',
   },
    {
     src: '/images/web/photo2.jpg',
     title: 'Urban Bougainvillea',
-    description:
-      'Vibrant bougainvillea flowers bloom beside a modern building under a soft sky.',
     category: 'Urban',
   },
 
   {
     src: '/images/web/photo13.jpg',
     title: 'Stardust & Bokeh Dreams',
-    description:
-      "A cluster of star-shaped leaves or nascent buds, perhaps of an Epidendrum orchid, catches the light, surrounded by a dreamlike aura of colorful bokeh. The image is a dance of focus and blur, where nature's details merge into a soft, impressionistic tapestry of light and color.",
     category: 'Flower',
   },
   {
     src: '/images/web/photo14.jpg',
     title: "Sunset's Golden Spears",
-    description:
-      'Tall blades of wild grass, possibly "rumput senja" (twilight grass), stand like sentinels, their plumes ignited by the setting sun. Against a dramatic, cloud-streaked sky, with the distant silhouette of power lines, the scene captures the raw beauty of the landscape at the transition from day to night.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo15.jpg',
     title: 'Ember in the Windowed Soul',
-    description:
-      "An extreme close-up reveals the captivating intensity of a cat's eye. The fiery orange-red iris glows, and the vertical pupil holds a tiny, sharp reflection of a window, offering a glimpse into the animal's world and a universe within its gaze.",
     category: 'Cat',
   },
   {
     src: '/images/web/photo16.jpg',
     title: 'Nocturne on a Shadowed Walk',
-    description:
-      'In this stark black and white night scene, possibly from a city like Lucknow, a solitary figure walks along a covered pathway. The interplay of bright streetlights and deep, elongated shadows creates a moody, atmospheric tableau of urban solitude.',
     category: 'Street',
   },
   {
     src: '/images/web/photo17.jpg',
     title: 'Last Light on a Grassy Plume',
-    description:
-      'A feathery plume of wild grass, perhaps Imperata cylindrica or Saccharum spontaneum, is silhouetted against the warm orb of the setting sun. The soft focus and muted tones of the cloudy sky lend a serene, almost melancholic beauty to this end-of-day natural scene.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo18.jpg',
     title: 'Verdant Slumber, Feathered Dream',
-    description:
-      'A small, speckled owlet, likely a Spotted Owlet, finds serene repose upon a branch, its eyes gently closed. Swathed in a lush canopy of vibrant green leaves, this feathered creature seems lost in a quiet, daytime dream, a moment of pure tranquility in the natural world.',
     category: 'Wildlife',
   },
   {
     src: '/images/web/photo1.jpg',
     title: 'Magenta Bougainvillea Blooms Against a Summer Sky',
-    description:
-      'A beautiful shot of vibrant magenta bougainvillea flowers reaching towards a pale blue sky with soft clouds. The image captures the delicate texture of the bracts and the lush green foliage, with a dreamy, slightly blurred foreground enhancing the depth of field.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo20.jpg',
     title: "Twilight's Embrace, Where Palms Meet Sky",
-    description:
-      'Silhouetted palm trees and a distant electrical tower stand etched against a sky ablaze with the warm hues of "senja kampung" (village twilight). Wild grasses in the foreground whisper in the fading light, capturing the peaceful yet evolving mood of a South Asian landscape at dusk.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo21.jpg',
     title: "Bark Navigator's Green Repast",
-    description:
-      "An agile Indian palm squirrel, its striped coat a soft contrast to the rough tree bark, descends headfirst for a tender bite. Clinging effortlessly, it savors a fresh green leaf, a fleeting moment of nature's daily rhythm.",
     category: 'Wildlife',
   },
   {
     src: '/images/web/photo22.jpg',
     title: 'Chromatic Whispers, Light as Air',
-    description:
-      'A delicate gathering of soft feathers – fiery red, gentle orange, and cool blue – creates a vibrant tapestry against a luminous, ethereal white backdrop. Their fine barbs and gentle curves evoke a sense of lightness and the subtle artistry of plumage.',
     category: 'Conceptual',
   },
   {
     src: '/images/web/photo23.jpg',
     title: "Winter's Lace Against the Light",
-    description:
-      'Dark, denuded branches stretch like intricate calligraphy across a stark, bright sky. This minimalist composition, rendered in high contrast, highlights the elegant, skeletal forms of trees in their winter slumber or dry season repose.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo24.jpg',
     title: 'Weaver of Sunlit Silks',
-    description:
-      "A formidable Golden Orb-weaver spider, perhaps a Nephila species, commands the center of its meticulously spun, shimmering web. Backlit by the soft green bokeh of the forest, it's a portrait of nature's patient artistry and predatory grace.",
     category: 'Wildlife',
   },
   {
     src: '/images/web/photo25.jpg',
     title: 'Ancient Gaze Amidst the Green',
-    description:
-      'A Bengal or Asian water monitor lizard, its skin a mosaic of earthy tones and intricate scales, lies low within a lush tapestry of vibrant green grass. Its alert eye surveys its surroundings, a timeless reptilian presence grounded in the verdant earth.',
     category: 'Wildlife',
   },
   {
     src: '/images/web/photo3.jpg',
     title: 'Bougainvillea Lined Street',
-    description:
-      'Vibrant pink bougainvillea overhangs a quiet street with a figure walking in the distance.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo26.jpg',
     title: "Monochrome Dreams in a Child's Gaze",
-    description:
-      'In this stark black and white street portrait, a young boy, likely a balloon seller, peeks out from behind a buoyant cloud of patterned balloons. His direct gaze holds a quiet story, a moment of youthful presence amidst the daily flow, rendered with timeless grace.',
     category: 'Street',
   },
 {
     src: '/images/web/photo27.jpg',
     title: 'Curious Cat Peering from Above',
-    description: 'A light-colored cat with subtle tabby markings on its head looks down intently from a high vantage point. The cat\'s mouth is slightly parted, set against a beautifully dark, out-of-focus leafy background.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo28.jpg',
     title: 'Orange Tabby Profile with Red Collar',
-    description: 'A striking close-up side profile of an orange and white cat wearing a vibrant red collar. The cat gazes thoughtfully to the right, isolated against a softly blurred background.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo29.jpg',
     title: 'Confident Orange Cat Approaching',
-    description: 'An eye-catching shot of an orange and white cat with a bright red collar walking confidently towards the camera. The sharp focus on its face and amber eyes contrasts perfectly with the creamy, blurred background.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo30.jpg',
     title: 'Orange Cat on the Move',
-    description: 'A full-body side view capturing a sleek orange and white cat with a red collar striding purposefully across a paved outdoor surface, with soft, out-of-focus steps in the background.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo31.jpg',
     title: 'Seated Orange Cat Observing',
-    description: 'An orange and white cat wearing a red collar sits attentively on the ground. Illuminated by soft natural lighting, it casts its gaze off-camera to the left.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo32.jpg',
     title: 'Orange Cat Looking Over Its Shoulder',
-    description: 'A rear-angled portrait of a seated orange and white cat. Wearing its signature red collar, the cat gracefully turns its head back over its left shoulder to observe its surroundings.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo33.jpg',
     title: 'Relaxing Orange Cat Resting on Pavement',
-    description: 'A relaxed orange and white cat with a red collar lies comfortably on a flat stone surface. It looks directly forward with a calm expression, framed by a beautifully blurred urban background.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo34.jpg',
     title: 'Alert White Cat in the Garden',
-    description: 'A predominantly white cat with faint markings on its head sits upright near a terracotta pot. It turns its head sharply to the right, looking alert against a backdrop of soft, blurred foliage.',
     category: 'Cat',
   },
   {
     src: '/images/web/photo35.jpg',
     title: 'Vibrant Sunflower Close-Up',
-    description: 'A detailed close-up profile of a brilliant yellow sunflower in full bloom. The sharp focus on the heavily textured seed head contrasts beautifully with the soft, dreamy background.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo36.jpg',
     title: 'Delicate Magenta Blossoms',
-    description: 'Elegant magenta flowers with prominent stamens captured with a shallow depth of field. The vibrant pink and purple petals stand out against the deeply blurred, moody background.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo37.jpg',
     title: 'Backlit Petunias in a Hanging Planter',
-    description: 'Bright magenta petunias gracefully cascade from a brown hanging planter. The soft, warm backlighting highlights the delicate texture and vibrant color of the petals.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo38.jpg',
     title: 'Glowing Pink Petunia Flowers',
-    description: 'A close-up view of vibrant pink petunia flowers growing in hanging pots. The sunlight catches the edges of the petals, creating a beautiful luminous effect against the blurred surroundings.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo39.jpg',
     title: 'Elegant White Lily and Buds',
-    description: 'A pristine white lily flower in bloom, accompanied by several tall, unopened green buds. The composition features a beautifully blurred warm light in the background, adding a touch of ambiance.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo40.jpg',
     title: 'Blooming White Lily in the Shadows',
-    description: 'A striking contrast featuring a pure white lily and tall green buds illuminated against a dark, moody, and deeply blurred background, emphasizing the flower\'s graceful, curving petals.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo41.jpg',
     title: 'Close-Up of a Pristine White Lily',
-    description: 'A soft, intimate capture of a fully opened white lily. The image highlights the smooth texture of the crisp white petals and the delicate light green center, surrounded by soft foliage.',
     category: 'Flower',
   },
   {
     src: '/images/web/photo42.jpg',
     title: 'White Lily Stretching Towards the Light',
-    description: 'A beautiful white lily flower fully bloomed at the base of a stem lined with several tall, closed green buds. Sunlight subtly illuminates the surrounding garden leaves, creating a vibrant, natural setting.',
     category: 'Flower',
   },
       {
     src: '/images/web/photo43.jpg',
     title: 'Sunflowers in Soft Focus',
-    description: 'A stunning capture of two bright yellow sunflowers, with the prominent flower in sharp focus revealing its vibrant petals, set against a beautifully blurred, bokeh-filled green background.',
     category: 'Flower',
   },
       {
   src: '/images/web/photo44.jpg',
   title: 'Modern Glass Building at Golden Hour',
-  description: 'A striking low-angle shot of a modern geometric building with dark glass facades. The sun peeks from behind the structure\'s right edge, casting a warm golden glare that contrasts beautifully with the cool tones of the smooth gradient sky.',
   category: 'Architecture',
   },
       {
     src: '/images/web/photo45.jpg',
     title: 'Streetlight Piercing the Fog',
-    description: 'A moody nighttime scene featuring a bright street lamp casting a dramatic beam through thick mist, contrasted by the silhouette of a bare tree and a warm, glowing moon in the distance.',
     category: 'Nightscape',
   },
   {
     src: '/images/web/photo46.jpg',
     title: 'Glowing Moon Through the Branches',
-    description: 'A striking view of a bright orange moon framed perfectly by the dark, intricate silhouettes of bare tree branches, with soft green foliage slightly out of focus in the foreground.',
     category: 'Nightscape',
   },
   {
     src: '/images/web/photo47.jpg',
     title: 'Orange Moon in the Night Sky',
-    description: 'A clear, isolated capture of a vibrant orange moon against a pitch-black sky, highlighting the subtle textures and glowing aura of the lunar surface.',
     category: 'Nightscape',
   },
   {
     src: '/images/web/photo48.jpg',
     title: 'Misty Urban Nightscape',
-    description: 'A hazy urban night scene where a tall street lamp cuts through the atmospheric mist. The composition is layered with silhouetted trees, a distant moon, and a beautifully blurred fence with greenery in the foreground.',
     category: 'Nightscape',
   },
   {
   src: '/images/web/photo49.jpg',
   title: 'Minimalist Bird on a Wire',
-  description: 'A striking, high-contrast minimalist composition featuring a single silhouetted bird perched on one of several parallel power lines, set against a stark, pure white background emphasizing negative space.',
   category: 'Street',
   },
   {
     src: '/images/web/photo50.jpg',
     title: 'Balloon Vendor on the Sidewalk',
-    description: 'A candid street portrait of a vendor resting against a pole beside a massive, vibrant cluster of colorful balloons. Shot from a low angle, the image beautifully contrasts the playful balloons with the modern city buildings in the background.',
     category: 'Street',
   },
   {
     src: '/images/web/photo51.jpg',
     title: 'Speeding Motorcyclist in the City',
-    description: 'A dynamic panning shot capturing a motorcyclist cutting through the city. The sharp focus on the rider and bike contrasts strikingly with the heavy horizontal motion blur of the background, conveying a powerful sense of speed.',
     category: 'Street',
   },
   {
     src: '/images/web/photo52.jpg',
     title: 'Colorful Rickshaw in Motion',
-    description: 'An artistic panning shot of a cycle rickshaw moving quickly along a lush, tree-lined road. The sweeping motion blur turns the scene into an energetic, almost abstract display of sweeping lines and vibrant colors.',
     category: 'Street',
   },
   {
     src: '/images/web/photo53.jpg',
     title: 'Night Ride Through the Streets',
-    description: 'A fast-paced nighttime panning shot featuring a commuter on a red motorcycle. The motion blur transforms the city lights and background buildings into smooth horizontal streaks, freezing the rider in a moment of rapid transit.',
     category: 'Street',
   },
   {
     src: '/images/web/photo54.jpg',
     title: 'Evening Rickshaw Journey',
-    description: 'A vibrant evening street scene captured with a panning technique, showcasing a cycle rickshaw driver and his passenger. The motion blur stretches the glowing storefront lights into warm streaks, highlighting the constant motion of city life.',
     category: 'Street',
   },
   {
     src: '/images/web/photo55.jpg',
     title: 'Market Vendor in the Shadows',
-    description: 'A moody, high-contrast black and white street photograph of a vendor sitting in a dimly lit local market. The hanging lamps subtly illuminate his profile, creating a cinematic atmosphere amidst the deep shadows of the busy stall.',
     category: 'Street',
   },
   {
     src: '/images/web/photo56.jpg',
     title: 'A Moment of Rest',
-    description: 'A striking monochrome portrait of a rickshaw puller taking a quiet break on his vehicle. The intricate web of overhead power lines and the blurred urban backdrop perfectly frame this candid, melancholic slice of daily city life.',
     category: 'Street',
   },
   {
     src: '/images/web/photo57.jpg',
     title: 'The Weight of the City',
-    description: 'A powerful black and white capture of a worker pulling a heavily loaded cart across a wide road. The towering commercial buildings covered in signboards in the background emphasize the raw, poetic reality of urban labor.',
     category: 'Street',
   },
   {
     src: '/images/web/photo78.jpg',
     title: 'Birds in Flight',
-    description: 'Three birds captured mid-flight against a smooth, teal sky, creating a minimalist and serene composition.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo79.jpg',
     title: 'Assistance on the Street',
-    description: 'A black and white street photograph showing a man pushing a woman in a wheelchair across a crosswalk. The background features a textured wall covered in torn posters.',
     category: 'Street',
   },
   {
     src: '/images/web/photo80.jpg',
     title: 'Sleeping Child',
-    description: 'A poignant monochrome image of a young boy sleeping curled up on a tiled sidewalk, set against a wall with striking murals and Bengali typography.',
     category: 'Street',
   },
   {
     src: '/images/web/photo81.jpg',
     title: 'Fiery City Sunset',
-    description: 'A dramatic urban landscape where the dark silhouettes of modern apartment buildings frame a vibrant, fiery red and orange sunset sky.',
     category: 'Urban',
   },
   {
     src: '/images/web/photo82.jpg',
     title: 'Curious Street Cat',
-    description: 'A close-up, wide-angle black and white portrait of a stray cat walking directly towards the lens, highlighting its expressive eyes and whiskers.',
     category: 'Animals',
   },
   {
     src: '/images/web/photo83.jpg',
     title: 'Cloud Over the Alley',
-    description: 'A moody urban shot looking up through a dark, narrow street lined with heavy silhouettes of buildings and tangled power lines, leading to a brightly lit cumulus cloud.',
     category: 'Urban',
   },
   {
     src: '/images/web/photo84.jpg',
     title: 'The Watcher',
-    description: 'A shallow depth-of-field black and white portrait of an elderly man with a white beard wearing a reflective vest on a busy city street.',
     category: 'Street',
   },
   {
     src: '/images/web/photo85.jpg',
     title: 'Breaking Clouds',
-    description: 'A dramatic skyscape where a break in dark, heavy storm clouds reveals a patch of bright blue sky and sunlight, framed by the silhouettes of trees.',
     category: 'Sky',
   },
   {
     src: '/images/web/photo86.jpg',
     title: 'Half Moon',
-    description: 'A minimalist capture of a half moon glowing against a deep, dark blue evening sky.',
     category: 'Sky',
   },
   {
     src: '/images/web/photo68.jpg',
     title: 'Passing By',
-    description: 'A striking monochrome street capture contrasting a person sleeping on a sack along the pavement with a passerby walking in business attire.',
     category: 'Street',
   },
   {
     src: '/images/web/photo69.jpg',
     title: 'Urban Traffic Horizon',
-    description: 'A moody, retro-toned perspective from a vehicle moving along an urban road, framed by towering cumulus clouds over city structures.',
     category: 'Urban',
   },
   {
     src: '/images/web/photo70.jpg',
     title: 'Rider on the Boulevard',
-    description: 'A wide-angle street shot following a motorcyclist down a sunlit city avenue, dominated by a prominent red billboard on the left.',
     category: 'Street',
   },
   {
     src: '/images/web/photo71.jpg',
     title: 'Leaves Against the Blue',
-    description: 'A vibrant close-up of delicate leaves on a branch reaching into a deep azure sky with a soft white cloud in the distance.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo72.jpg',
     title: 'Sunburst Over Silhouettes',
-    description: 'A dramatic urban sunset showing the sun bursting through clouds right between dark building silhouettes.',
     category: 'Sky',
   },
   {
     src: '/images/web/photo73.jpg',
     title: 'Solitary Flight',
-    description: 'A minimalist cinematic panorama of a single bird soaring high above warm, sun-lit cloud formations.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo74.jpg',
     title: 'Pair in Motion',
-    description: 'A wide cinematic shot capturing two pigeons flying in tandem across a muted vintage-toned backdrop.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo75.jpg',
     title: 'Perched Pigeon',
-    description: 'A solitary pigeon resting on a concrete ledge, lit by the warm glow of late afternoon sun against a soft sky.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo76.jpg',
     title: 'Dual Glides',
-    description: 'Two birds caught mid-glide across a softly textured, greenish-teal sky in a clean cinematic crop.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo77.jpg',
     title: 'Trio of Wings',
-    description: 'Three birds scattered in mid-flight across a serene, vintage-toned sky background.',
     category: 'Nature',
   },
   {
     src: '/images/web/photo58.jpg',
     title: 'Rancon Skyline',
-    description: 'A sleek, modern high-rise crowned with glowing signage set against a smooth purple dusk backdrop.',
     category: 'Urban',
   },
   {
     src: '/images/web/photo59.jpg',
     title: 'Tri-Star Boulevard',
-    description: 'A atmospheric cityscape at dusk featuring illuminated street lamps and tangled overhead wires against a magenta sky.',
     category: 'Urban',
   },
   {
     src: '/images/web/photo60.jpg',
     title: 'Crescent Over High-Rise',
-    description: 'A bright crescent moon floating in a rich twilight sky beside the glowing sign of an architectural tower.',
     category: 'Sky',
   },
   {
     src: '/images/web/photo61.jpg',
     title: 'Solitary Crescent',
-    description: 'A crisp, isolated view of a glowing crescent moon suspended in the darkness of night.',
     category: 'Sky',
   },
   {
     src: '/images/web/photo62.jpg',
     title: 'Curbside Rest',
-    description: 'A poignant monochrome street portrait of a man resting on a roadside curb beside a heavy sack.',
     category: 'Street',
   },
   {
     src: '/images/web/photo64.jpg',
     title: 'The Banana Carrier',
-    description: 'A classic black-and-white street scene capturing a vendor balancing woven baskets of bananas across his shoulders.',
     category: 'Street',
   },
   {
     src: '/images/web/photo63.jpg',
     title: 'Alleyway Prowler',
-    description: 'A ground-level perspective of a black and white street cat walking steadily toward the camera.',
     category: 'Animals',
   },
   {
     src: '/images/web/photo66.jpg',
     title: 'Through the Frame',
-    description: 'A monochrome candid view framed through an entryway showing a laborer carrying a heavy sack on his back.',
     category: 'Street',
   },
   {
     src: '/images/web/photo65.jpg',
     title: 'Curious Ginger',
-    description: 'A vivid portrait of an orange and white cat standing on a paved sidewalk with striking golden eyes.',
     category: 'Animals',
   },
   {
     src: '/images/web/photo67.jpg',
     title: 'Vocal Feline',
-    description: 'An expressive close-up shot capturing a ginger and white street cat mid-meow on the pavement.',
     category: 'Animals',
-  }
-
+  },
+  {
+    src: '/images/web/photo87.jpg',
+    title: 'Bougainvillea Over a Quiet Street',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo88.jpg',
+    title: 'Light Breaking Over the Skyline',
+    category: 'Sky',
+  },
+  {
+    src: '/images/web/photo89.jpg',
+    title: 'Paint Pots on the Workbench',
+    category: 'Studio',
+  },
+  {
+    src: '/images/web/photo90.jpg',
+    title: 'Sculpture on a Sketched Sheet',
+    category: 'Conceptual',
+  },
+  {
+    src: '/images/web/photo91.jpg',
+    title: "The Painter's Table",
+    category: 'Studio',
+  },
+  {
+    src: '/images/web/photo92.jpg',
+    title: 'A Floor Full of Colour',
+    category: 'Studio',
+  },
+  {
+    src: '/images/web/photo93.jpg',
+    title: 'Canvas Waiting in the Studio',
+    category: 'Studio',
+  },
+  {
+    src: '/images/web/photo94.jpg',
+    title: 'Half Moon in the Dark',
+    category: 'Nightscape',
+  },
+  {
+    src: '/images/web/photo95.jpg',
+    title: 'Kash Flowers Against the Clouds',
+    category: 'Nature',
+  },
+  {
+    src: '/images/web/photo96.jpg',
+    title: 'Kash in the Setting Sun',
+    category: 'Nature',
+  },
+  {
+    src: '/images/web/photo97.jpg',
+    title: 'Golden Hour Over the Kash Field',
+    category: 'Nature',
+  },
+  {
+    src: '/images/web/photo98.jpg',
+    title: 'Smoke Rising at Dusk',
+    category: 'Nightscape',
+  },
+  {
+    src: '/images/web/photo99.jpg',
+    title: 'Window Cleaner in the Frame',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo100.jpg',
+    title: 'Café Table by the Glass',
+    category: 'Architecture',
+  },
+  {
+    src: '/images/web/photo101.jpg',
+    title: 'Morning Sweep',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo102.jpg',
+    title: 'Parked in Dappled Shade',
+    category: 'Urban',
+  },
+  {
+    src: '/images/web/photo103.jpg',
+    title: 'Rickshaw Through the Shade',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo104.jpg',
+    title: 'Walking the Bicycle Home',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo105.jpg',
+    title: 'Three Friends on the Sidewalk',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo106.jpg',
+    title: 'Three Friends, Up Close',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo107.jpg',
+    title: 'Guard at the Crossing',
+    category: 'Street',
+  },
+  {
+    src: '/images/web/photo108.jpg',
+    title: 'A Walk Under the Trees',
+    category: 'Urban',
+  },
+  {
+    src: '/images/web/photo109.jpg',
+    title: 'Painted Rickshaw on a Leafy Road',
+    category: 'Street',
+  },
 ];
 
+// Attach each photo's real size (from `npm run optimize:images`) so the
+// gallery can reserve the right space before the image loads.
+const photos = rawPhotos.map((photo) => {
+  const [width, height] = photoDimensions[photo.src] || [4, 5];
+  return { ...photo, width, height };
+});
+
+// Built from the photos so every category is reachable from the filter.
 const categories = [
   'All',
-  'Architecture',
-  'Cat',
-  'Conceptual',
-  'Flower',
-  'Nature',
-  'Street',
-  'Urban',
-  'Wildlife',
-  'Nightscape',
+  ...Array.from(new Set(photos.map((photo) => photo.category))).sort((a, b) => a.localeCompare(b)),
 ];
 
 export { categories, photos };

@@ -41,7 +41,7 @@ export default function PinterestPhotographyTheme() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const hasAppliedInitialPhotoRef = useRef(false);
-  const photoGridRef = useRef(null);
+  const galleryRef = useRef(null);
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -49,7 +49,6 @@ export default function PinterestPhotographyTheme() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isGalleryGridInView, setIsGalleryGridInView] = useState(false);
 
   const sharePhoto = useCallback(async () => {
     if (typeof window === 'undefined') {
@@ -244,38 +243,43 @@ export default function PinterestPhotographyTheme() {
     setSearchQuery('');
     setSelectedCategory('All');
     setSortBy('featured');
-    setIsOpen(false);
-    setIsSortOpen(false);
-    setIsOpenMobile(false);
   }, []);
 
-  useEffect(() => {
-    setIsGalleryGridInView(false);
+  // Changing the filter should bring the top of the gallery back into view
+  // instead of leaving the reader stranded below a much shorter grid.
+  const scrollToGalleryTop = useCallback(() => {
+    const gallery = galleryRef.current;
+    if (!gallery || gallery.getBoundingClientRect().top >= 0) return;
 
-    if (displayedPhotos.length === 0) {
-      return;
+    if (window.lenis) {
+      window.lenis.scrollTo(gallery, { offset: -8 });
+    } else {
+      gallery.scrollIntoView({ behavior: 'smooth' });
     }
+  }, []);
 
-    const target = photoGridRef.current;
+  const handleSelectCategory = useCallback((category) => {
+    setSelectedCategory(category);
+    scrollToGalleryTop();
+  }, [scrollToGalleryTop]);
 
-    if (!target) {
-      return;
-    }
+  const handleSortChange = useCallback((value) => {
+    setSortBy(value);
+    scrollToGalleryTop();
+  }, [scrollToGalleryTop]);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsGalleryGridInView(entry.isIntersecting);
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -20% 0px',
-      },
-    );
+  const handleResetAndScroll = useCallback(() => {
+    handleResetFilters();
+    scrollToGalleryTop();
+  }, [handleResetFilters, scrollToGalleryTop]);
 
-    observer.observe(target);
-
-    return () => observer.disconnect();
-  }, [displayedPhotos.length]);
+  const categoryCounts = useMemo(() => {
+    const counts = { All: photos.length };
+    photos.forEach((photo) => {
+      counts[photo.category] = (counts[photo.category] || 0) + 1;
+    });
+    return counts;
+  }, []);
 
   const navigatePhoto = useCallback((direction) => {
     if (displayedPhotos.length === 0) {
@@ -297,28 +301,27 @@ export default function PinterestPhotographyTheme() {
     <div className="min-h-screen bg-[#1a1512] font-[Arial,Helvetica,sans-serif] text-[#f2efe9]">
       <HeroSection photos={photos} />
 
-      <div id="gallery" className="bg-[#1a1512] px-4 py-10 sm:px-6">
+      <div id="gallery" ref={galleryRef} className="bg-[#1a1512] px-4 pb-16 pt-10 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28, ease: 'easeOut' }}>
-                <CategoryFilter
-                  categories={categories}
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                  searchQuery={searchQuery}
-                  setSearchQuery={setSearchQuery}
-                  sortBy={sortBy}
-                  setSortBy={setSortBy}
-                  sortOptions={sortOptions}
-                  isGalleryGridInView={isGalleryGridInView}
-                />
-                <div ref={photoGridRef}>
-                  <PhotoGallery
-                    filteredPhotos={displayedPhotos}
-                    selectedCategory={selectedCategory}
-                    openDetailsModal={openDetailsModal}
-                    onClearFilters={handleResetFilters}
-                  />
-                </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.28, ease: 'easeOut' }}>
+            <CategoryFilter
+              categories={categories}
+              categoryCounts={categoryCounts}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={handleSelectCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              sortBy={sortBy}
+              setSortBy={handleSortChange}
+              sortOptions={sortOptions}
+              resultCount={displayedPhotos.length}
+              onReset={handleResetAndScroll}
+            />
+            <PhotoGallery
+              filteredPhotos={displayedPhotos}
+              openDetailsModal={openDetailsModal}
+              onClearFilters={handleResetAndScroll}
+            />
           </motion.div>
         </div>
       </div>
