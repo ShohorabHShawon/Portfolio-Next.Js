@@ -24,7 +24,7 @@ Live site: <https://shohorab.com>.
 | CMS | **Sanity v4** (`next-sanity`) | Only for the **Journal** (blog). Studio is mounted at `/studio`. |
 | Icons | `lucide-react`, `react-icons/fa` | Also `@heroicons/react` (theme toggle) and Font Awesome CSS (dev page). |
 | Images | `next/image` + pre-optimized copies in `public/images/web` | See [Images](#7-images-videos-and-media). |
-| Node | `engines: 24.x` (`.nvmrc` = 24) | |
+| Node | `engines: ">=24 <27"` (`.nvmrc` = 26) | Local dev uses Node 26. **Vercel only offers Node 24/22 for builds** (26 isn't available there yet), so the range lets Vercel use 24 and move to 26 when supported. Never pin `engines` to a version Vercel doesn't offer, or every deploy fails. Vercel Project Settings → Node.js Version should be 24.x. |
 | Path alias | `@/` = project root | e.g. `import SiteNavbar from '@/components/SiteNavbar'`. |
 
 ## 2. Commands
