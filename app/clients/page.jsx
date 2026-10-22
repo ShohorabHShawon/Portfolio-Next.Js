@@ -1,3 +1,4 @@
+import SiteNavbar from '@/components/SiteNavbar';
 import Image from 'next/image';
 import Link from 'next/link';
 import { clients } from './clientData';
@@ -8,36 +9,12 @@ export const metadata = {
   description: 'Selected collaborations and client work by filmmaker and visual artist Shohorab H Shawon.',
 };
 
-function BrandMark() {
-  return (
-    <Link href="/" className="group inline-flex items-center gap-3" aria-label="SHS Films home">
-      <span className="relative flex h-11 w-11 items-center justify-center border border-[#d6a85f] text-[11px] font-bold tracking-[-0.12em] text-[#d6a85f] transition group-hover:bg-[#d6a85f] group-hover:text-[#1a1512]">
-        SHS
-        <span className="absolute -bottom-1 -right-1 h-2 w-2 bg-[#a74336]" aria-hidden="true" />
-      </span>
-      <span className="leading-none">
-        <span className="block text-sm font-semibold tracking-[0.16em] text-white">SHOHORAB</span>
-        <span className="mt-1 block font-mono text-[9px] tracking-[0.3em] text-white/45">FILM / PHOTO</span>
-      </span>
-    </Link>
-  );
-}
-
 export default function ClientsPage() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#1a1512] px-5 py-5 font-[Arial,Helvetica,sans-serif] text-[#f2efe9] selection:bg-[#d6a85f] selection:text-[#1a1512] md:px-10 md:py-8">
+    <main className="min-h-screen overflow-hidden bg-[#1a1512] px-5 pb-5 pt-16 font-[Arial,Helvetica,sans-serif] text-[#f2efe9] selection:bg-[#d6a85f] selection:text-[#1a1512] md:px-10 md:pb-8 md:pt-20">
       <div className="pointer-events-none fixed inset-0 opacity-[0.035] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
 
-      <nav className="relative z-10 mx-auto flex w-full max-w-[88rem] items-center justify-between border-b border-white/15 pb-5">
-        <BrandMark />
-        <div className="flex items-center gap-4">
-          <span className="hidden font-mono text-[9px] uppercase tracking-[0.24em] text-white/30 sm:block">Selected clients / 2024—25</span>
-          <Link href="/" className="group inline-flex items-center gap-2 border border-white/20 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/65 transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512]">
-            <span className="transition-transform group-hover:-translate-x-1" aria-hidden="true">←</span>
-            Home
-          </Link>
-        </div>
-      </nav>
+      <SiteNavbar />
 
       <ClientReveal className="relative z-10 mx-auto w-full max-w-[88rem] py-20 md:py-28">
         <div className="grid gap-12 md:grid-cols-[1.25fr_0.75fr] md:items-end">

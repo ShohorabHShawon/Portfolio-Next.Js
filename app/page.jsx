@@ -1,8 +1,18 @@
 import { promises as fs } from 'fs';
+import { Instrument_Serif } from 'next/font/google';
 import path from 'path';
 import { Suspense } from 'react';
 import { videos as videoMetadata } from './photography/components/videoData';
 import FilmmakerPhotographyTheme from './photography/themes/filmmaker-theme/FilmmakerPhotographyTheme';
+
+// Accent serif, shared look with the photos page.
+const displaySerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-display',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Shohorab H Shawon | Filmmaker & Visual Artist',
@@ -211,7 +221,8 @@ async function getPublicVideos() {
           id: video.id || `youtube-${videoId}`,
           type: 'youtube',
           src: `https://www.youtube.com/embed/${videoId}`,
-          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+          thumbnailFallbackSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
           fileName: video.fileName || 'YouTube',
           title: video.title || 'YouTube Video',
           description: video.description || '',
@@ -259,7 +270,8 @@ async function getPublicVideos() {
           id: video.id || `youtube-${videoId}`,
           type: 'youtube',
           src: `https://www.youtube.com/embed/${videoId}`,
-          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          thumbnailSrc: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+          thumbnailFallbackSrc: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
           fileName: video.fileName || 'YouTube',
           title: video.title || 'YouTube Video',
           description: video.description || '',
@@ -276,8 +288,10 @@ export default async function Home() {
   const videos = await getPublicVideos();
 
   return (
-    <Suspense fallback={<div className="min-h-screen bg-white dark:bg-[#181A1B]" />}>
-      <FilmmakerPhotographyTheme videos={videos} />
-    </Suspense>
+    <div className={displaySerif.variable}>
+      <Suspense fallback={<div className="min-h-screen bg-white dark:bg-[#181A1B]" />}>
+        <FilmmakerPhotographyTheme videos={videos} />
+      </Suspense>
+    </div>
   );
 }

@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "optimize:images": "node scripts/optimize-images.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "logos:mono": "node scripts/make-mono-logos.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",

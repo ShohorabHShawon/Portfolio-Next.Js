@@ -1,15 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Menu, Play, X } from 'lucide-react';
+import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Play, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
+import SiteNavbar, { scrollToId } from '@/components/SiteNavbar';
 import { clients } from '../../../clients/clientData';
 import { photos } from '../../components/photoData';
 
-const stills = photos.slice(0, 6);
 const FILM_STRIP_LENGTH = 12;
 
 // Fisher-Yates pick of `count` random photos from the whole archive.
@@ -49,30 +49,9 @@ const HERO_SOCIALS = [
   { label: 'Facebook', href: 'https://www.facebook.com/shohorabhshawon/', Icon: FaFacebookF },
 ];
 
-const NAV_ITEMS = [
-  { label: 'Work', target: 'work' },
-  { label: 'Frames', target: 'frames' },
-  { label: 'About', target: 'about' },
-  { label: 'Photos', href: '/photos' },
-  { label: 'Clients', href: '/clients' },
-  { label: 'Journal', href: '/journal' },
-];
-
 const reveal = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
-};
-
-const scrollToId = (id) => {
-  const element = document.getElementById(id);
-  if (!element) return;
-
-  if (window.lenis) {
-    window.lenis.scrollTo(element, { offset: -72 });
-    return;
-  }
-
-  element.scrollIntoView({ behavior: 'smooth' });
 };
 
 function SectionLabel({ index, children, className = '' }) {
@@ -81,31 +60,6 @@ function SectionLabel({ index, children, className = '' }) {
       <span className="inline-block h-px w-8 bg-current opacity-60" />
       {children} / {index}
     </p>
-  );
-}
-
-function BrandMark({ onClick }) {
-  return (
-    <button type="button" onClick={onClick} className="group inline-flex items-center gap-3" aria-label="Back to top">
-      <span className="relative block h-10 w-10 shrink-0">
-        {/* The photo is a wide portrait, so zoom in around the face for the small round avatar. */}
-        <span className="relative block h-full w-full overflow-hidden rounded-full bg-[#120f0d] ring-1 ring-[#d6a85f]/60 transition group-hover:ring-2 group-hover:ring-[#d6a85f]">
-          <Image
-            src="/shohorab1.JPG"
-            alt="Shohorab H Shawon"
-            fill
-            priority
-            sizes="80px"
-            className="scale-[1.35] object-cover [transform-origin:49%_28%]"
-          />
-        </span>
-        <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-[#1a1512] bg-[#a74336]" aria-hidden="true" />
-      </span>
-      <span className="hidden text-left leading-none sm:block">
-        <span className="block text-sm font-semibold tracking-[0.16em] text-white">SHOHORAB</span>
-        <span className="mt-1 block font-mono text-[9px] tracking-[0.3em] text-white/45">FILM / PHOTO</span>
-      </span>
-    </button>
   );
 }
 
@@ -227,7 +181,7 @@ function Marquee({ items, duration = '40s', className = '', itemClassName = '', 
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
       <div
-        className="flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none"
+        className="flex w-max animate-marquee motion-reduce:animate-none"
         style={{ '--marquee-duration': duration }}
       >
         {loop.map((item, index) => (
@@ -241,65 +195,248 @@ function Marquee({ items, duration = '40s', className = '', itemClassName = '', 
   );
 }
 
-function VideoCard({ video, index, onSelect, featured = false }) {
-  const thumbnail = video.thumbnailSrc || stills[index % stills.length].src;
+// YouTube's high-res still, falling back to the small one when a film has none
+// (YouTube answers a missing maxres image with a 120px placeholder).
+function FilmThumb({ video, className = '', loading = 'lazy' }) {
+  const [useFallback, setUseFallback] = useState(false);
+  const src = useFallback && video.thumbnailFallbackSrc ? video.thumbnailFallbackSrc : video.thumbnailSrc;
+
+  if (!src) {
+    return <span aria-hidden="true" className={`block bg-[#1a1512] ${className}`} />;
+  }
 
   return (
-    <motion.article variants={reveal} className={`group relative ${featured ? 'md:col-span-2' : ''}`}>
-      <div className="flex items-center justify-between border-t border-white/20 pb-3 pt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 transition-colors group-hover:border-[#d6a85f]/70 group-hover:text-[#d6a85f]">
-        <span>
-          {String(index + 1).padStart(2, '0')} / {featured ? 'Latest release' : 'Moving image'}
-        </span>
-        <span>SHS archive</span>
-      </div>
-      <button
-        type="button"
-        onClick={() => onSelect(video)}
-        className={`relative block w-full overflow-hidden rounded-sm bg-[#120f0d] text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d6a85f] ${featured ? 'aspect-video md:aspect-[21/9]' : 'aspect-video'}`}
-        aria-label={`Play ${video.title || 'film'}`}
-      >
-        <img
-          src={thumbnail}
-          alt=""
-          loading={featured ? 'eager' : 'lazy'}
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover opacity-75 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+    // eslint-disable-next-line @next/next/no-img-element -- remote YouTube stills, already sized by YouTube
+    <img
+      src={src}
+      alt=""
+      loading={loading}
+      decoding="async"
+      draggable={false}
+      onError={() => setUseFallback(true)}
+      onLoad={(event) => {
+        if (!useFallback && event.currentTarget.naturalWidth <= 120) setUseFallback(true);
+      }}
+      className={`object-cover ${className}`}
+    />
+  );
+}
+
+const primaryLink = (video) => (video.links || []).find((link) => /youtu/i.test(link.url)) || (video.links || [])[0];
+
+// The latest film, presented like the screen in a cinema.
+function FeaturedFilm({ video, total, onPlay }) {
+  const ref = useOffscreenPause();
+  const link = primaryLink(video);
+
+  return (
+    <motion.article
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative overflow-hidden bg-black shadow-[0_40px_120px_-40px_rgba(214,168,95,0.25)]"
+    >
+      <div className="relative aspect-[4/5] sm:aspect-video lg:aspect-[21/9]">
+        <FilmThumb video={video} loading="eager" className="kenburns absolute inset-0 h-full w-full opacity-80 transition-opacity duration-700 group-hover:opacity-95" />
+
+        {/* Grade + letterbox */}
+        <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,11,10,0.92)_0%,rgba(13,11,10,0.55)_38%,transparent_70%),linear-gradient(0deg,rgba(13,11,10,0.95)_0%,transparent_45%)]" />
+        <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[6%] bg-black" />
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[6%] bg-black" />
+
+        {/* Whole screen plays the film */}
+        <button
+          type="button"
+          onClick={() => onPlay(video)}
+          aria-label={`Play ${video.title || 'film'}`}
+          className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d6a85f]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-        {featured ? (
-          <span className="absolute inset-x-0 top-0 h-[8%] bg-black/70" aria-hidden="true" />
-        ) : null}
-        {featured ? (
-          <span className="absolute inset-x-0 bottom-0 h-[8%] bg-black/70" aria-hidden="true" />
-        ) : null}
-        <span
-          className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#d6a85f] bg-[#d6a85f]/90 text-[#1a1512] shadow-xl transition duration-300 group-hover:scale-110 ${
-            featured ? 'h-16 w-16 md:h-20 md:w-20' : 'h-12 w-12 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100'
-          }`}
-        >
-          <Play className={`ml-0.5 fill-current ${featured ? 'h-5 w-5 md:h-6 md:w-6' : 'h-4 w-4'}`} />
-        </span>
-        <span className="absolute bottom-[10%] left-5 right-5 flex items-end justify-between gap-4 text-[#f2efe9] md:left-7 md:right-7">
-          <span className="block min-w-0">
-            <span
-              className={`block truncate font-medium leading-tight tracking-[-0.02em] text-[#f2efe9] transition-colors group-hover:text-[#d6a85f] ${
-                featured ? 'text-2xl md:text-5xl' : 'text-lg md:text-2xl'
-              }`}
-            >
-              {video.title || 'Untitled film'}
-            </span>
-            {featured && video.description ? (
-              <span className="mt-2 hidden max-w-xl text-sm text-white/60 md:block">{video.description}</span>
-            ) : null}
+
+        <div className="pointer-events-none absolute inset-x-0 top-[6%] z-20 flex items-center justify-between px-5 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] md:px-10 md:pt-6">
+          <span className="flex items-center gap-2 text-white/85">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#c4473a] shadow-[0_0_10px_rgba(196,71,58,0.9)]" />
+            Now showing
           </span>
-          <ArrowUpRight className="h-5 w-5 shrink-0 text-[#d6a85f] transition group-hover:-translate-y-1 group-hover:translate-x-1" />
+          <span className="text-white/45">
+            <span className="text-[#d6a85f]">01</span> / {String(total).padStart(2, '0')}
+          </span>
+        </div>
+
+        {/* Play target */}
+        <span aria-hidden="true" className="pointer-events-none absolute right-[8%] top-1/2 z-20 hidden -translate-y-1/2 lg:block">
+          <span className="relative flex h-28 w-28 items-center justify-center">
+            <span className="absolute inset-0 animate-[ping_2.4s_cubic-bezier(0,0,0.2,1)_infinite] rounded-full border border-[#d6a85f]/50" />
+            <span className="absolute inset-0 rounded-full border border-[#d6a85f]/40" />
+            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#d6a85f] text-[#1a1512] transition duration-500 group-hover:scale-110">
+              <Play className="ml-1 h-7 w-7 fill-current" />
+            </span>
+          </span>
         </span>
-      </button>
+
+        <div className="pointer-events-none absolute inset-x-0 bottom-[6%] z-20 px-5 pb-6 md:px-10 md:pb-10">
+          <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#d6a85f]">Latest release</p>
+          <h3 className="max-w-3xl text-[clamp(2.6rem,7vw,6.5rem)] font-medium leading-[0.88] tracking-[-0.055em] text-[#f2efe9]">
+            {video.title || 'Untitled film'}
+          </h3>
+          {video.description ? (
+            <p className="mt-4 max-w-md text-sm text-white/55">{video.description}</p>
+          ) : null}
+          <div className="pointer-events-auto mt-7 flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => onPlay(video)}
+              className="relative z-30 inline-flex items-center gap-3 bg-[#d6a85f] px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1512] transition hover:bg-[#f2efe9]"
+            >
+              <Play className="h-3.5 w-3.5 fill-current" />
+              Play film
+            </button>
+            {link ? (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="relative z-30 inline-flex items-center gap-2 border border-white/25 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 transition hover:border-[#d6a85f] hover:text-[#d6a85f]"
+              >
+                {link.label}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
+            ) : null}
+          </div>
+        </div>
+      </div>
     </motion.article>
   );
 }
 
-function VideoModal({ video, onClose, onNavigate, hasNavigation }) {
+// Every film as an index. On desktop a preview of the hovered film follows the cursor.
+// `startNumber` keeps the numbering continuous after the featured film (01).
+function FilmReel({ videos, onPlay, startNumber = 1 }) {
+  const listRef = useRef(null);
+  const previewRef = useRef(null);
+  const frameRef = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  const movePreview = (event) => {
+    if (event.pointerType !== 'mouse') return;
+    const list = listRef.current;
+    const preview = previewRef.current;
+    if (!list || !preview) return;
+
+    const { clientX, clientY } = event;
+    cancelAnimationFrame(frameRef.current);
+    frameRef.current = requestAnimationFrame(() => {
+      const rect = list.getBoundingClientRect();
+      const x = clientX - rect.left - preview.offsetWidth / 2;
+      const y = clientY - rect.top - preview.offsetHeight / 2;
+      preview.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    });
+  };
+
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+
+  return (
+    <div
+      ref={listRef}
+      className="relative"
+      onPointerMove={movePreview}
+      onPointerLeave={() => setActiveIndex(-1)}
+    >
+      {/* Floating preview (desktop) */}
+      <div
+        ref={previewRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-0 z-20 hidden w-[22rem] transition-transform duration-[250ms] ease-out will-change-transform lg:block"
+      >
+        <div
+          className={`relative aspect-video -rotate-3 overflow-hidden bg-black shadow-[0_30px_60px_-15px_rgba(0,0,0,0.9)] ring-1 ring-[#d6a85f]/40 transition duration-300 ${
+            activeIndex >= 0 ? 'scale-100 opacity-100' : 'scale-90 opacity-0'
+          }`}
+        >
+          {videos.map((video, index) => (
+            <FilmThumb
+              key={video.id || video.src}
+              video={video}
+              className={`absolute inset-0 h-full w-full transition-opacity duration-300 ${index === activeIndex ? 'opacity-100' : 'opacity-0'}`}
+            />
+          ))}
+          <span className="absolute bottom-3 left-3 flex items-center gap-2 bg-black/60 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-[#d6a85f]">
+            <Play className="h-3 w-3 fill-current" />
+            Play
+          </span>
+        </div>
+      </div>
+
+      <ol className="border-t border-white/10">
+        {videos.map((video, index) => (
+          <li key={video.id || video.src}>
+            <button
+              type="button"
+              onClick={() => onPlay(video)}
+              onPointerEnter={(event) => event.pointerType === 'mouse' && setActiveIndex(index)}
+              onFocus={() => setActiveIndex(index)}
+              onBlur={() => setActiveIndex(-1)}
+              className="group relative grid w-full grid-cols-[auto_1fr_auto] items-center gap-4 overflow-hidden border-b border-white/10 py-5 text-left outline-none md:gap-8 md:py-8"
+            >
+              {/* Sweep */}
+              <span aria-hidden="true" className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-[#d6a85f]/[0.09] to-transparent transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100" />
+
+              <span className="relative flex items-center gap-4">
+                <span className="w-8 font-mono text-[11px] tracking-[0.2em] text-white/35 transition-colors group-hover:text-[#d6a85f]">
+                  {String(index + startNumber).padStart(2, '0')}
+                </span>
+                {/* Small still on touch screens */}
+                <span className="relative block aspect-video w-24 shrink-0 overflow-hidden bg-black sm:w-32 lg:hidden">
+                  <FilmThumb video={video} className="absolute inset-0 h-full w-full" />
+                </span>
+              </span>
+
+              <span className="relative min-w-0">
+                <span className="line-clamp-2 block text-lg font-medium leading-tight tracking-[-0.03em] text-[#f2efe9] transition duration-500 sm:text-xl md:truncate md:leading-normal group-hover:translate-x-3 group-hover:text-[#d6a85f] md:text-5xl md:tracking-[-0.05em]">
+                  {video.title || 'Untitled film'}
+                </span>
+                <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.22em] text-white/35 md:hidden">
+                  Short film
+                </span>
+              </span>
+
+              <span className="relative flex items-center gap-6">
+                <span className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white/35 md:block">
+                  Short film
+                </span>
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/60 transition duration-300 group-hover:border-[#d6a85f] group-hover:bg-[#d6a85f] group-hover:text-[#1a1512] md:h-12 md:w-12">
+                  <Play className="ml-0.5 h-3.5 w-3.5 fill-current md:h-4 md:w-4" />
+                </span>
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+const FACEBOOK_PAGE = 'https://www.facebook.com/shohorabhshawon/';
+
+const linkIcon = (url) => {
+  if (/youtu/i.test(url)) return FaYoutube;
+  if (/instagram/i.test(url)) return FaInstagram;
+  if (/facebook/i.test(url)) return FaFacebookF;
+  return ExternalLink;
+};
+
+// Start the film as soon as the player opens (the click that opened it counts as the user's gesture).
+const withAutoplay = (src) => {
+  if (!src || !/youtube\.com\/embed/i.test(src)) return src;
+  const separator = src.includes('?') ? '&' : '?';
+  return `${src}${separator}autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+};
+
+function VideoModal({ video, videos = [], onClose, onNavigate, hasNavigation }) {
+  const closeRef = useRef(null);
+  const [loadedSrc, setLoadedSrc] = useState(null);
+
   useEffect(() => {
     if (!video) return undefined;
 
@@ -313,6 +450,7 @@ function VideoModal({ video, onClose, onNavigate, hasNavigation }) {
     document.body.style.overflow = 'hidden';
     window.lenis?.stop();
     window.addEventListener('keydown', handleKeyDown);
+    closeRef.current?.focus({ preventScroll: true });
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -323,73 +461,171 @@ function VideoModal({ video, onClose, onNavigate, hasNavigation }) {
 
   if (!video) return null;
 
+  const total = videos.length;
+  const index = Math.max(0, videos.findIndex((item) => (item.id || item.src) === (video.id || video.src)));
+  const previous = hasNavigation ? videos[(index - 1 + total) % total] : null;
+  const next = hasNavigation ? videos[(index + 1) % total] : null;
+  const isLoaded = loadedSrc === video.src;
+
+  // Your own links first, then the Facebook page (unless a link already points there).
+  const links = [...(video.links || [])];
+  if (!links.some((link) => link.url.replace(/\/$/, '') === FACEBOOK_PAGE.replace(/\/$/, ''))) {
+    links.push({ label: 'Facebook page', url: FACEBOOK_PAGE });
+  }
+
+  const corner = 'pointer-events-none absolute h-5 w-5 border-[#d6a85f] md:h-7 md:w-7';
+
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1a1512]/70 p-4 backdrop-blur-xl md:p-10"
+    <motion.div
+      className="fixed inset-0 z-[100] overflow-y-auto bg-[#0d0b0a]"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={video.title || 'Film'}
       data-lenis-prevent
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.25 }}
     >
-      <button
-        type="button"
-        onClick={onClose}
-        className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-xl transition hover:bg-white hover:text-black"
-        aria-label="Close video"
-      >
-        <X className="h-5 w-5" />
-      </button>
-      <div
-        className="relative flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col overflow-y-auto rounded-xl border border-white/20 bg-[#1a1512]/80 shadow-2xl backdrop-blur-xl md:max-h-[calc(100vh-5rem)]"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="relative aspect-video w-full shrink-0 bg-black/70">
-          <iframe
-            key={video.src}
-            src={video.src}
-            title={video.title}
-            className="h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-          {hasNavigation ? (
-            <>
-              <button type="button" onClick={() => onNavigate('previous')} className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-[#1a1512]/65 text-[#d6a85f] backdrop-blur-xl transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512] md:left-5" aria-label="Previous video">
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-              <button type="button" onClick={() => onNavigate('next')} className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-[#1a1512]/65 text-[#d6a85f] backdrop-blur-xl transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512] md:right-5" aria-label="Next video">
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </>
-          ) : null}
+      {/* Projector glow + grain */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 bg-[radial-gradient(55%_45%_at_50%_35%,rgba(214,168,95,0.10),transparent_70%)]" />
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 opacity-[0.04] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
+
+      {/* On desktop the player is sized from the window height so the details and film navigation stay on screen. */}
+      <div className="relative mx-auto flex min-h-full w-full max-w-6xl flex-col px-4 pb-8 pt-4 md:max-w-[max(44rem,min(72rem,calc((100svh-24rem)*1.778)))] md:px-8 md:pb-6 md:pt-6">
+        {/* Top bar */}
+        <div className="mb-4 flex items-center justify-between gap-4 md:mb-6" onClick={(event) => event.stopPropagation()}>
+          <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white/70">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#c4473a] shadow-[0_0_10px_rgba(196,71,58,0.9)]" />
+            Now playing
+            {total > 1 ? (
+              <span className="text-white/35">
+                <span className="text-[#d6a85f]">{String(index + 1).padStart(2, '0')}</span> / {String(total).padStart(2, '0')}
+              </span>
+            ) : null}
+          </p>
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-white/60 outline-none transition hover:text-[#d6a85f] focus-visible:text-[#d6a85f]"
+            aria-label="Close video"
+          >
+            <span className="hidden sm:inline">Close · Esc</span>
+            <span className="flex h-10 w-10 items-center justify-center border border-white/20 transition group-hover:border-[#d6a85f] group-hover:bg-[#d6a85f] group-hover:text-[#1a1512] group-focus-visible:border-[#d6a85f]">
+              <X className="h-4 w-4" />
+            </span>
+          </button>
         </div>
-        <div className="border-t border-white/15 bg-white/[0.05] p-5 text-white/80 md:p-7">
-          <div className="flex flex-col justify-between gap-5 md:flex-row md:gap-10">
+
+        <div className="my-auto" onClick={(event) => event.stopPropagation()}>
+          {/* Player in a viewfinder */}
+          <motion.div
+            key={video.src}
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="relative p-2 md:p-3"
+          >
+            <span aria-hidden="true" className={`${corner} left-0 top-0 border-l border-t`} />
+            <span aria-hidden="true" className={`${corner} right-0 top-0 border-r border-t`} />
+            <span aria-hidden="true" className={`${corner} bottom-0 left-0 border-b border-l`} />
+            <span aria-hidden="true" className={`${corner} bottom-0 right-0 border-b border-r`} />
+
+            <div className="relative aspect-video w-full overflow-hidden bg-black shadow-[0_40px_120px_-30px_rgba(214,168,95,0.22)]">
+              {!isLoaded ? (
+                <div aria-hidden="true" className="absolute inset-0">
+                  {video.thumbnailSrc ? <FilmThumb video={video} loading="eager" className="absolute inset-0 h-full w-full opacity-40" /> : null}
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="h-10 w-10 animate-spin rounded-full border-2 border-white/15 border-t-[#d6a85f]" />
+                  </span>
+                </div>
+              ) : null}
+              <iframe
+                key={video.src}
+                src={withAutoplay(video.src)}
+                title={video.title}
+                onLoad={() => setLoadedSrc(video.src)}
+                className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
+
+          {/* Details */}
+          <div className="mt-6 grid gap-8 md:mt-8 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
             <div className="min-w-0">
-              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#d6a85f]">SHS / Film archive</p>
-              <h2 className="text-2xl font-medium leading-tight tracking-[-0.03em] text-white md:text-3xl">{video.title || 'Untitled film'}</h2>
-              {video.description ? <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/60">{video.description}</p> : null}
+              <p className="mb-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.25em] text-[#d6a85f]">
+                <span className="inline-block h-px w-8 bg-current opacity-60" />
+                SHS / Film archive
+              </p>
+              <h2 className="text-[clamp(2rem,4.5vw,3.75rem)] font-medium leading-[0.95] tracking-[-0.05em] text-[#f2efe9]">
+                {video.title || 'Untitled film'}
+              </h2>
+              {video.description ? <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white/55 md:text-base">{video.description}</p> : null}
             </div>
-            <div className="shrink-0 font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
-              {hasNavigation ? '← → to browse · Esc to close' : 'Esc to close'}
+
+            <div className="flex flex-wrap gap-2 md:max-w-sm md:justify-end">
+              {links.map((link) => {
+                const Icon = linkIcon(link.url);
+                return (
+                  <a
+                    key={`${link.label}-${link.url}`}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group inline-flex items-center gap-2.5 border border-white/15 bg-white/[0.03] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/75 transition hover:border-[#d6a85f] hover:bg-[#d6a85f] hover:text-[#1a1512]"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-[#d6a85f] transition group-hover:text-[#1a1512]" />
+                    {link.label}
+                    <ArrowUpRight className="h-3 w-3 opacity-50 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                  </a>
+                );
+              })}
             </div>
           </div>
-          <div className="mt-6 flex flex-wrap gap-2 border-t border-white/10 pt-4">
-            {(video.links || []).map((link) => (
-              <a key={`${link.label}-${link.url}`} href={link.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-white/20 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-white/70 transition hover:border-[#d6a85f] hover:text-[#d6a85f]">
-                {link.label}
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            ))}
-            <a href="https://www.facebook.com/shohorabhshawon/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border border-white/20 px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-white/70 transition hover:border-[#d6a85f] hover:text-[#d6a85f]">
-              Facebook page
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </div>
+
+          {/* Previous / next film */}
+          {hasNavigation && previous && next ? (
+            <div className="mt-8 grid grid-cols-2 border-t border-white/10 md:mt-10">
+              <button
+                type="button"
+                onClick={() => onNavigate('previous')}
+                className="group flex min-w-0 items-center gap-3 border-r border-white/10 py-5 pr-4 text-left transition hover:bg-white/[0.02]"
+                aria-label={`Previous film: ${previous.title || 'Untitled film'}`}
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/15 text-[#d6a85f] transition group-hover:border-[#d6a85f] group-hover:bg-[#d6a85f] group-hover:text-[#1a1512]">
+                  <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.22em] text-white/35">Previous film</span>
+                  <span className="mt-1 block truncate text-sm text-white/80 transition group-hover:text-[#d6a85f] md:text-base">{previous.title || 'Untitled film'}</span>
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onNavigate('next')}
+                className="group flex min-w-0 items-center justify-end gap-3 py-5 pl-4 text-right transition hover:bg-white/[0.02]"
+                aria-label={`Next film: ${next.title || 'Untitled film'}`}
+              >
+                <span className="min-w-0">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.22em] text-white/35">Next film</span>
+                  <span className="mt-1 block truncate text-sm text-white/80 transition group-hover:text-[#d6a85f] md:text-base">{next.title || 'Untitled film'}</span>
+                </span>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/15 text-[#d6a85f] transition group-hover:border-[#d6a85f] group-hover:bg-[#d6a85f] group-hover:text-[#1a1512]">
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </span>
+              </button>
+            </div>
+          ) : null}
+
+          <p className="mt-4 hidden text-center font-mono text-[9px] uppercase tracking-[0.25em] text-white/25 md:block">
+            {hasNavigation ? '← → to browse · Esc to close' : 'Esc to close'}
+          </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -403,10 +639,7 @@ function SprocketRow() {
 }
 
 export default function FilmmakerPhotographyTheme({ videos = [] }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [visibleVideoCount, setVisibleVideoCount] = useState(5);
   const filmStripRef = useOffscreenPause();
   // Server and first client render share the same strip (no hydration mismatch);
   // a fresh random selection replaces it right after mount, well before it scrolls into view.
@@ -415,16 +648,6 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
   useEffect(() => {
     const rafId = requestAnimationFrame(() => setFilmStrip(pickRandomPhotos(FILM_STRIP_LENGTH)));
     return () => cancelAnimationFrame(rafId);
-  }, []);
-
-  useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 40);
-    const rafId = requestAnimationFrame(onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', onScroll);
-    };
   }, []);
 
   const closeVideo = useCallback(() => setSelectedVideo(null), []);
@@ -446,87 +669,11 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
     });
   }, [videos]);
 
-  const handleNav = (item) => {
-    setIsMenuOpen(false);
-    if (item.target) scrollToId(item.target);
-  };
-
   const [featuredVideo, ...restVideos] = videos;
 
   return (
     <div id="top" className="min-h-screen bg-[#1a1512] text-[#f2efe9] selection:bg-[#d6a85f] selection:text-black">
-      {/* Navigation */}
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
-          isScrolled || isMenuOpen
-            ? 'border-b border-white/10 bg-[#1a1512]/85 backdrop-blur-md'
-            : 'border-b border-transparent bg-transparent'
-        }`}
-      >
-        <nav className="relative mx-auto flex h-16 w-full max-w-[88rem] items-center justify-between px-5 md:h-20 md:px-10">
-          <BrandMark onClick={() => scrollToId('top')} />
-
-          <div className="hidden items-center gap-8 text-[11px] uppercase tracking-[0.22em] text-white/65 lg:flex">
-            {NAV_ITEMS.map((item) =>
-              item.href ? (
-                <Link key={item.label} href={item.href} className="transition hover:text-[#d6a85f]">
-                  {item.label}
-                </Link>
-              ) : (
-                <button key={item.label} type="button" onClick={() => handleNav(item)} className="uppercase transition hover:text-[#d6a85f]">
-                  {item.label}
-                </button>
-              ),
-            )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => scrollToId('contact')}
-              className="hidden items-center gap-2 border border-[#d6a85f]/60 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#d6a85f] transition hover:bg-[#d6a85f] hover:text-[#1a1512] sm:inline-flex"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-[#a74336]" />
-              Book a shoot
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen((open) => !open)}
-              className="flex items-center gap-2 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 transition hover:text-[#d6a85f] lg:hidden"
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMenuOpen}
-            >
-              <span>{isMenuOpen ? 'Close' : 'Menu'}</span>
-              {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-            </button>
-          </div>
-
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute left-5 right-5 top-full mt-2 overflow-hidden border border-[#d6a85f]/35 bg-[#1a1512]/95 p-2 shadow-2xl backdrop-blur-xl lg:hidden"
-            >
-              <div className="grid grid-cols-2 gap-1">
-                {[...NAV_ITEMS, { label: 'Contact', target: 'contact' }].map((item, index) =>
-                  item.href ? (
-                    <Link key={item.label} href={item.href} onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between border border-white/10 px-3 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/70 transition hover:border-[#d6a85f]/60 hover:bg-[#d6a85f]/10 hover:text-[#d6a85f]">
-                      {item.label}
-                      <span className="text-white/25">{String(index + 1).padStart(2, '0')}</span>
-                    </Link>
-                  ) : (
-                    <button key={item.label} type="button" onClick={() => handleNav(item)} className="flex items-center justify-between border border-white/10 px-3 py-3 text-left font-mono text-[10px] uppercase tracking-[0.18em] text-white/70 transition hover:border-[#d6a85f]/60 hover:bg-[#d6a85f]/10 hover:text-[#d6a85f]">
-                      {item.label}
-                      <span className="text-white/25">{String(index + 1).padStart(2, '0')}</span>
-                    </button>
-                  ),
-                )}
-              </div>
-              <p className="mt-2 border-t border-white/10 px-2 pt-3 font-mono text-[9px] uppercase tracking-[0.2em] text-white/30">Independent filmmaker / visual storyteller</p>
-            </motion.div>
-          )}
-        </nav>
-      </header>
+      <SiteNavbar onHome />
 
       <main className="relative w-full overflow-x-clip">
         {/* Hero */}
@@ -638,41 +785,44 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
         </div>
 
         {/* Work */}
-        <section id="work" className="bg-[#211914] px-5 py-20 md:px-10 md:py-28">
+        <section id="work" className="relative isolate overflow-clip bg-[#0d0b0a] px-5 py-20 md:px-10 md:py-28">
+          {/* Projector spill + grain: a screening room */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_40%_at_50%_0%,rgba(214,168,95,0.10),transparent_70%)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
+
           <div className="mx-auto w-full max-w-[88rem]">
-            <div className="mb-12 flex flex-col justify-between gap-6 border-b border-white/15 pb-7 md:flex-row md:items-end">
+            <div className="mb-12 flex flex-col justify-between gap-8 md:mb-16 md:flex-row md:items-end">
               <div>
-                <SectionLabel index="01" className="mb-4 text-[#d6a85f]">Selected work</SectionLabel>
-                <h2 className="text-4xl tracking-[-0.05em] md:text-7xl">Films in motion</h2>
+                <SectionLabel index="01" className="mb-5 text-[#d6a85f]">Selected work</SectionLabel>
+                <h2 className="text-[clamp(3rem,8vw,7.5rem)] font-medium leading-[0.86] tracking-[-0.06em]">
+                  Films in{' '}
+                  <span className="[font-family:var(--font-display),Georgia,serif] font-normal italic tracking-[-0.02em] text-[#d6a85f]">motion.</span>
+                </h2>
               </div>
-              <div className="flex items-end gap-6">
-                <p className="max-w-xs text-sm leading-relaxed text-white/50">A quiet reel of stories, gestures, and light.</p>
-                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.2em] text-[#d6a85f]/70">
-                  {String(videos.length).padStart(2, '0')} films
-                </span>
+              <div className="max-w-xs md:text-right">
+                <p className="text-sm leading-relaxed text-white/50">A quiet reel of stories, gestures, and light.</p>
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.25em] text-white/35">
+                  <span className="text-[#d6a85f]">{String(videos.length).padStart(2, '0')}</span> films · Dhaka
+                </p>
               </div>
             </div>
 
             {videos.length ? (
               <>
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.1 }}
-                  variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
-                  className="grid gap-x-6 gap-y-12 md:grid-cols-2 md:gap-x-10 md:gap-y-16"
-                >
-                  <VideoCard video={featuredVideo} index={0} onSelect={setSelectedVideo} featured />
-                  {restVideos.slice(0, visibleVideoCount - 1).map((video, index) => (
-                    <VideoCard key={video.id || video.src} video={video} index={index + 1} onSelect={setSelectedVideo} />
-                  ))}
-                </motion.div>
-                {visibleVideoCount < videos.length ? (
-                  <div className="mt-14 flex justify-center">
-                    <button type="button" onClick={() => setVisibleVideoCount((count) => Math.min(count + 4, videos.length))} className="group inline-flex items-center gap-3 border border-[#d6a85f]/60 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#d6a85f] transition hover:bg-[#d6a85f] hover:text-[#1a1512]">
-                      Show more films <ArrowDownRight className="h-4 w-4 transition group-hover:translate-x-1 group-hover:translate-y-1" />
-                    </button>
+                <FeaturedFilm video={featuredVideo} total={videos.length} onPlay={setSelectedVideo} />
+
+                {restVideos.length ? (
+                <div className="mt-20 md:mt-28">
+                  <div className="mb-6 flex items-end justify-between gap-6">
+                    <h3 className="text-2xl font-medium tracking-[-0.04em] md:text-4xl">
+                      The <span className="[font-family:var(--font-display),Georgia,serif] font-normal italic text-[#d6a85f]">reel</span>
+                    </h3>
+                    <p className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-white/35 lg:block">
+                      Hover to preview · Click to play
+                    </p>
                   </div>
+                  <FilmReel videos={restVideos} startNumber={2} onPlay={setSelectedVideo} />
+                </div>
                 ) : null}
               </>
             ) : (
@@ -725,92 +875,199 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
         </section>
 
         {/* About */}
-        <section id="about" className="border-y border-[#d6a85f]/40 bg-[#d6a85f] px-5 py-24 text-[#0b0b0b] md:px-10 md:py-32">
-          <div className="mx-auto grid w-full max-w-[88rem] gap-14 md:grid-cols-[0.85fr_1.15fr] md:gap-20">
-            <div>
-              <SectionLabel index="03">A little context</SectionLabel>
-              <figure className="mt-10 max-w-sm">
-                <div className="relative aspect-[4/5] overflow-hidden border-[10px] border-[#1a1512] bg-[#1a1512] shadow-[12px_12px_0_rgba(26,21,18,0.25)]">
+        <section id="about" className="relative isolate overflow-clip border-y border-[#d6a85f]/20 bg-[#120f0d] px-5 py-24 md:px-10 md:py-32">
+          {/* Warm key light behind the portrait + grain */}
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(45%_55%_at_22%_45%,rgba(214,168,95,0.16),transparent_70%),radial-gradient(35%_40%_at_95%_0%,rgba(167,67,54,0.14),transparent_70%)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
+
+          <div className="mx-auto w-full max-w-[88rem]">
+            <div className="mb-14 flex items-center justify-between gap-6 border-b border-white/10 pb-5 md:mb-20">
+              <SectionLabel index="03" className="text-[#d6a85f]">A little context</SectionLabel>
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-white/35 sm:block">Behind the lens</span>
+            </div>
+
+            <div className="grid items-start gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+              {/* Portrait */}
+              {/* The frame watches the viewport: a clipped element doesn't count as visible on its own. */}
+              <motion.figure
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.25 }}
+                className="relative mx-auto w-full max-w-[26rem] lg:sticky lg:top-28 lg:mx-0 lg:max-w-none"
+              >
+                <span aria-hidden="true" className="absolute inset-0 translate-x-4 translate-y-4 border border-[#d6a85f]/50 md:translate-x-6 md:translate-y-6" />
+                <motion.div
+                  variants={{
+                    hidden: { clipPath: 'inset(100% 0% 0% 0%)' },
+                    visible: { clipPath: 'inset(0% 0% 0% 0%)', transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] } },
+                  }}
+                  className="relative aspect-[4/5] overflow-hidden bg-[#1a1512]"
+                >
                   <Image
                     src="/shohorab1.JPG"
                     alt="Portrait of Shohorab H Shawon"
                     fill
-                    sizes="(max-width: 768px) 90vw, 380px"
+                    sizes="(max-width: 1024px) 90vw, 560px"
                     className="object-cover object-[50%_30%]"
                   />
-                  <span className="absolute left-3 top-3 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em] text-white/80">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#a74336]" />
+                  <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-[#120f0d]/85 via-transparent to-[#120f0d]/30" />
+
+                  {/* Viewfinder corners */}
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-4 md:inset-5">
+                    <span className="absolute left-0 top-0 h-6 w-6 border-l border-t border-white/60" />
+                    <span className="absolute right-0 top-0 h-6 w-6 border-r border-t border-white/60" />
+                    <span className="absolute bottom-0 left-0 h-6 w-6 border-b border-l border-white/60" />
+                    <span className="absolute bottom-0 right-0 h-6 w-6 border-b border-r border-white/60" />
+                  </span>
+
+                  <span className="absolute left-7 top-7 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-white/85 md:left-9 md:top-9">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#c4473a]" />
                     Self portrait
                   </span>
-                </div>
-                <figcaption className="mt-4 flex justify-between font-mono text-[10px] uppercase tracking-[0.2em] text-black/60">
-                  <span>Shohorab H Shawon</span>
-                  <span>Dhaka, BD</span>
-                </figcaption>
-              </figure>
-            </div>
+                  <figcaption className="absolute inset-x-7 bottom-7 flex items-end justify-between gap-4 md:inset-x-9 md:bottom-9">
+                    <span>
+                      <span className="block [font-family:var(--font-display),Georgia,serif] text-2xl leading-none text-white md:text-3xl">Shohorab H Shawon</span>
+                      <span className="mt-2 block font-mono text-[9px] uppercase tracking-[0.22em] text-[#d6a85f]">Film · Photo · Code</span>
+                    </span>
+                    <span className="shrink-0 font-mono text-[9px] uppercase tracking-[0.22em] text-white/60">Dhaka, BD</span>
+                  </figcaption>
+                </motion.div>
 
-            <div className="md:pt-16">
-              <p className="max-w-3xl text-4xl leading-[0.95] tracking-[-0.06em] md:text-7xl">
-                A Software Engineer who is doing what he really loves.
-              </p>
-              <p className="mt-10 max-w-xl text-lg leading-relaxed text-black/70">
-                I specialize in brand shoots and visual storytelling, bringing narratives to life with intentional craft. Through cinematic color grading and street photography, I capture authentic moments that resonate on a deeper level.
-              </p>
+                {/* Rotating stamp */}
+                <span aria-hidden="true" className="absolute -right-2 -top-8 flex h-28 w-28 items-center justify-center rounded-full bg-[#120f0d] md:-right-10 md:-top-10 md:h-32 md:w-32">
+                  <svg viewBox="0 0 120 120" className="absolute inset-0 h-full w-full animate-[spin_22s_linear_infinite] motion-reduce:animate-none">
+                    <defs>
+                      <path id="about-stamp-circle" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0" />
+                    </defs>
+                    <text className="fill-[#d6a85f] font-mono text-[9.5px] uppercase tracking-[0.32em]">
+                      <textPath href="#about-stamp-circle">Film · Photo · Code · Dhaka · </textPath>
+                    </text>
+                  </svg>
+                  <span className="[font-family:var(--font-display),Georgia,serif] text-3xl italic text-[#f2efe9]">S</span>
+                </span>
+              </motion.figure>
 
-              <ul className="mt-14 grid gap-x-10 border-t border-black/20 sm:grid-cols-2">
-                {SERVICES.map((service, index) => (
-                  <li key={service.title} className="border-b border-black/20 py-5">
-                    <p className="flex items-baseline gap-3">
-                      <span className="font-mono text-[10px] tracking-[0.2em] text-black/50">{String(index + 1).padStart(2, '0')}</span>
-                      <span className="text-xl font-medium tracking-[-0.03em]">{service.title}</span>
-                    </p>
-                    <p className="mt-1.5 pl-8 text-sm leading-relaxed text-black/60">{service.detail}</p>
-                  </li>
-                ))}
-              </ul>
+              {/* Story */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+              >
+                <motion.p variants={reveal} className="max-w-3xl text-[clamp(2.4rem,5.4vw,5.2rem)] font-medium leading-[0.95] tracking-[-0.055em] text-[#f2efe9]">
+                  A Software Engineer who is doing what he really{' '}
+                  <span className="[font-family:var(--font-display),Georgia,serif] font-normal italic tracking-[-0.02em] text-[#d6a85f]">loves.</span>
+                </motion.p>
+                <motion.p variants={reveal} className="mt-9 max-w-xl text-lg leading-relaxed text-white/60">
+                  I specialize in brand shoots and visual storytelling, bringing narratives to life with intentional craft. Through cinematic color grading and street photography, I capture authentic moments that resonate on a deeper level.
+                </motion.p>
 
-              <Link href="/dev" className="group mt-10 inline-flex items-center gap-3 border border-black px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] transition hover:bg-black hover:text-[#d6a85f]">
-                The engineering side <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </Link>
+                <motion.ul variants={reveal} className="mt-14 grid gap-3 sm:grid-cols-2">
+                  {SERVICES.map((service, index) => (
+                    <li
+                      key={service.title}
+                      className="group relative overflow-hidden border border-white/10 bg-[#1a1512]/80 p-6 transition duration-300 hover:-translate-y-1 hover:border-[#d6a85f]/60 hover:bg-[#211914]"
+                    >
+                      <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[#d6a85f] transition-transform duration-500 group-hover:scale-x-100" />
+                      <span className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-[#d6a85f]/80">
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                        <ArrowUpRight className="h-4 w-4 opacity-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                      </span>
+                      <p className="mt-8 text-2xl font-medium tracking-[-0.03em] text-[#f2efe9]">{service.title}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-white/50">{service.detail}</p>
+                    </li>
+                  ))}
+                </motion.ul>
+
+                <motion.div variants={reveal} className="mt-12 flex flex-wrap items-center gap-3">
+                  <Link href="/dev" className="group inline-flex items-center gap-3 bg-[#d6a85f] px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1512] transition hover:bg-[#f2efe9]">
+                    The engineering side <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => scrollToId('contact')}
+                    className="inline-flex items-center gap-2 border border-white/20 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/75 transition hover:border-[#d6a85f] hover:text-[#d6a85f]"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#a74336]" />
+                    Book a shoot
+                  </button>
+                </motion.div>
+              </motion.div>
             </div>
           </div>
         </section>
 
         {/* Clients */}
-        <section className="bg-[#211914] px-5 py-20 md:px-10 md:py-24">
+        <section id="collaborations" className="bg-[#211914] px-5 py-20 md:px-10 md:py-28">
           <div className="mx-auto w-full max-w-[88rem]">
-            <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
-                <SectionLabel index="04" className="mb-4 text-[#d6a85f]">Collaborations</SectionLabel>
-                <h2 className="text-3xl tracking-[-0.05em] md:text-5xl">Worked with</h2>
+                <SectionLabel index="04" className="mb-5 text-[#d6a85f]">Collaborations</SectionLabel>
+                <h2 className="text-[clamp(2.4rem,5.5vw,4.5rem)] font-medium leading-[0.9] tracking-[-0.055em]">
+                  Worked{' '}
+                  <span className="[font-family:var(--font-display),Georgia,serif] font-normal italic tracking-[-0.02em] text-[#d6a85f]">with</span>
+                </h2>
               </div>
-              <Link href="/clients" className="group inline-flex items-center gap-2 self-start font-mono text-[10px] uppercase tracking-[0.2em] text-white/60 transition hover:text-[#d6a85f] md:self-auto">
+              <Link href="/clients" className="group inline-flex items-center gap-2 self-start border border-white/20 px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70 transition hover:border-[#d6a85f] hover:text-[#d6a85f] md:self-auto">
                 All clients <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-px border border-[#d6a85f]/25 bg-[#d6a85f]/25 sm:grid-cols-3 lg:grid-cols-5">
+
+            <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-3 lg:grid-cols-6">
               {clients.map((client) => (
                 <Link
                   key={client.name}
                   href="/clients"
-                  className="group relative flex aspect-[4/3] flex-col bg-[#ebe5da] p-4 transition hover:bg-[#f7f3ec]"
+                  className="group relative flex aspect-square flex-col overflow-hidden bg-[#1a1512] p-4 outline-none transition-colors duration-500 hover:bg-[#1d1713] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#d6a85f] md:p-5"
                 >
-                  <span className="relative flex-1">
-                    <Image
-                      src={client.image}
-                      alt={`${client.name} logo`}
-                      fill
-                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
-                      className="object-contain p-3 opacity-75 mix-blend-multiply grayscale transition duration-500 group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                  {/* Warm light that rises on hover */}
+                  <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_55%,rgba(214,168,95,0.16),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                  <span className="relative flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.2em]">
+                    <span className="text-[#d6a85f]/70">{client.number}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 text-[#d6a85f] opacity-0 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                  </span>
+
+                  {/* Single-colour logo (see scripts/make-mono-logos.mjs), tinted with CSS */}
+                  <span className="relative flex flex-1 items-center justify-center px-[12%] py-[6%]">
+                    <span
+                      role="img"
+                      aria-label={`${client.name} logo`}
+                      className="block h-full w-full bg-[#f2efe9]/70 transition duration-500 [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] [-webkit-mask-position:center] [-webkit-mask-repeat:no-repeat] [-webkit-mask-size:contain] group-hover:scale-[1.06] group-hover:bg-[#d6a85f]"
+                      style={{
+                        maskImage: `url(${client.logo || client.image})`,
+                        WebkitMaskImage: `url(${client.logo || client.image})`,
+                      }}
                     />
                   </span>
-                  <span className="flex justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-black/45 transition group-hover:text-black/70">
-                    <span className="truncate pr-2">{client.name}</span>
-                    <span>{client.number}</span>
+
+                  <span className="relative block">
+                    <span className="block truncate font-mono text-[9px] uppercase tracking-[0.18em] text-white/55 transition-colors group-hover:text-white/90">{client.name}</span>
+                    <span className="mt-1 block truncate font-mono text-[8px] uppercase tracking-[0.18em] text-white/30 transition duration-300 md:translate-y-1 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100">{client.type}</span>
                   </span>
                 </Link>
               ))}
+
+              {/* Invitation tile */}
+              <button
+                type="button"
+                onClick={() => scrollToId('contact')}
+                className="group relative flex aspect-square flex-col justify-between overflow-hidden bg-[#d6a85f] p-4 text-left text-[#1a1512] outline-none transition-colors duration-500 hover:bg-[#e2b872] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#f2efe9] md:p-5"
+              >
+                <span className="flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.2em] text-[#1a1512]/60">
+                  <span>{String(clients.length + 1).padStart(2, '0')}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#a74336]" />
+                </span>
+                <span className="[font-family:var(--font-display),Georgia,serif] text-[clamp(1.6rem,2.6vw,2.4rem)] italic leading-[0.95]">
+                  Your brand,
+                  <br />
+                  next?
+                </span>
+                <span className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.2em]">
+                  Let&apos;s talk
+                  <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </span>
+              </button>
             </div>
           </div>
         </section>
@@ -873,7 +1130,7 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
         </footer>
       </main>
 
-      <VideoModal video={selectedVideo} onClose={closeVideo} onNavigate={navigateVideo} hasNavigation={videos.length > 1} />
+      <VideoModal video={selectedVideo} videos={videos} onClose={closeVideo} onNavigate={navigateVideo} hasNavigation={videos.length > 1} />
     </div>
   );
 }

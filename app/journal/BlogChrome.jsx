@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import CurrentYear from '@/components/CurrentYear';
+import SiteNavbar from '@/components/SiteNavbar';
 import ThemeToggle from '@/components/ThemeToggle';
 
 const NAV_LINKS = [
@@ -39,58 +40,16 @@ export function isSiteAuthor(name) {
   return /shohorab|shawon/i.test(String(name || ''));
 }
 
+// The site-wide navbar, always solid here because the journal can be in light mode,
+// with the journal's light/dark toggle added to it.
 export function BlogHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-journal-line/80 bg-journal-paper/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
-        <Link href="/journal" className="group flex min-w-0 items-center gap-3">
-          <AuthorAvatar size={34} />
-          <span className="leading-none">
-            <span className="block text-sm font-semibold tracking-[0.14em] text-journal-ink">
-              SHOHORAB<span className="text-journal-muted"> / </span>
-              <span className="text-journal-accent">JOURNAL</span>
-            </span>
-            <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.3em] text-journal-muted">
-              Film · Photo · Code
-            </span>
-          </span>
-        </Link>
-
-        <nav className="flex items-center gap-1">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="hidden px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-journal-muted transition hover:text-journal-accent md:inline-flex"
-            >
-              {link.label}
-            </Link>
-          ))}
-          <span aria-hidden="true" className="mx-2 hidden h-5 w-px bg-journal-line md:block" />
-          <Link
-            href="/"
-            aria-label="Back to the home page"
-            className="group mr-1 inline-flex h-9 shrink-0 items-center gap-1.5 border border-journal-line px-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-journal-body transition hover:border-journal-accent hover:text-journal-accent"
-          >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 24 24"
-              className="h-3.5 w-3.5 transition group-hover:-translate-x-0.5"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5" />
-              <path d="m12 19-7-7 7-7" />
-            </svg>
-            <span className="hidden min-[380px]:inline">Home</span>
-          </Link>
-          <ThemeToggle className="flex h-9 w-9 items-center justify-center border border-journal-line text-journal-body transition hover:border-journal-accent hover:text-journal-accent [&_svg]:!text-current" />
-        </nav>
-      </div>
-    </header>
+    <SiteNavbar
+      variant="solid"
+      actions={
+        <ThemeToggle className="flex h-9 w-9 items-center justify-center border border-white/15 text-white/75 transition hover:border-[#d6a85f] hover:text-[#d6a85f] [&_svg]:!text-current" />
+      }
+    />
   );
 }
 

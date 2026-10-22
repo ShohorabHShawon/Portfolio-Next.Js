@@ -1,4 +1,5 @@
 'use client';
+import SiteNavbar from '@/components/SiteNavbar';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -9,12 +10,8 @@ import PhotoGallery from '../../components/PhotoGallery';
 import PhotographyFooter from '../../components/PhotographyFooter';
 import { categories, photos } from '../../components/photoData';
 
-const PhotoDetailsModal = dynamic(
-  () => import('../../components/PhotoDetailsModal'),
-  { ssr: false },
-);
-const PhotoFullscreenModal = dynamic(
-  () => import('../../components/PhotoFullscreenModal'),
+const PhotoViewer = dynamic(
+  () => import('../../components/PhotoViewer'),
   { ssr: false },
 );
 
@@ -36,7 +33,7 @@ const sortOptions = [
   { value: 'category', label: 'Category' },
 ];
 
-export default function PinterestPhotographyTheme() {
+export default function DarkroomPhotographyTheme() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -44,7 +41,6 @@ export default function PinterestPhotographyTheme() {
   const galleryRef = useRef(null);
 
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('featured');
@@ -176,7 +172,6 @@ export default function PinterestPhotographyTheme() {
 
       if (matchedPhoto) {
         setSelectedPhoto(matchedPhoto);
-        setIsFullscreen(false);
         const matchingIndex = displayedPhotos.findIndex(
           (photo) => photo.src === matchedPhoto.src,
         );
@@ -223,20 +218,10 @@ export default function PinterestPhotographyTheme() {
     const safeIndex = index >= 0 ? index : 0;
     setCurrentIndex(safeIndex);
     setSelectedPhoto(photo);
-    setIsFullscreen(false);
   }, [displayedPhotos]);
-
-  const openFullscreen = useCallback(() => {
-    setIsFullscreen(true);
-  }, []);
-
-  const exitFullscreen = useCallback(() => {
-    setIsFullscreen(false);
-  }, []);
 
   const closeModals = useCallback(() => {
     setSelectedPhoto(null);
-    setIsFullscreen(false);
   }, []);
 
   const handleResetFilters = useCallback(() => {
@@ -252,7 +237,7 @@ export default function PinterestPhotographyTheme() {
     if (!gallery || gallery.getBoundingClientRect().top >= 0) return;
 
     if (window.lenis) {
-      window.lenis.scrollTo(gallery, { offset: -8 });
+      window.lenis.scrollTo(gallery, { offset: -72 });
     } else {
       gallery.scrollIntoView({ behavior: 'smooth' });
     }
@@ -298,11 +283,27 @@ export default function PinterestPhotographyTheme() {
   }, [displayedPhotos]);
 
   return (
-    <div className="min-h-screen bg-[#1a1512] font-[Arial,Helvetica,sans-serif] text-[#f2efe9]">
-      <HeroSection photos={photos} />
+    <div className="min-h-screen bg-[#0d0b0a] font-[Arial,Helvetica,sans-serif] text-[#f2efe9] selection:bg-[#d6a85f] selection:text-[#1a1512]">
+      <SiteNavbar />
+      <HeroSection photos={photos} categoryCount={categories.length - 1} onOpenPhoto={openDetailsModal} />
 
-      <div id="gallery" ref={galleryRef} className="bg-[#1a1512] px-4 pb-16 pt-10 sm:px-6">
-        <div className="max-w-7xl mx-auto">
+      <section id="gallery" ref={galleryRef} className="bg-[#0d0b0a] px-5 pb-20 pt-16 md:px-10 md:pt-24">
+        <div className="mx-auto w-full max-w-[88rem]">
+          <div className="mb-8 flex flex-col justify-between gap-4 md:mb-10 md:flex-row md:items-end">
+            <div>
+              <p className="mb-4 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] text-[#d6a85f]">
+                <span className="inline-block h-px w-10 bg-current opacity-60" />
+                The archive / {String(photos.length).padStart(3, '0')}
+              </p>
+              <h2 className="[font-family:var(--font-darkroom),Georgia,serif] text-[clamp(2.8rem,7vw,6rem)] leading-[0.9] tracking-[-0.03em]">
+                The <span className="italic text-[#d6a85f]">contact</span> sheet
+              </h2>
+            </div>
+            <p className="max-w-xs font-mono text-[10px] uppercase leading-relaxed tracking-[0.2em] text-white/40">
+              Pick a roll, mark a frame, and step into the light.
+            </p>
+          </div>
+
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.28, ease: 'easeOut' }}>
             <CategoryFilter
               categories={categories}
@@ -324,57 +325,19 @@ export default function PinterestPhotographyTheme() {
             />
           </motion.div>
         </div>
-      </div>
+      </section>
 
       <PhotographyFooter year={new Date().getFullYear()} />
 
-      <PhotoDetailsModal
+      <PhotoViewer
         selectedPhoto={selectedPhoto}
-        isFullscreen={isFullscreen}
+        photos={displayedPhotos}
+        currentIndex={currentIndex}
         closeModals={closeModals}
         navigatePhoto={navigatePhoto}
-        openFullscreen={openFullscreen}
         onShare={sharePhoto}
       />
 
-      <PhotoFullscreenModal
-        selectedPhoto={selectedPhoto}
-        isFullscreen={isFullscreen}
-        closeModals={closeModals}
-        navigatePhoto={navigatePhoto}
-        exitFullscreen={exitFullscreen}
-        onShare={sharePhoto}
-      />
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .scrollbar-thin {
-          scrollbar-width: thin;
-        }
-
-        .scrollbar-thumb-white\/20::-webkit-scrollbar-thumb {
-          background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .scrollbar-track-transparent::-webkit-scrollbar-track {
-          background-color: transparent;
-        }
-
-        ::-webkit-scrollbar {
-          width: 4px;
-          height: 4px;
-        }
-      `}</style>
     </div>
   );
 }

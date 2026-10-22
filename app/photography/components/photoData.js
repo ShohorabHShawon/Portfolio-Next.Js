@@ -313,7 +313,7 @@ const rawPhotos = [
   {
     src: '/images/web/photo82.jpg',
     title: 'Curious Street Cat',
-    category: 'Animals',
+    category: 'Cat',
   },
   {
     src: '/images/web/photo83.jpg',
@@ -418,7 +418,7 @@ const rawPhotos = [
   {
     src: '/images/web/photo63.jpg',
     title: 'Alleyway Prowler',
-    category: 'Animals',
+    category: 'Cat',
   },
   {
     src: '/images/web/photo66.jpg',
@@ -428,12 +428,12 @@ const rawPhotos = [
   {
     src: '/images/web/photo65.jpg',
     title: 'Curious Ginger',
-    category: 'Animals',
+    category: 'Cat',
   },
   {
     src: '/images/web/photo67.jpg',
     title: 'Vocal Feline',
-    category: 'Animals',
+    category: 'Cat',
   },
   {
     src: '/images/web/photo87.jpg',

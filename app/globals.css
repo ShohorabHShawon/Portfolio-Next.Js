@@ -94,6 +94,15 @@ html.lenis body {
   overflow: hidden;
 }
 
+/* Home sections reached via /#section links land below the fixed navbar */
+#work,
+#frames,
+#about,
+#collaborations,
+#contact {
+  scroll-margin-top: 72px;
+}
+
 /* Pause looping animations while they are off screen */
 .offscreen-paused .animate-marquee,
 .offscreen-paused.animate-marquee {
@@ -518,4 +527,29 @@ html.dark .blog-image-skeleton {
 .blog-aside-toc {
   scrollbar-width: thin;
   scrollbar-color: rgb(var(--journal-line)) transparent;
+}
+
+/* Slow push-in on featured film stills */
+@keyframes kenburns {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+.kenburns {
+  animation: kenburns 20s ease-in-out infinite alternate;
+}
+
+.offscreen-paused .kenburns,
+.offscreen-paused.kenburns {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns {
+    animation: none;
+  }
 }

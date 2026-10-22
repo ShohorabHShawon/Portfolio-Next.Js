@@ -1,5 +1,15 @@
+import { Instrument_Serif } from 'next/font/google';
 import { Suspense } from 'react';
-import PinterestPhotographyTheme from '../photography/themes/pinterest-theme/PinterestPhotographyTheme';
+import DarkroomPhotographyTheme from '../photography/themes/darkroom-theme/DarkroomPhotographyTheme';
+
+// Display serif for the darkroom headlines.
+const darkroomSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-darkroom',
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Photos | Shohorab H Shawon',
@@ -8,8 +18,10 @@ export const metadata = {
 
 export default function PhotosPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#1a1512]" />}>
-      <PinterestPhotographyTheme />
-    </Suspense>
+    <div className={darkroomSerif.variable}>
+      <Suspense fallback={<div className="min-h-screen bg-[#0d0b0a]" />}>
+        <DarkroomPhotographyTheme />
+      </Suspense>
+    </div>
   );
 }
