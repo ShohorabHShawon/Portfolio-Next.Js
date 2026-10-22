@@ -1,11 +1,11 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Play, X } from 'lucide-react';
+import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, Check, Copy, ExternalLink, Mail, Play, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { FaFacebookF, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from 'react-icons/fa';
 import SiteNavbar, { scrollToId } from '@/components/SiteNavbar';
 import { clients } from '../../../clients/clientData';
 import { photos } from '../../components/photoData';
@@ -629,6 +629,92 @@ function VideoModal({ video, videos = [], onClose, onNavigate, hasNavigation }) 
   );
 }
 
+const CONTACT_EMAIL = 'shohorabhshawon@gmail.com';
+// Pre-filled subject so enquiries from the site are easy to spot in the inbox.
+const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Project inquiry — shohorab.com')}`;
+
+const SOCIAL_ICONS = { Instagram: FaInstagram, Facebook: FaFacebookF, LinkedIn: FaLinkedinIn };
+
+// Many desktop visitors have no mail app set up, so the address can also be copied.
+function ContactEmail() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+    } catch {
+      window.prompt('Copy this email address', CONTACT_EMAIL);
+      return;
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
+
+  return (
+    <div className="mt-12 flex flex-col gap-5 border border-white/10 bg-white/[0.02] p-5 md:mt-16 md:flex-row md:items-center md:justify-between md:p-7">
+      <div className="min-w-0">
+        <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/40">
+          <Mail className="h-3.5 w-3.5 text-[#d6a85f]" />
+          Write to
+        </p>
+        <a
+          href={CONTACT_MAILTO}
+          className="mt-2 block break-all text-xl font-medium tracking-[-0.03em] text-[#f2efe9] transition hover:text-[#d6a85f] sm:text-2xl md:text-3xl"
+        >
+          {CONTACT_EMAIL}
+        </a>
+      </div>
+      <div className="flex shrink-0 flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={copyEmail}
+          aria-live="polite"
+          className={`inline-flex items-center gap-2 border px-4 py-3 font-mono text-[10px] uppercase tracking-[0.2em] transition ${
+            copied
+              ? 'border-[#d6a85f] bg-[#d6a85f] text-[#1a1512]'
+              : 'border-white/20 text-white/75 hover:border-[#d6a85f] hover:text-[#d6a85f]'
+          }`}
+        >
+          {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? 'Copied' : 'Copy email'}
+        </button>
+        <a
+          href={CONTACT_MAILTO}
+          className="group inline-flex items-center gap-2 bg-[#d6a85f] px-4 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1512] transition hover:bg-[#f2efe9]"
+        >
+          Open in mail
+          <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+const dhakaTimeFormat = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Dhaka', hour: '2-digit', minute: '2-digit' });
+
+// Live local time in Dhaka, so clients abroad know when to expect a reply.
+// Rendered after mount (the server's clock would not match the visitor's render).
+function DhakaTime() {
+  const [time, setTime] = useState(null);
+
+  useEffect(() => {
+    const update = () => setTime(dhakaTimeFormat.format(new Date()));
+    const firstId = window.setTimeout(update, 0);
+    const intervalId = window.setInterval(update, 30_000);
+    return () => {
+      window.clearTimeout(firstId);
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  return (
+    <p className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#c4473a]" />
+      <span className="tabular-nums text-white/75">{time || '--:--'}</span> in Dhaka (GMT+6)
+    </p>
+  );
+}
+
 function SprocketRow() {
   return (
     <div
@@ -1088,34 +1174,40 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
           </div>
           <div className="relative mx-auto w-full max-w-[88rem]">
             <SectionLabel index="05" className="mb-8 text-[#d6a85f]">Have a story in mind?</SectionLabel>
-            <a href="mailto:shohorabhshawon@gmail.com" className="group inline-flex items-center gap-4 text-[clamp(2.8rem,9vw,8rem)] font-medium leading-[0.9] tracking-[-0.06em] transition hover:text-[#d6a85f]">
-              Let&apos;s make it
+            <a href={CONTACT_MAILTO} className="group inline-flex items-center gap-4 text-[clamp(2.8rem,9vw,8rem)] font-medium leading-[0.9] tracking-[-0.06em] transition hover:text-[#d6a85f]">
+              <span>
+                Let&apos;s make{' '}
+                <span className="[font-family:var(--font-display),Georgia,serif] font-normal italic tracking-[-0.02em] text-[#d6a85f]">it</span>
+              </span>
               <ArrowUpRight className="h-[0.6em] w-[0.6em] shrink-0 transition group-hover:-translate-y-2 group-hover:translate-x-2" />
             </a>
 
-            <div className="mt-16 grid gap-10 border-t border-white/15 pt-10 sm:grid-cols-2 lg:grid-cols-4">
-              <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">Email</p>
-                <a href="mailto:shohorabhshawon@gmail.com" className="mt-3 block break-all text-sm text-white/80 transition hover:text-[#d6a85f]">
-                  shohorabhshawon@gmail.com
-                </a>
-              </div>
+            <ContactEmail />
+
+            <div className="mt-16 grid gap-10 border-t border-white/15 pt-10 sm:grid-cols-2 lg:grid-cols-3">
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">Based in</p>
                 <p className="mt-3 text-sm text-white/80">Dhaka, Bangladesh</p>
                 <p className="text-sm text-white/45">Available worldwide</p>
+                <DhakaTime />
               </div>
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">Follow</p>
-                <ul className="mt-3 space-y-1.5">
-                  {SOCIALS.map((social) => (
-                    <li key={social.label}>
-                      <a href={social.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1.5 text-sm text-white/80 transition hover:text-[#d6a85f]">
-                        {social.label}
-                        <ArrowUpRight className="h-3 w-3 opacity-50 transition group-hover:opacity-100" />
-                      </a>
-                    </li>
-                  ))}
+                <ul className="mt-3 space-y-2">
+                  {SOCIALS.map((social) => {
+                    const Icon = SOCIAL_ICONS[social.label] || ArrowUpRight;
+                    return (
+                      <li key={social.label}>
+                        <a href={social.href} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-2.5 text-sm text-white/80 transition hover:text-[#d6a85f]">
+                          <span className="flex h-7 w-7 items-center justify-center border border-white/15 text-[#d6a85f] transition group-hover:border-[#d6a85f] group-hover:bg-[#d6a85f] group-hover:text-[#1a1512]">
+                            <Icon className="h-3 w-3" />
+                          </span>
+                          {social.label}
+                          <ArrowUpRight className="h-3 w-3 opacity-50 transition group-hover:opacity-100" />
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div>

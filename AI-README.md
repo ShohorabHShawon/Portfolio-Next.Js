@@ -258,6 +258,7 @@ One large client component. **Find parts by these markers instead of reading the
 | `Timecode`, `HeroVideo`, `ViewfinderCorners`, `Marquee` | Hero helpers |
 | `FilmThumb`, `FeaturedFilm`, `FilmReel` | Work section ("Now showing" + "The reel" with hover preview) |
 | `VideoModal` | Film player modal (autoplay, prev/next, links with icons, Esc / ← →) |
+| `CONTACT_EMAIL`, `CONTACT_MAILTO`, `ContactEmail`, `DhakaTime` | Contact section: the one email address (shohorabhshawon@gmail.com), mailto with a pre-filled subject, the copy/open email card, and the live Dhaka clock |
 | `{/* Hero */}`, `{/* Disciplines ticker */}`, `{/* Work */}`, `{/* Still frames film strip */}`, `{/* About */}`, `{/* Clients */}`, `{/* Contact / footer */}` | JSX sections in render order (ids: `top`, `work`, `frames`, `about`, `collaborations`, `contact`) |
 
 The "Between the takes" film strip shows 12 random photos per visit, chosen after mount to avoid a hydration mismatch.
