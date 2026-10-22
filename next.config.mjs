@@ -70,7 +70,21 @@ const nextConfig = {
       },
     ];
   },
+  async headers() {
+    // Let browsers reuse the heavy hero/gallery media between visits.
+    const mediaCache = [
+      { key: 'Cache-Control', value: 'public, max-age=604800, stale-while-revalidate=86400' },
+    ];
+
+    return [
+      { source: '/herocover.mp4', headers: mediaCache },
+      { source: '/cover-web.jpg', headers: mediaCache },
+      { source: '/images/web/:path*', headers: mediaCache },
+    ];
+  },
   images: {
+    // Optimized images rarely change; avoid re-processing them every few hours.
+    minimumCacheTTL: 2678400,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '**' },
       { protocol: 'https', hostname: 'secure.notion-static.com', pathname: '**' },

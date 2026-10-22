@@ -168,8 +168,11 @@ export default function PinterestPhotographyTheme() {
         return;
       }
 
+      // Older shared links point at the original files (e.g. /images/photo12.png).
+      const photoKey = (src) => String(src).split('/').pop().replace(/\.[^.]+$/, '');
+      const requestedKey = photoKey(decodeURIComponent(photoParam));
       const matchedPhoto = photos.find(
-        (photo) => photo.src === decodeURIComponent(photoParam),
+        (photo) => photoKey(photo.src) === requestedKey,
       );
 
       if (matchedPhoto) {

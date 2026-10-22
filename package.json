@@ -10,6 +10,7 @@
     "prebuild": "node scripts/pull-lfs.mjs",
     "build": "next build",
     "start": "next start",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "lint": "eslint ."
   },
   "dependencies": {

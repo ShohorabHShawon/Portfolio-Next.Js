@@ -204,7 +204,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`${poppins.variable} antialiased scroll-smooth`}
+        className={`${poppins.variable} antialiased`}
         suppressHydrationWarning
       >
         <LenisProvider>

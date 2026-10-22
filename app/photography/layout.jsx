@@ -53,9 +53,9 @@ export const metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/photography-hero.jpg',
-        width: 1200,
-        height: 630,
+        url: '/cover-web.jpg',
+        width: 1920,
+        height: 1072,
         alt: 'Shohorab H Shawon Photography Portfolio',
       },
     ],
@@ -66,7 +66,7 @@ export const metadata = {
     title: 'Shohorab H Shawon - Visual Storyteller & Aspiring Filmmaker',
     description:
       'Professional photography and cinematography portfolio by Shohorab H Shawon. Visual Storyteller & Aspiring Filmmaker.',
-    images: ['/images/photography-hero.jpg'],
+    images: ['/cover-web.jpg'],
     creator: '@shohorab',
   },
 

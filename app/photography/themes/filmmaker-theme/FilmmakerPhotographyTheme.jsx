@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowDownRight, ArrowLeft, ArrowRight, ArrowUpRight, ExternalLink, Menu, Play, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { clients } from '../../../clients/clientData';
 import { photos } from '../../components/photoData';
 
@@ -71,9 +71,19 @@ function SectionLabel({ index, children, className = '' }) {
 function BrandMark({ onClick }) {
   return (
     <button type="button" onClick={onClick} className="group inline-flex items-center gap-3" aria-label="Back to top">
-      <span className="relative flex h-10 w-10 items-center justify-center border border-[#d6a85f] text-[11px] font-bold tracking-[-0.12em] text-[#d6a85f] transition group-hover:bg-[#d6a85f] group-hover:text-[#1a1512]">
-        SHS
-        <span className="absolute -bottom-1 -right-1 h-2 w-2 bg-[#a74336]" aria-hidden="true" />
+      <span className="relative block h-10 w-10 shrink-0">
+        {/* The photo is a wide portrait, so zoom in around the face for the small round avatar. */}
+        <span className="relative block h-full w-full overflow-hidden rounded-full bg-[#120f0d] ring-1 ring-[#d6a85f]/60 transition group-hover:ring-2 group-hover:ring-[#d6a85f]">
+          <Image
+            src="/shohorab1.JPG"
+            alt="Shohorab H Shawon"
+            fill
+            priority
+            sizes="80px"
+            className="scale-[1.35] object-cover [transform-origin:49%_28%]"
+          />
+        </span>
+        <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-[#1a1512] bg-[#a74336]" aria-hidden="true" />
       </span>
       <span className="hidden text-left leading-none sm:block">
         <span className="block text-sm font-semibold tracking-[0.16em] text-white">SHOHORAB</span>
@@ -83,26 +93,102 @@ function BrandMark({ onClick }) {
   );
 }
 
-// Running 24fps timecode, like a camera monitor.
-function Timecode() {
-  const [frames, setFrames] = useState(0);
+// Toggles a class that pauses CSS loops while the element is off screen.
+function useOffscreenPause() {
+  const ref = useRef(null);
 
   useEffect(() => {
-    let rafId;
-    const start = performance.now();
-    const tick = (now) => {
-      setFrames(Math.floor(((now - start) / 1000) * 24));
-      rafId = requestAnimationFrame(tick);
-    };
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    const element = ref.current;
+    if (!element || typeof IntersectionObserver === 'undefined') return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      element.classList.toggle('offscreen-paused', !entry.isIntersecting);
+    }, { rootMargin: '100px 0px' });
+
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
+  return ref;
+}
+
+const formatTimecode = (frames) => {
   const pad = (value) => String(value).padStart(2, '0');
   const totalSeconds = Math.floor(frames / 24);
-  const value = `${pad(Math.floor(totalSeconds / 3600))}:${pad(Math.floor(totalSeconds / 60) % 60)}:${pad(totalSeconds % 60)}:${pad(frames % 24)}`;
+  return `${pad(Math.floor(totalSeconds / 3600))}:${pad(Math.floor(totalSeconds / 60) % 60)}:${pad(totalSeconds % 60)}:${pad(frames % 24)}`;
+};
 
-  return <span className="tabular-nums">{value}</span>;
+// Running 24fps timecode, like a camera monitor. Writes straight to the DOM
+// so the page does not re-render on every frame.
+function Timecode() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const start = performance.now();
+    let lastFrames = -1;
+
+    const intervalId = window.setInterval(() => {
+      const frames = Math.floor(((performance.now() - start) / 1000) * 24);
+      if (frames === lastFrames || !ref.current) return;
+      lastFrames = frames;
+      ref.current.textContent = formatTimecode(frames);
+    }, 1000 / 24);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  return <span ref={ref} className="tabular-nums">{formatTimecode(0)}</span>;
+}
+
+// Pauses the background film while it is off screen or the tab is hidden,
+// so scrolling the rest of the page does not compete with video decoding.
+function HeroVideo() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return undefined;
+
+    let isVisible = true;
+    const sync = () => {
+      if (isVisible && !document.hidden) {
+        const playPromise = video.play();
+        if (playPromise) playPromise.catch(() => {});
+      } else {
+        video.pause();
+      }
+    };
+
+    const observer = typeof IntersectionObserver === 'undefined'
+      ? null
+      : new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+        sync();
+      });
+
+    observer?.observe(video);
+    document.addEventListener('visibilitychange', sync);
+
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener('visibilitychange', sync);
+    };
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      src="/herocover.mp4"
+      poster="/cover-web.jpg"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+      aria-hidden="true"
+      className="absolute inset-0 h-full w-full object-cover object-center opacity-65"
+    />
+  );
 }
 
 function ViewfinderCorners() {
@@ -121,8 +207,9 @@ function ViewfinderCorners() {
 
 function Marquee({ items, duration = '40s', className = '', itemClassName = '', separator = '✦' }) {
   const loop = [...items, ...items];
+  const ref = useOffscreenPause();
   return (
-    <div className={`overflow-hidden ${className}`}>
+    <div ref={ref} className={`overflow-hidden ${className}`}>
       <div
         className="flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none"
         style={{ '--marquee-duration': duration }}
@@ -159,6 +246,7 @@ function VideoCard({ video, index, onSelect, featured = false }) {
           src={thumbnail}
           alt=""
           loading={featured ? 'eager' : 'lazy'}
+          decoding="async"
           className="absolute inset-0 h-full w-full object-cover opacity-75 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
@@ -303,6 +391,7 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [visibleVideoCount, setVisibleVideoCount] = useState(5);
+  const filmStripRef = useOffscreenPause();
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
@@ -344,9 +433,9 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
     <div id="top" className="min-h-screen bg-[#1a1512] text-[#f2efe9] selection:bg-[#d6a85f] selection:text-black">
       {/* Navigation */}
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-300 ${
           isScrolled || isMenuOpen
-            ? 'border-b border-white/10 bg-[#1a1512]/80 backdrop-blur-xl'
+            ? 'border-b border-white/10 bg-[#1a1512]/85 backdrop-blur-md'
             : 'border-b border-transparent bg-transparent'
         }`}
       >
@@ -419,19 +508,11 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
         {/* Hero */}
         <section className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-8 pt-24 md:px-10 md:pb-10 md:pt-28">
           <div className="absolute inset-0 overflow-hidden bg-[#120f0d]">
-            <video
-              src="/herocover.mp4"
-              poster="/cover.jpeg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover object-center opacity-65"
-            />
+            <HeroVideo />
           </div>
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,21,18,0.94)_0%,rgba(26,21,18,0.78)_24%,rgba(26,21,18,0.28)_52%,rgba(26,21,18,0.1)_78%),linear-gradient(0deg,rgba(26,21,18,0.9)_0%,transparent_40%),linear-gradient(180deg,rgba(26,21,18,0.6)_0%,transparent_22%)]" />
-          <div className="pointer-events-none absolute inset-0 opacity-[0.055] mix-blend-screen [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
+          {/* White dots look the same with normal blending as with `screen`, without re-blending every video frame */}
+          <div className="pointer-events-none absolute inset-0 opacity-[0.055] [background-image:radial-gradient(rgba(255,255,255,0.9)_0.7px,transparent_0.8px)] [background-size:4px_4px]" />
           <ViewfinderCorners />
 
           {/* Camera monitor readout */}
@@ -577,7 +658,7 @@ export default function FilmmakerPhotographyTheme({ videos = [] }) {
 
           <div className="-rotate-1 border-y border-white/10 bg-[#0d0b0a] py-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
             <SprocketRow />
-            <div className="overflow-hidden py-2">
+            <div ref={filmStripRef} className="overflow-hidden py-2">
               <div className="flex w-max animate-marquee gap-2 hover:[animation-play-state:paused] motion-reduce:animate-none" style={{ '--marquee-duration': '70s' }}>
                 {[...filmStrip, ...filmStrip].map((photo, index) => (
                   <Link
